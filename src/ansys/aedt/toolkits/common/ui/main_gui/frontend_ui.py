@@ -189,12 +189,15 @@ class MainWindow(CommonWindow):
 
         progress_menu_minimum = general_settings.progress_size["minimum"]
 
-        # self.progress_frame.setMaximumSize(progress_menu_minimum + (progress_menu_minimum * 2), 17280)
-        # self.progress_frame.setMinimumSize(progress_menu_minimum + (progress_menu_minimum * 2), 0)
+        # self.progress_frame.setMaximumSize(progress_menu_minimum + (progress_menu_minimum * 2))
+        # self.progress_frame.setMinimumSize(0, progress_menu_minimum + (progress_menu_minimum * 2))
         self.progress_layout = QHBoxLayout()
         self.progress_frame.setLayout(self.progress_layout)
         self.progress_layout.setContentsMargins(0, 0, 0, 0)
-        self.progress_frame.setSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
+        self.progress_frame.setSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
+        self.progress_frame.setMinimumHeight(progress_menu_minimum)
+        self.progress_frame.setMaximumHeight(progress_menu_minimum)
+
         self.progress = PyProgress(
             parent=self.progress_frame,
             progress=0,

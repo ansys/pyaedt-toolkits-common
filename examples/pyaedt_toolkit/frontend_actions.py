@@ -27,9 +27,9 @@ url = general_settings.backend_url
 port = general_settings.backend_port
 
 os.environ["QT_API"] = "pyside6"
+os.environ["QT_FONT_DPI"] = "96"
 
 if general_settings.high_resolution:
-    os.environ["QT_FONT_DPI"] = "96"
     os.environ["QT_SCALE_FACTOR"] = "2"
 
 

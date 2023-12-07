@@ -56,6 +56,7 @@ class SetupMainWindow(object):
 
         is_left_visible = self._app.ui.is_left_column_visible()
         is_right_visible = self._app.ui.is_right_column_visible()
+        is_progress_visible = self._app.ui.is_progress_visible()
 
         self._app.ui.left_menu.select_only_one(selected_menu.objectName())
 
@@ -76,6 +77,8 @@ class SetupMainWindow(object):
         elif selected_menu.objectName() == 'progress_menu':
             if is_left_visible:
                 self._app.ui.toggle_left_column()
+            if is_progress_visible:
+                selected_menu.set_active(False)
             self._app.ui.toggle_progress()
 
         elif is_left_visible or selected_menu.objectName() == "close_left_column" or is_right_visible:

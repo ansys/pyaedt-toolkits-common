@@ -78,6 +78,14 @@ class CommonWindow(object):
         """
         return self.right_column_frame.width() != 0
 
+    def is_progress_visible(self):
+        """
+        Checks if the progress bar is visible.
+
+        :return: True if the progress bar is visible, False otherwise.
+        """
+        return self.progress_frame.height() != 0
+
     def set_right_column_menu(self, title):
         """
         Sets the title of the right column menu.
@@ -336,13 +344,12 @@ class CommonWindow(object):
         """
         minimum_progress = general_settings.progress_size["minimum"]
         maximum_progress = general_settings.progress_size["maximum"]
-        progress_box_height = 0
+        progress_box_height = self.progress_frame.height()
         self.logger.log("hola")
         from random import randint
         self.progress.__setattr__("progress", randint(0, 100))
-        # progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
-        # self.progress_frame.setMinimumHeight(progress_width)
-        # self.progress_frame.setMinimumWidth(progress_width)
+        progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
+        self.progress_frame.setMaximumHeight(progress_width)
 
     @staticmethod
     def create_animation(obj, property_name, start_val, end_val, duration):
