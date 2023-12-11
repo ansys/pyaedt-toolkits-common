@@ -26,7 +26,7 @@ class PyProgress(QWidget):
     --------
     >>> import sys
     >>> from PySide6.QtWidgets import *
-    >>> from utils.widgets.py_progress_bar.py_progress import PyProgress
+    >>> from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress.py_progress import PyProgress
     >>> from random import randint
     >>> from PySide6.QtCore import QTimer
 
@@ -50,14 +50,15 @@ class PyProgress(QWidget):
     """
 
     def __init__(self,
-                 parent=None,
                  progress=0,
                  progress_color="#ff79c6",
                  background_color="#151617",
                  text_color="#FFFFFF",
                  font_size=10,
                  font_family="Helvetica",
-                 width=10):
+                 width=10,
+                 parent=None,
+                 ):
         super(PyProgress, self).__init__(parent)
         self._progress = progress
         self._backgroundColor = QColor(background_color)

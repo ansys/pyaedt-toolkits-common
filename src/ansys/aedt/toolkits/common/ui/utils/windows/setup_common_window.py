@@ -140,7 +140,7 @@ class CommonWindow(object):
         layout_row.addWidget(label_widget)
 
         combobox_widget = PyComboBox(
-            text=combobox_list,
+            text_list=combobox_list,
             radius=8,
             color=dark_one,
             bg_color=dark_two,

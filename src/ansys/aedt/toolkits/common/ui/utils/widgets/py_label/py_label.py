@@ -1,12 +1,6 @@
 from PySide6.QtWidgets import QLabel
 
-style = '''
-QLabel {{
-    font-size: {_font_size}px;
-    font-weight: {_font_weight};
-    color: {_color};
-}}
-'''
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_label.styles import Styles
 
 
 class PyLabel(QLabel):
@@ -47,4 +41,4 @@ class PyLabel(QLabel):
         font_weight : str
             Font weight for the QLabel.
         """
-        self.setStyleSheet(style.format(_color=color, _font_size=font_size, _font_weight=font_weight))
+        self.setStyleSheet(Styles.style.format(_color=color, _font_size=font_size, _font_weight=font_weight))

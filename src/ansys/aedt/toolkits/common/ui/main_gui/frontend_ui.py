@@ -14,8 +14,8 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWi
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu import PyLeftMenu
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_column import PyLeftColumn
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_right_column.py_right_column import PyRightColumn
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_credits_bar.py_credits import PyCredits
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress_bar.py_progress import PyProgress
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_credits.py_credits import PyCredits
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress.py_progress import PyProgress
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 
 
@@ -229,8 +229,8 @@ class MainWindow(CommonWindow):
         self.credits_frame.setLayout(self.credits_layout)
         self.credits_layout.setContentsMargins(0, 0, 0, 0)
         self.credits = PyCredits(
-            bg_two=self.themes["app_color"]["bg_two"],
-            copyright=general_settings.copyright,
+            bg=self.themes["app_color"]["bg_two"],
+            text=general_settings.copyright,
             version=general_settings.version,
             font_family=general_settings.font["family"],
             text_size=general_settings.font["text_size"],
@@ -331,8 +331,7 @@ class MainWindow(CommonWindow):
             icon_color=self.themes['app_color']['icon_color'],
             icon_color_hover=self.themes['app_color']['icon_hover'],
             context_color=self.themes['app_color']['context_color'],
-            icon_color_pressed=self.themes['app_color']['icon_pressed'],
-            icon_close_path=self.images_load.icon_path("icon_close.svg")
+            icon_color_pressed=self.themes['app_color']['icon_pressed']
         )
 
         # Add left column widget to left menu layout

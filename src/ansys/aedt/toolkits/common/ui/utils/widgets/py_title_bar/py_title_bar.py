@@ -5,25 +5,15 @@ from PySide6.QtSvgWidgets import *
 
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
 
-# IMPORT DIV
-# ///////////////////////////////////////////////////////////////
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_div.py_div import PyDiv
 
-# IMPORT BUTTON
-# ///////////////////////////////////////////////////////////////
 from .py_title_button import PyTitleButton
 
-# GLOBALS
 _is_maximized = False
 _old_size = QSize()
 
 
-# PY TITLE BAR
-# Top bar with move application, maximize, restore, minimize,
-# close buttons and extra buttons
-# ///////////////////////////////////////////////////////////////
 class PyTitleBar(QWidget):
-    # SIGNALS
     clicked = Signal(object)
     released = Signal(object)
 
@@ -80,9 +70,6 @@ class PyTitleBar(QWidget):
         self.top_logo.setMinimumWidth(logo_width)
         self.top_logo.setMaximumWidth(logo_width)
 
-
-        # MOVE WINDOW / MAXIMIZE / RESTORE
-        # ///////////////////////////////////////////////////////////////
         def moveWindow(event):
             # IF MAXIMIZED CHANGE TO NORMAL
             if parent.isMaximized():
@@ -103,28 +90,19 @@ class PyTitleBar(QWidget):
                 parent.dragPos = event.scenePosition().toPoint()
                 event.accept()
 
-        # ADD WIDGETS TO TITLE BAR
-        # ///////////////////////////////////////////////////////////////
         self.bg_layout.addWidget(self.top_logo)
         self.bg_layout.addWidget(self.div_1)
         self.bg_layout.addWidget(self.title_label)
         self.bg_layout.addWidget(self.div_2)
 
-        # ADD BUTTONS BUTTONS
-        # ///////////////////////////////////////////////////////////////
-        # Functions
         self.minimize_button.released.connect(lambda: parent.showMinimized())
         self.maximize_restore_button.released.connect(lambda: self.maximize_restore())
         self.close_button.released.connect(lambda: parent.close())
 
-        # Extra BTNs layout
         self.bg_layout.addLayout(self.custom_buttons_layout)
 
-    # ADD BUTTONS TO TITLE BAR
-    # Add btns and emit signals
-    # ///////////////////////////////////////////////////////////////
     def add_menus(self, parameters):
-        if parameters != None and len(parameters) > 0:
+        if parameters is not None and len(parameters) > 0:
             for parameter in parameters:
                 _btn_icon = self._images_load.icon_path(parameter['btn_icon'])
                 _btn_id = parameter['btn_id']
@@ -152,30 +130,21 @@ class PyTitleBar(QWidget):
                 self.menu.clicked.connect(self.btn_clicked)
                 self.menu.released.connect(self.btn_released)
 
-                # ADD TO LAYOUT
                 self.custom_buttons_layout.addWidget(self.menu)
 
-    # TITLE BAR MENU EMIT SIGNALS
-    # ///////////////////////////////////////////////////////////////
     def btn_clicked(self):
         self.clicked.emit(self.menu)
 
     def btn_released(self):
         self.released.emit(self.menu)
 
-    # SET TITLE BAR TEXT
-    # ///////////////////////////////////////////////////////////////
     def set_title(self, title):
         self.title_label.setText(title)
 
-    # MAXIMIZE / RESTORE
-    # maximize and restore parent window
-    # ///////////////////////////////////////////////////////////////
     def maximize_restore(self, e=None):
         global _is_maximized
         global _old_size
 
-        # CHANGE UI AND RESIZE GRIP
         def change_ui():
             if _is_maximized:
                 self._parent.ui.main_window_layout.setContentsMargins(0, 0, 0, 0)
@@ -201,27 +170,20 @@ class PyTitleBar(QWidget):
             self._parent.showMaximized()
             change_ui()
 
-    # SETUP APP
-    # ///////////////////////////////////////////////////////////////
     def setup_ui(self):
-        # ADD MENU LAYOUT
         self.title_bar_layout = QVBoxLayout(self)
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 
-        # ADD BG
         self.bg = QFrame()
 
-        # ADD BG LAYOUT
         self.bg_layout = QHBoxLayout(self.bg)
         self.bg_layout.setContentsMargins(10, 0, 5, 0)
         self.bg_layout.setSpacing(0)
 
-        # DIVS
         self.div_1 = PyDiv(self._div_color)
         self.div_2 = PyDiv(self._div_color)
         self.div_3 = PyDiv(self._div_color)
 
-        # LEFT FRAME WITH MOVE APP
         self.top_logo = QLabel()
         self.top_logo_layout = QVBoxLayout(self.top_logo)
         self.top_logo_layout.setContentsMargins(0, 0, 0, 0)
@@ -229,17 +191,14 @@ class PyTitleBar(QWidget):
         self.logo_svg.load(self._images_load.image_path(self._logo_image))
         self.top_logo_layout.addWidget(self.logo_svg, Qt.AlignCenter, Qt.AlignCenter)
 
-        # TITLE LABEL
         self.title_label = QLabel()
         self.title_label.setAlignment(Qt.AlignVCenter)
         self.title_label.setStyleSheet(f'font: {self._title_size}pt "{self._font_family}"')
 
-        # CUSTOM BUTTONS LAYOUT
         self.custom_buttons_layout = QHBoxLayout()
         self.custom_buttons_layout.setContentsMargins(0, 0, 0, 0)
         self.custom_buttons_layout.setSpacing(3)
 
-        # MINIMIZE BUTTON
         self.minimize_button = PyTitleButton(
             self._parent,
             self._app_parent,
@@ -258,7 +217,6 @@ class PyTitleBar(QWidget):
             icon_path=self._images_load.icon_path("icon_minimize.svg")
         )
 
-        # MAXIMIZE / RESTORE BUTTON
         self.maximize_restore_button = PyTitleButton(
             self._parent,
             self._app_parent,
@@ -277,7 +235,6 @@ class PyTitleBar(QWidget):
             icon_path=self._images_load.icon_path("icon_maximize.svg")
         )
 
-        # CLOSE BUTTON
         self.close_button = PyTitleButton(
             self._parent,
             self._app_parent,
@@ -296,5 +253,4 @@ class PyTitleBar(QWidget):
             icon_path=self._images_load.icon_path("icon_close.svg")
         )
 
-        # ADD TO LAYOUT
         self.title_bar_layout.addWidget(self.bg)

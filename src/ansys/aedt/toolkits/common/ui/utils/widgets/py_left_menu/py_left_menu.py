@@ -1,17 +1,13 @@
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 
-# IMPORT BUTTON AND DIV
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu_button import PyLeftMenuButton
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_div.py_div import PyDiv
 
-# IMPORT FUNCTIONS
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
 
 
-# PY LEFT MENU
 class PyLeftMenu(QWidget):
-    # SIGNALS
     clicked = Signal(object)
     released = Signal(object)
 
@@ -59,18 +55,13 @@ class PyLeftMenu(QWidget):
         self._icon_path = self._images_load.icon_path(icon_path)
         self._icon_path_close = self._images_load.icon_path(icon_path_close)
 
-        # SET PARENT
         self._parent = parent
         self._app_parent = app_parent
 
-        # SETUP WIDGETS
         self.setup_ui()
 
-        # SET BG COLOR
         self.bg.setStyleSheet(f"background: {dark_one}; border-radius: {radius};")
 
-        # TOGGLE BUTTON AND DIV MENUS
-        # ///////////////////////////////////////////////////////////////
         self.toggle_button = PyLeftMenuButton(
             app_parent,
             text=toggle_text,
@@ -91,20 +82,14 @@ class PyLeftMenu(QWidget):
         self.toggle_button.clicked.connect(self.toggle_animation)
         self.div_top = PyDiv(dark_four)
 
-        # ADD TO TOP LAYOUT
-        # ///////////////////////////////////////////////////////////////
+
         self.top_layout.addWidget(self.toggle_button)
         self.top_layout.addWidget(self.div_top)
 
-        # ADD TO BOTTOM LAYOUT
-        # ///////////////////////////////////////////////////////////////
         self.div_bottom = PyDiv(dark_four)
         self.div_bottom.hide()
         self.bottom_layout.addWidget(self.div_bottom)
 
-    # ADD BUTTONS TO LEFT MENU
-    # Add btns and emit signals
-    # ///////////////////////////////////////////////////////////////
     def add_menus(self, parameters):
         if parameters != None:
             for parameter in parameters:
@@ -137,7 +122,6 @@ class PyLeftMenu(QWidget):
                 self.menu.clicked.connect(self.btn_clicked)
                 self.menu.released.connect(self.btn_released)
 
-                # ADD TO LAYOUT
                 if _show_top:
                     self.top_layout.addWidget(self.menu)
                 else:
@@ -151,7 +135,6 @@ class PyLeftMenu(QWidget):
         self.released.emit(self.menu)
 
     def toggle_animation(self):
-        # CREATE ANIMATION
         self.animation = QPropertyAnimation(self._parent, b"minimumWidth")
         self.animation.stop()
         if self.width() == self._minimum_width:
@@ -168,8 +151,6 @@ class PyLeftMenu(QWidget):
         self.animation.setDuration(self._duration_time)
         self.animation.start()
 
-    # SELECT ONLY ONE BTN
-    # ///////////////////////////////////////////////////////////////
     def select_only_one(self, widget: str):
         for btn in self.findChildren(QPushButton):
             if btn.objectName() == widget:
@@ -177,8 +158,6 @@ class PyLeftMenu(QWidget):
             else:
                 btn.set_active(False)
 
-    # SELECT ONLY ONE TAB BTN
-    # ///////////////////////////////////////////////////////////////
     def select_only_one_tab(self, widget: str):
         for btn in self.findChildren(QPushButton):
             if btn.objectName() == widget:
@@ -186,51 +165,36 @@ class PyLeftMenu(QWidget):
             else:
                 btn.set_active_tab(False)
 
-    # DESELECT ALL BTNs
-    # ///////////////////////////////////////////////////////////////
     def deselect_all(self):
         for btn in self.findChildren(QPushButton):
             btn.set_active(False)
 
-    # DESELECT ALL TAB BTNs
-    # ///////////////////////////////////////////////////////////////
     def deselect_all_tab(self):
         for btn in self.findChildren(QPushButton):
             btn.set_active_tab(False)
 
-    # SETUP APP
-    # ///////////////////////////////////////////////////////////////
     def setup_ui(self):
-        # ADD MENU LAYOUT
         self.left_menu_layout = QVBoxLayout(self)
         self.left_menu_layout.setContentsMargins(0, 0, 0, 0)
 
-        # ADD BG
         self.bg = QFrame()
 
-        # TOP FRAME
         self.top_frame = QFrame()
 
-        # BOTTOM FRAME
         self.bottom_frame = QFrame()
 
-        # ADD LAYOUTS
         self._layout = QVBoxLayout(self.bg)
         self._layout.setContentsMargins(0, 0, 0, 0)
 
-        # TOP LAYOUT
         self.top_layout = QVBoxLayout(self.top_frame)
         self.top_layout.setContentsMargins(0, 0, 0, 0)
         self.top_layout.setSpacing(1)
 
-        # BOTTOM LAYOUT
         self.bottom_layout = QVBoxLayout(self.bottom_frame)
         self.bottom_layout.setContentsMargins(0, 0, 0, 8)
         self.bottom_layout.setSpacing(1)
 
-        # ADD TOP AND BOTTOM FRAME
         self._layout.addWidget(self.top_frame, 0, Qt.AlignTop)
         self._layout.addWidget(self.bottom_frame, 0, Qt.AlignBottom)
 
-        # ADD BG TO LAYOUT
         self.left_menu_layout.addWidget(self.bg)

@@ -1,5 +1,4 @@
 from PySide6.QtWidgets import *
-from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.styles import Styles

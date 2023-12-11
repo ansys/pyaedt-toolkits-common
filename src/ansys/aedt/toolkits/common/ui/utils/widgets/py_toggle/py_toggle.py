@@ -2,14 +2,15 @@ from PySide6.QtWidgets import *
 from PySide6.QtGui import *
 from PySide6.QtCore import *
 
+
 class PyToggle(QCheckBox):
     def __init__(
-        self,
-        width = 50,
-        bg_color = "#777", 
-        circle_color = "#DDD",
-        active_color = "#00BCFF",
-        animation_curve = QEasingCurve.OutBounce
+            self,
+            width=50,
+            bg_color="#777",
+            circle_color="#DDD",
+            active_color="#00BCFF",
+            animation_curve=QEasingCurve.OutBounce
     ):
         QCheckBox.__init__(self)
         self.setFixedSize(width, 28)
@@ -43,7 +44,7 @@ class PyToggle(QCheckBox):
         else:
             self.animation.setEndValue(4)
         self.animation.start()
-    
+
     def hitButton(self, pos: QPoint):
         return self.contentsRect().contains(pos)
 
@@ -56,16 +57,16 @@ class PyToggle(QCheckBox):
         p.setPen(Qt.NoPen)
 
         # DRAW RECT
-        rect = QRect(0, 0, self.width(), self.height())        
+        rect = QRect(0, 0, self.width(), self.height())
 
         if not self.isChecked():
             p.setBrush(QColor(self._bg_color))
-            p.drawRoundedRect(0,0,rect.width(), 28, 14, 14)
+            p.drawRoundedRect(0, 0, rect.width(), 28, 14, 14)
             p.setBrush(QColor(self._circle_color))
             p.drawEllipse(self._position, 3, 22, 22)
         else:
             p.setBrush(QColor(self._active_color))
-            p.drawRoundedRect(0,0,rect.width(), 28, 14, 14)
+            p.drawRoundedRect(0, 0, rect.width(), 28, 14, 14)
             p.setBrush(QColor(self._circle_color))
             p.drawEllipse(self._position, 3, 22, 22)
 

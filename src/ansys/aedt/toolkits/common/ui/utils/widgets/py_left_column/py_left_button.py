@@ -3,42 +3,85 @@ from PySide6.QtCore import *
 from PySide6.QtGui import *
 
 
-# PY TITLE BUTTON
-# ///////////////////////////////////////////////////////////////
 class PyLeftButton(QPushButton):
+    """
+    A custom QPushButton designed to function as a left-aligned button
+    with various style and interaction options.
+
+    Parameters
+    ----------
+    parent : QWidget
+        Parent widget.
+    app_parent : QWidget, optional
+        Application parent widget.
+    tooltip_text : str, optional
+        Tooltip text string.
+    btn_id : str, optional
+        Button identifier.
+    width : int, optional
+        Button width.
+    height : int, optional
+        Button height.
+    radius : int, optional
+        Button corner radius.
+    bg_color : str, optional
+        Button background color.
+    bg_color_hover : str, optional
+        Button background color when hovered.
+    bg_color_pressed : str, optional
+        Button background color when pressed.
+    icon_color : str, optional
+        Icon color.
+    icon_color_hover : str, optional
+        Icon color when hovered.
+    icon_color_pressed : str, optional
+        Icon color when pressed.
+    icon_color_active : str, optional
+        Active icon color.
+    icon_path : str, optional
+        Path to icon file.
+    dark_one : str, optional
+        Dark color for theming.
+    context_color : str, optional
+        Context color for theming.
+    text_foreground : str, optional
+        Text foreground color.
+    is_active : bool, optional
+        Whether the button is active.
+
+    """
     def __init__(
-        self,
-        parent,
-        app_parent = None,
-        tooltip_text = "",
-        btn_id = None,
-        width = 30,
-        height = 30,
-        radius = 8,
-        bg_color = "#343b48",
-        bg_color_hover = "#3c4454",
-        bg_color_pressed = "#2c313c",
-        icon_color = "#c3ccdf",
-        icon_color_hover = "#dce1ec",
-        icon_color_pressed = "#edf0f5",
-        icon_color_active = "#f5f6f9",
-        icon_path = "no_icon.svg",
-        dark_one = "#1b1e23",
-        context_color = "#568af2",
-        text_foreground = "#8a95aa",
-        is_active = False
+            self,
+            parent,
+            app_parent=None,
+            tooltip_text="",
+            btn_id=None,
+            width=30,
+            height=30,
+            radius=8,
+            bg_color="#343b48",
+            bg_color_hover="#3c4454",
+            bg_color_pressed="#2c313c",
+            icon_color="#c3ccdf",
+            icon_color_hover="#dce1ec",
+            icon_color_pressed="#edf0f5",
+            icon_color_active="#f5f6f9",
+            icon_path="no_icon.svg",
+            dark_one="#1b1e23",
+            context_color="#568af2",
+            text_foreground="#8a95aa",
+            is_active=False
     ):
         super().__init__()
-        
+
         # SET DEFAULT PARAMETERS
         self.setFixedSize(width, height)
         self.setCursor(Qt.PointingHandCursor)
         self.setObjectName(btn_id)
 
-        # PROPERTIES
         self._bg_color = bg_color
         self._bg_color_hover = bg_color_hover
-        self._bg_color_pressed = bg_color_pressed        
+        self._bg_color_pressed = bg_color_pressed
         self._icon_color = icon_color
         self._icon_color_hover = icon_color_hover
         self._icon_color_pressed = icon_color_pressed
@@ -46,18 +89,16 @@ class PyLeftButton(QPushButton):
         self._context_color = context_color
         self._top_margin = self.height() + 6
         self._is_active = is_active
-        # Set Parameters
+
         self._set_bg_color = bg_color
         self._set_icon_path = icon_path
         self._set_icon_color = icon_color
         self._set_border_radius = radius
-        # Parent
         self._parent = parent
         self._app_parent = app_parent
 
-        # TOOLTIP
         self._tooltip_text = tooltip_text
-        self._tooltip = _ToolTip(
+        self._tooltip = Tooltip(
             app_parent,
             tooltip_text,
             dark_one,
@@ -66,62 +107,47 @@ class PyLeftButton(QPushButton):
         )
         self._tooltip.hide()
 
-    # SET ACTIVE MENU
-    # ///////////////////////////////////////////////////////////////
     def set_active(self, is_active):
         self._is_active = is_active
         self.repaint()
 
-    # RETURN IF IS ACTIVE MENU
-    # ///////////////////////////////////////////////////////////////
     def is_active(self):
         return self._is_active
 
-    # PAINT EVENT
-    # painting the button and the icon
-    # ///////////////////////////////////////////////////////////////
     def paintEvent(self, event):
         # PAINTER
         paint = QPainter()
         paint.begin(self)
         paint.setRenderHint(QPainter.RenderHint.Antialiasing)
-        
+
         if self._is_active:
-            # BRUSH
             brush = QBrush(QColor(self._bg_color_pressed))
         else:
-            # BRUSH
             brush = QBrush(QColor(self._set_bg_color))
 
-        # CREATE RECTANGLE
         rect = QRect(0, 0, self.width(), self.height())
         paint.setPen(Qt.NoPen)
         paint.setBrush(brush)
         paint.drawRoundedRect(
-            rect, 
-            self._set_border_radius, 
+            rect,
+            self._set_border_radius,
             self._set_border_radius
         )
 
-        # DRAW ICONS
         self.icon_paint(paint, self._set_icon_path, rect)
 
-        # END PAINTER
         paint.end()
 
-    # CHANGE STYLES
-    # Functions with custom styles
-    # ///////////////////////////////////////////////////////////////
     def change_style(self, event):
         if event == QEvent.Enter:
             self._set_bg_color = self._bg_color_hover
             self._set_icon_color = self._icon_color_hover
-            self.repaint()         
+            self.repaint()
         elif event == QEvent.Leave:
             self._set_bg_color = self._bg_color
             self._set_icon_color = self._icon_color
             self.repaint()
-        elif event == QEvent.MouseButtonPress:            
+        elif event == QEvent.MouseButtonPress:
             self._set_bg_color = self._bg_color_pressed
             self._set_icon_color = self._icon_color_pressed
             self.repaint()
@@ -130,25 +156,16 @@ class PyLeftButton(QPushButton):
             self._set_icon_color = self._icon_color_hover
             self.repaint()
 
-    # MOUSE OVER
-    # Event triggered when the mouse is over the BTN
-    # ///////////////////////////////////////////////////////////////
     def enterEvent(self, event):
         self.change_style(QEvent.Enter)
         self.move_tooltip()
         self._tooltip.show()
 
-    # MOUSE LEAVE
-    # Event fired when the mouse leaves the BTN
-    # ///////////////////////////////////////////////////////////////
     def leaveEvent(self, event):
         self.change_style(QEvent.Leave)
         self.move_tooltip()
         self._tooltip.hide()
 
-    # MOUSE PRESS
-    # Event triggered when the left button is pressed
-    # ///////////////////////////////////////////////////////////////
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonPress)
@@ -157,17 +174,12 @@ class PyLeftButton(QPushButton):
             # EMIT SIGNAL
             return self.clicked.emit()
 
-    # MOUSE RELEASED
-    # Event triggered after the mouse button is released
-    # ///////////////////////////////////////////////////////////////
     def mouseReleaseEvent(self, event):
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonRelease)
             # EMIT SIGNAL
             return self.released.emit()
 
-    # DRAW ICON WITH COLORS
-    # ///////////////////////////////////////////////////////////////
     def icon_paint(self, qp, image, rect):
         icon = QPixmap(image)
         painter = QPainter(icon)
@@ -177,41 +189,28 @@ class PyLeftButton(QPushButton):
         else:
             painter.fillRect(icon.rect(), self._set_icon_color)
         qp.drawPixmap(
-            (rect.width() - icon.width()) / 2, 
+            (rect.width() - icon.width()) / 2,
             (rect.height() - icon.height()) / 2,
             icon
-        )        
+        )
         painter.end()
 
-    # SET ICON
-    # ///////////////////////////////////////////////////////////////
     def set_icon(self, icon_path):
         self._set_icon_path = icon_path
         self.repaint()
 
-    # MOVE TOOLTIP
-    # ///////////////////////////////////////////////////////////////
     def move_tooltip(self):
-        # GET MAIN WINDOW PARENT
         gp = self.mapToGlobal(QPoint(0, 0))
 
-        # SET WIDGET TO GET POSTION
-        # Return absolute position of widget inside app
         pos = self._parent.mapFromGlobal(gp)
 
-        # FORMAT POSITION
-        # Adjust tooltip position with offset
         pos_x = (pos.x() - self._tooltip.width()) + self.width() + 5
         pos_y = pos.y() + self._top_margin
 
-        # SET POSITION TO WIDGET
-        # Move tooltip position
         self._tooltip.move(pos_x, pos_y)
 
-# TOOLTIP
-# ///////////////////////////////////////////////////////////////
-class _ToolTip(QLabel):
-    # TOOLTIP / LABEL StyleSheet
+
+class Tooltip(QLabel):
     style_tooltip = """ 
     QLabel {{		
         background-color: {_dark_one};	
@@ -224,21 +223,22 @@ class _ToolTip(QLabel):
         font: 800 9pt "Segoe UI";
     }}
     """
+
     def __init__(
-        self,
-        parent, 
-        tooltip,
-        dark_one,
-        context_color,
-        text_foreground
+            self,
+            parent,
+            tooltip,
+            dark_one,
+            context_color,
+            text_foreground
     ):
         QLabel.__init__(self)
 
         # LABEL SETUP
         style = self.style_tooltip.format(
-            _dark_one = dark_one,
-            _context_color = context_color,
-            _text_foreground = text_foreground
+            _dark_one=dark_one,
+            _context_color=context_color,
+            _text_foreground=text_foreground
         )
         self.setObjectName(u"label_tooltip")
         self.setStyleSheet(style)
