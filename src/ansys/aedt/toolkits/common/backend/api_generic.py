@@ -1,7 +1,11 @@
 import os
-
+import shutil
 import psutil
 import pyaedt
+import json
+import pathlib
+
+# Replace os to Pathlib
 
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 from ansys.aedt.toolkits.common.backend.properties import properties
@@ -24,16 +28,19 @@ class ToolkitGeneric(object):
     >>> new_properties = {"aedt_version": "2023.2"}
     >>> toolkit.set_properties(new_properties)
     >>> new_properties = toolkit.get_properties()
-    >>> msg = toolkit.launch_aedt()
+    >>> msg = toolkit.aedt_common.launch_aedt()
     >>> response = toolkit.get_thread_status()
     >>> while response[0] == 0:
     >>>     time.sleep(1)
     >>>     response = toolkit.get_thread_status()
+    >>> toolkit.aedt_common.connect_design()
+    >>> toolkit.aedt_common.release_aedt()()
     """
 
     def __init__(self):
         self.properties = properties
         self.aedt_common = AedtGeneric()
+        self.edb_common = EdbGeneric()
 
     @staticmethod
     def set_properties(data):
@@ -158,7 +165,7 @@ class ToolkitGeneric(object):
 
         Examples
         --------
-        >>> >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
         >>> toolkit = ToolkitGeneric()
         >>> toolkit.aedt_sessions()
         [[pid1, grpc_port1], [pid2, grpc_port2]]
@@ -218,17 +225,9 @@ class AedtGeneric(object):
     Examples
     --------
     >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-    >>> toolkit = ToolkitGeneric()
-    >>> properties = toolkit.get_properties()
-    >>> new_properties = {"aedt_version": "2023.2"}
-    >>> toolkit.set_properties(new_properties)
-    >>> new_properties = toolkit.get_properties()
+    >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+    >>> toolkit = AedtGeneric()
     >>> msg = toolkit.launch_aedt()
-    >>> response = toolkit.get_thread_status()
-    >>> while response[0] == 0:
-    >>>     time.sleep(1)
-    >>>     response = toolkit.get_thread_status()
     """
     def __init__(self):
         self.desktop = None
@@ -259,14 +258,11 @@ class AedtGeneric(object):
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
         >>> import time
-        >>> toolkit = ToolkitGeneric()
+        >>> toolkit = AedtGeneric()
         >>> msg = toolkit.launch_aedt()
-        >>> response = toolkit.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
+        >>> # Wait until AEDT is launched
         >>> toolkit.connect_aedt()
         >>> toolkit.aedt_connected()
         (True, "Toolkit connected to process <process_id> on Grpc <grpc_port>")
@@ -288,6 +284,7 @@ class AedtGeneric(object):
             logger.debug(msg)
             connected = False
         return connected, msg
+
     @staticmethod
     def get_project_name(project_path):
         """Get project name from project path.
@@ -310,12 +307,10 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
+        >>> # Wait until AEDT is launched
         >>> toolkit.get_design_names()
         """
         if properties.selected_process == 0:
@@ -348,13 +343,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
-        >>> toolkit_free = toolkit.get_thread_status()
         """
         # Check if the backend is already connected to an AEDT session
         connected, msg = self.aedt_connected()
@@ -428,12 +419,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
         >>> toolkit.connect_aedt()
         >>> toolkit.release_aedt()
         """
@@ -506,12 +494,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
         >>> toolkit.connect_design()
 
         """
@@ -594,12 +579,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
         >>> toolkit.release_aedt(True, True)
 
         """
@@ -642,12 +624,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
         >>> toolkit.open_project("path/to/file")
         >>> toolkit.release_aedt()
 
@@ -682,12 +661,9 @@ class AedtGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> toolkit = AedtGeneric()
         >>> toolkit.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit.get_thread_status()
         >>> toolkit.connect_aedt()
         >>> toolkit.save_project()
         """
@@ -765,10 +741,20 @@ class AedtGeneric(object):
                 setattr(properties, key, new_properties[key])
 
 
-class EdbServiceGeneric(object):
+class EdbGeneric(object):
+    """Generic API to control AEDT.
+
+    It provides basic functions to control AEDT and properties to share between backend and frontend.
+
+    Examples
+    --------
+    >>> import time
+    >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+    >>> toolkit = AedtGeneric()
+    >>> msg = toolkit.load_edb()
+    """
     def __init__(self):
         self.edb = None
-        self.layout_stats = {}
 
     def load_edb(self):
         """Missed docstring."""
@@ -795,110 +781,6 @@ class EdbServiceGeneric(object):
             else:
                 return self.edb.save(saved_edb)
         return False
-
-    def get_net_list(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.nets.nets.keys())
-        return False
-
-    def get_signal_nets(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.nets.signal_nets.keys())
-        return False
-
-    def get_power_nets(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.nets.power_nets.keys())
-        return False
-
-    def get_components(self):
-        """Missed docstring."""
-        if self.edb:
-            component_list = []
-            for cmp in list(self.edb.components.components.values()):
-                cmp_data = ComponentData()
-                cmp_data.refdes = cmp.refdes
-                cmp_data.nets = cmp.nets
-                cmp_data.type = cmp.type
-                cmp_data.numpins = cmp.numpins
-                cmp_data.partname = cmp.partname
-                cmp_data.spice_model = cmp.spice_model
-                cmp_data.placement_layer = cmp.placement_layer
-                cmp_data.res_value = cmp.res_value
-                cmp_data.ind_value = cmp.ind_value
-                cmp_data.cap_value = cmp.cap_value
-                cmp_data.is_enabled = cmp.is_enabled
-                cmp_data.is_parallel_rlc = cmp.is_parallel_rlc
-                component_list.append(cmp_data.__dict__)
-            return component_list
-        return False
-
-    def get_all_layers(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.stackup.stackup_layers.keys())
-
-    def get_signal_layers(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.stackup.signal_layers.keys())
-
-    def get_dielectric_layers(self):
-        """Missed docstring."""
-        if self.edb:
-            return list(self.edb.stackup.dielectric_layers.keys())
-
-    def get_layout_stats(self):
-        """Missed docstring."""
-        if self.edb:
-            edb_stats = self.edb.get_statistics().__dict__
-            for k, v in edb_stats.items():
-                if k[0] == "_":
-                    self.layout_stats[k[1:]] = v
-                else:
-                    self.layout_stats[k] = v
-            return self.layout_stats
-
-    def get_layout_surface_ratio(self):
-        """Missed docstring."""
-        if self.layout_stats:
-            if self.layout_stats["occupying_ratio"]:
-                return self.layout_stats["occupying_surface"], self.layout_stats["occupying_ratio"]
-        # bug compute surface area to be fixed
-        stats = self.edb.get_statistics().__dict__
-        for k, v in stats.items():
-            if k[0] == "_":
-                self.layout_stats[k[1:]] = v
-            else:
-                self.layout_stats[k] = v
-        return self.layout_stats["occupying_surface"], self.layout_stats["occupying_ratio"]
-
-    def get_extended_net(self):
-        """Missed docstring."""
-        net_dict = {}
-        power_nets = list(self.edb.nets.power_nets.keys())
-        for comp, inst in self.edb.components.instances.items():
-            if inst.type in ["Resistor", "Inductor", "Capacitor"]:
-                if inst.type == "Resistor" and self.edb._edb.Utility.Value(inst.res_value).ToDouble() < 50:
-                    for n in inst.nets:
-                        if n in net_dict:
-                            net_dict[n].append(comp)
-                        else:
-                            net_dict[n] = [comp]
-        extended_nets_dict = {}
-        for net, comp_list1 in net_dict.items():
-            comp_to_test = set(comp_list1)
-            for net2, comp_list2 in net_dict.items():
-                if not net == net2 and net not in power_nets and net2 not in power_nets:
-                    if comp_to_test.intersection(set(comp_list2)):
-                        if net in extended_nets_dict:
-                            extended_nets_dict[net].append(net2)
-                        else:
-                            extended_nets_dict[net] = [net2]
-        return extended_nets_dict
 
     def export_config_file(self):
         """Missed docstring."""
@@ -952,21 +834,3 @@ class EdbServiceGeneric(object):
             edb.close_edb()
             return final_edb
         return False
-
-
-class ComponentData(object):
-    """Missed docstring."""
-
-    def __init__(self):
-        self.refdes = ""
-        self.numpins = 0
-        self.type = "Resistor"
-        self.partname = ""
-        self.cap_value = 0.0
-        self.res_value = 1.0
-        self.ind_value = 0.0
-        self.is_enabled = True
-        self.is_parallel_rlc = True
-        self.nets = []
-        self.placement_layer = ""
-        self.spice_model = ""
