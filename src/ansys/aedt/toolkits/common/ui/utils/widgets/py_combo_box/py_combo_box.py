@@ -7,7 +7,7 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_combo_box.styles import Styl
 
 class PyComboBox(QComboBox):
     """
-    A combo box widget with customizable elements.
+    Combo box widget with customizable elements.
 
     Inherits QComboBox and includes customizable elements including
     text, radius, color, and background colors in different states.

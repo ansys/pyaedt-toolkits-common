@@ -1,8 +1,4 @@
-import os
-import numpy as np
-import requests
-
-from ansys.aedt.toolkits.common.ui.main_gui.frontend_api_generic import FrontendGeneric
+from ansys.aedt.toolkits.common.ui.actions_generic import FrontendGeneric
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 
 # from ansys.aedt.toolkits.common.backend.common.properties_data import PropertiesData

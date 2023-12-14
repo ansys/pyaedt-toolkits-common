@@ -28,9 +28,9 @@ class FrontendThread(QThread):
                     else:
                         cont = 0
                         for project in be_properties.project_list:
-                            active_project_name = os.path.splitext(os.path.basename(project))[0]
+                            active_project_name = self.get_project_name(project)
                             self.project_aedt_combo.addItem(active_project_name)
-                            if active_project_name == os.path.splitext(os.path.basename(project))[0]:
+                            if active_project_name == self.get_project_name(project):
                                 self.project_aedt_combo.setCurrentIndex(cont)
                             cont += 1
 

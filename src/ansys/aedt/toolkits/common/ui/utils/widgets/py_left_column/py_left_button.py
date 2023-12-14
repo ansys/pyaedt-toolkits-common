@@ -5,17 +5,10 @@ from PySide6.QtGui import *
 
 class PyLeftButton(QPushButton):
     """
-    A custom QPushButton designed to function as a left-aligned button
-    with various style and interaction options.
+    Left button widget designed to function as a left-aligned button with various style and interaction options.
 
     Parameters
     ----------
-    parent : QWidget
-        Parent widget.
-    app_parent : QWidget, optional
-        Application parent widget.
-    tooltip_text : str, optional
-        Tooltip text string.
     btn_id : str, optional
         Button identifier.
     width : int, optional
@@ -52,9 +45,6 @@ class PyLeftButton(QPushButton):
     """
     def __init__(
             self,
-            parent,
-            app_parent=None,
-            tooltip_text="",
             btn_id=None,
             width=30,
             height=30,
@@ -94,18 +84,6 @@ class PyLeftButton(QPushButton):
         self._set_icon_path = icon_path
         self._set_icon_color = icon_color
         self._set_border_radius = radius
-        self._parent = parent
-        self._app_parent = app_parent
-
-        self._tooltip_text = tooltip_text
-        self._tooltip = Tooltip(
-            app_parent,
-            tooltip_text,
-            dark_one,
-            context_color,
-            text_foreground
-        )
-        self._tooltip.hide()
 
     def set_active(self, is_active):
         self._is_active = is_active
@@ -158,13 +136,9 @@ class PyLeftButton(QPushButton):
 
     def enterEvent(self, event):
         self.change_style(QEvent.Enter)
-        self.move_tooltip()
-        self._tooltip.show()
 
     def leaveEvent(self, event):
         self.change_style(QEvent.Leave)
-        self.move_tooltip()
-        self._tooltip.hide()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -198,59 +172,3 @@ class PyLeftButton(QPushButton):
     def set_icon(self, icon_path):
         self._set_icon_path = icon_path
         self.repaint()
-
-    def move_tooltip(self):
-        gp = self.mapToGlobal(QPoint(0, 0))
-
-        pos = self._parent.mapFromGlobal(gp)
-
-        pos_x = (pos.x() - self._tooltip.width()) + self.width() + 5
-        pos_y = pos.y() + self._top_margin
-
-        self._tooltip.move(pos_x, pos_y)
-
-
-class Tooltip(QLabel):
-    style_tooltip = """ 
-    QLabel {{		
-        background-color: {_dark_one};	
-        color: {_text_foreground};
-        padding-left: 10px;
-        padding-right: 10px;
-        border-radius: 17px;
-        border: 0px solid transparent;
-        border-right: 3px solid {_context_color};
-        font: 800 9pt "Segoe UI";
-    }}
-    """
-
-    def __init__(
-            self,
-            parent,
-            tooltip,
-            dark_one,
-            context_color,
-            text_foreground
-    ):
-        QLabel.__init__(self)
-
-        # LABEL SETUP
-        style = self.style_tooltip.format(
-            _dark_one=dark_one,
-            _context_color=context_color,
-            _text_foreground=text_foreground
-        )
-        self.setObjectName(u"label_tooltip")
-        self.setStyleSheet(style)
-        self.setMinimumHeight(34)
-        self.setParent(parent)
-        self.setText(tooltip)
-        self.adjustSize()
-
-        # SET DROP SHADOW
-        self.shadow = QGraphicsDropShadowEffect(self)
-        self.shadow.setBlurRadius(30)
-        self.shadow.setXOffset(0)
-        self.shadow.setYOffset(0)
-        self.shadow.setColor(QColor(0, 0, 0, 80))
-        self.setGraphicsEffect(self.shadow)

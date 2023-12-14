@@ -3,7 +3,7 @@ from PySide6.QtCore import *
 from ansys.aedt.toolkits.common.ui.properties import general_settings
 
 
-class SetupMainWindow(object):
+class MainWindow(object):
     def __init__(self, app):
         self._app = app
         # App title

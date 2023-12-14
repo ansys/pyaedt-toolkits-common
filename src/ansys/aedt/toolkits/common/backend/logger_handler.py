@@ -1,13 +1,11 @@
 import logging
-import os
+import os.path
 import tempfile
 
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+from ansys.aedt.toolkits.common.backend.properties import properties
 
-debug = general_settings.debug
-log_file = general_settings.log_file
-
-# Take toolkit name from backend
+debug = properties.debug
+log_file = properties.log_file
 
 # Create a logger
 logger = logging.getLogger(__name__)
@@ -16,12 +14,10 @@ if debug:
     logger.setLevel(logging.DEBUG)
 
     # Create a file handler for the logger
-
     if log_file:
-        toolkit_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+        toolkit_name = properties.toolkit_name
         log_file_name = toolkit_name + "_" + log_file
         temp_dir = os.path.join(tempfile.gettempdir(), log_file_name)
-
         if not os.path.exists(temp_dir):
             file = open(temp_dir, "w")
             file.close()

@@ -12,8 +12,6 @@ class PyLeftColumn(QWidget):
 
     def __init__(
             self,
-            parent,
-            app_parent=None,
             text_title="Title",
             text_title_size=10,
             text_title_color="#343b48",
@@ -23,7 +21,7 @@ class PyLeftColumn(QWidget):
             btn_color_hover="#3c4454",
             btn_color_pressed="#2c313c",
             icon_path="no_icon.svg",
-            icon_color="#c3ccdf",
+            icon_color="#343b48",
             icon_color_hover="#dce1ec",
             icon_color_pressed="#edf0f5",
             context_color="#dce1ec",
@@ -31,9 +29,6 @@ class PyLeftColumn(QWidget):
             radius=8
     ):
         super().__init__()
-
-        self._parent = parent
-        self._app_parent = app_parent
         self._text_title = text_title
         self._text_title_size = text_title_size
         self._text_title_color = text_title_color
@@ -114,9 +109,6 @@ class PyLeftColumn(QWidget):
         self.btn_frame.setStyleSheet("background: none;")
 
         self.btn_close = PyLeftButton(
-            self._parent,
-            self._app_parent,
-            tooltip_text="Hide",
             dark_one=self._dark_one,
             bg_color=self._btn_color,
             bg_color_hover=self._btn_color_hover,

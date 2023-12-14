@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QApplication
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 # Default properties
 from ansys.aedt.toolkits.common.ui.properties import general_settings
+
 # Load toolkit properties
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
     _properties = json.load(fh)
@@ -14,13 +15,13 @@ for key, value in _properties.items():
     if hasattr(general_settings, key):
         setattr(general_settings, key, value)
 
-from ansys.aedt.toolkits.common.ui.main_gui.frontend_ui import MainWindow
-from ansys.aedt.toolkits.common.ui.toolkit_windows.setup_main_window import SetupMainWindow
-from ansys.aedt.toolkits.common.ui.toolkit_windows.setup_home_column import SetupHomeMenu
-from ansys.aedt.toolkits.common.ui.toolkit_windows.setup_settings_column import SetupSettingsMenu
+from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
+from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
+from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
+from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
 
 # Toolkit frontend API
-from frontend_api import ToolkitFrontend
+from actions import ToolkitFrontend
 
 # Backend URL and port
 url = general_settings.backend_url
@@ -44,19 +45,19 @@ class ApplicationWindow(ToolkitFrontend):
         # General Settings
 
         # Create user interface object
-        self.ui = MainWindow(self)
+        self.ui = MainWindowLayout(self)
         self.ui.setup_ui()
 
         # Setup main
-        self.main_window = SetupMainWindow(self)
+        self.main_window = MainWindow(self)
         self.main_window.setup_gui()
 
-        # Settings
-        settings_menu = SetupSettingsMenu(self.ui)
+        # Settings menu
+        settings_menu = SettingsMenu(self.ui)
         settings_menu.setup()
 
-        # Home
-        home_menu = SetupHomeMenu(self.ui)
+        # Home menu
+        home_menu = HomeMenu(self.ui)
         home_menu.setup()
 
         # Get default properties

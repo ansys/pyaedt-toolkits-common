@@ -18,7 +18,7 @@ class ApplicationWindow(QMainWindow):
                                        background_color="#313131",
                                        width=10)
 
-        self.icon_but = PyIconButton('icon_signal.svg', "#FF0000",
+        self.icon_but = PyIconButton('icon_signal.svg',
                                      tooltip_text="Example", is_active=True)
 
         # Set window layout
@@ -48,14 +48,9 @@ class ApplicationWindow(QMainWindow):
         self.logger = PyLogger()
         self.combo_box = PyComboBox(text_list=['Option 1', 'Option 2', 'Option 3'])
         self.credits = PyCredits(text="© 2023 MyApp Co.", version="1.2.3")
-        self.left_column = PyLeftColumn(parent=self, app_parent=self, text_title="Left Column",
-                                        text_title_size=8, text_title_color="#FF0000",
-                                        dark_one="#1b1e23", bg_color="#343b48",
-                                        btn_color="#343b48", btn_color_hover="#3c4454",
-                                        btn_color_pressed="#2c313c", icon_path='icon_signal.svg',
-                                        icon_color="#c3ccdf", icon_color_hover="#dce1ec",
-                                        icon_color_pressed="#edf0f5", context_color="#568af2",
-                                        icon_close_path='icon_close.svg', radius=8)
+        self.left_column = PyLeftColumn(text_title="Left Column",
+                                        text_title_size=8,
+                                        icon_close_path='icon_close.svg')
         self.my_button = PyPushButton(text="My Button", radius=5, color="#000", bg_color="#fff", bg_color_hover="#eee",
                                       bg_color_pressed="#ddd")
         self.toggle = PyToggle(50, "#777", "#DDD", "#00BCFF", QEasingCurve.OutBounce)
@@ -98,8 +93,6 @@ class ApplicationWindow(QMainWindow):
 
         # Right Column
         self.right_column = PyRightColumn(
-            parent=self,
-            app_parent=self,
             text_title="My App",
             text_title_size=15,
             text_title_color="black",

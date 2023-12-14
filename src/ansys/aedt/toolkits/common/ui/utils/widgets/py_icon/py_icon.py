@@ -5,7 +5,7 @@ from PySide6.QtGui import QPixmap, QPainter
 
 class PyIcon(QWidget):
     """
-    A custom QWidget acting as a colored icon.
+    Icon widget with customizable elements.
 
     The icon and color can be customized during initialization.
 

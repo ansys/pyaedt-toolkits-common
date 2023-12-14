@@ -24,7 +24,6 @@ class PyToggle(QCheckBox):
         self._position = 3
         self.animation = QPropertyAnimation(self, b"position")
         self.animation.setEasingCurve(animation_curve)
-        self.animation.setDuration(500)
         self.stateChanged.connect(self.setup_animation)
 
     @Property(float)

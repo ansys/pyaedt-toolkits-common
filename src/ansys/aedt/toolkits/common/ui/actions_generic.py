@@ -8,12 +8,9 @@ from PySide6 import QtWidgets
 import qdarkstyle
 import requests
 
-# from ansys.aedt.toolkits.common.ui.utils.ui_templates.toolkit_windows.main_window.functions_main_window import MainFunctions
-
-# from ansys.aedt.toolkits.common.ui.common.frontend_ui import Ui_MainWindow
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.properties import be_properties
-from ansys.aedt.toolkits.common.ui.main_gui.thread_manager import FrontendThread
+from ansys.aedt.toolkits.common.ui.main_window.thread_manager import FrontendThread
 
 
 class FrontendGeneric(QtWidgets.QMainWindow, FrontendThread):

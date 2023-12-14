@@ -3,9 +3,7 @@ from PySide6.QtWidgets import *
 
 class PyDiv(QWidget):
     """
-    A custom QWidget designed to be used as a divider (vertical line).
-
-    The divider's color can be customized during initialization.
+    Vertical divider widget with customizable elements.
 
     Parameters
     ----------

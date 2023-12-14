@@ -9,7 +9,7 @@ from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
 from ansys.aedt.toolkits.common.ui.utils.ui_templates.pages.ui_main_pages import Ui_MainPages
 
 # Widgets
-from ansys.aedt.toolkits.common.ui.utils.windows.setup_common_window import CommonWindow
+from ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils import CommonWindowUtils
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWindow
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu import PyLeftMenu
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_column import PyLeftColumn
@@ -26,12 +26,12 @@ def setup_parent_ui(parent):
     parent.setMinimumSize(*general_settings.minimum_size)
 
 
-class MainWindow(CommonWindow):
+class MainWindowLayout(CommonWindowUtils):
     """Class representing the main window of the application."""
 
     def __init__(self, app):
 
-        CommonWindow.__init__(self)
+        CommonWindowUtils.__init__(self)
 
         self.app = app
 
@@ -161,9 +161,9 @@ class MainWindow(CommonWindow):
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 
         self.title_bar = PyTitleBar(
-            self.central_widget,
+            parent=self.main_window,
+            app_parent=self.app,
             logo_width=100,
-            app_parent=self.main_window,
             logo_image=self.images_load.image_path("ANSS_Title.svg"),
             bg_color=self.themes["app_color"]["bg_two"],
             div_color=self.themes["app_color"]["bg_three"],
@@ -189,8 +189,6 @@ class MainWindow(CommonWindow):
 
         progress_menu_minimum = general_settings.progress_size["minimum"]
 
-        # self.progress_frame.setMaximumSize(progress_menu_minimum + (progress_menu_minimum * 2))
-        # self.progress_frame.setMinimumSize(0, progress_menu_minimum + (progress_menu_minimum * 2))
         self.progress_layout = QHBoxLayout()
         self.progress_frame.setLayout(self.progress_layout)
         self.progress_layout.setContentsMargins(0, 0, 0, 0)
@@ -199,7 +197,6 @@ class MainWindow(CommonWindow):
         self.progress_frame.setMaximumHeight(progress_menu_minimum)
 
         self.progress = PyProgress(
-            parent=self.progress_frame,
             progress=0,
             progress_color=self.themes["app_color"]["icon_color"],
             background_color=self.themes["app_color"]["bg_one"],
@@ -209,7 +206,6 @@ class MainWindow(CommonWindow):
             width=10)
 
         self.logger = PyLogger(
-            parent=self.progress_frame,
             text_color=self.themes["app_color"]["text_active"],
             background_color=self.themes["app_color"]["bg_two"],
             height=general_settings.progress_size["maximum"],
@@ -284,8 +280,6 @@ class MainWindow(CommonWindow):
 
         # Left column widget
         self.left_column = PyLeftColumn(
-            parent=self.left_column_frame,
-            app_parent=self.app,
             text_title="Settings Left Frame",
             text_title_size=general_settings.font["title_size"],
             text_title_color=self.themes['app_color']['text_foreground'],
@@ -317,8 +311,6 @@ class MainWindow(CommonWindow):
 
         # Left column widget
         self.right_column = PyRightColumn(
-            parent=self.right_column_frame,
-            app_parent=self.app,
             text_title="Settings Right Frame",
             text_title_size=general_settings.font["title_size"],
             text_title_color=self.themes['app_color']['text_foreground'],

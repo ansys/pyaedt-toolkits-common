@@ -34,7 +34,6 @@
       "minimum" : 0,
       "maximum" : 100
   },
-  "time_animation" : 6,
   "font" : {
       "family" : "Segoe UI",
       "title_size" : 10,
@@ -49,14 +48,6 @@
             "btn_id": "home_menu",
             "btn_text": "Home",
             "btn_tooltip": "Home",
-            "show_top": true,
-            "is_active": false
-        },
-      {
-            "btn_icon": "icon_signal.svg",
-            "btn_id": "modeler_menu",
-            "btn_text": "Modeler",
-            "btn_tooltip": "Modeler",
             "show_top": true,
             "is_active": false
         },

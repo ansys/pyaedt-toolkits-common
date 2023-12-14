@@ -4,19 +4,9 @@ from ansys.aedt.toolkits.common.ui.properties import general_settings
 from ansys.aedt.toolkits.common.ui.utils.widgets import *
 
 
-class CommonWindow(object):
+class CommonWindowUtils(object):
     """
     Class representing a common window with various UI functionalities.
-
-    Args:
-        app (QApplication): The QApplication instance.
-
-    Attributes:
-        ui (UI): The UI instance.
-        left_box (QPropertyAnimation): Animation for the left column box.
-        right_box (QPropertyAnimation): Animation for the right column box.
-        group (QParallelAnimationGroup): Animation group for both columns.
-
     """
 
     def __init__(self):
@@ -35,28 +25,43 @@ class CommonWindow(object):
         """
         Set the current page in the load_pages widget.
 
-        :param page: The page widget to set as the current page.
-        :return: None
+        Parameters
+        ----------
+        page : QWidget
+            The page widget to be displayed as the current page.
         """
         self.load_pages.pages.setCurrentWidget(page)
 
     def get_left_menu(self, object_name):
         """
-        :rtype: QPushButton
-        :param object_name: the name of the button object in the left menu.
-        :return: the QPushButton object with the given object_name found in the left menu of the CommonWindow UI.
+        Retrieves the QPushButton object in the left menu of the CommonWindow UI.
+
+        Parameters
+        ----------
+        object_name : str
+            The name of the button object to be retrieved from the left menu.
+
+        Returns
+        -------
+        QPushButton
+            The QPushButton object with the given object_name found in the left menu of the CommonWindow UI.
         """
         return self.left_menu.findChild(QPushButton, object_name)
 
     def set_left_column_menu(self, menu, title, icon_path):
         """
-        Set the left column menu, title, and icon path of the CommonWindow UI.
+        Configures the left column of the CommonWindow UI by setting the current widget as the provided `menu`,
+         the title in the left column's title label as the provided `title`,
+          and the icon in the left column as the icon specified by `icon_path`.
 
-        :param menu: The menu widget to be set as the current widget in the left column.
-        :param title: The title to be set in the left column title label.
-        :param icon_path: The path to the icon image file to be set in the left column icon.
-
-        :return: None
+        Parameters
+        ----------
+        menu : QWidget
+            The menu widget to be set as the current widget in the left column.
+        title : str
+            The title to be set in the left column's title label.
+        icon_path : str
+            The path to the icon image file to be set in the left column's icon.
         """
         self.left_column.menus.menus.setCurrentWidget(menu)
         self.left_column.title_label.setText(title)
@@ -66,7 +71,10 @@ class CommonWindow(object):
         """
         Check if the left column is visible.
 
-        :return: True if the left column is visible, False otherwise.
+        Returns
+        -------
+        bool
+            ``True`` if the left column is visible, ``False`` otherwise.
         """
         return self.left_column_frame.width() != 0
 
@@ -74,7 +82,10 @@ class CommonWindow(object):
         """
         Checks if the right column is visible.
 
-        :return: True if the right column is visible, False otherwise.
+        Returns
+        -------
+        bool
+            ``True`` if the right column is visible, ``False`` otherwise.
         """
         return self.right_column_frame.width() != 0
 
@@ -82,7 +93,10 @@ class CommonWindow(object):
         """
         Checks if the progress bar is visible.
 
-        :return: True if the progress bar is visible, False otherwise.
+        Returns
+        -------
+        bool
+            ``True`` if the progress bar is visible, ``False`` otherwise.
         """
         return self.progress_frame.height() != 0
 
@@ -90,15 +104,22 @@ class CommonWindow(object):
         """
         Sets the title of the right column menu.
 
-        :param title: The title to be set.
-        :return: None
+        Parameters
+        ----------
+        title: str
+            The title to be set.
         """
         self.right_column.title_label.setText(title)
 
     def get_title_bar(self, object_name):
         """
-        :param object_name: The name of the QPushButton object.
-        :return: The QPushButton object with the specified object_name found in the title_bar_frame of the CommonWindow's UI.
+        Get title.
+
+        Parameters
+        ----------
+        object_name: str
+            The name of the QPushButton object.
+
         """
         return self.title_bar_frame.findChild(QPushButton, object_name)
 
@@ -111,14 +132,26 @@ class CommonWindow(object):
                      font_size=12):
         """
         Adds a label and combobox to a layout.
-        :param layout: The layout object to which the label and combobox will be added.
-        :param height: The height of the label and combobox widgets. Default is 40.
-        :param width: The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
-        :param label: The text to be displayed on the label widget. Default is 'label1'.
-        :param combobox_list: A list of items to be displayed in the combobox. If not provided, a default list of ['1', '2'] will be used.
-        :param font_size: The font size of the label widget. Default is 12.
-        :return: A list containing the layout row object, label object, and combobox object.
 
+        Parameters
+        ----------
+        layout: QLayout
+            The layout object to which the label and combobox will be added.
+        height: int, optional
+            The height of the label and combobox widgets. Default is 40.
+        width: list, optional
+            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
+        label: str, optional
+            The text to be displayed on the label widget. Default is 'label1'.
+        combobox_list: list, optional
+            A list of items to be displayed in the combobox. If not provided, a default list of ['1', '2'] will be used.
+        font_size: int, optional
+            The font size of the label widget. Default is 12.
+
+        Returns
+        -------
+        list
+            A list containing the layout row object, label object, and combobox object.
         """
         combobox_list = combobox_list or []
         width = width or [100, 100]
@@ -157,12 +190,23 @@ class CommonWindow(object):
         """
         Add a label and a toggle button to a specified layout.
 
-        :param layout: Layout object to add the label and toggle button to.
-        :param height: Height of the label and toggle. Default is 40.
-        :param width: Width of the label and toggle. Default is [50, 100, 50] if None.
-        :param label: Label text. Default is ['label1', 'label2'] if None.
-        :param font_size: Font size for the label text. Default is 12.
-        :return: A tuple containing the layout row, label object, toggle object, and second label object
+        Parameters
+        ----------
+        layout: QLayout
+            Layout object to add the label and toggle button to.
+        height: int, optional
+            Height of the label and toggle. Default is 40.
+        width: list, optional
+            Width of the label and toggle. Default is [50, 100, 50] if None.
+        label: list of str, optional
+            Label text. Default is ['label1', 'label2'] if None.
+        font_size: int, optional
+            Font size for the label text. Default is 12.
+
+        Returns
+        -------
+        tuple
+            A tuple containing the layout row, label object, toggle object, and second label object
         """
 
         label = label or ['label1', 'label2']
@@ -184,12 +228,25 @@ class CommonWindow(object):
 
     def add_icon_button(self, layout, icon, height=40, width=None, text='lineedit'):
         """
-        :param layout: The layout to which the icon button and line edit will be added.
-        :param icon: The path to the icon that will be displayed on the button.
-        :param height: The height of the icon button and line edit. Default is 40.
-        :param width: The width of the icon button. If not provided, it will be set to a default value.
-        :param text: The placeholder text for the line edit. Default is 'lineedit'.
-        :return: A list containing the layout row object, the button object, and the line edit object.
+        Add icon button.
+
+        Parameters
+        ----------
+        layout: QLayout
+            The layout to which the icon button and line edit will be added.
+        icon: QIcon
+            The path to the icon that will be displayed on the button.
+        height: int, optional
+            The height of the icon button and line edit. Default is 40.
+        width: list, optional
+            The width of the icon button. If not provided, it will be set to a default value.
+        text: str, optional
+            The placeholder text for the line edit. Default is 'lineedit'.
+
+        Returns
+        -------
+        list
+            A list containing the layout row object, the button object, and the line edit object.
         """
         if width is None:
             width = [20, 180]
@@ -199,8 +256,6 @@ class CommonWindow(object):
 
         button_obj1 = PyIconButton(
             icon_path=icon,
-            parent=self,
-            app_parent=None,
             tooltip_text=None,
             width=width[0],
             height=height,
@@ -236,8 +291,30 @@ class CommonWindow(object):
         return [layout_row_obj, button_obj1, lineedit_obj]
 
     def add_n_buttons(self, layout=None, num_buttons=1, height=40, width=[200], text=['button']):
+        """
+        Add a specified number of buttons to a layout object.
 
-        # some basic error checking, maybe not needed, just do it right
+        Parameters
+        ----------
+        layout: QLayout, optional
+            The layout to which the buttons will be added. If None, a new QHBoxLayout will be created.
+        num_buttons: int, optional
+            The number of buttons to be added to the layout. Default is 1.
+        height: int, optional
+            The height of the buttons. Default is 40.
+        width: list of int, optional
+            The widths of the buttons. If list length is less than num_buttons, all buttons take the same width.
+            Default is [200].
+        text: list of str, optional
+            The texts to be displayed on the buttons. If list length is less than num_buttons, all buttons display the same text.
+            Default is ['button'].
+
+        Returns
+        -------
+        list
+             A list containing the layout row object and the button objects.
+        """
+
         if not isinstance(width, list):
             width = [width]
         if not isinstance(text, list):
@@ -268,35 +345,26 @@ class CommonWindow(object):
     def toggle_left_column(self):
         """
         Toggles the left column of the CommonWindow by starting a box animation.
-
-        :return: None
         """
         self.start_box_animation("left")
 
     def toggle_right_column(self):
         """
         Toggles the display of the right column in a common window.
-
-        :return: None
         """
         self.start_box_animation("right")
 
     def start_box_animation(self, direction):
         """
-        :param direction: The direction in which the box animation should be performed. Possible values are "left" and "right".
-        :return: None
+        Starts a box animation in the specified direction.
 
-        This method starts a box animation in the specified direction. The animation involves changing the width of the left and right boxes in a window. The width values for the boxes are retrieved from the "general_settings" module. The animation duration is determined by the "time_animation" variable.
+        Parameters
+        ----------
+        direction: str
+            The direction in which the box animation should be performed.
+            Possible values are "left" and "right".
 
-        The method first calculates the minimum and maximum width values for both the left and right boxes. It then retrieves the current width of the left and right boxes from the UI.
-
-        If the direction is "left" and the current width of the left box is equal to the minimum width, the animation will set the width of the left box to the maximum width. Otherwise, the width of the left box will be set to the minimum width.
-
-        Similarly, if the direction is "right" and the current width of the right box is equal to the minimum width, the animation will set the width of the right box to the maximum width. Otherwise, the width of the right box will be set to the minimum width.
-
-        Finally, the method calls the "setup_animation" method to initiate the box animation with the calculated width values and the specified animation duration.
         """
-        time_animation = general_settings.time_animation
         minimum_left = general_settings.left_column_size["minimum"]
         maximum_left = general_settings.left_column_size["maximum"]
         minimum_right = general_settings.right_column_size["minimum"]
@@ -308,26 +376,28 @@ class CommonWindow(object):
         left_width = maximum_left if left_box_width == minimum_left and direction == "left" else minimum_left
         right_width = maximum_right if right_box_width == minimum_right and direction == "right" else minimum_right
 
-        self.setup_animation(left_box_width, right_box_width, left_width, right_width, time_animation)
+        self.setup_animation(left_box_width, right_box_width, left_width, right_width)
 
-    def setup_animation(self, left_start, right_start, left_end, right_end, duration):
+    def setup_animation(self, left_start, right_start, left_end, right_end):
         """
-        :param left_start: The starting value for the left box animation.
-        :param right_start: The starting value for the right box animation.
-        :param left_end: The ending value for the left box animation.
-        :param right_end: The ending value for the right box animation.
-        :param duration: The duration of the animation in milliseconds.
-        :return: None
+        Sets up an animation for the left and right columns of the UI.
 
-        This method sets up an animation for the left and right columns of the UI. It creates animations for the minimumWidth property of the left and right column frames and adds them to a parallel animation group. The animation group is then started.
+        Parameters
+        ----------
+        left_start: int
+            The starting value for the left box animation.
+        right_start: int
+            The starting value for the right box animation.
+        left_end: int
+            The ending value for the left box animation.
+        right_end: int
+            The ending value for the right box animation.
         """
         # ANIMATION LEFT BOX
-        left_box = self.create_animation(self.left_column_frame, b"minimumWidth", left_start, left_end,
-                                         duration)
+        left_box = self.create_animation(self.left_column_frame, b"minimumWidth", left_start, left_end)
 
         # ANIMATION RIGHT BOX
-        right_box = self.create_animation(self.right_column_frame, b"minimumWidth", right_start, right_end,
-                                          duration)
+        right_box = self.create_animation(self.right_column_frame, b"minimumWidth", right_start, right_end)
 
         # GROUP ANIMATION
         self.group = QParallelAnimationGroup()
@@ -339,38 +409,36 @@ class CommonWindow(object):
     def toggle_progress(self):
         """
         Toggles the progress row.
-
-        :return: None
         """
         minimum_progress = general_settings.progress_size["minimum"]
         maximum_progress = general_settings.progress_size["maximum"]
         progress_box_height = self.progress_frame.height()
-        self.logger.log("hola")
-        from random import randint
-        self.progress.__setattr__("progress", randint(0, 100))
+        # self.progress.__setattr__("progress", randint(0, 100))
         progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
         self.progress_frame.setMaximumHeight(progress_width)
 
     @staticmethod
-    def create_animation(obj, property_name, start_val, end_val, duration):
+    def create_animation(obj, property_name, start_val, end_val):
         """
-        Create an animation with specified parameters.
+        Creates an animation with specified parameters.
 
-        :param obj: The object on which the animation will be applied.
-        :type obj: QObject
-        :param property_name: The name of the property to animate.
-        :type property_name: str
-        :param start_val: The initial value of the property.
-        :type start_val: Any
-        :param end_val: The final value of the property.
-        :type end_val: Any
-        :param duration: The duration of the animation in milliseconds.
-        :type duration: int
-        :return: The created animation.
-        :rtype: QPropertyAnimation
+        Parameters
+        ----------
+        obj: QObject
+            The object on which the animation will be applied.
+        property_name: str
+            The name of the property to animate.
+        start_val: Any
+            The initial value of the property.
+        end_val: Any
+            The final value of the property.
+
+        Returns
+        -------
+        QPropertyAnimation
+            The created animation.
         """
         animation = QPropertyAnimation(obj, property_name)
-        animation.setDuration(duration)
         animation.setStartValue(start_val)
         animation.setEndValue(end_val)
         animation.setEasingCurve(QEasingCurve.InOutQuart)

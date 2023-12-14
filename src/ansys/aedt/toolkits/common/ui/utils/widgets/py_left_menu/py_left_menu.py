@@ -26,7 +26,6 @@ class PyLeftMenu(QWidget):
             context_color="#568af2",
             text_foreground="#8a95aa",
             text_active="#dce1ec",
-            duration_time=500,
             radius=8,
             minimum_width=50,
             maximum_width=240,
@@ -48,7 +47,6 @@ class PyLeftMenu(QWidget):
         self._context_color = context_color
         self._text_foreground = text_foreground
         self._text_active = text_active
-        self._duration_time = duration_time
         self._radius = radius
         self._minimum_width = minimum_width
         self._maximum_width = maximum_width
@@ -148,7 +146,6 @@ class PyLeftMenu(QWidget):
             self.toggle_button.set_active_toggle(False)
             self.toggle_button.set_icon(self._icon_path)
         self.animation.setEasingCurve(QEasingCurve.InOutCubic)
-        self.animation.setDuration(self._duration_time)
         self.animation.start()
 
     def select_only_one(self, widget: str):

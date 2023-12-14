@@ -4,7 +4,7 @@ from PySide6.QtGui import *
 
 class PyCredits(QWidget):
     """
-    A widget displaying credits information for a PyQt application.
+    Credits information widget with customizable elements.
 
     Inherits QWidget and includes UILabels for credits and version information,
     with customizable styles.

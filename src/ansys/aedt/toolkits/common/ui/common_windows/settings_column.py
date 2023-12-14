@@ -1,4 +1,4 @@
-class SetupSettingsMenu(object):
+class SettingsMenu(object):
     def __init__(self, main_window):
         self.ui = main_window
         self.app = self.ui.app
