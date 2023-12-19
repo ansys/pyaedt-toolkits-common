@@ -3,9 +3,6 @@ import shutil
 import psutil
 import pyaedt
 import json
-import pathlib
-
-# Replace os to Pathlib
 
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 from ansys.aedt.toolkits.common.backend.properties import properties

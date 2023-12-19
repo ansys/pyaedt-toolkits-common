@@ -6,7 +6,7 @@ import shutil
 from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
 
 local_path = os.path.dirname(os.path.realpath(__file__))
-test_folder = "unit_test" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+test_folder = "common_toolkit_example" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 scratch_path = os.path.join(tempfile.gettempdir(), test_folder)
 if not os.path.exists(scratch_path):
     try:

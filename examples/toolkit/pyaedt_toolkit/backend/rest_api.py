@@ -1,4 +1,4 @@
-from ansys.aedt.toolkits.template.backend.api import Toolkit
+from ansys.aedt.toolkits.common.backend.api import Toolkit
 from ansys.aedt.toolkits.template.backend.common.multithreading_server import MultithreadingServer
 from ansys.aedt.toolkits.template.backend.common.rest_api_generic import app
 from ansys.aedt.toolkits.template.backend.common.rest_api_generic import jsonify

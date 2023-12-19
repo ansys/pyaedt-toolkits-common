@@ -1,27 +1,26 @@
 import time
+import os
+import datetime
+import tempfile
+import shutil
 from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
+
+local_path = os.path.dirname(os.path.realpath(__file__))
+test_folder = "common_toolkit_example" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+scratch_path = os.path.join(tempfile.gettempdir(), test_folder)
+if not os.path.exists(scratch_path):
+    try:
+        os.makedirs(scratch_path)
+    except:
+        pass
+example_project = shutil.copytree(
+    os.path.join(local_path, "example_models", "edb_edge_ports.aedb"), os.path.join(scratch_path, "edb_edge_ports.aedb")
+)
 
 # Object with generic methods to control the toolkits
 toolkit = ToolkitGeneric()
 
-# Get default properties
-properties = toolkit.get_properties()
-
-# Set properties, useful to set more than one property
-new_properties = {"aedt_version": "2024.1"}
-flag1, msg1 = toolkit.set_properties(new_properties)
-
-# Get new properties
-new_properties = toolkit.get_properties()
-
-# You can also get and set properties through the toolkit object
-assert new_properties == toolkit.properties.export_to_dict()
-
-# You can also set properties directly
 toolkit.properties.aedt_version = "2023.2"
-
-# Get new properties
-new_properties = toolkit.get_properties()
 
 # Get AEDT sessions
 sessions = toolkit.aedt_sessions()
@@ -30,7 +29,7 @@ sessions = toolkit.aedt_sessions()
 versions = toolkit.installed_aedt_version()
 
 # Launch AEDT. This is launched in a thread.
-msg2 = toolkit.aedt_common.launch_aedt()
+msg2 = toolkit.edb_common.load_edb(example_project)
 
 # Get thread status
 response = toolkit.get_thread_status()
