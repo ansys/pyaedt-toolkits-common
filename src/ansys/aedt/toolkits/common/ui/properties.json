@@ -1,4 +1,5 @@
 {
+  "toolkit_name": "common",
   "backend_url" : "127.0.0.1",
   "backend_port" : 5001,
   "debug" : true,

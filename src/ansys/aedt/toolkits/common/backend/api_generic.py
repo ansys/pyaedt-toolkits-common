@@ -748,39 +748,125 @@ class EdbGeneric(object):
     >>> import time
     >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
     >>> toolkit = AedtGeneric()
-    >>> msg = toolkit.load_edb()
+    >>> toolkit.load_edb("path/to/file")
     """
     def __init__(self):
         self.edb = None
 
-    def load_edb(self):
-        """Missed docstring."""
-        edb_file = properties.edb_file
-        aedt_version = properties.aedt_version
-        self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_file)
-        if self.edb and self.edb.cell_names:
+    def load_edb(self, edb_path=None):
+        """Load EDB project.
+
+        Parameters
+        ----------
+        edb_path : str, optional
+            Full path to the ``aedb`` folder.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+        >>> toolkit = EdbGeneric
+        >>> toolkit.load_edb("path/to/file")
+        >>> toolkit.close_edb()
+        """
+        if self.edb:
+            logger.error("Close EDB")
+            return False
+        if not edb_path:
+            edb_path = properties.active_project
+        if os.path.exists(edb_path):
+            aedt_version = properties.aedt_version
+            properties.active_project = edb_path
+            self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
+            logger.debug("Project {} opened".format(edb_path))
             return True
+        logger.error("Project {} does not exist".format(edb_path))
         return False
 
     def close_edb(self):
-        """Missed docstring."""
-        if self.edb:
-            result = self.edb.close_edb()
-            self.edb = None
-            return result
+        """Close EDB project.
 
-    def save_edb(self):
-        """Missed docstring."""
-        saved_edb = properties.saved_edb
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+        >>> toolkit = EdbGeneric
+        >>> toolkit.load_edb("path/to/file")
+        >>> toolkit.close_edb()
+        """
         if self.edb:
-            if self.save_edb:
-                return self.edb.save_as(saved_edb)
-            else:
-                return self.edb.save(saved_edb)
+            self.edb.close_edb()
+            self.edb = None
+            logger.error("Edb closed")
+            return True
+        logger.error("Edb not initialized")
         return False
 
-    def export_config_file(self):
-        """Missed docstring."""
+    def save_edb(self, edb_path=None):
+        """Save EDB project.
+
+        Parameters
+        ----------
+        edb_path : str, optional
+            Full path to the ``aedb`` folder.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+        >>> toolkit = EdbGeneric
+        >>> toolkit.load_edb("path/to/file")
+        >>> toolkit.save_edb("path/to/new_file")
+        >>> toolkit.close_edb()
+        """
+        if self.edb:
+            if not edb_path or edb_path == self.edb.path:
+                result = self.edb.save()
+            else:
+                result = self.edb.save_as(edb_path)
+            properties.active_project = edb_path
+            logger.info("Project {} saved".format(edb_path))
+            if result:
+                return True
+        return False
+
+    def export_config_file(self, config_file):
+        """Export configuration file.
+
+        Parameters
+        ----------
+        config_file : str
+            Full path to the ``json`` file.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+        >>> toolkit = EdbGeneric
+        >>> toolkit.load_edb("path/to/file")
+        >>> toolkit.export_config_file("path/to/new_file")
+        >>> toolkit.close_edb()
+        """
         if self.edb:
             config = {}
             config["filename"] = properties.filename
@@ -789,7 +875,7 @@ class EdbGeneric(object):
             config["batch_solve_settings"] = properties.batch_solve_settings
             config["setup_name"] = properties.setup_name
             config["solver_type"] = properties.solver_type
-            json_file = properties.config_file
+            json_file = config_file
             if os.path.isfile(json_file):
                 os.remove(json_file)
             with open(json_file, "w") as write_file:
@@ -799,7 +885,27 @@ class EdbGeneric(object):
         return False
 
     def build_edb_project(self):
-        """Missed docstring."""
+        """Create EDB project from a configuration file.
+
+        Parameters
+        ----------
+        config_file : str
+            Full path to the ``json`` file.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
+        >>> toolkit = EdbGeneric
+        >>> toolkit.load_edb("path/to/file")
+        >>> toolkit.export_config_file("path/to/new_file")
+        >>> toolkit.close_edb()
+        """
 
         if self.edb:
             sim_config = self.edb.new_simulation_configuration()

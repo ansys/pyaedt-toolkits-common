@@ -3,8 +3,6 @@ import sys
 import json
 from PySide6.QtWidgets import QApplication
 
-# Import general common frontend modules
-from ansys.aedt.toolkits.common.ui.logger_handler import logger
 # Default properties
 from ansys.aedt.toolkits.common.ui.properties import general_settings
 
@@ -15,6 +13,8 @@ for key, value in _properties.items():
     if hasattr(general_settings, key):
         setattr(general_settings, key, value)
 
+# Import general common frontend modules
+from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu

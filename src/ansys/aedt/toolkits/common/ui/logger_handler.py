@@ -18,7 +18,7 @@ if debug:
     # Create a file handler for the logger
 
     if log_file:
-        toolkit_name = os.path.basename(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
+        toolkit_name = general_settings.toolkit_name
         log_file_name = toolkit_name + "_" + log_file
         temp_dir = os.path.join(tempfile.gettempdir(), log_file_name)
 
