@@ -21,7 +21,7 @@ from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
 
 # Toolkit frontend API
-from actions import ToolkitFrontend
+from actions import Frontend
 
 # Backend URL and port
 url = general_settings.backend_url
@@ -34,11 +34,11 @@ if general_settings.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
 
 
-class ApplicationWindow(ToolkitFrontend):
+class ApplicationWindow(Frontend):
     def __init__(self):
         self.thread = None
 
-        ToolkitFrontend.__init__(self)
+        Frontend.__init__(self)
 
         self.url = f"http://{url}:{port}"
 

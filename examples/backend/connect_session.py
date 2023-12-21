@@ -1,8 +1,8 @@
 import time
-from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
+from ansys.aedt.toolkits.common.backend.api import Backend
 
 # Object with generic methods to control the toolkits
-toolkit = ToolkitGeneric()
+toolkit = Backend()
 
 # Get default properties
 properties = toolkit.get_properties()
@@ -29,7 +29,7 @@ toolkit.properties.use_grpc = use_grpc
 new_properties = toolkit.get_properties()
 
 # Launch AEDT. This is launched in a thread, so the script and the launch_aedt call run in parallel.
-msg2 = toolkit.aedt_common.launch_aedt()
+msg2 = toolkit.launch_aedt()
 
 # Get thread status
 response = toolkit.get_thread_status()
@@ -43,16 +43,16 @@ while response[0] == 0:
 new_properties = toolkit.get_properties()
 
 # Connect to the design
-flag2 = toolkit.aedt_common.connect_design("HFSS")
+flag2 = toolkit.connect_design("HFSS")
 
 # Get new properties. Now the properties should contain the design information.
 new_properties = toolkit.get_properties()
 
 # Create a box
-box = toolkit.aedt_common.aedtapp.modeler.create_box([100, 10, 10], [20, 20, 20])
+box = toolkit.aedtapp.modeler.create_box([100, 10, 10], [20, 20, 20])
 box_name = box.name
 
 # Release aedt
-flag3 = toolkit.aedt_common.release_aedt()
+flag3 = toolkit.release_aedt()
 
 

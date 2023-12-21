@@ -11,210 +11,7 @@ from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
 thread = ThreadManager()
 
 
-class ToolkitGeneric(object):
-    """Generic API to control the toolkits.
-
-    It provides basic functions to control AEDT and properties to share between backend and frontend.
-
-    Examples
-    --------
-    >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-    >>> toolkit = ToolkitGeneric()
-    >>> properties = toolkit.get_properties()
-    >>> new_properties = {"aedt_version": "2023.2"}
-    >>> toolkit.set_properties(new_properties)
-    >>> new_properties = toolkit.get_properties()
-    >>> msg = toolkit.aedt_common.launch_aedt()
-    >>> response = toolkit.get_thread_status()
-    >>> while response[0] == 0:
-    >>>     time.sleep(1)
-    >>>     response = toolkit.get_thread_status()
-    >>> toolkit.aedt_common.connect_design()
-    >>> toolkit.aedt_common.release_aedt()()
-    """
-
-    def __init__(self):
-        self.properties = properties
-        self.aedt_common = AedtGeneric()
-        self.edb_common = EdbGeneric()
-
-    @staticmethod
-    def set_properties(data):
-        """Assign the passed data to the internal data model.
-
-        Parameters
-        ----------
-        data : dict
-            The dictionary containing the properties to be updated.
-
-        Returns
-        -------
-        tuple[bool, str]
-            A tuple indicating the success status and a message.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
-        >>> toolkit.set_properties({"property1": value1, "property2": value2})
-
-        """
-
-        logger.debug("Updating the internal properties")
-        if data:
-            try:
-                for key in data:
-                    setattr(properties, key, data[key])
-                msg = "properties updated successfully"
-                logger.debug(msg)
-                return True, msg
-            except:
-                return False, "Frozen property access"
-        else:
-            msg = "body is empty!"
-            logger.debug(msg)
-            return False, msg
-
-    @staticmethod
-    def get_properties():
-        """Get toolkit properties.
-
-        Returns
-        -------
-        dict
-            The dictionary containing the toolkit properties.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
-        >>> toolkit.get_properties()
-        {"property1": value1, "property2": value2}
-        """
-        return properties.export_to_dict()
-
-    @staticmethod
-    def get_thread_status():
-        """Get toolkit thread status.
-
-        Returns
-        -------
-        bool
-            ``True`` when active, ``False`` when not active.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
-        >>> toolkit.get_thread_status()
-        """
-        thread_running = thread.is_thread_running()
-        is_toolkit_busy = properties.is_toolkit_busy
-        if thread_running and is_toolkit_busy:  # pragma: no cover
-            msg = "Backend running"
-            # logger.debug(msg)
-            return 0, msg
-        elif (not thread_running and is_toolkit_busy) or (thread_running and not is_toolkit_busy):  # pragma: no cover
-            msg = "Backend crashed"
-            logger.error(msg)
-            return 1, msg
-        else:
-            msg = "Backend free"
-            logger.debug(msg)
-            return -1, msg
-
-    @staticmethod
-    def installed_aedt_version():
-        """
-        Return the installed AEDT versions.
-
-        Returns
-        -------
-        list
-            List of installed AEDT versions.
-
-        Examples
-        --------
-        >>> >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
-        >>> toolkit.installed_aedt_version()
-        ["2021.1", "2021.2", "2022.1"]
-        """
-
-        # Detect existing AEDT installation
-        installed_versions = []
-        for ver in pyaedt.misc.list_installed_ansysem():
-            installed_versions.append(
-                "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
-            )
-        logger.debug(str(installed_versions))
-        return installed_versions
-
-    @staticmethod
-    def aedt_sessions():
-        """Get information for the active AEDT sessions.
-
-        Returns
-        -------
-        list
-            List of AEDT PIDs.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import ToolkitGeneric
-        >>> toolkit = ToolkitGeneric()
-        >>> toolkit.aedt_sessions()
-        [[pid1, grpc_port1], [pid2, grpc_port2]]
-        """
-        if not properties.is_toolkit_busy:
-            version = properties.aedt_version
-            keys = ["ansysedt.exe"]
-            if not version:
-                return []
-            if version and "." in version:
-                version = version[-4:].replace(".", "")
-            if version < "222":  # pragma: no cover
-                version = version[:2] + "." + version[2]
-            sessions = []
-            for p in psutil.process_iter():
-                try:
-                    if p.name() in keys:
-                        cmd = p.cmdline()
-                        if not version or (version and version in cmd[0]):
-                            if "-grpcsrv" in cmd:
-                                if not version or (version and version in cmd[0]):
-                                    try:
-                                        sessions.append(
-                                            [
-                                                p.pid,
-                                                int(cmd[cmd.index("-grpcsrv") + 1]),
-                                            ]
-                                        )
-                                    except IndexError:
-                                        sessions.append(
-                                            [
-                                                p.pid,
-                                                -1,
-                                            ]
-                                        )
-                            else:
-                                sessions.append(
-                                    [
-                                        p.pid,
-                                        -1,
-                                    ]
-                                )
-                except:
-                    pass
-            logger.debug(str(sessions))
-            return sessions
-        else:
-            logger.debug("No active sessions")
-            return []
-
-
-class AedtGeneric(object):
+class Aedt:
     """Generic API to control AEDT.
 
     It provides basic functions to control AEDT and properties to share between backend and frontend.
@@ -222,10 +19,11 @@ class AedtGeneric(object):
     Examples
     --------
     >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-    >>> toolkit = AedtGeneric()
+    >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+    >>> toolkit = Aedt()
     >>> msg = toolkit.launch_aedt()
     """
+
     def __init__(self):
         self.desktop = None
         self.aedtapp = None
@@ -738,18 +536,19 @@ class AedtGeneric(object):
                 setattr(properties, key, new_properties[key])
 
 
-class EdbGeneric(object):
-    """Generic API to control AEDT.
+class Edb:
+    """Generic API to control EDB.
 
     It provides basic functions to control AEDT and properties to share between backend and frontend.
 
     Examples
     --------
     >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-    >>> toolkit = AedtGeneric()
+    >>> from ansys.aedt.toolkits.common.backend.api import Edb
+    >>> toolkit = Edb()
     >>> toolkit.load_edb("path/to/file")
     """
+
     def __init__(self):
         self.edb = None
 
@@ -769,8 +568,8 @@ class EdbGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-        >>> toolkit = EdbGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api import Edb
+        >>> toolkit = Edb()
         >>> toolkit.load_edb("path/to/file")
         >>> toolkit.close_edb()
         """
@@ -799,8 +598,8 @@ class EdbGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-        >>> toolkit = EdbGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api import Edb
+        >>> toolkit = Edb()
         >>> toolkit.load_edb("path/to/file")
         >>> toolkit.close_edb()
         """
@@ -828,112 +627,220 @@ class EdbGeneric(object):
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-        >>> toolkit = EdbGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api import Edb
+        >>> toolkit = Edb()
         >>> toolkit.load_edb("path/to/file")
         >>> toolkit.save_edb("path/to/new_file")
         >>> toolkit.close_edb()
         """
         if self.edb:
-            if not edb_path or edb_path == self.edb.path:
-                result = self.edb.save()
+            if not edb_path or os.path.normpath(edb_path) == os.path.normpath(self.edb.edbpath):
+                self.edb.save()
+                edb_path = self.edb.edbpath
             else:
-                result = self.edb.save_as(edb_path)
-            properties.active_project = edb_path
+                self.edb.save_as(edb_path)
             logger.info("Project {} saved".format(edb_path))
-            if result:
-                return True
+            return True
         return False
 
-    def export_config_file(self, config_file):
-        """Export configuration file.
+
+class Backend(Aedt, Edb):
+    """Generic API to control the toolkits.
+
+    It provides basic functions to control AEDT and properties to share between backend and frontend.
+
+    Examples
+    --------
+    >>> import time
+    >>> from ansys.aedt.toolkits.common.backend.api import Backend
+    >>> toolkit = Backend()
+    >>> properties = toolkit.get_properties()
+    >>> new_properties = {"aedt_version": "2023.2"}
+    >>> toolkit.set_properties(new_properties)
+    >>> new_properties = toolkit.get_properties()
+    >>> msg = toolkit.launch_aedt()
+    >>> response = toolkit.get_thread_status()
+    >>> while response[0] == 0:
+    >>>     time.sleep(1)
+    >>>     response = toolkit.get_thread_status()
+    >>> toolkit.connect_design()
+    >>> toolkit.release_aedt()
+    """
+    def __init__(self):
+        Aedt.__init__(self)
+        Edb.__init__(self)
+        self.properties = properties
+
+    @staticmethod
+    def set_properties(data):
+        """Assign the passed data to the internal data model.
 
         Parameters
         ----------
-        config_file : str
-            Full path to the ``json`` file.
+        data : dict
+            The dictionary containing the properties to be updated.
+
+        Returns
+        -------
+        tuple[bool, str]
+            A tuple indicating the success status and a message.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Backend
+        >>> toolkit = Backend()
+        >>> toolkit.set_properties({"property1": value1, "property2": value2})
+
+        """
+
+        logger.debug("Updating the internal properties")
+        if data:
+            try:
+                for key in data:
+                    setattr(properties, key, data[key])
+                msg = "properties updated successfully"
+                logger.debug(msg)
+                return True, msg
+            except:
+                return False, "Frozen property access"
+        else:
+            msg = "body is empty!"
+            logger.debug(msg)
+            return False, msg
+
+    @staticmethod
+    def get_properties():
+        """Get toolkit properties.
+
+        Returns
+        -------
+        dict
+            The dictionary containing the toolkit properties.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Backend
+        >>> toolkit = Backend()
+        >>> toolkit.get_properties()
+        {"property1": value1, "property2": value2}
+        """
+        return properties.export_to_dict()
+
+    @staticmethod
+    def get_thread_status():
+        """Get toolkit thread status.
 
         Returns
         -------
         bool
-            ``True`` when successful, ``False`` when failed.
+            ``True`` when active, ``False`` when not active.
 
         Examples
         --------
-        >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-        >>> toolkit = EdbGeneric
-        >>> toolkit.load_edb("path/to/file")
-        >>> toolkit.export_config_file("path/to/new_file")
-        >>> toolkit.close_edb()
+        >>> from ansys.aedt.toolkits.common.backend.api import Backend
+        >>> toolkit = Backend()
+        >>> toolkit.get_thread_status()
         """
-        if self.edb:
-            config = {}
-            config["filename"] = properties.filename
-            config["dc_settings"] = properties.dc_settings
-            config["ac_settings"] = properties.ac_settings
-            config["batch_solve_settings"] = properties.batch_solve_settings
-            config["setup_name"] = properties.setup_name
-            config["solver_type"] = properties.solver_type
-            json_file = config_file
-            if os.path.isfile(json_file):
-                os.remove(json_file)
-            with open(json_file, "w") as write_file:
-                json.dump(config, write_file, indent=4)
-            if os.path.isfile(json_file):
-                return True
-        return False
+        thread_running = thread.is_thread_running()
+        is_toolkit_busy = properties.is_toolkit_busy
+        if thread_running and is_toolkit_busy:  # pragma: no cover
+            msg = "Backend running"
+            # logger.debug(msg)
+            return 0, msg
+        elif (not thread_running and is_toolkit_busy) or (thread_running and not is_toolkit_busy):  # pragma: no cover
+            msg = "Backend crashed"
+            logger.error(msg)
+            return 1, msg
+        else:
+            msg = "Backend free"
+            logger.debug(msg)
+            return -1, msg
 
-    def build_edb_project(self):
-        """Create EDB project from a configuration file.
-
-        Parameters
-        ----------
-        config_file : str
-            Full path to the ``json`` file.
+    @staticmethod
+    def installed_aedt_version():
+        """
+        Return the installed AEDT versions.
 
         Returns
         -------
-        bool
-            ``True`` when successful, ``False`` when failed.
+        list
+            List of installed AEDT versions.
 
         Examples
         --------
-        >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import EdbGeneric
-        >>> toolkit = EdbGeneric
-        >>> toolkit.load_edb("path/to/file")
-        >>> toolkit.export_config_file("path/to/new_file")
-        >>> toolkit.close_edb()
+        >>> >>> from ansys.aedt.toolkits.common.backend.api import Backend
+        >>> toolkit = Backend()
+        >>> toolkit.installed_aedt_version()
+        ["2021.1", "2021.2", "2022.1"]
         """
 
-        if self.edb:
-            sim_config = self.edb.new_simulation_configuration()
-            config = {}
-            config["filename"] = properties.filename
-            config["dc_settings"] = properties.dc_settings
-            config["ac_settings"] = properties.ac_settings
-            config["batch_solve_settings"] = properties.batch_solve_settings
-            config["setup_name"] = properties.setup_name
-            config["solver_type"] = properties.solver_type
-            temp_folder = os.path.join(properties.filename, "_temp")
-            if os.path.isdir(temp_folder):
-                shutil.rmtree(temp_folder)
-            os.mkdir(temp_folder)
-            json_file = os.path.join(temp_folder, "simsetup.json")
-            if os.path.isfile(json_file):
-                os.remove(json_file)
-            with open(json_file, "w") as write_file:
-                json.dump(config, write_file, indent=4)
-            if os.path.isfile(json_file):
-                sim_config.import_json(json_file)
-            edb_file_name = pathlib.Path(self.edb.directory).name
-            temp_edb = os.path.join(temp_folder, edb_file_name)
-            shutil.copytree(self.edb.directory, temp_edb)
-            final_edb = os.path.join(properties.filename, edb_file_name)
-            edb = pyaedt.Edb(edbversion=properties.aedt_version, edbpath=temp_edb)
-            edb.build_simulation_project(sim_config)
-            edb.save_as(final_edb)
-            edb.close_edb()
-            return final_edb
-        return False
+        # Detect existing AEDT installation
+        installed_versions = []
+        for ver in pyaedt.misc.list_installed_ansysem():
+            installed_versions.append(
+                "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
+            )
+        logger.debug(str(installed_versions))
+        return installed_versions
+
+    @staticmethod
+    def aedt_sessions():
+        """Get information for the active AEDT sessions.
+
+        Returns
+        -------
+        list
+            List of AEDT PIDs.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Backend
+        >>> toolkit = Backend()
+        >>> toolkit.aedt_sessions()
+        [[pid1, grpc_port1], [pid2, grpc_port2]]
+        """
+        if not properties.is_toolkit_busy:
+            version = properties.aedt_version
+            keys = ["ansysedt.exe"]
+            if not version:
+                return []
+            if version and "." in version:
+                version = version[-4:].replace(".", "")
+            if version < "222":  # pragma: no cover
+                version = version[:2] + "." + version[2]
+            sessions = []
+            for p in psutil.process_iter():
+                try:
+                    if p.name() in keys:
+                        cmd = p.cmdline()
+                        if not version or (version and version in cmd[0]):
+                            if "-grpcsrv" in cmd:
+                                if not version or (version and version in cmd[0]):
+                                    try:
+                                        sessions.append(
+                                            [
+                                                p.pid,
+                                                int(cmd[cmd.index("-grpcsrv") + 1]),
+                                            ]
+                                        )
+                                    except IndexError:
+                                        sessions.append(
+                                            [
+                                                p.pid,
+                                                -1,
+                                            ]
+                                        )
+                            else:
+                                sessions.append(
+                                    [
+                                        p.pid,
+                                        -1,
+                                    ]
+                                )
+                except:
+                    pass
+            logger.debug(str(sessions))
+            return sessions
+        else:
+            logger.debug("No active sessions")
+            return []

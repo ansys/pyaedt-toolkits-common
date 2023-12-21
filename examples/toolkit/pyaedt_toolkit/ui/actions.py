@@ -7,7 +7,7 @@ from ansys.aedt.toolkits.common.ui.logger_handler import logger
 # be_properties._unfreeze()
 
 
-class ToolkitFrontend(FrontendGeneric):
+class Frontend(FrontendGeneric):
     def __init__(self):
         FrontendGeneric.__init__(self)
 

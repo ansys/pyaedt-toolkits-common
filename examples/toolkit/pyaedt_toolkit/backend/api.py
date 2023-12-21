@@ -1,12 +1,12 @@
 import numpy as np
 
-from ansys.aedt.toolkits.template.backend.common.api_generic import ToolkitGeneric
+from ansys.aedt.toolkits.common.backend.api import Backend
 from ansys.aedt.toolkits.template.backend.common.api_generic import thread
 from ansys.aedt.toolkits.template.backend.common.logger_handler import logger
 from ansys.aedt.toolkits.template.backend.common.properties import properties
 
 
-class Toolkit(ToolkitGeneric):
+class Backend(Backend):
     """Template API to control the toolkit workflow.
 
     This class provides methods to connect to a selected design and create geometries.
