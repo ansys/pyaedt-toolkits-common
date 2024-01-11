@@ -8,7 +8,6 @@
   "version" : "v0.0.1",
   "copyright" : "By: slopez",
   "year" : 2023,
-  "aedt_version": "2023.2",
   "theme" : "ansys.json",
   "high_resolution": false,
   "add_left_menus" : [
@@ -22,7 +21,7 @@
       },
       {
             "btn_icon": "icon_signal.svg",
-            "btn_id": "modeler_menu",
+            "btn_id": "geometry_menu",
             "btn_text": "Modeler",
             "btn_tooltip": "Modeler",
             "show_top": true,

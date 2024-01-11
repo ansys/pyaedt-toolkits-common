@@ -1,36 +1,44 @@
 import numpy as np
+import os
+import json
+from ansys.aedt.toolkits.common.backend.properties import properties
+
+# Load toolkit properties
+with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
+    _properties = json.load(fh)
+for key, value in _properties.items():
+    if hasattr(properties, key):
+        setattr(properties, key, value)
 
 from ansys.aedt.toolkits.common.backend.api import Backend
-from ansys.aedt.toolkits.template.backend.common.api_generic import thread
-from ansys.aedt.toolkits.template.backend.common.logger_handler import logger
-from ansys.aedt.toolkits.template.backend.common.properties import properties
+from ansys.aedt.toolkits.common.backend.api import thread
+from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
 
-class Backend(Backend):
+class ToolkitBackend(Backend):
     """Template API to control the toolkit workflow.
 
     This class provides methods to connect to a selected design and create geometries.
 
     Examples
     --------
-    >>> from ansys.aedt.toolkits.template.backend.api import Toolkit
     >>> import time
-    >>> service = Toolkit()
-    >>> msg1 = service.launch_aedt()
-    >>> response = service.get_thread_status()
+    >>> toolkit_api = ToolkitBackend()
+    >>> msg1 = toolkit_api.launch_aedt()
+    >>> response = toolkit_api.get_thread_status()
     >>> while response[0] == 0:
     >>>     time.sleep(1)
-    >>>     response = service.get_thread_status()
-    >>> msg3 = service.create_geometry()
-    >>> response = service.get_thread_status()
+    >>>     response = toolkit_api.get_thread_status()
+    >>> msg3 = toolkit_api.create_geometry()
+    >>> response = toolkit_api.get_thread_status()
     >>> while response[0] == 0:
     >>>     time.sleep(1)
-    >>>     response = service.get_thread_status()
+    >>>     response = toolkit_api.get_thread_status()
     """
 
     def __init__(self):
         """Initialize the ``Toolkit`` class."""
-        ToolkitGeneric.__init__(self)
+        Backend.__init__(self)
         self.multiplier = 1.0
         self.comps = []
 
@@ -45,22 +53,19 @@ class Backend(Backend):
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.template.backend.api import Toolkit
         >>> import time
-        >>> service = Toolkit()
-        >>> msg1 = service.launch_aedt()
-        >>> response = service.get_thread_status()
+        >>> toolkit_api = ToolkitBackend()
+        >>> msg1 = toolkit_api.launch_aedt()
+        >>> response = toolkit_api.get_thread_status()
         >>> while response[0] == 0:
         >>>     time.sleep(1)
-        >>>     response = service.get_thread_status()
-        >>> msg3 = service.create_geometry()
-        >>> response = service.get_thread_status()
+        >>>     response = toolkit_api.get_thread_status()
+        >>> msg3 = toolkit_api.create_geometry()
+        >>> response = toolkit_api.get_thread_status()
         >>> while response[0] == 0:
         >>>     time.sleep(1)
-        >>>     response = service.get_thread_status()
+        >>>     response = toolkit_api.get_thread_status()
         """
-
-        # Connect to AEDT design
         self.connect_design()
 
         if self.aedtapp:

@@ -62,6 +62,7 @@ class MainWindow(object):
 
         if selected_menu.objectName() == 'home_menu' and not is_left_visible:
             self._app.ui.set_page(self._app.ui.load_pages.home_page)
+
             self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(
                 menu=self._app.ui.left_column.menus.menu_home,

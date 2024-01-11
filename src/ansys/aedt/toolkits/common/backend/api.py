@@ -1,8 +1,6 @@
 import os
-import shutil
 import psutil
 import pyaedt
-import json
 
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 from ansys.aedt.toolkits.common.backend.properties import properties
@@ -20,8 +18,8 @@ class Aedt:
     --------
     >>> import time
     >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-    >>> toolkit = Aedt()
-    >>> msg = toolkit.launch_aedt()
+    >>> toolkit_api = Aedt()
+    >>> msg = toolkit_api.launch_aedt()
     """
 
     def __init__(self):
@@ -53,15 +51,15 @@ class Aedt:
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
         >>> import time
-        >>> toolkit = AedtGeneric()
-        >>> msg = toolkit.launch_aedt()
+        >>> toolkit_api = Aedt()
+        >>> msg = toolkit_api.launch_aedt()
         >>> # Wait until AEDT is launched
-        >>> toolkit.connect_aedt()
-        >>> toolkit.aedt_connected()
+        >>> toolkit_api.connect_aedt()
+        >>> toolkit_api.aedt_connected()
         (True, "Toolkit connected to process <process_id> on Grpc <grpc_port>")
-        >>> toolkit.release_aedt()
+        >>> toolkit_api.release_aedt()
         """
         if self.desktop:
             if self.desktop.port != 0:
@@ -102,11 +100,11 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
         >>> # Wait until AEDT is launched
-        >>> toolkit.get_design_names()
+        >>> toolkit_api.get_design_names()
         """
         if properties.selected_process == 0:
             logger.error("Process ID not defined")
@@ -138,9 +136,9 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
         """
         # Check if the backend is already connected to an AEDT session
         connected, msg = self.aedt_connected()
@@ -214,11 +212,11 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
-        >>> toolkit.connect_aedt()
-        >>> toolkit.release_aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.connect_aedt()
+        >>> toolkit_api.release_aedt()
         """
         if properties.selected_process == 0:
             logger.error("Process ID not defined")
@@ -289,10 +287,10 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
-        >>> toolkit.connect_design()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = AedtGeneric()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.connect_design()
 
         """
         if not self.connect_aedt():
@@ -374,10 +372,10 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
-        >>> toolkit.release_aedt(True, True)
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.release_aedt(True, True)
 
         """
         released = False
@@ -419,11 +417,11 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric
-        >>> toolkit.launch_aedt()
-        >>> toolkit.open_project("path/to/file")
-        >>> toolkit.release_aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.open_project("path/to/file")
+        >>> toolkit_api.release_aedt()
 
         """
         if not self.connect_aedt():
@@ -456,11 +454,11 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api_generic import AedtGeneric
-        >>> toolkit = AedtGeneric()
-        >>> toolkit.launch_aedt()
-        >>> toolkit.connect_aedt()
-        >>> toolkit.save_project()
+        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
+        >>> toolkit_api = Aedt()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.connect_aedt()
+        >>> toolkit_api.save_project()
         """
         if self.connect_design():
             if project_path and properties.active_project != project_path:
@@ -545,8 +543,8 @@ class Edb:
     --------
     >>> import time
     >>> from ansys.aedt.toolkits.common.backend.api import Edb
-    >>> toolkit = Edb()
-    >>> toolkit.load_edb("path/to/file")
+    >>> toolkit_api = Edb()
+    >>> toolkit_api.load_edb("path/to/file")
     """
 
     def __init__(self):
@@ -569,9 +567,9 @@ class Edb:
         --------
         >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import Edb
-        >>> toolkit = Edb()
-        >>> toolkit.load_edb("path/to/file")
-        >>> toolkit.close_edb()
+        >>> toolkit_api = Edb()
+        >>> toolkit_api.load_edb("path/to/file")
+        >>> toolkit_api.close_edb()
         """
         if self.edb:
             logger.error("Close EDB")
@@ -599,9 +597,9 @@ class Edb:
         --------
         >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import Edb
-        >>> toolkit = Edb()
-        >>> toolkit.load_edb("path/to/file")
-        >>> toolkit.close_edb()
+        >>> toolkit_api = Edb()
+        >>> toolkit_api.load_edb("path/to/file")
+        >>> toolkit_api.close_edb()
         """
         if self.edb:
             self.edb.close_edb()
@@ -629,9 +627,9 @@ class Edb:
         >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import Edb
         >>> toolkit = Edb()
-        >>> toolkit.load_edb("path/to/file")
-        >>> toolkit.save_edb("path/to/new_file")
-        >>> toolkit.close_edb()
+        >>> toolkit_api.load_edb("path/to/file")
+        >>> toolkit_api.save_edb("path/to/new_file")
+        >>> toolkit_api.close_edb()
         """
         if self.edb:
             if not edb_path or os.path.normpath(edb_path) == os.path.normpath(self.edb.edbpath):
@@ -653,18 +651,18 @@ class Backend(Aedt, Edb):
     --------
     >>> import time
     >>> from ansys.aedt.toolkits.common.backend.api import Backend
-    >>> toolkit = Backend()
-    >>> properties = toolkit.get_properties()
+    >>> toolkit_api = Backend()
+    >>> properties = toolkit_api.get_properties()
     >>> new_properties = {"aedt_version": "2023.2"}
-    >>> toolkit.set_properties(new_properties)
-    >>> new_properties = toolkit.get_properties()
-    >>> msg = toolkit.launch_aedt()
-    >>> response = toolkit.get_thread_status()
+    >>> toolkit_api.set_properties(new_properties)
+    >>> new_properties = toolkit_api.get_properties()
+    >>> msg = toolkit_api.launch_aedt()
+    >>> response = toolkit_api.get_thread_status()
     >>> while response[0] == 0:
     >>>     time.sleep(1)
-    >>>     response = toolkit.get_thread_status()
-    >>> toolkit.connect_design()
-    >>> toolkit.release_aedt()
+    >>>     response = toolkit_api.get_thread_status()
+    >>> toolkit_api.connect_design()
+    >>> toolkit_api.release_aedt()
     """
     def __init__(self):
         Aedt.__init__(self)
@@ -688,8 +686,8 @@ class Backend(Aedt, Edb):
         Examples
         --------
         >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit = Backend()
-        >>> toolkit.set_properties({"property1": value1, "property2": value2})
+        >>> toolkit_api = Backend()
+        >>> toolkit_api.set_properties({"property1": value1, "property2": value2})
 
         """
 
@@ -720,8 +718,8 @@ class Backend(Aedt, Edb):
         Examples
         --------
         >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit = Backend()
-        >>> toolkit.get_properties()
+        >>> toolkit_api = Backend()
+        >>> toolkit_api.get_properties()
         {"property1": value1, "property2": value2}
         """
         return properties.export_to_dict()
@@ -738,8 +736,8 @@ class Backend(Aedt, Edb):
         Examples
         --------
         >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit = Backend()
-        >>> toolkit.get_thread_status()
+        >>> toolkit_api = Backend()
+        >>> toolkit_api.get_thread_status()
         """
         thread_running = thread.is_thread_running()
         is_toolkit_busy = properties.is_toolkit_busy
@@ -769,8 +767,8 @@ class Backend(Aedt, Edb):
         Examples
         --------
         >>> >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit = Backend()
-        >>> toolkit.installed_aedt_version()
+        >>> toolkit_api = Backend()
+        >>> toolkit_api.installed_aedt_version()
         ["2021.1", "2021.2", "2022.1"]
         """
 
@@ -795,8 +793,8 @@ class Backend(Aedt, Edb):
         Examples
         --------
         >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit = Backend()
-        >>> toolkit.aedt_sessions()
+        >>> toolkit_api = Backend()
+        >>> toolkit_api.aedt_sessions()
         [[pid1, grpc_port1], [pid2, grpc_port2]]
         """
         if not properties.is_toolkit_busy:

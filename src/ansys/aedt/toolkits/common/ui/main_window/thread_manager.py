@@ -21,36 +21,39 @@ class FrontendThread(QThread):
             if response.ok and response.json() != "Backend running":
                 self.running = False
                 self.get_properties()
-                if be_properties.active_project and "project_aedt_combo" in self.__dir__():
-                    self.project_aedt_combo.clear()
-                    if not be_properties.project_list:
-                        self.project_aedt_combo.addItem("No project")
-                    else:
-                        cont = 0
-                        for project in be_properties.project_list:
-                            active_project_name = self.get_project_name(project)
-                            self.project_aedt_combo.addItem(active_project_name)
-                            if active_project_name == self.get_project_name(project):
-                                self.project_aedt_combo.setCurrentIndex(cont)
-                            cont += 1
+                if be_properties.active_project:
+                    pass
+                # if be_properties.active_project and "project_aedt_combo" in self.__dir__():
+                #     self.project_aedt_combo.clear()
+                #     if not be_properties.project_list:
+                #         self.project_aedt_combo.addItem("No project")
+                #     else:
+                #         cont = 0
+                #         for project in be_properties.project_list:
+                #             active_project_name = self.get_project_name(project)
+                #             self.project_aedt_combo.addItem(active_project_name)
+                #             if active_project_name == self.get_project_name(project):
+                #                 self.project_aedt_combo.setCurrentIndex(cont)
+                #             cont += 1
+                #
+                # if be_properties.active_design and "design_aedt_combo" in self.__dir__():
+                #
+                    # self.design_aedt_combo.clear()
+                    # if not be_properties.design_list:
+                    #     self.design_aedt_combo.addItem("No design")
+                    # else:
+                    #     cont = 0
+                    #     design_name = be_properties.active_design
+                    #     active_design_list = be_properties.design_list[active_project_name]
+                    #     for design in active_design_list:
+                    #         self.design_aedt_combo.addItem(list(design.values())[0])
+                    #         if list(design_name.values())[0] == design:
+                    #             self.design_aedt_combo.setCurrentIndex(cont)
+                    #         cont += 1
+                    pass
 
-                if be_properties.active_design and "design_aedt_combo" in self.__dir__():
-                    self.design_aedt_combo.clear()
-                    if not be_properties.design_list:
-                        self.design_aedt_combo.addItem("No design")
-                    else:
-                        cont = 0
-                        design_name = be_properties.active_design
-                        active_design_list = be_properties.design_list[active_project_name]
-                        for design in active_design_list:
-                            self.design_aedt_combo.addItem(list(design.values())[0])
-                            if list(design_name.values())[0] == design:
-                                self.design_aedt_combo.setCurrentIndex(cont)
-                            cont += 1
-
-                # Emit the status_changed signal if the status changes
-                self.status_changed.emit(self.running)
-
+                self.ui.progress.progress = 100
+                self.ui.settings_menu.connect_aedt.setEnabled(True)
             # Sleep for a certain amount of time before checking again
             self.msleep(200)
 

@@ -1,10 +1,11 @@
 from PySide6.QtWidgets import *
-from ansys.aedt.toolkits.common.ui.utils.widgets import *
 
 
 class HomeMenu(object):
     def __init__(self, main_window):
-        self.ui = main_window
+        self.main_window = main_window
+        self.ui = main_window.ui
+        self.app = self.ui.app
 
         # File Mode
         self.mode = "aedt_based"
@@ -64,32 +65,27 @@ class HomeMenu(object):
         self.browse.clicked.connect(lambda: self.browse_file())
 
         # Add line
-        spacer = QSpacerItem(0, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
-        self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
-        line = QFrame()
-        line.setFrameShape(QFrame.HLine)
-        line.setFrameShadow(QFrame.Sunken)
-        line.setStyleSheet("background-color: {};".format(
-            self.ui.themes["app_color"]["dark_two"]))
-        self.ui.left_column.menus.home_vertical_layout.addWidget(line)
-        spacer = QSpacerItem(0, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
-        self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
+        self.ui.add_vertical_line(
+            self.ui.left_column.menus.home_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
+        )
 
         # Project row
         row_returns = self.ui.add_combobox(self.ui.left_column.menus.home_vertical_layout,
                                            height=40,
-                                           width=[100, 100],
+                                           width=[75, 135],
                                            label="Project",
                                            combobox_list=["No Project"])
 
         self.ui.left_column.menus.browse_project_group = row_returns[0]
         self.project = row_returns[1]
         self.project_combobox = row_returns[2]
+        self.project_combobox.currentIndexChanged.connect(lambda: self.update_project_info())
+        self.project_combobox.setEnabled(False)
 
         # Design row
         row_returns = self.ui.add_combobox(self.ui.left_column.menus.home_vertical_layout,
                                            height=40,
-                                           width=[100, 100],
+                                           width=[75, 135],
                                            label="Design",
                                            combobox_list=["No Design"])
 
@@ -126,3 +122,10 @@ class HomeMenu(object):
                                                   options=options)
         if file != "":
             self.file.setText(file)
+
+    def update_project_info(self):
+        active_project = self.main_window.home_menu.project_combobox.currentText()
+        design_list = self.app.update_design_names(active_project)
+        self.main_window.home_menu.design_combobox.clear()
+        self.main_window.home_menu.design_combobox.addItems(design_list)
+        pass

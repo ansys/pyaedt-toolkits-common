@@ -218,8 +218,14 @@ class CommonWindowUtils(object):
         label1 = self._create_label(label[0], font_size, height, width[0])
         layout_row.addWidget(label1)
 
+        spacer1 = QSpacerItem(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
+        layout_row.addItem(spacer1)
+
         toggle = self._create_toggle(width[1], height)
         layout_row.addWidget(toggle)
+
+        spacer2 = QSpacerItem(15, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
+        layout_row.addItem(spacer2)
 
         label2 = self._create_label(label[1], font_size, height, width[2])
         layout_row.addWidget(label2)
@@ -341,6 +347,35 @@ class CommonWindowUtils(object):
             button_obj.setFixedWidth(width[idx])
             all_objects.append(button_obj)
         return all_objects
+
+    def add_vertical_line(self, layout, top_spacer=None, bot_spacer=None):
+        """
+        Add a vertical line.
+
+        Parameters
+        ----------
+        layout: QLayout
+            Layout object to add the label and toggle button to.
+        top_spacer: list, optional
+            Top spacer. Default is [0, 10].
+        bot_spacer: list, optional
+            Bottom, spacer. Default is [0, 10].
+        """
+
+        top_spacer = top_spacer or [0, 10]
+        bot_spacer = bot_spacer or [0, 10]
+
+        spacer = QSpacerItem(top_spacer[0], top_spacer[1], QSizePolicy.Minimum, QSizePolicy.Minimum)
+        layout.addItem(spacer)
+        line = QFrame()
+        line.setFrameShape(QFrame.HLine)
+        line.setFrameShadow(QFrame.Sunken)
+        line.setStyleSheet("background-color: {};".format(self.themes["app_color"]["dark_two"]))
+        layout.addWidget(line)
+        spacer = QSpacerItem(bot_spacer[0], bot_spacer[1], QSizePolicy.Minimum, QSizePolicy.Minimum)
+        layout.addItem(spacer)
+
+        return True
 
     def toggle_left_column(self):
         """

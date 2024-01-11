@@ -5,8 +5,7 @@ from flask import request
 from ansys.aedt.toolkits.common.backend.api import Backend
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
-service = Backend()
-settings = service.get_properties()
+toolkit_api = Backend()
 
 app = Flask(__name__)
 
@@ -17,7 +16,7 @@ app = Flask(__name__)
 @app.route("/health", methods=["GET"])
 def get_health():
     logger.info("[GET] /health (check if the server is healthy)")
-    desktop_connected, msg = service.aedt_connected()
+    desktop_connected, msg = toolkit_api.aedt_connected()
     if desktop_connected:
         return jsonify(msg), 200
     else:
@@ -27,7 +26,7 @@ def get_health():
 @app.route("/get_status", methods=["GET"])
 def get_status_call():
     logger.info("[GET] /get_status (check if the thread is running)")
-    exit_code, msg = service.get_thread_status()
+    exit_code, msg = toolkit_api.get_thread_status()
     if exit_code <= 0:
         return jsonify(msg), 200
     else:
@@ -36,16 +35,16 @@ def get_status_call():
 
 @app.route("/get_properties", methods=["GET"])
 def get_properties_call():
-    app.logger.info("[GET] /get_properties (get toolkit properties)")
-    return jsonify(service.get_properties()), 200
+    logger.info("[GET] /get_properties (get toolkit properties)")
+    return jsonify(toolkit_api.get_properties()), 200
 
 
 @app.route("/set_properties", methods=["PUT"])
 def set_properties_call():
-    app.logger.info("[PUT] /set_properties (set toolkit properties)")
+    logger.info("[PUT] /set_properties (set toolkit properties)")
 
     body = request.json
-    success, msg = service.set_properties(body)
+    success, msg = toolkit_api.set_properties(body)
     if success:
         return jsonify(msg), 200
     else:
@@ -55,14 +54,14 @@ def set_properties_call():
 @app.route("/installed_versions", methods=["GET"])
 def installed_aedt_version_call():
     logger.info("[GET] /version (get the version)")
-    return jsonify(service.installed_aedt_version()), 200
+    return jsonify(toolkit_api.installed_aedt_version()), 200
 
 
 @app.route("/aedt_sessions", methods=["GET"])
 def aedt_sessions_call():
     logger.info("[GET] /aedt_sessions (aedt sessions for specific version)")
 
-    response = service.aedt_sessions()
+    response = toolkit_api.aedt_sessions()
 
     if isinstance(response, list):
         return jsonify(response), 200
@@ -74,7 +73,7 @@ def aedt_sessions_call():
 def launch_aedt_call():
     logger.info("[POST] /launch_aedt (launch or connect AEDT)")
 
-    response = service.launch_aedt()
+    response = toolkit_api.launch_aedt()
     if response:
         return jsonify("AEDT properties loaded"), 200
     else:
@@ -98,7 +97,7 @@ def close_aedt_call():
 
     close_projects = body["close_projects"]
     close_on_exit = body["close_on_exit"]
-    response = service.release_aedt(close_projects, close_on_exit)
+    response = toolkit_api.release_aedt(close_projects, close_on_exit)
 
     if response:
         return jsonify("AEDT correctly released"), 200
@@ -117,7 +116,7 @@ def connect_design_call():
         logger.error(msg)
         return jsonify("body is empty!"), 500
 
-    response = service.connect_design(body["aedtapp"])
+    response = toolkit_api.connect_design(body["aedtapp"])
 
     if response:
         return jsonify("Design connected"), 200
@@ -136,7 +135,7 @@ def save_project_call():
         logger.error(msg)
         return jsonify("body is empty!"), 500
 
-    response = service.save_project(body)
+    response = toolkit_api.save_project(body)
 
     if response:
         return jsonify("Project saved: {}".format(body)), 200
@@ -148,9 +147,16 @@ def save_project_call():
 def get_design_names_call():
     logger.info("[GET] /get_design_names (aedt designs for specific project)")
 
-    response = service.get_design_names()
+    response = toolkit_api.get_design_names()
 
     if isinstance(response, list):
         return jsonify(response), 200
     else:
         return jsonify(response), 500
+
+# Uncomment to test rest api
+
+# if __name__ == "__main__":
+#     app.debug = True
+#     server = MultithreadingServer()
+#     server.run(host=toolkit_api.properties.url, port=toolkit_api.properties.port, app=app)

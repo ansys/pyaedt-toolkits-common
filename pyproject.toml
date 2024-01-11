@@ -29,6 +29,7 @@ dependencies = [
     "qdarkstyle",
     "flask",
     "pyaedt",
+    "pydantic",
 ]
 
 [project.optional-dependencies]

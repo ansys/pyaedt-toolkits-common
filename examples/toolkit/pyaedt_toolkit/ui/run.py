@@ -5,6 +5,7 @@ from PySide6.QtWidgets import QApplication
 
 # Default properties
 from ansys.aedt.toolkits.common.ui.properties import general_settings
+from ansys.aedt.toolkits.common.ui.properties import be_properties
 
 # Load toolkit properties
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
@@ -17,11 +18,14 @@ for key, value in _properties.items():
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
-from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
+from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 
 # Toolkit frontend API
 from actions import Frontend
+
+# Toolkit windows
+from windows.create_geometry.geometry_menu import GeometryMenu
 
 # Backend URL and port
 url = general_settings.backend_url
@@ -37,6 +41,7 @@ if general_settings.high_resolution:
 class ApplicationWindow(Frontend):
     def __init__(self):
         self.thread = None
+        self.general_settings = general_settings
 
         Frontend.__init__(self)
 
@@ -53,22 +58,53 @@ class ApplicationWindow(Frontend):
         self.main_window.setup_gui()
 
         # Settings menu
-        settings_menu = SettingsMenu(self.ui)
-        settings_menu.setup()
+        self.settings_menu = SettingsMenu(self)
+        self.settings_menu.setup()
 
-        # Home menu
-        home_menu = HomeMenu(self.ui)
-        home_menu.setup()
+        # Check backend connection
+        success = self.check_connection()
 
-        # Get default properties
-        success = self.get_properties()
+        # Populate settings column
         if not success:
-            logger.error("Error getting default properties from backend. User interface running without backend.")
-            settings_menu.aedt_version.addItem("Backend OFF")
-            settings_menu.aedt_session.addItem("Backend OFF")
+            msg = "Error getting properties from backend. User interface running without backend"
+            self.ui.logger.log(msg)
+            logger.error(msg)
+            self.settings_menu.signal_flag = False
+            self.settings_menu.aedt_version.addItem("Backend OFF")
+            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
+            # Get default properties
+            self.get_properties()
             # Get AEDT installed versions
             installed_versions = self.installed_versions()
+            self.settings_menu.signal_flag = False
+            if installed_versions:
+                self.settings_menu.connect_aedt.setEnabled(True)
+                for ver in installed_versions:
+                    self.settings_menu.aedt_version.addItem(ver)
+            else:
+                self.settings_menu.aedt_version.addItem("AEDT not installed")
+            self.settings_menu.signal_flag = True
+            if hasattr(be_properties, "aedt_version") and be_properties.aedt_version in installed_versions:
+                self.settings_menu.aedt_version.setCurrentText(be_properties.aedt_version)
+
+        # Toolkit specific wizard starts here
+
+        # Home menu
+        self.home_menu = HomeMenu(self)
+        self.home_menu.setup()
+
+        # Modeler menu
+        self.geometry_menu = GeometryMenu(self)
+        self.geometry_menu.setup()
+        self.ui.left_menu.clicked.connect(self.geometry_menu_clicked)
+
+        self.ui.set_page(self.ui.load_pages.home_page)
+
+    def geometry_menu_clicked(self):
+        selected_menu = self.main_window.get_selected_menu()
+        if selected_menu.objectName() == 'geometry_menu':
+            self.ui.set_page(self.geometry_menu.geometry_menu_widget)
 
 
 if __name__ == "__main__":

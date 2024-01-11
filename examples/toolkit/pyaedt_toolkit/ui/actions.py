@@ -1,11 +1,6 @@
 from ansys.aedt.toolkits.common.ui.actions_generic import FrontendGeneric
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 
-# from ansys.aedt.toolkits.common.backend.common.properties_data import PropertiesData
-#
-# be_properties = PropertiesData({})
-# be_properties._unfreeze()
-
 
 class Frontend(FrontendGeneric):
     def __init__(self):

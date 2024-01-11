@@ -213,7 +213,7 @@ class MainWindowLayout(CommonWindowUtils):
             font_family=general_settings.font["family"])
 
         self.progress_layout.addWidget(self.logger)
-        self.logger.log("{} logger.".format(general_settings.app_name))
+        self.logger.log("{} logger".format(general_settings.app_name))
         self.progress_layout.addWidget(self.progress)
 
     def setup_credits_frame(self):
@@ -340,6 +340,17 @@ class MainWindowLayout(CommonWindowUtils):
         self.load_pages = Ui_MainPages()
         self.load_pages.setupUi(self.content_frame)
         self.content_layout.addWidget(self.content_frame)
+
+    def add_page(self, page_ui):
+        """Create a new widget using the provided UI code."""
+        new_page = QWidget()
+        new_ui = page_ui()
+        new_ui.setupUi(new_page)
+
+        # Add the new page to the existing layout
+        self.load_pages.pages.addWidget(new_page)
+        index = self.load_pages.pages.indexOf(new_page)
+        return index
 
     def _load_icon(self):
         icon = QtGui.QIcon()
