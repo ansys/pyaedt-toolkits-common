@@ -6,12 +6,13 @@ from ansys.aedt.toolkits.common.backend.properties import properties
 # Load toolkit properties
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
     _properties = json.load(fh)
+properties._unfreeze()
 for key, value in _properties.items():
     if hasattr(properties, key):
         setattr(properties, key, value)
+properties._freeze()
 
 from ansys.aedt.toolkits.common.backend.api import Backend
-from ansys.aedt.toolkits.common.backend.api import thread
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
 
@@ -40,11 +41,9 @@ class ToolkitBackend(Backend):
         """Initialize the ``Toolkit`` class."""
         Backend.__init__(self)
         self.multiplier = 1.0
-        self.comps = []
 
-    @thread.launch_thread
     def create_geometry(self):
-        """Create a box or a sphere in design. If the toolkit is using Grpc, it is launched in a thread.
+        """Create a box or a sphere in design.
 
         Returns
         -------
@@ -76,9 +75,9 @@ class ToolkitBackend(Backend):
                 self.draw_box()
             elif geometry == "Sphere":
                 self.draw_sphere()
-            self.aedtapp.release_desktop(False, False)
-            self.aedtapp = None
+            self.release_aedt(False, False)
             return True
+        logger.error("Design not connected")
         return False
 
     def draw_box(self):

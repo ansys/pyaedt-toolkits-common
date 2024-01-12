@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication
 
 # Default properties
 from ansys.aedt.toolkits.common.ui.properties import general_settings
-from ansys.aedt.toolkits.common.ui.properties import be_properties
+# from ansys.aedt.toolkits.common.ui.properties import be_properties
 
 # Load toolkit properties
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
@@ -85,8 +85,8 @@ class ApplicationWindow(Frontend):
             else:
                 self.settings_menu.aedt_version.addItem("AEDT not installed")
             self.settings_menu.signal_flag = True
-            if hasattr(be_properties, "aedt_version") and be_properties.aedt_version in installed_versions:
-                self.settings_menu.aedt_version.setCurrentText(be_properties.aedt_version)
+            if hasattr(self.be_properties, "aedt_version") and self.be_properties.aedt_version in installed_versions:
+                self.settings_menu.aedt_version.setCurrentText(self.be_properties.aedt_version)
 
         # Toolkit specific wizard starts here
 

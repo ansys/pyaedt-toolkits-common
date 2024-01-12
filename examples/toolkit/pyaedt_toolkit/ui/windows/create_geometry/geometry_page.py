@@ -291,11 +291,15 @@ class Ui_Geometry(object):
 
         self.create_geometry_button = QPushButton(Geometry)
         self.create_geometry_button.setObjectName(u"create_geometry_button")
+        self.create_geometry_button.setFlat(False)
 
         self.verticalLayout_2.addWidget(self.create_geometry_button)
 
 
         self.retranslateUi(Geometry)
+
+        self.create_geometry_button.setDefault(True)
+
 
         QMetaObject.connectSlotsByName(Geometry)
     # setupUi

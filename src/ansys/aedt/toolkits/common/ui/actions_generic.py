@@ -15,8 +15,9 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         self.ui = None
         super(FrontendGeneric, self).__init__()
 
-        # self.running = False
+        self.be_properties = be_properties
         self.url = None
+        self.logger = logger
 
         # Load toolkit icon
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
@@ -163,6 +164,17 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         else:
             project_list.append("No Project")
         return project_list
+
+    @staticmethod
+    def get_project_name(project_path):
+        """Get project name from project path.
+
+        Returns
+        -------
+        str
+            Project name
+        """
+        return os.path.splitext(os.path.basename(project_path))[0]
 
     def update_design_names(self, active_project=None):
         self.get_properties()
