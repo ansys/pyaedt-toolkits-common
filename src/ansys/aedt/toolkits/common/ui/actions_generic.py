@@ -251,3 +251,16 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def on_cancel_clicked(self):
         self.close()
+
+    def closeEvent(self, event):
+        close = QtWidgets.QMessageBox.question(
+            self, "QUIT", "Confirm quit?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
+        )
+        if close == QtWidgets.QMessageBox.Yes:
+            logger.info("Closing toolkit")
+            success = self.check_connection()
+            if success:
+                self.release_only()
+            event.accept()
+        else:
+            event.ignore()

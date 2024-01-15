@@ -213,7 +213,7 @@ class MainWindowLayout(CommonWindowUtils):
             font_family=general_settings.font["family"])
 
         self.progress_layout.addWidget(self.logger)
-        self.logger.log("{} logger.".format(general_settings.app_name))
+        self.logger.log("{} logger".format(general_settings.app_name))
         self.progress_layout.addWidget(self.progress)
 
     def setup_credits_frame(self):
@@ -361,3 +361,7 @@ class MainWindowLayout(CommonWindowUtils):
             QtGui.QIcon.On,
         )
         return icon
+
+    def update_progress_number(self, value):
+        # This method will be called whenever the progress_updated signal is emitted
+        print(f"Progress Number Updated: {value}")

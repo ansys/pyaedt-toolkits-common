@@ -5,7 +5,6 @@ from PySide6.QtWidgets import QApplication
 
 # Default properties
 from ansys.aedt.toolkits.common.ui.properties import general_settings
-# from ansys.aedt.toolkits.common.ui.properties import be_properties
 
 # Load toolkit properties
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
@@ -54,8 +53,9 @@ class ApplicationWindow(Frontend):
         self.ui.setup_ui()
 
         # Setup main
+        dummy = r"C:\AnsysDev\repos\pyaedt-toolkits-common\src\ansys\aedt\toolkits\common\ui\utils\images\icons\dummy.svg"
         self.main_window = MainWindow(self)
-        self.main_window.setup_gui()
+        self.main_window.setup_gui(main_window_logo=dummy)
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)

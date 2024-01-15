@@ -8,8 +8,7 @@ with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
     _properties = json.load(fh)
 properties._unfreeze()
 for key, value in _properties.items():
-    if hasattr(properties, key):
-        setattr(properties, key, value)
+    setattr(properties, key, value)
 properties._freeze()
 
 from ansys.aedt.toolkits.common.backend.api import Backend
@@ -52,6 +51,7 @@ class ToolkitBackend(Backend):
 
         Examples
         --------
+        >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
         >>> import time
         >>> toolkit_api = ToolkitBackend()
         >>> msg1 = toolkit_api.launch_aedt()
@@ -90,9 +90,9 @@ class ToolkitBackend(Backend):
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.template.backend.api import Toolkit
+        >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
         >>> import time
-        >>> service = Toolkit()
+        >>> service = ToolkitBackend()
         >>> msg1 = service.launch_aedt()
         >>> response = service.get_thread_status()
         >>> while response[0] == 0:
@@ -126,9 +126,9 @@ class ToolkitBackend(Backend):
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.template.backend.api import Toolkit
+        >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
         >>> import time
-        >>> service = Toolkit()
+        >>> service = ToolkitBackend()
         >>> msg1 = service.launch_aedt()
         >>> response = service.get_thread_status()
         >>> while response[0] == 0:

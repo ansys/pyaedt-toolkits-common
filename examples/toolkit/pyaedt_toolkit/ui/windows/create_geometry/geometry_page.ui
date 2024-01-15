@@ -1146,7 +1146,7 @@
        </item>
        <item>
         <property name="text">
-         <string>Cylinder</string>
+         <string>Sphere</string>
         </property>
        </item>
       </widget>
@@ -1177,17 +1177,7 @@
     </spacer>
    </item>
    <item>
-    <widget class="QPushButton" name="create_geometry_button">
-     <property name="text">
-      <string>Create geometry</string>
-     </property>
-     <property name="default">
-      <bool>true</bool>
-     </property>
-     <property name="flat">
-      <bool>false</bool>
-     </property>
-    </widget>
+    <layout class="QVBoxLayout" name="button_layout"/>
    </item>
   </layout>
  </widget>

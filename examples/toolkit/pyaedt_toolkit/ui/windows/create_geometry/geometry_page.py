@@ -16,8 +16,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QPushButton, QSizePolicy,
-    QSpacerItem, QVBoxLayout, QWidget)
+    QLabel, QLineEdit, QSizePolicy, QSpacerItem,
+    QVBoxLayout, QWidget)
 
 class Ui_Geometry(object):
     def setupUi(self, Geometry):
@@ -289,17 +289,13 @@ class Ui_Geometry(object):
 
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
-        self.create_geometry_button = QPushButton(Geometry)
-        self.create_geometry_button.setObjectName(u"create_geometry_button")
-        self.create_geometry_button.setFlat(False)
+        self.button_layout = QVBoxLayout()
+        self.button_layout.setObjectName(u"button_layout")
 
-        self.verticalLayout_2.addWidget(self.create_geometry_button)
+        self.verticalLayout_2.addLayout(self.button_layout)
 
 
         self.retranslateUi(Geometry)
-
-        self.create_geometry_button.setDefault(True)
-
 
         QMetaObject.connectSlotsByName(Geometry)
     # setupUi
@@ -312,8 +308,7 @@ class Ui_Geometry(object):
         self.select_geometry_label.setText(QCoreApplication.translate("Geometry", u"Select geometry", None))
         self.geometry_label.setText(QCoreApplication.translate("Geometry", u"Geometry", None))
         self.geometry_combo.setItemText(0, QCoreApplication.translate("Geometry", u"Box", None))
-        self.geometry_combo.setItemText(1, QCoreApplication.translate("Geometry", u"Cylinder", None))
+        self.geometry_combo.setItemText(1, QCoreApplication.translate("Geometry", u"Sphere", None))
 
-        self.create_geometry_button.setText(QCoreApplication.translate("Geometry", u"Create geometry", None))
     # retranslateUi
 

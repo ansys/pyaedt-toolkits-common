@@ -7,6 +7,7 @@ class Styles(object):
     color: {_color};
     border-radius: {_radius};	
     background-color: {_bg_color};
+    font-size: {_font_size}pt;
     }}
     QPushButton:hover {{
     background-color: {_bg_color_hover};

@@ -13,6 +13,7 @@ class PyPushButton(QPushButton):
             bg_color,
             bg_color_hover,
             bg_color_pressed,
+            font_size,
             parent=None,
     ):
         super().__init__()
@@ -28,6 +29,7 @@ class PyPushButton(QPushButton):
             _radius=radius,
             _bg_color=bg_color,
             _bg_color_hover=bg_color_hover,
-            _bg_color_pressed=bg_color_pressed
+            _bg_color_pressed=bg_color_pressed,
+            _font_size=font_size,
         )
         self.setStyleSheet(custom_style)

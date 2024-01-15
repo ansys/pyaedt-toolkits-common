@@ -6,6 +6,7 @@
   "log_file" : "frontend.log",
   "app_name": "Toolkit Wizard",
   "main_title": "Toolkit Template Wizard",
+  "welcome_message": "Welcome to the Toolkit",
   "version" : "v0.0.1",
   "copyright" : "By: x",
   "year" : 2023,

@@ -296,7 +296,7 @@ class CommonWindowUtils(object):
 
         return [layout_row_obj, button_obj1, lineedit_obj]
 
-    def add_n_buttons(self, layout=None, num_buttons=1, height=40, width=[200], text=['button']):
+    def add_n_buttons(self, layout=None, num_buttons=1, height=40, width=[200], text=['button'], font_size=10):
         """
         Add a specified number of buttons to a layout object.
 
@@ -314,6 +314,8 @@ class CommonWindowUtils(object):
         text: list of str, optional
             The texts to be displayed on the buttons. If list length is less than num_buttons, all buttons display the same text.
             Default is ['button'].
+        font_size: float or int, optional
+            Font size. Default is ``10``.
 
         Returns
         -------
@@ -341,7 +343,7 @@ class CommonWindowUtils(object):
 
         all_objects = [layout_row_obj]
         for idx in range(num_buttons):
-            button_obj = self._add_button(text=text[idx])
+            button_obj = self._add_button(text=text[idx], font_size=font_size)
             button_obj.setMinimumHeight(height)
             layout_row_obj.addWidget(button_obj)
             button_obj.setFixedWidth(width[idx])
@@ -503,13 +505,14 @@ class CommonWindowUtils(object):
     def _get_color_theme(self, color_key):
         return self.themes["app_color"][color_key]
 
-    def _add_button(self, text='button'):
+    def _add_button(self, text='button', font_size=10):
         button_obj = PyPushButton(
             text=text,
             radius=8,
             color=self.themes["app_color"]["text_foreground"],
             bg_color=self.themes["app_color"]["dark_one"],
             bg_color_hover=self.themes["app_color"]["dark_three"],
-            bg_color_pressed=self.themes["app_color"]["dark_four"]
+            bg_color_pressed=self.themes["app_color"]["dark_four"],
+            font_size=font_size
         )
         return button_obj

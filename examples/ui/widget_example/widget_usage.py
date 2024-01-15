@@ -52,7 +52,7 @@ class ApplicationWindow(QMainWindow):
                                         text_title_size=8,
                                         icon_close_path='icon_close.svg')
         self.my_button = PyPushButton(text="My Button", radius=5, color="#000", bg_color="#fff", bg_color_hover="#eee",
-                                      bg_color_pressed="#ddd")
+                                      bg_color_pressed="#ddd", font_size=10)
         self.toggle = PyToggle(50, "#777", "#DDD", "#00BCFF", QEasingCurve.OutBounce)
 
         # Create a GroupBox for column 3
