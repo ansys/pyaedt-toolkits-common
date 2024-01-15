@@ -80,6 +80,24 @@ def launch_aedt_call():
         return jsonify("Fail to launch to AEDT"), 500
 
 
+@app.route("/open_project", methods=["POST"])
+def open_project_call():
+    logger.info("[POST] /open_project (open AEDT project)")
+    body = request.data
+
+    if not body:
+        msg = "body is empty!"
+        logger.error(msg)
+        return jsonify("body is empty!"), 500
+
+    response = toolkit_api.open_project(body.decode())
+
+    if response:
+        return jsonify("Project opened"), 200
+    else:
+        return jsonify("Fail to open project"), 500
+
+
 @app.route("/close_aedt", methods=["POST"])
 def close_aedt_call():
     logger.info("[POST] /close_aedt (close AEDT)")

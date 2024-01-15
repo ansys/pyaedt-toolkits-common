@@ -153,6 +153,38 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.ui.logger.log(msg)
             self.ui.progress.progress = 100
 
+    def open_project(self, selected_project):
+        response = requests.get(self.url + "/get_status")
+
+        if response.ok and response.json() == "Backend running":
+            msg = "Please wait, toolkit running"
+            logger.debug(msg)
+            self.ui.logger.log(msg)
+
+        elif response.ok and response.json() == "Backend free":
+            self.ui.progress.progress = 0
+            response = requests.get(self.url + "/health")
+            if response.ok and response.json() == "Toolkit not connected to AEDT":
+                response = requests.post(self.url + "/open_project", data=selected_project)
+                if response.status_code == 200:
+                    msg = "Project opened"
+                    self.ui.logger.log(msg)
+                else:
+                    msg = f"Failed backend call: {self.url} + '/'open_project"
+                    logger.error(msg)
+                    self.ui.logger.log(msg)
+                    self.ui.progress.progress = 100
+            else:
+                msg = response.json()
+                logger.debug(msg)
+                self.ui.logger.log(msg)
+                self.ui.progress.progress = 100
+        else:
+            msg = response.json()
+            logger.debug(msg)
+            self.ui.logger.log(msg)
+            self.ui.progress.progress = 100
+
     def get_aedt_data(self):
         self.get_properties()
         project_list = []

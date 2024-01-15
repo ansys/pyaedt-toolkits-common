@@ -426,7 +426,7 @@ class Aedt:
         """
         if not self.connect_aedt():
             return False
-        if not os.path.exists(properties.active_project + ".lock") and self.desktop and project_name:
+        if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} opened".format(project_name))
             self._save_project_info()

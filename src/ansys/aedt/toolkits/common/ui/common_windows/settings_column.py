@@ -1,4 +1,6 @@
 from PySide6.QtCore import QObject, QThread, QTimer
+from PySide6.QtWidgets import *
+import os
 
 
 class SettingsMenu(QObject):
@@ -18,6 +20,9 @@ class SettingsMenu(QObject):
         self.non_graphical_label = None
         self.graphical_label = None
         self.graphical_mode = None
+
+        self.browse = None
+        self.file = None
 
         self.connect_aedt = None
 
@@ -87,6 +92,24 @@ class SettingsMenu(QObject):
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
         )
 
+        # Browse row
+        row_returns = self.ui.add_icon_button(self.ui.right_column.menus.settings_vertical_layout,
+                                              icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
+                                              height=40,
+                                              width=[40, 160],
+                                              text='Browse...')
+
+        self.ui.right_column.menus.browse_file_group = row_returns[0]
+        self.browse = row_returns[1]
+        self.file = row_returns[2]
+
+        self.browse.clicked.connect(lambda: self.browse_file())
+
+        # Add line
+        self.ui.add_vertical_line(
+            self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
+        )
+
         # Launch AEDT
         row_returns = self.ui.add_n_buttons(
             self.ui.right_column.menus.settings_vertical_layout,
@@ -125,7 +148,9 @@ class SettingsMenu(QObject):
 
         self.aedt_thread = QThread()
 
-        self.aedt_thread.started.connect(lambda: self.app.launch_aedt(selected_version, selected_session, non_graphical))
+        self.aedt_thread.started.connect(lambda: self.app.launch_aedt(selected_version,
+                                                                      selected_session,
+                                                                      non_graphical))
 
         self.check_status_timer.start()
 
@@ -153,8 +178,21 @@ class SettingsMenu(QObject):
             self.aedt_thread.terminate()
             self.aedt_thread = None
             self.check_status_timer.stop()
-            # Update info
+            file = self.file.text()
+            if file:
+                aedt_file = os.path.normpath(file)
+                self.app.open_project(aedt_file)
             self.update_project()
             self.update_design()
             self.ui.progress.progress = 100
             self.ui.logger.log("AEDT session connected")
+
+    def browse_file(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.DontUseNativeDialog
+
+        file, _ = QFileDialog.getOpenFileName(self.ui.app, "QFileDialog.getOpenFileName()", "",
+                                              "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
+                                              options=options)
+        if file != "":
+            self.file.setText(file)

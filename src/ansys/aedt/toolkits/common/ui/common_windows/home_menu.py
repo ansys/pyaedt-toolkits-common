@@ -12,6 +12,7 @@ class HomeMenu(object):
         self.aedt_mode = None
         self.aedt_mode_label = None
         self.file_mode_label = None
+        self.mode_line = None
 
         self.browse = None
         self.file = None
@@ -61,13 +62,10 @@ class HomeMenu(object):
         self.ui.left_column.menus.browse_file_group = row_returns[0]
         self.browse = row_returns[1]
         self.file = row_returns[2]
+        self.file.setVisible(False)
+        self.browse.setVisible(False)
 
         self.browse.clicked.connect(lambda: self.browse_file())
-
-        # Add line
-        self.ui.add_vertical_line(
-            self.ui.left_column.menus.home_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
-        )
 
         # Project row
         row_returns = self.ui.add_combobox(self.ui.left_column.menus.home_vertical_layout,
@@ -101,12 +99,16 @@ class HomeMenu(object):
             self.project_combobox.setVisible(True)
             self.design.setVisible(True)
             self.design_combobox.setVisible(True)
+            self.file.setVisible(False)
+            self.browse.setVisible(False)
         else:
             self.mode = "file_based"
             self.project.setVisible(False)
             self.project_combobox.setVisible(False)
             self.design.setVisible(False)
             self.design_combobox.setVisible(False)
+            self.file.setVisible(True)
+            self.browse.setVisible(True)
         self.ui.logger.log(f'Setting Mode to {self.mode}')
 
     def browse_file(self):
