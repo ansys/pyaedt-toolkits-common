@@ -1,14 +1,15 @@
 {
+  "toolkit_name": "common",
   "backend_url" : "127.0.0.1",
   "backend_port" : 5001,
   "debug" : true,
   "log_file" : "frontend.log",
   "app_name": "Toolkit Wizard",
   "main_title": "Toolkit Template Wizard",
+  "welcome_message": "Welcome to the Toolkit",
   "version" : "v0.0.1",
   "copyright" : "By: x",
   "year" : 2023,
-  "aedt_version": "2023.2",
   "startup_size": [
       1400,
       720
@@ -34,7 +35,6 @@
       "minimum" : 0,
       "maximum" : 100
   },
-  "time_animation" : 6,
   "font" : {
       "family" : "Segoe UI",
       "title_size" : 10,
@@ -49,14 +49,6 @@
             "btn_id": "home_menu",
             "btn_text": "Home",
             "btn_tooltip": "Home",
-            "show_top": true,
-            "is_active": false
-        },
-      {
-            "btn_icon": "icon_signal.svg",
-            "btn_id": "modeler_menu",
-            "btn_text": "Modeler",
-            "btn_tooltip": "Modeler",
             "show_top": true,
             "is_active": false
         },

@@ -60,25 +60,21 @@ class PyTitleBar(QWidget):
         self._title_size = title_size
         self._text_foreground = text_foreground
 
-        # SETUP UI
         self.setup_ui()
 
-        # ADD BG COLOR
         self.bg.setStyleSheet(f"background-color: {bg_color}; border-radius: {radius}px;")
 
-        # SET LOGO AND WIDTH
         self.top_logo.setMinimumWidth(logo_width)
         self.top_logo.setMaximumWidth(logo_width)
 
         def moveWindow(event):
-            # IF MAXIMIZED CHANGE TO NORMAL
             if parent.isMaximized():
                 self.maximize_restore()
                 # self.resize(_old_size)
                 curso_x = parent.pos().x()
                 curso_y = event.globalPos().y() - QCursor.pos().y()
                 parent.move(curso_x, curso_y)
-            # MOVE WINDOW
+
             if event.buttons() == Qt.LeftButton:
                 if getattr(parent.dragPos, "toPoint", None):
                     print(parent.pos())

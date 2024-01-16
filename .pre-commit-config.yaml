@@ -1,3 +1,8 @@
+exclude: |
+  (?x)(
+      src/ansys/aedt/toolkits/common/ui/utils/ui_templates
+  )
+
 repos:
 
 - repo: https://github.com/psf/black

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'main_pageskqZcdF.ui'
+## Form generated from reading UI file 'main_pages.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.5.2
+## Created by: Qt User Interface Compiler version 6.6.0
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -15,15 +15,14 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QHBoxLayout, QLabel,
-    QScrollArea, QSizePolicy, QStackedWidget, QVBoxLayout,
-    QWidget)
+from PySide6.QtWidgets import (QApplication, QFrame, QLabel, QSizePolicy,
+    QStackedWidget, QVBoxLayout, QWidget)
 
 class Ui_MainPages(object):
     def setupUi(self, MainPages):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
-        MainPages.resize(860, 600)
+        MainPages.resize(1053, 600)
         self.main_pages_layout = QVBoxLayout(MainPages)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -70,58 +69,12 @@ class Ui_MainPages(object):
         self.page_1_layout.addWidget(self.welcome_base, 0, Qt.AlignHCenter)
 
         self.pages.addWidget(self.home_page)
-        self.post_2d_page = QWidget()
-        self.post_2d_page.setObjectName(u"post_2d_page")
-        self.post_2d__page_layout = QVBoxLayout(self.post_2d_page)
-        self.post_2d__page_layout.setSpacing(5)
-        self.post_2d__page_layout.setObjectName(u"post_2d__page_layout")
-        self.post_2d__page_layout.setContentsMargins(5, 5, 5, 5)
-        self.scroll_area = QScrollArea(self.post_2d_page)
-        self.scroll_area.setObjectName(u"scroll_area")
-        self.scroll_area.setStyleSheet(u"background: transparent;")
-        self.scroll_area.setFrameShape(QFrame.NoFrame)
-        self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.scroll_area.setWidgetResizable(True)
-        self.contents = QWidget()
-        self.contents.setObjectName(u"contents")
-        self.contents.setGeometry(QRect(0, 0, 840, 580))
-        self.contents.setStyleSheet(u"background: transparent;")
-        self.verticalLayout = QVBoxLayout(self.contents)
-        self.verticalLayout.setSpacing(15)
-        self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(5, 5, 5, 5)
-        self.row_1_layout = QHBoxLayout()
-        self.row_1_layout.setObjectName(u"row_1_layout")
-
-        self.verticalLayout.addLayout(self.row_1_layout)
-
-        self.row_2_layout = QHBoxLayout()
-        self.row_2_layout.setObjectName(u"row_2_layout")
-
-        self.verticalLayout.addLayout(self.row_2_layout)
-
-        self.row_3_layout = QHBoxLayout()
-        self.row_3_layout.setObjectName(u"row_3_layout")
-
-        self.verticalLayout.addLayout(self.row_3_layout)
-
-        self.row_4_layout = QVBoxLayout()
-        self.row_4_layout.setObjectName(u"row_4_layout")
-
-        self.verticalLayout.addLayout(self.row_4_layout)
-
-        self.scroll_area.setWidget(self.contents)
-
-        self.post_2d__page_layout.addWidget(self.scroll_area)
-
-        self.pages.addWidget(self.post_2d_page)
-        self.modeler_page = QWidget()
-        self.modeler_page.setObjectName(u"modeler_page")
-        self.modeler_page.setStyleSheet(u"QFrame {\n"
+        self.empty_page = QWidget()
+        self.empty_page.setObjectName(u"empty_page")
+        self.empty_page.setStyleSheet(u"QFrame {\n"
 "	font-size: 16pt;\n"
 "}")
-        self.modeler_page_layout = QVBoxLayout(self.modeler_page)
+        self.modeler_page_layout = QVBoxLayout(self.empty_page)
         self.modeler_page_layout.setObjectName(u"modeler_page_layout")
         self.modeler_window_layout = QVBoxLayout()
         self.modeler_window_layout.setSpacing(0)
@@ -129,7 +82,7 @@ class Ui_MainPages(object):
 
         self.modeler_page_layout.addLayout(self.modeler_window_layout)
 
-        self.pages.addWidget(self.modeler_page)
+        self.pages.addWidget(self.empty_page)
 
         self.main_pages_layout.addWidget(self.pages)
 

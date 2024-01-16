@@ -11,8 +11,6 @@ class PyRightColumn(QWidget):
 
     def __init__(
             self,
-            parent,
-            app_parent,
             text_title,
             text_title_size,
             text_title_color,
@@ -30,8 +28,6 @@ class PyRightColumn(QWidget):
     ):
         super().__init__()
 
-        self._parent = parent
-        self._app_parent = app_parent
         self._text_title = text_title
         self._text_title_size = text_title_size
         self._text_title_color = text_title_color

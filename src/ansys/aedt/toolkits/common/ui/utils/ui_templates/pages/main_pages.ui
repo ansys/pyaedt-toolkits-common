@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>860</width>
+    <width>1053</width>
     <height>600</height>
    </rect>
   </property>
@@ -144,87 +144,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="post_2d_page">
-      <layout class="QVBoxLayout" name="post_2d__page_layout">
-       <property name="spacing">
-        <number>5</number>
-       </property>
-       <property name="leftMargin">
-        <number>5</number>
-       </property>
-       <property name="topMargin">
-        <number>5</number>
-       </property>
-       <property name="rightMargin">
-        <number>5</number>
-       </property>
-       <property name="bottomMargin">
-        <number>5</number>
-       </property>
-       <item>
-        <widget class="QScrollArea" name="scroll_area">
-         <property name="styleSheet">
-          <string notr="true">background: transparent;</string>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::NoFrame</enum>
-         </property>
-         <property name="verticalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="horizontalScrollBarPolicy">
-          <enum>Qt::ScrollBarAlwaysOff</enum>
-         </property>
-         <property name="widgetResizable">
-          <bool>true</bool>
-         </property>
-         <widget class="QWidget" name="contents">
-          <property name="geometry">
-           <rect>
-            <x>0</x>
-            <y>0</y>
-            <width>98</width>
-            <height>63</height>
-           </rect>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">background: transparent;</string>
-          </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
-           <property name="spacing">
-            <number>15</number>
-           </property>
-           <property name="leftMargin">
-            <number>5</number>
-           </property>
-           <property name="topMargin">
-            <number>5</number>
-           </property>
-           <property name="rightMargin">
-            <number>5</number>
-           </property>
-           <property name="bottomMargin">
-            <number>5</number>
-           </property>
-           <item>
-            <layout class="QHBoxLayout" name="row_1_layout"/>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="row_2_layout"/>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="row_3_layout"/>
-           </item>
-           <item>
-            <layout class="QVBoxLayout" name="row_4_layout"/>
-           </item>
-          </layout>
-         </widget>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="modeler_page">
+     <widget class="QWidget" name="empty_page">
       <property name="styleSheet">
        <string notr="true">QFrame {
 	font-size: 16pt;

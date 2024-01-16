@@ -12,15 +12,14 @@ class PyProgress(QWidget):
 
     Parameters
     ----------
-    parent : Parent widget
     progress : float or int, optional
-        Current progress value. The default is 0.
+        Current progress value. The default is ``0``.
     progress_color: str, optional
-        Color of progress bar. The default is "#ff79c6".
+        Color of progress bar. The default is ``"#ff79c6"``.
     background_color: str, optional
-        Color of background. The default is "#151617".
+        Color of background. The default is ``"#151617"``.
     width: float or int
-        Width of the progress bar. The default is 10.
+        Width of the progress bar. The default is ``10``.
 
     Examples
     --------
@@ -55,11 +54,10 @@ class PyProgress(QWidget):
                  background_color="#151617",
                  text_color="#FFFFFF",
                  font_size=10,
-                 font_family="Helvetica",
+                 font_family="Segoe UI",
                  width=10,
-                 parent=None,
                  ):
-        super(PyProgress, self).__init__(parent)
+        super().__init__()
         self._progress = progress
         self._backgroundColor = QColor(background_color)
         self._progressColor = QColor(progress_color)

@@ -7,6 +7,8 @@ from ansys.aedt.toolkits.common.ui.properties import general_settings
 debug = general_settings.debug
 log_file = general_settings.log_file
 
+# Take toolkit name from backend
+
 # Create a logger
 logger = logging.getLogger(__name__)
 if debug:
@@ -16,7 +18,10 @@ if debug:
     # Create a file handler for the logger
 
     if log_file:
-        temp_dir = os.path.join(tempfile.gettempdir(), log_file)
+        toolkit_name = general_settings.toolkit_name
+        log_file_name = toolkit_name + "_" + log_file
+        temp_dir = os.path.join(tempfile.gettempdir(), log_file_name)
+
         if not os.path.exists(temp_dir):
             file = open(temp_dir, "w")
             file.close()

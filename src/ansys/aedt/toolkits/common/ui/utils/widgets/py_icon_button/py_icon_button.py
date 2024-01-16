@@ -5,7 +5,7 @@ from PySide6.QtCore import QEvent, QRect, QPoint, Qt
 
 class PyIconButton(QPushButton):
     """
-    A custom QPushButton that can be used as a colored icon.
+    Icon button widget that can be used as a colored icon.
 
     The icon and color can be customized during initialization.
 
@@ -13,10 +13,6 @@ class PyIconButton(QPushButton):
     ----------
     icon_path : str
         Path to the icon image file.
-    parent : QWidget, optional
-        Parent widget.
-    app_parent : QWidget, optional
-        Parent application widget.
     tooltip_text : str, optional
         Text for tooltip.
     btn_id : str, optional
@@ -66,8 +62,7 @@ class PyIconButton(QPushButton):
     >>>         super().__init__()
     >>>         layout = QVBoxLayout(self)
     >>>         layout.addWidget(QPushButton("Button 1"))
-    >>>         layout.addWidget(PyIconButton('icon_signal.svg', "#FF0000",
-    >>>             parent=self, app_parent=self, tooltip_text="Example")
+    >>>         layout.addWidget(PyIconButton('icon_signal.svg', "#FF0000", tooltip_text="Example")
     >>>         )
     >>>         layout.addWidget(QPushButton("Button 2"))
 
@@ -76,13 +71,10 @@ class PyIconButton(QPushButton):
     >>>     window = Example()
     >>>     window.show()
     >>>     app.exec()
-
     """
     def __init__(
             self,
             icon_path=None,
-            parent=None,
-            app_parent=None,
             tooltip_text="",
             btn_id=None,
             width=30,
@@ -122,15 +114,11 @@ class PyIconButton(QPushButton):
         self._set_icon_path = icon_path
         self._set_icon_color = icon_color
         self._set_border_radius = radius
-        # Parent
-        self._parent = parent
-        self._app_parent = app_parent
 
         # TOOLTIP
         if tooltip_text:
             self._tooltip_text = tooltip_text
             self._tooltip = Tooltip(
-                app_parent,
                 tooltip_text,
                 dark_one,
                 text_foreground
@@ -227,16 +215,6 @@ class PyIconButton(QPushButton):
         self._set_icon_path = icon_path
         self.repaint()
 
-    def move_tooltip(self):
-        gp = self.mapToGlobal(QPoint(0, 0))
-
-        pos = self._parent.mapFromGlobal(gp)
-
-        pos_x = (pos.x() - (self._tooltip.width() // 2)) + (self.width() // 2)
-        pos_y = pos.y() - self._top_margin
-
-        self._tooltip.move(pos_x, pos_y)
-
 
 class Tooltip(QLabel):
     style_tooltip = """ 
@@ -253,7 +231,6 @@ class Tooltip(QLabel):
 
     def __init__(
             self,
-            parent,
             tooltip,
             dark_one,
             text_foreground
@@ -267,7 +244,6 @@ class Tooltip(QLabel):
         self.setObjectName(u"label_tooltip")
         self.setStyleSheet(style)
         self.setMinimumHeight(34)
-        self.setParent(parent)
         self.setText(tooltip)
         self.adjustSize()
 

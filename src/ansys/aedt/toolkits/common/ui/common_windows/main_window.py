@@ -1,19 +1,20 @@
 from PySide6.QtSvgWidgets import *
 from PySide6.QtCore import *
+from PySide6.QtWidgets import *
 from ansys.aedt.toolkits.common.ui.properties import general_settings
 
 
-class SetupMainWindow(object):
+class MainWindow(object):
     def __init__(self, app):
         self._app = app
         # App title
         self._app.setWindowTitle(general_settings.app_name)
 
-    def setup_gui(self):
+    def setup_gui(self, main_window_logo=None):
 
         # Add title
         if not hasattr(general_settings, "main_title"):
-            title = "Welcome to the Toolkit"
+            title = "Toolkit"
         else:
             title = general_settings.main_title
         self._app.ui.title_bar.set_title(title)
@@ -38,8 +39,16 @@ class SetupMainWindow(object):
         self._app.ui.set_page(self._app.ui.load_pages.home_page)
 
         # Add logo to main page
-        main_logo = QSvgWidget(self._app.ui.images_load.image_path("ANSS_BIG.D.svg"))
+        if not main_window_logo:
+            main_window_logo = self._app.ui.images_load.image_path("ANSS_BIG.D.svg")
+        main_logo = QSvgWidget(main_window_logo)
         self._app.ui.load_pages.logo_layout.addWidget(main_logo, Qt.AlignCenter, Qt.AlignCenter)
+
+        welcome_label = self._app.ui.load_pages.home_page.findChild(QLabel, "label")
+        # Add welcome message
+        if hasattr(general_settings, "welcome_message"):
+            message = general_settings.welcome_message
+            welcome_label.setText(message)
 
     def get_selected_menu(self):
         if self._app.ui.title_bar.sender() is not None:
@@ -62,6 +71,7 @@ class SetupMainWindow(object):
 
         if selected_menu.objectName() == 'home_menu' and not is_left_visible:
             self._app.ui.set_page(self._app.ui.load_pages.home_page)
+
             self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(
                 menu=self._app.ui.left_column.menus.menu_home,

@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import *
 from PySide6.QtGui import QFont
 
+
 class PyLogger(QTextEdit):
     """
     Logger widget.
@@ -9,26 +10,26 @@ class PyLogger(QTextEdit):
 
     Parameters
     ----------
-    parent : Parent widget
-    progress : float or int, optional
-        Current progress value. The default is 0.
-    progress_color: str, optional
-        Color of progress bar. The default is "#ff79c6".
+    text_color : str, optional
+        Text color. The default is ``"#f5f6f9"``.
     background_color: str, optional
-        Color of background. The default is "#151617".
-    width: float or int
-        Width of the progress bar. The default is 10.
+        Color of background. The default is ``"#000000"``.
+    font_size: float or int, optional
+        Font size. The default is ``10``.
+    font_family: str, optional
+        Font size. The default is ``"Segoe UI``".
+    height: float or int
+        Logger height. The default is ``10``.
     """
 
     def __init__(self,
-                 parent=None,
                  text_color="#f5f6f9",
                  background_color="#000000",
                  font_size=10,
-                 font_family="Helvetica",
+                 font_family="Segoe UI",
                  height=50
                  ):
-        super(PyLogger, self).__init__(parent)
+        super().__init__()
         self.setReadOnly(True)
         font = QFont(font_family, font_size),
         self.setFont(font)

@@ -5,7 +5,7 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_label.styles import Styles
 
 class PyLabel(QLabel):
     """
-    PyLabel, a customized QLabel class.
+    Label widget with customizable elements.
 
     Parameters
     ----------

@@ -1,7 +1,7 @@
 import json
 import os
 
-from ansys.aedt.toolkits.common.backend.common.properties_data import PropertiesData
+from ansys.aedt.toolkits.common.properties_data import PropertiesData
 
 with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
     _properties = json.load(fh)
