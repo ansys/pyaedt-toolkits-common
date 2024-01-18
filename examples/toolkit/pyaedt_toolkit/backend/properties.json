@@ -1,5 +1,6 @@
 {
   "toolkit_name" : "example",
   "multiplier" : 1.0,
-  "geometry" : "Box"
+  "geometry" : "Box",
+  "log_file" : "example_backend.log"
 }

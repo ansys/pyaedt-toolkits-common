@@ -16,7 +16,7 @@ app = Flask(__name__)
 @app.route("/health", methods=["GET"])
 def get_health():
     logger.info("[GET] /health (check if the server is healthy)")
-    desktop_connected, msg = toolkit_api.aedt_connected()
+    desktop_connected, msg = toolkit_api.is_aedt_connected()
     if desktop_connected:
         return jsonify(msg), 200
     else:
@@ -171,6 +171,7 @@ def get_design_names_call():
         return jsonify(response), 200
     else:
         return jsonify(response), 500
+
 
 # Uncomment to test rest api
 

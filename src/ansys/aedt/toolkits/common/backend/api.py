@@ -1,126 +1,289 @@
+from dataclasses import FrozenInstanceError
+from dataclasses import dataclass
+
+# from dataclasses import dataclass
+from enum import Enum
 import os
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing import Tuple
+
 import psutil
 import pyaedt
+from pyaedt import Desktop
+from pyaedt.misc import list_installed_ansysem
+from pydantic import ValidationError
 
+from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
-from ansys.aedt.toolkits.common.backend.properties import properties
+from ansys.aedt.toolkits.common.backend.models import properties
 from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
 
 thread = ThreadManager()
 
 
-class Aedt:
-    """Generic API to control AEDT.
+class ToolkitThreadStatus(str, Enum):
+    """Status of the toolkit thread."""
+
+    IDLE = "Toolkit is idle and ready to accept a new task."
+    BUSY = "Toolkit is busy and processing a task."
+    CRASHED = "Toolkit has crashed and is not functional."
+    UNKNOWN = "Toolkit unknown status."
+
+
+class PropertiesUpdate(str, Enum):
+    """Status of the toolkit thread."""
+
+    EMPTY = "Body is empty."
+    SUCCESS = "Properties updated successfully."
+    FROZEN = "Properties are frozen, updated failed."
+    VALIDATION_ERROR = "Error during validation of properties field."
+
+
+@dataclass
+class ToolkitConnectionStatus:
+    """Status of the toolkit connection."""
+
+    desktop: Optional[Desktop] = None
+
+    def __str__(self):
+        if self.desktop:
+            res = f"Toolkit is connected to process {self.desktop.aedt_process_id}"
+            if self.desktop.port != 0:
+                res += f" on Grpc {self.desktop.port}."
+        else:
+            res = "Toolkit is not connected to AEDT."
+        return res
+
+    def is_connected(self):
+        return self.desktop is not None
+
+
+class Common:
+    """Common API to control the toolkits.
+
+    It provides basic functions to control AEDT, EDB and properties to share between backend and frontend.
+
+    Examples
+    --------
+    >>> from ansys.aedt.toolkits.common.backend.api import Common
+    >>> toolkit_api = Common()
+    >>> toolkit_properties = toolkit_api.get_properties()
+    >>> new_properties = {"aedt_version": "2023.1"}
+    >>> toolkit_api.set_properties(new_properties)
+    >>> new_properties = toolkit_api.get_properties()
+    """
+
+    def __init__(self):
+        self.logger = logger
+
+    @staticmethod
+    def get_properties() -> Dict[str, str]:
+        """Get toolkit properties.
+
+        Returns
+        -------
+        dict
+            Dictionary containing the toolkit properties.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Common
+        >>> toolkit_api = Common()
+        >>> toolkit_api.get_properties()
+        {"property1": value1, "property2": value2}
+        """
+        res = properties.model_dump()
+        return res
+
+    @staticmethod
+    def set_properties(data: Dict[str, Any]):
+        """Assign the passed data to the internal data model.
+
+        Parameters
+        ----------
+        data : dict
+            Dictionary containing the properties to update.
+
+        Returns
+        -------
+        tuple[bool, str]
+            Tuple indicating the success status and a message.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Common
+        >>> toolkit_api = Common()
+        >>> value2 = 2
+        >>> toolkit_api.set_properties({"property1": "value1", "property2": value2})
+        """
+        logger.info("Updating internal properties.")
+        key = ""
+        value = ""
+        if data:
+            try:
+                for key, value in data.items():
+                    logger.debug(f"Updating '{key}' with value {value}")
+                    setattr(properties, key, value)
+                msg = PropertiesUpdate.SUCCESS.value
+                updated = True
+                logger.debug(msg)
+            except FrozenInstanceError:
+                msg = PropertiesUpdate.FROZEN.value
+                updated = False
+                logger.error(msg)
+            except ValidationError:
+                msg = PropertiesUpdate.VALIDATION_ERROR.value
+                updated = False
+                logger.error(msg)
+                logger.error(f"key {key} with value {value}")
+        else:
+            msg = PropertiesUpdate.EMPTY.value
+            updated = False
+            logger.debug(msg)
+        return updated, msg
+
+    @staticmethod
+    def get_thread_status() -> ToolkitThreadStatus:
+        """Get the toolkit thread status.
+
+        Returns
+        -------
+        bool
+            ``True`` when active, ``False`` when inactive.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Common
+        >>> toolkit_api = Common()
+        >>> toolkit_api.get_thread_status()
+        """
+        thread_running = thread.is_toolkit_thread_running()
+        is_toolkit_busy = properties.is_toolkit_busy
+        if thread_running and is_toolkit_busy:  # pragma: no cover
+            res = ToolkitThreadStatus.BUSY
+            logger.debug(res.value)
+        elif (not thread_running and is_toolkit_busy) or (thread_running and not is_toolkit_busy):  # pragma: no cover
+            res = ToolkitThreadStatus.CRASHED
+            logger.error(res.value)
+        else:
+            res = ToolkitThreadStatus.IDLE
+            logger.debug(res.value)
+        return res
+
+    @staticmethod
+    def installed_aedt_version():
+        """
+        Get the installed AEDT versions.
+
+        Returns
+        -------
+        list
+            List of installed AEDT versions.
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Common
+        >>> toolkit_api = Common()
+        >>> toolkit_api.installed_aedt_version()
+        ["2022.2", "2023.2", "2024.1"]
+        """
+
+        # Detect existing AEDT installation
+        installed_versions = []
+        for ver in list_installed_ansysem():
+            installed_versions.append(
+                "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
+            )
+        logger.debug(str(installed_versions))
+        return installed_versions
+
+    @staticmethod
+    def aedt_sessions():
+        """Get information for the active AEDT sessions.
+
+        Returns
+        -------
+        list
+            List of AEDT process IDs (PIDs).
+
+        Examples
+        --------
+        >>> from ansys.aedt.toolkits.common.backend.api import Common
+        >>> toolkit_api = Common()
+        >>> toolkit_api.aedt_sessions()
+        [[pid1, grpc_port1], [pid2, grpc_port2]]
+        """
+        res = []
+        if not properties.is_toolkit_busy and properties.aedt_version:
+            keys = ["ansysedt.exe"]
+            version = properties.aedt_version
+            if version and "." in version:
+                version = version[-4:].replace(".", "")
+            if version < "222":  # pragma: no cover
+                version = version[:2] + "." + version[2]
+            for process in filter(lambda p: p.name() in keys, psutil.process_iter()):
+                cmd = process.cmdline()
+                if version in cmd[0]:
+                    try:
+                        grpc_index = cmd.index("-grpcsrv") + 1
+                        port = int(cmd[grpc_index])
+                    except (ValueError, IndexError):
+                        port = -1
+                    res.append([process.pid, port])
+            logger.debug(f"Active AEDT sessions: {res}.")
+        else:
+            logger.debug("No active sessions.")
+        return res
+
+
+class AEDTCommon(Common):
+    """Provides common functions to control AEDT.
 
     It provides basic functions to control AEDT and properties to share between backend and frontend.
 
     Examples
     --------
-    >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-    >>> toolkit_api = Aedt()
+    >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+    >>> toolkit_api = AEDTCommon()
     >>> msg = toolkit_api.launch_aedt()
     """
 
     def __init__(self):
+        Common.__init__(self)
         self.desktop = None
         self.aedtapp = None
-        self.aedt_apps = {
-            "Circuit Design": "Circuit",
-            "HFSS": "Hfss",
-            "EMIT": "Emit",
-            "HFSS 3D Layout Design": "Hfss3dLayout",
-            "Icepak": "Icepak",
-            "Maxwell 2D": "Maxwell2d",
-            "Maxwell 3D": "Maxwell3d",
-            "Maxwell Circuit": "MaxwellCircuit",
-            "2D Extractor": "Q2d",
-            "Q3D Extractor": "Q3d",
-            "RMxprt": "Rmxprt",
-            "Twin Builder": "Simplorer",
-            "Mechanical": "Mechanical",
-        }
 
-    def aedt_connected(self):
+    def is_aedt_connected(self) -> Tuple[bool, str]:
         """Check if AEDT is connected.
 
         Returns
         -------
         tuple[bool, str]
-            A tuple indicating the connection status and a message.
+            Tuple indicating the connection status and a message.
 
         Examples
         --------
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
         >>> import time
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> msg = toolkit_api.launch_aedt()
-        >>> # Wait until AEDT is launched
+        >>> response = toolkit_api.get_thread_status()
+        >>> while response[0] == 0:
+        >>>     time.sleep(1)
+        >>>     response = toolkit_api.get_thread_status()
         >>> toolkit_api.connect_aedt()
-        >>> toolkit_api.aedt_connected()
+        >>> toolkit_api.is_aedt_connected()
         (True, "Toolkit connected to process <process_id> on Grpc <grpc_port>")
         >>> toolkit_api.release_aedt()
         """
-        if self.desktop:
-            if self.desktop.port != 0:
-                msg = "Toolkit connected to process {} on Grpc {}".format(
-                    str(self.desktop.aedt_process_id),
-                    str(self.desktop.port),
-                )
-                logger.debug(msg)
-            else:
-                msg = "Toolkit connected to process {}".format(str(self.desktop.aedt_process_id))
-                logger.debug(msg)
-            connected = True
-        else:
-            msg = "Toolkit not connected to AEDT"
-            logger.debug(msg)
-            connected = False
+        tcs = ToolkitConnectionStatus(desktop=self.desktop)
+        connected = tcs.is_connected()
+        msg = str(tcs)
+        logger.debug(msg)
         return connected, msg
-
-    @staticmethod
-    def get_project_name(project_path):
-        """Get project name from project path.
-
-        Returns
-        -------
-        str
-            Project name
-        """
-        return os.path.splitext(os.path.basename(project_path))[0]
-
-    def get_design_names(self):
-        """Get design names for a specific project, the first one is the active.
-
-        Returns
-        -------
-        bool
-            ``True`` when successful, ``False`` when failed.
-
-        Examples
-        --------
-        >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
-        >>> toolkit_api.launch_aedt()
-        >>> # Wait until AEDT is launched
-        >>> toolkit_api.get_design_names()
-        """
-        if properties.selected_process == 0:
-            logger.error("Process ID not defined")
-            return False
-
-        design_list = []
-        active_project = self.get_project_name(properties.active_project)
-        if active_project and active_project != "No project":
-            for design in properties.design_list[active_project]:
-                design_list.append(design)
-
-            if properties.active_design and properties.active_design in design_list:
-                index = design_list.index(properties.active_design)
-                design_list.insert(0, design_list.pop(index))
-
-        return design_list
 
     @thread.launch_thread
     def launch_aedt(self):
@@ -136,57 +299,43 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         """
         # Check if the backend is already connected to an AEDT session
-        connected, msg = self.aedt_connected()
+        connected, msg = self.is_aedt_connected()
         if not connected:
-            version = properties.aedt_version
-            non_graphical = properties.non_graphical
-            selected_process = properties.selected_process
-            use_grpc = properties.use_grpc
+            logger.debug("Launching AEDT.")
+            pyaedt.settings.use_grpc_api = properties.use_grpc
+            desktop_args = {
+                "specified_version": properties.aedt_version,
+                "non_graphical": properties.non_graphical,
+            }
 
-            pyaedt.settings.use_grpc_api = use_grpc
-            if selected_process == 0:  # pragma: no cover
-                # Launch AEDT with COM
-                self.desktop = pyaedt.Desktop(
-                    specified_version=version,
-                    non_graphical=non_graphical,
-                    new_desktop_session=True,
-                )
-            elif use_grpc:
-                # Launch AEDT with GRPC
-                self.desktop = pyaedt.Desktop(
-                    specified_version=version,
-                    non_graphical=non_graphical,
-                    port=selected_process,
-                    new_desktop_session=False,
-                )
+            # AEDT with COM
+            if properties.selected_process == 0:  # pragma: no cover
+                desktop_args["new_desktop_session"] = True
+            # AEDT with gRPC
+            elif properties.use_grpc:
+                desktop_args["new_desktop_session"] = False
+                desktop_args["port"] = properties.selected_process
             else:  # pragma: no cover
-                self.desktop = pyaedt.Desktop(
-                    specified_version=version,
-                    non_graphical=non_graphical,
-                    aedt_process_id=selected_process,
-                    new_desktop_session=False,
-                )
+                desktop_args["new_desktop_session"] = False
+                desktop_args["aedt_process_id"] = properties.selected_process
+            self.desktop = pyaedt.Desktop(**desktop_args)
 
             if not self.desktop:
-                msg = "AEDT not launched"
-                logger.error(msg)
+                logger.error("AEDT not launched.")
                 return False
-
-            msg = "AEDT launched"
-            logger.debug(msg)
-
+            logger.debug("AEDT launched.")
             # Save AEDT session properties
-            if use_grpc:
+            if properties.use_grpc:
                 properties.selected_process = self.desktop.port
-                logger.debug("Grpc port {}".format(str(self.desktop.port)))
+                logger.debug("Grpc port {}.".format(str(self.desktop.port)))
             else:
                 properties.selected_process = self.desktop.aedt_process_id
-                logger.debug("Process ID {}".format(str(self.desktop.aedt_process_id)))
+                logger.debug("Process ID {}.".format(str(self.desktop.aedt_process_id)))
 
             self._save_project_info()
 
@@ -194,14 +343,13 @@ class Aedt:
                 # If there are projects not saved in the session, PyAEDT could find issues loading some properties
                 self.desktop.save_project()
 
-            self.desktop.release_desktop(False, False)
-            self.desktop = None
+            self.release_aedt(False, False)
 
-            logger.debug("Desktop released and project properties loaded")
+            logger.debug("Desktop released and project properties loaded.")
 
         return True
 
-    def connect_aedt(self):
+    def connect_aedt(self) -> bool:
         """Connect to an existing AEDT session.
 
         Returns
@@ -212,84 +360,84 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
+        >>> while response[0] == 0:
+        >>>     time.sleep(1)
+        >>>     response = toolkit_api.get_thread_status()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.release_aedt()
         """
         if properties.selected_process == 0:
-            logger.error("Process ID not defined")
+            logger.error("Process ID not defined.")
             return False
-        connected, msg = self.aedt_connected()
-        if not connected:
-            version = properties.aedt_version
-            non_graphical = properties.non_graphical
-            selected_process = properties.selected_process
-            use_grpc = properties.use_grpc
 
-            # Connect to AEDT
-            pyaedt.settings.use_grpc_api = use_grpc
-            logger.debug("Connecting AEDT")
-            if use_grpc:
-                # Launch AEDT with GRPC
-                self.desktop = pyaedt.Desktop(
-                    specified_version=version,
-                    non_graphical=non_graphical,
-                    port=selected_process,
-                    new_desktop_session=False,
-                )
-
-            else:  # pragma: no cover
-                self.desktop = pyaedt.Desktop(
-                    specified_version=version,
-                    non_graphical=non_graphical,
-                    aedt_process_id=selected_process,
-                    new_desktop_session=False,
-                )
-
-            if not self.desktop:  # pragma: no cover
-                logger.debug("AEDT not connected")
-                return False
-
-            logger.debug("AEDT connected")
+        is_aedt_connected = self.is_aedt_connected()
+        if is_aedt_connected[0]:
+            logger.debug("Toolkit is connected to AEDT.")
             return True
 
-    def connect_design(self, app_name=None):
+        # Connect to AEDT
+        pyaedt.settings.use_grpc_api = properties.use_grpc
+        logger.debug("Connecting AEDT.")
+
+        desktop_args = {
+            "specified_version": properties.aedt_version,
+            "non_graphical": properties.non_graphical,
+            "new_desktop_session": False,
+        }
+        if properties.use_grpc:
+            desktop_args["port"] = properties.selected_process
+        else:  # pragma: no cover
+            desktop_args["aedt_process_id"] = properties.selected_process
+        self.desktop = pyaedt.Desktop(**desktop_args)
+
+        if not self.desktop:  # pragma: no cover
+            logger.error("Toolkit is not connected to AEDT.")
+            return False
+
+        logger.debug("Toolkit is connected to AEDT.")
+        return True
+
+    def connect_design(self, app_name: Optional[str] = None):
         """Connect to an application design.
-        If a design exists, it takes the active project and design, if not,
-        it creates a new design of the specified type. If no application specified, the default is ``"Hfss"``.
+
+        If a design exists, this method uses the active project and design. If a design does not exist,
+        this method creates a design of the specified type. If no application is specified, the default is ``"Hfss"``.
 
         Parameters
         ----------
-        app_name : str, optional
-            Aedt application name. The default is connecting to active design. Application available are:
+        app_name : str
+            AEDT application name. Options are:
 
-            * Circuit Design
-            * HFSS
-            * Edb
-            * EMIT
-            * HFSS 3D Layout Design
-            * Icepak
-            * Maxwell 2D
-            * Maxwell 3D
-            * 2D Extractor
-            * Q3D Extractor
-            * Rmxprt
-            * Twin Builder
-            * Mechanical
+            * ``"Circuit"``
+            * ``"EMIT"``
+            * ``"HFSS"``
+            * ``"HFSS3DLayout"``
+            * ``"Icepak"``
+            * ``"Maxwell2D"``
+            * ``"Maxwell3D"``
+            * ``"Q2D"``
+            * ``"Q3D"``
+            * ``"Rmxprt"``
+            * ``"Twin Builder"``
+            * ``"Mechanical"``
 
         Returns
         -------
         bool
-            Returns ``True`` if the connection is successful, ``False`` otherwise.
+            Returns ``True`` if the connection to a design is successful, ``False`` otherwise.
 
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = AedtGeneric()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
+        >>> while response[0] == 0:
+        >>>     time.sleep(1)
+        >>>     response = toolkit_api.get_thread_status()
         >>> toolkit_api.connect_design()
 
         """
@@ -307,37 +455,38 @@ class Aedt:
         if not app_name:
             app_name = "HFSS"
 
+        # Select app
+        aedt_app = pyaedt.Hfss
         if design_name != "No design":
             project_name = self.get_project_name(project_name)
             self.aedtapp = self.desktop[[project_name, design_name]]
             active_design = self.aedtapp.design_name
-        elif app_name in list(self.aedt_apps.keys()):
+        elif app_name in list(NAME_TO_AEDT_APP.keys()):
             design_name = pyaedt.generate_unique_name(app_name)
-            aedt_app_attr = getattr(pyaedt, self.aedt_apps[app_name])
-
-            if properties.use_grpc:
-                self.aedtapp = aedt_app_attr(
-                    specified_version=properties.aedt_version,
-                    port=properties.selected_process,
-                    non_graphical=properties.non_graphical,
-                    new_desktop_session=False,
-                    projectname=project_name,
-                    designname=design_name,
-                )
-            else:
-                self.aedtapp = aedt_app_attr(
-                    specified_version=properties.aedt_version,
-                    aedt_process_id=properties.selected_process,
-                    non_graphical=properties.non_graphical,
-                    new_desktop_session=False,
-                    projectname=project_name,
-                    designname=design_name,
-                )
+            aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
             active_design = design_name
-            self.aedtapp.save_project()
         else:
-            logger.error("AEDT application not available in PyAEDT.")
-            return False
+            logger.info("AEDT application not available in PyAEDT. Creating HFSS design.")
+            design_name = pyaedt.generate_unique_name("Hfss")
+            active_design = design_name
+
+        if not self.aedtapp and aedt_app:
+            aedt_app_args = {
+                "specified_version": properties.aedt_version,
+                "port": properties.selected_process,
+                "non_graphical": properties.non_graphical,
+                "new_desktop_session": False,
+                "projectname": project_name,
+                "designname": active_design,
+            }
+            if properties.use_grpc:
+                aedt_app_args["port"] = properties.selected_process
+            else:
+                aedt_app_args["aedt_process_id"] = properties.selected_process
+
+            self.aedtapp = aedt_app(**aedt_app_args)
+            self.aedtapp.save_project()
+            self._save_project_info()
 
         if self.aedtapp:
             project_name = self.aedtapp.project_file
@@ -349,8 +498,11 @@ class Aedt:
                 properties.design_list[self.aedtapp.project_name].append(active_design)
             properties.active_project = project_name
             properties.active_design = active_design
-
+            logger.info("Toolkit is connected to AEDT design.")
             return True
+        else:
+            logger.error("Toolkit not connected to AEDT design.")
+            return False
 
     def release_aedt(self, close_projects=False, close_on_exit=False):
         """Release AEDT.
@@ -372,8 +524,8 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         >>> toolkit_api.release_aedt(True, True)
 
@@ -385,7 +537,7 @@ class Aedt:
                 self.desktop = None
                 self.aedtapp = None
             except:
-                logger.error("Desktop not released")
+                logger.error("Desktop not released.")
                 return False
 
         if self.aedtapp:
@@ -399,6 +551,7 @@ class Aedt:
         if not released and close_projects and close_on_exit:
             if self.connect_aedt():
                 self.desktop.release_desktop(close_projects, close_on_exit)
+        logger.info("Desktop released.")
         return True
 
     def open_project(self, project_name=None):
@@ -417,8 +570,8 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         >>> toolkit_api.open_project("path/to/file")
         >>> toolkit_api.release_aedt()
@@ -454,8 +607,8 @@ class Aedt:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Aedt
-        >>> toolkit_api = Aedt()
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.save_project()
@@ -474,12 +627,63 @@ class Aedt:
                     del properties.design_list[old_project_name]
             else:
                 self.aedtapp.save_project()
-            self.aedtapp.release_desktop(False, False)
+            self.release_aedt(False, False)
             logger.debug("Project saved: {}".format(project_path))
             return True
         else:  # pragma: no cover
             logger.error("Project not saved")
             return False
+
+    @staticmethod
+    def get_project_name(project_path) -> str:
+        """Get project name from project path.
+
+        Returns
+        -------
+        str
+            Project name
+        """
+        return os.path.splitext(os.path.basename(project_path))[0]
+
+    @staticmethod
+    def get_design_names() -> List[str]:
+        """Get design names for a specific project.
+
+        The first design name returned is the active design.
+
+        Returns
+        -------
+        list
+            List of design names.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
+        >>> toolkit_api.launch_aedt()
+        >>> while response[0] == 0:
+        >>>     time.sleep(1)
+        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.get_design_names()
+        """
+        design_list: List[str] = []
+        if properties.selected_process == 0:
+            logger.error("Process ID not defined")
+            return design_list
+
+        active_project = os.path.splitext(os.path.basename(properties.active_project))[0]
+        if active_project and active_project != "No project":
+            for design in properties.designs_by_project_name[active_project]:
+                design_list.append(design)
+
+            if properties.active_design in design_list:
+                index = design_list.index(properties.active_design)
+                design_list.insert(0, design_list.pop(index))
+            else:
+                design_list.append(properties.active_design)
+
+        return design_list
 
     def _save_project_info(self):
         # Save project and design info
@@ -530,24 +734,23 @@ class Aedt:
                         new_properties["design_list"][project_name].append(design_name)
 
         if new_properties:
-            for key in new_properties:
-                setattr(properties, key, new_properties[key])
+            self.set_properties(new_properties)
 
 
-class Edb:
+class EDBCommon(Common):
     """Generic API to control EDB.
 
     It provides basic functions to control AEDT and properties to share between backend and frontend.
 
     Examples
     --------
-    >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api import Edb
-    >>> toolkit_api = Edb()
+    >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
+    >>> toolkit_api = EDBCommon()
     >>> toolkit_api.load_edb("path/to/file")
     """
 
     def __init__(self):
+        Common.__init__(self)
         self.edb = None
 
     def load_edb(self, edb_path=None):
@@ -566,8 +769,8 @@ class Edb:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Edb
-        >>> toolkit_api = Edb()
+        >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
+        >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")
         >>> toolkit_api.close_edb()
         """
@@ -596,8 +799,8 @@ class Edb:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Edb
-        >>> toolkit_api = Edb()
+        >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
+        >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")
         >>> toolkit_api.close_edb()
         """
@@ -625,8 +828,8 @@ class Edb:
         Examples
         --------
         >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import Edb
-        >>> toolkit = Edb()
+        >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
+        >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")
         >>> toolkit_api.save_edb("path/to/new_file")
         >>> toolkit_api.close_edb()
@@ -640,205 +843,3 @@ class Edb:
             logger.info("Project {} saved".format(edb_path))
             return True
         return False
-
-
-class Backend(Aedt, Edb):
-    """Generic API to control the toolkits.
-
-    It provides basic functions to control AEDT and properties to share between backend and frontend.
-
-    Examples
-    --------
-    >>> import time
-    >>> from ansys.aedt.toolkits.common.backend.api import Backend
-    >>> toolkit_api = Backend()
-    >>> properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2023.2"}
-    >>> toolkit_api.set_properties(new_properties)
-    >>> new_properties = toolkit_api.get_properties()
-    >>> msg = toolkit_api.launch_aedt()
-    >>> response = toolkit_api.get_thread_status()
-    >>> while response[0] == 0:
-    >>>     time.sleep(1)
-    >>>     response = toolkit_api.get_thread_status()
-    >>> toolkit_api.connect_design()
-    >>> toolkit_api.release_aedt()
-    """
-    def __init__(self):
-        Aedt.__init__(self)
-        Edb.__init__(self)
-        self.properties = properties
-
-    @staticmethod
-    def set_properties(data):
-        """Assign the passed data to the internal data model.
-
-        Parameters
-        ----------
-        data : dict
-            The dictionary containing the properties to be updated.
-
-        Returns
-        -------
-        tuple[bool, str]
-            A tuple indicating the success status and a message.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit_api = Backend()
-        >>> toolkit_api.set_properties({"property1": value1, "property2": value2})
-
-        """
-
-        logger.debug("Updating the internal properties")
-        if data:
-            try:
-                for key in data:
-                    setattr(properties, key, data[key])
-                msg = "properties updated successfully"
-                logger.debug(msg)
-                return True, msg
-            except:
-                return False, "Frozen property access"
-        else:
-            msg = "body is empty!"
-            logger.debug(msg)
-            return False, msg
-
-    @staticmethod
-    def get_properties():
-        """Get toolkit properties.
-
-        Returns
-        -------
-        dict
-            The dictionary containing the toolkit properties.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit_api = Backend()
-        >>> toolkit_api.get_properties()
-        {"property1": value1, "property2": value2}
-        """
-        return properties.export_to_dict()
-
-    @staticmethod
-    def get_thread_status():
-        """Get toolkit thread status.
-
-        Returns
-        -------
-        bool
-            ``True`` when active, ``False`` when not active.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit_api = Backend()
-        >>> toolkit_api.get_thread_status()
-        """
-        thread_running = thread.is_thread_running()
-        is_toolkit_busy = properties.is_toolkit_busy
-        if thread_running and is_toolkit_busy:  # pragma: no cover
-            msg = "Backend running"
-            # logger.debug(msg)
-            return 0, msg
-        elif (not thread_running and is_toolkit_busy) or (thread_running and not is_toolkit_busy):  # pragma: no cover
-            msg = "Backend crashed"
-            logger.error(msg)
-            return 1, msg
-        else:
-            msg = "Backend free"
-            logger.debug(msg)
-            return -1, msg
-
-    @staticmethod
-    def installed_aedt_version():
-        """
-        Return the installed AEDT versions.
-
-        Returns
-        -------
-        list
-            List of installed AEDT versions.
-
-        Examples
-        --------
-        >>> >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit_api = Backend()
-        >>> toolkit_api.installed_aedt_version()
-        ["2021.1", "2021.2", "2022.1"]
-        """
-
-        # Detect existing AEDT installation
-        installed_versions = []
-        for ver in pyaedt.misc.list_installed_ansysem():
-            installed_versions.append(
-                "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
-            )
-        logger.debug(str(installed_versions))
-        return installed_versions
-
-    @staticmethod
-    def aedt_sessions():
-        """Get information for the active AEDT sessions.
-
-        Returns
-        -------
-        list
-            List of AEDT PIDs.
-
-        Examples
-        --------
-        >>> from ansys.aedt.toolkits.common.backend.api import Backend
-        >>> toolkit_api = Backend()
-        >>> toolkit_api.aedt_sessions()
-        [[pid1, grpc_port1], [pid2, grpc_port2]]
-        """
-        if not properties.is_toolkit_busy:
-            version = properties.aedt_version
-            keys = ["ansysedt.exe"]
-            if not version:
-                return []
-            if version and "." in version:
-                version = version[-4:].replace(".", "")
-            if version < "222":  # pragma: no cover
-                version = version[:2] + "." + version[2]
-            sessions = []
-            for p in psutil.process_iter():
-                try:
-                    if p.name() in keys:
-                        cmd = p.cmdline()
-                        if not version or (version and version in cmd[0]):
-                            if "-grpcsrv" in cmd:
-                                if not version or (version and version in cmd[0]):
-                                    try:
-                                        sessions.append(
-                                            [
-                                                p.pid,
-                                                int(cmd[cmd.index("-grpcsrv") + 1]),
-                                            ]
-                                        )
-                                    except IndexError:
-                                        sessions.append(
-                                            [
-                                                p.pid,
-                                                -1,
-                                            ]
-                                        )
-                            else:
-                                sessions.append(
-                                    [
-                                        p.pid,
-                                        -1,
-                                    ]
-                                )
-                except:
-                    pass
-            logger.debug(str(sessions))
-            return sessions
-        else:
-            logger.debug("No active sessions")
-            return []

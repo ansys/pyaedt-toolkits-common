@@ -1,13 +1,13 @@
 import time
-from ansys.aedt.toolkits.common.backend.api import Backend
+
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 # Object with generic methods to control the toolkits
-toolkit = Backend()
+toolkit = AEDTCommon()
 
-# Get default properties
+# Get properties
 properties = toolkit.get_properties()
-# You can also get and set properties through the toolkit object
-assert properties == toolkit.properties.export_to_dict()
 
 # Get AEDT sessions
 sessions = toolkit.aedt_sessions()
@@ -20,10 +20,9 @@ else:
     use_grpc = True
     selected_process = sessions[0][1]
 
-# Set properties - at least one AEDT should be open
-toolkit.properties.aedt_version = "2023.2"
-toolkit.properties.selected_process = selected_process
-toolkit.properties.use_grpc = use_grpc
+# Set properties
+new_properties = {"selected_process": selected_process, "use_grpc": use_grpc}
+flag, msg = toolkit.set_properties(new_properties)
 
 # Get new properties
 new_properties = toolkit.get_properties()
@@ -32,12 +31,12 @@ new_properties = toolkit.get_properties()
 msg2 = toolkit.launch_aedt()
 
 # Get thread status
-response = toolkit.get_thread_status()
+status = toolkit.get_thread_status()
 
 # Wait until AEDT is launched.
-while response[0] == 0:
+while status == ToolkitThreadStatus.BUSY:
     time.sleep(1)
-    response = toolkit.get_thread_status()
+    status = toolkit.get_thread_status()
 
 # Get new properties. Now the properties should contain the project information.
 new_properties = toolkit.get_properties()
@@ -46,13 +45,12 @@ new_properties = toolkit.get_properties()
 flag2 = toolkit.connect_design("HFSS")
 
 # Get new properties. Now the properties should contain the design information.
-new_properties = toolkit.get_properties()
+properties_aedt = toolkit.get_properties()
 
 # Create a box
+toolkit.logger.info("Create Box")
 box = toolkit.aedtapp.modeler.create_box([100, 10, 10], [20, 20, 20])
 box_name = box.name
 
 # Release aedt
 flag3 = toolkit.release_aedt()
-
-

@@ -1,6 +1,8 @@
-import numpy as np
-import os
 import json
+import os
+
+import numpy as np
+
 from ansys.aedt.toolkits.common.backend.properties import properties
 
 # Load toolkit properties
@@ -11,11 +13,11 @@ for key, value in _properties.items():
     setattr(properties, key, value)
 properties._freeze()
 
-from ansys.aedt.toolkits.common.backend.api import Backend
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
 
-class ToolkitBackend(Backend):
+class ToolkitBackend(AEDTCommon):
     """Template API to control the toolkit workflow.
 
     This class provides methods to connect to a selected design and create geometries.

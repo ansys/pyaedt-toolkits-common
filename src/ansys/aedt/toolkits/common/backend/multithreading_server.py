@@ -5,14 +5,14 @@ import socketserver
 import threading
 import wsgiref.simple_server
 
-# techniques described here taken from
+# techniques described here are taken from:
 # https://gist.github.com/coffeesnake/3093598
 # https://bottlepy.org/docs/dev/recipes.html
 # https://adamj.eu/tech/2019/05/27/the-simplest-wsgi-middleware/
 # https://stackoverflow.com/questions/25155267/how-to-send-a-signal-to-the-main-thread-in-python-without-using-join
 # https://en.wikipedia.org/wiki/Callable_object#In_Python
 
-# The content of this file is copyright of the respective owners
+# The contents of this file are copyrighted by their respective owners.
 
 
 class ThreadingWSGIServer(socketserver.ThreadingMixIn, wsgiref.simple_server.WSGIServer):
@@ -44,12 +44,12 @@ class SingleThreadResponseExecutor(object):
         return invoker.get_result()
 
     def execute_responses_on_this_thread(self):
-        print("press control-c to terminate")
+        print("Press ctrl+c to terminate.")
         while True:
             try:
                 self._queue.get().invoke()
             except KeyboardInterrupt:
-                print("got keyboard interrupt")
+                print("Got keyboard interrupt.")
                 break
 
 
@@ -65,7 +65,7 @@ class MultithreadingServer:
 
         httpd = wsgiref.simple_server.make_server(host, port, app=executor, server_class=server_cls)
 
-        print("listening on {}:{}".format(host, port))
+        print("Listening on {}:{}.".format(host, port))
         server_thread = threading.Thread(target=httpd.serve_forever)
         # ensure thread dies on termination
         # normally this would be dodgy but this thread doesn't hold anything other than sockets
