@@ -2,26 +2,26 @@ import logging
 import os.path
 import tempfile
 
-from ansys.aedt.toolkits.common.backend.models import properties
+from ansys.aedt.toolkits.common.backend.models import common_properties
 
 # Create a logger
 logger = logging.getLogger(__name__)
 
-if properties.debug:
+if common_properties.debug:
     # Set log level (e.g., DEBUG, INFO, WARNING, ERROR)
     logger.setLevel(logging.DEBUG)
 
     # Create a file handler for the logger
-    if properties.log_file:
-        if os.path.isabs(properties.log_file):
-            temp_dir = properties.log_file
+    if common_properties.log_file:
+        if os.path.isabs(common_properties.log_file):
+            temp_dir = common_properties.log_file
         else:
-            temp_dir = os.path.join(tempfile.gettempdir(), properties.log_file)
+            temp_dir = os.path.join(tempfile.gettempdir(), common_properties.log_file)
         if not os.path.exists(temp_dir):
             file = open(temp_dir, "w")
             file.close()
 
-        log_file = properties.log_file = temp_dir
+        log_file = common_properties.log_file = temp_dir
         file_handler = logging.FileHandler(log_file)
 
         # Set the log format

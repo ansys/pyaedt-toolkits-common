@@ -1,6 +1,5 @@
 import json
 import os
-from typing import Any
 from typing import Dict
 from typing import List
 
@@ -11,7 +10,6 @@ from pydantic import Field
 class CommonProperties(BaseModel):
     """Store common AEDT properties."""
 
-    toolkit: Dict[str, Any] = Field(default_factory=dict)
     aedt_version: str = "2023.2"
     non_graphical: bool = False
     active_project: str = ""
@@ -30,30 +28,10 @@ class CommonProperties(BaseModel):
 class Properties(CommonProperties, validate_assignment=True):
     """Store all properties."""
 
-    def update_toolkit(self, toolkit_update: Dict[str, Any]):
-        self.toolkit.update(toolkit_update)
-
 
 common_kwargs = {}
 if os.path.expanduser(os.path.join(os.path.dirname(__file__), "common_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "common_properties.json")) as file_handler:
         common_kwargs = json.load(file_handler)
 
-backend_kwargs = {}
-current_dir = os.getcwd()
-backend_properties_file = os.path.expanduser(os.path.join(current_dir, "backend_properties.json"))
-if os.path.exists(backend_properties_file):
-    with open(backend_properties_file) as file_handler:
-        backend_kwargs = json.load(file_handler)
-
-toolkit_property = {}
-if backend_kwargs:
-    for backend_key, new_property_value in backend_kwargs.items():
-        if backend_key in common_kwargs:
-            common_kwargs[backend_key] = new_property_value
-        else:
-            toolkit_property[backend_key] = new_property_value
-
-properties = Properties(**common_kwargs)
-
-properties.update_toolkit(toolkit_property)
+common_properties = Properties(**common_kwargs)

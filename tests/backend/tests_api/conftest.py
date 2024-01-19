@@ -14,6 +14,8 @@ directory as this module. An example of the contents of local_config.json
   "use_grpc": true
 }
 
+You can enable the API log file in the backend_properties.json.
+
 """
 
 import json
@@ -21,28 +23,19 @@ import logging
 import os
 import shutil
 import tempfile
+import time
 
 from pyaedt import settings
 from pyaedt.generic.filesystem import Scratch
 import pytest
 
-from ansys.aedt.toolkits.common.backend.models import properties
-
-properties.debug = False
-
-from ansys.aedt.toolkits.common.backend.api import Common
-
-# from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
+from tests.backend.tests_api.models import properties
 
 # Constants
 PROJECT_NAME = "Test"
 AEDT_DEFAULT_VERSION = "2023.2"
 
-config = {
-    "desktop_version": AEDT_DEFAULT_VERSION,
-    "non_graphical": True,
-    "use_grpc": True,
-}
+config = {"desktop_version": AEDT_DEFAULT_VERSION, "non_graphical": True, "use_grpc": True}
 
 # Check for the local config file, override defaults if found
 local_path = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +44,16 @@ if os.path.exists(local_config_file):
     with open(local_config_file) as f:
         local_config = json.load(f)
     config.update(local_config)
+
+properties.use_grpc = config.get("use_grpc", True)
+properties.non_graphical = config["non_graphical"]
+properties.aedt_version = config["desktop_version"]
+
+# from ansys.aedt.toolkits.common.backend.api import EDBCommon
+# The import should be here to have the updated properties
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+from ansys.aedt.toolkits.common.backend.api import Common
+from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 settings.enable_error_handler = False
 settings.enable_desktop_logs = False
@@ -62,7 +65,7 @@ local_scratch = Scratch(scratch_path)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-log_file = os.path.join(local_scratch.path, "pytest_log.log")
+log_file = os.path.join(local_scratch.path, "pytest_api.log")
 file_handler = logging.FileHandler(log_file)
 formatter = logging.Formatter("%(levelname)s - %(message)s")
 file_handler.setFormatter(formatter)
@@ -78,12 +81,33 @@ logger.addHandler(console_handler)
 @pytest.fixture(scope="session", autouse=True)
 def common(request):
     logger.info("Common API initialization")
-    common_api = Common()
+    common_api = Common(properties)
     yield common_api
     logger.info("Common API closed.")
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
+
+
+@pytest.fixture(scope="session", autouse=True)
+def aedt_common(request):
+    logger.info("AEDTCommon API initialization")
+    aedt_common = AEDTCommon(properties)
+    aedt_common.launch_thread(aedt_common.launch_aedt)
+    wait_toolkit(aedt_common)
+    yield aedt_common
+    aedt_common.release_aedt(True, True)
+    # Check if any test has failed
+    if request.session.testsfailed == 0:
+        cleanup_process()
+
+
+def wait_toolkit(aedt_common):
+    """Wait for the toolkit thread to be idle and ready to accept new task."""
+    status = aedt_common.get_thread_status()
+    while status == ToolkitThreadStatus.BUSY:
+        time.sleep(1)
+        status = aedt_common.get_thread_status()
 
 
 failed_tests = set()

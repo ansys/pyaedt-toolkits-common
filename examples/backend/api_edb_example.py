@@ -5,6 +5,11 @@ import tempfile
 
 from ansys.aedt.toolkits.common.backend.api import EDBCommon
 
+# If you want to add backend_properties.json to the Properties, you need to import:
+# from models import properties
+# And pass it to EDBCommon()
+
+
 local_path = os.path.dirname(os.path.realpath(__file__))
 test_folder = "common_toolkit_example_" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
 scratch_path = os.path.join(tempfile.gettempdir(), test_folder)

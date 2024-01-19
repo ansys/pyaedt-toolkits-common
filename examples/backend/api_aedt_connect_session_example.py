@@ -1,13 +1,15 @@
 import time
 
+from models import properties
+
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 # Object with generic methods to control the toolkits
-toolkit = AEDTCommon()
+toolkit = AEDTCommon(properties)
 
 # Get properties
-properties = toolkit.get_properties()
+new_properties = toolkit.get_properties()
 
 # Get AEDT sessions
 sessions = toolkit.aedt_sessions()
@@ -28,7 +30,7 @@ flag, msg = toolkit.set_properties(new_properties)
 new_properties = toolkit.get_properties()
 
 # Launch AEDT. This is launched in a thread, so the script and the launch_aedt call run in parallel.
-msg2 = toolkit.launch_aedt()
+msg2 = toolkit.launch_thread(toolkit.launch_aedt)
 
 # Get thread status
 status = toolkit.get_thread_status()

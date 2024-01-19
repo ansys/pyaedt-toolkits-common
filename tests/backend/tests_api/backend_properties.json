@@ -1,0 +1,8 @@
+{
+  "debug" : true,
+  "log_file" : "test_api.log",
+  "desktop_version": "2023.2",
+  "non_graphical": true,
+  "use_grpc": true,
+  "new_property": true
+}
