@@ -19,7 +19,7 @@ if not os.path.exists(scratch_path):
     except:
         pass
 example_project = shutil.copytree(
-    os.path.join(local_path, "example_models", "edb_edge_ports.aedb"), os.path.join(scratch_path, "edb_edge_ports.aedb")
+    os.path.join(local_path, "example_models", "edb_test.aedb"), os.path.join(scratch_path, "edb_test.aedb")
 )
 
 # Object with generic methods to control the toolkits

@@ -21,6 +21,7 @@ You can enable the API log file in the backend_properties.json.
 import json
 import logging
 import os
+import pathlib
 import shutil
 import tempfile
 import time
@@ -28,8 +29,7 @@ import time
 from pyaedt import settings
 from pyaedt.generic.filesystem import Scratch
 import pytest
-
-from tests.backend.tests_api.models import properties
+from tests_api.models import properties
 
 # Constants
 PROJECT_NAME = "Test"
@@ -49,10 +49,10 @@ properties.use_grpc = config.get("use_grpc", True)
 properties.non_graphical = config["non_graphical"]
 properties.aedt_version = config["desktop_version"]
 
-# from ansys.aedt.toolkits.common.backend.api import EDBCommon
 # The import should be here to have the updated properties
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import Common
+from ansys.aedt.toolkits.common.backend.api import EDBCommon
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 settings.enable_error_handler = False
@@ -62,6 +62,15 @@ settings.non_graphical = config["non_graphical"]
 
 scratch_path = tempfile.gettempdir()
 local_scratch = Scratch(scratch_path)
+
+input_data_dir = pathlib.Path(__file__).parent.parent.parent
+aedt_project = os.path.join(input_data_dir, "input_data", "Test.aedt")
+aedt_scratch = shutil.copy(aedt_project, local_scratch.path)
+
+edb_scratch = shutil.copytree(
+    os.path.join(input_data_dir, "input_data", "edb_test.aedb"), os.path.join(local_scratch.path, "edb_test.aedb")
+)
+
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -78,25 +87,37 @@ console_handler.setFormatter(formatter)
 logger.addHandler(console_handler)
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def common(request):
     logger.info("Common API initialization")
     common_api = Common(properties)
     yield common_api
-    logger.info("Common API closed.")
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="session")
 def aedt_common(request):
     logger.info("AEDTCommon API initialization")
     aedt_common = AEDTCommon(properties)
     aedt_common.launch_thread(aedt_common.launch_aedt)
-    wait_toolkit(aedt_common)
-    yield aedt_common
-    aedt_common.release_aedt(True, True)
+    is_aedt_launched = wait_toolkit(aedt_common)
+    if is_aedt_launched:
+        yield aedt_common
+        aedt_common.release_aedt(True, True)
+    else:
+        logger.error("AEDT is not launched")
+    # Check if any test has failed
+    if request.session.testsfailed == 0:
+        cleanup_process()
+
+
+@pytest.fixture(scope="session")
+def edb_common(request):
+    logger.info("EDBCommon API initialization")
+    edb_common = EDBCommon(properties)
+    yield edb_common
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
@@ -104,10 +125,16 @@ def aedt_common(request):
 
 def wait_toolkit(aedt_common):
     """Wait for the toolkit thread to be idle and ready to accept new task."""
+    time.sleep(1)
     status = aedt_common.get_thread_status()
+    cont = 0
     while status == ToolkitThreadStatus.BUSY:
         time.sleep(1)
+        cont += 1
         status = aedt_common.get_thread_status()
+        if cont == 60:
+            return False
+    return True
 
 
 failed_tests = set()
@@ -132,6 +159,16 @@ def assert_handler(request):
     request.addfinalizer(finalizer)
 
     return assert_handler
+
+
+@pytest.fixture(scope="session")
+def aedt_example():
+    return aedt_scratch
+
+
+@pytest.fixture(scope="session")
+def edb_example():
+    return edb_scratch
 
 
 def cleanup_process():

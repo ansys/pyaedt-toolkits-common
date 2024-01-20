@@ -379,7 +379,7 @@ class AEDTCommon(Common):
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.release_aedt()
         """
-        if self.properties.selected_process == 0:
+        if self.properties.selected_process == 0:  # pragma: no cover
             logger.error("Process ID not defined.")
             return False
 
@@ -451,11 +451,15 @@ class AEDTCommon(Common):
         >>> toolkit_api.connect_design()
 
         """
-        if not self.connect_aedt():
+
+        if self.aedtapp:
+            self.release_aedt()
+
+        if not self.connect_aedt():  # pragma: no cover
             return False
 
         project_name = self.properties.active_project
-        design_name = "No design"
+        design_name = "No Design"
 
         if self.properties.active_design:
             design_name = self.properties.active_design
@@ -467,10 +471,15 @@ class AEDTCommon(Common):
 
         # Select app
         aedt_app = pyaedt.Hfss
-        if design_name != "No design":
+        if design_name != "No Design":
             project_name = self.get_project_name(project_name)
-            self.aedtapp = self.desktop[[project_name, design_name]]
-            active_design = self.aedtapp.design_name
+            if design_name in self.properties.design_list[project_name]:
+                self.aedtapp = self.desktop[[project_name, design_name]]
+                if self.aedtapp:
+                    active_design = self.aedtapp.design_name
+                else:  # pragma: no cover
+                    logger.error("Wrong active project and design.")
+                    return False
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
             design_name = pyaedt.generate_unique_name(app_name)
             aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
@@ -510,7 +519,7 @@ class AEDTCommon(Common):
             self.properties.active_design = active_design
             logger.info("Toolkit is connected to AEDT design.")
             return True
-        else:
+        else:  # pragma: no cover
             logger.error("Toolkit not connected to AEDT design.")
             return False
 
@@ -586,6 +595,8 @@ class AEDTCommon(Common):
         >>> toolkit_api.release_aedt()
 
         """
+        if self.aedtapp:
+            self.release_aedt()
         if not self.connect_aedt():
             return False
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
@@ -621,10 +632,11 @@ class AEDTCommon(Common):
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.save_project()
         """
-        if self.connect_design():
+        if self.connect_aedt():
             if project_path and self.properties.active_project != project_path:
                 old_project_name = self.get_project_name(self.properties.active_project)
-                self.aedtapp.save_project(project_file=os.path.abspath(project_path))
+                active_project_name = self.get_project_name(self.properties.active_project)
+                self.desktop.save_project(project_path=os.path.abspath(project_path), project_name=active_project_name)
                 index = self.properties.project_list.index(self.properties.active_project)
                 self.properties.project_list.pop(index)
                 self.properties.active_project = project_path
@@ -634,7 +646,7 @@ class AEDTCommon(Common):
                 if old_project_name != new_project_name:
                     del self.properties.design_list[old_project_name]
             else:
-                self.aedtapp.save_project()
+                self.desktop.save_project()
             self.release_aedt(False, False)
             logger.debug("Project saved: {}".format(project_path))
             return True
@@ -675,13 +687,13 @@ class AEDTCommon(Common):
         >>> toolkit_api.get_design_names()
         """
         design_list: List[str] = []
-        if self.properties.selected_process == 0:
+        if self.properties.selected_process == 0:  # pragma: no cover
             logger.error("Process ID not defined")
             return design_list
 
         active_project = os.path.splitext(os.path.basename(self.properties.active_project))[0]
         if active_project and active_project != "No project":
-            for design in self.properties.designs_by_project_name[active_project]:
+            for design in self.properties.design_list[active_project]:
                 design_list.append(design)
 
             if self.properties.active_design in design_list:
@@ -792,7 +804,7 @@ class EDBCommon(Common):
         if self.edb:
             logger.error("Close EDB")
             return False
-        if not edb_path:
+        if not edb_path:  # pragma: no cover
             edb_path = self.properties.active_project
         if os.path.exists(edb_path):
             aedt_version = self.properties.aedt_version
@@ -800,8 +812,9 @@ class EDBCommon(Common):
             self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
             logger.debug("Project {} opened".format(edb_path))
             return True
-        logger.error("Project {} does not exist".format(edb_path))
-        return False
+        else:
+            logger.error("Project {} does not exist".format(edb_path))
+            return False
 
     def close_edb(self):
         """Close EDB project.
@@ -824,8 +837,9 @@ class EDBCommon(Common):
             self.edb = None
             logger.error("Edb closed")
             return True
-        logger.error("Edb not initialized")
-        return False
+        else:
+            logger.error("Edb not initialized")
+            return False
 
     def save_edb(self, edb_path=None):
         """Save EDB project.
