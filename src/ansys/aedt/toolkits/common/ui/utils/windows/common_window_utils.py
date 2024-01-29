@@ -1,6 +1,7 @@
-from PySide6.QtWidgets import *
 from PySide6.QtCore import *
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+from PySide6.QtWidgets import *
+
+from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.widgets import *
 
 
@@ -123,13 +124,7 @@ class CommonWindowUtils(object):
         """
         return self.title_bar_frame.findChild(QPushButton, object_name)
 
-    def add_combobox(self,
-                     layout,
-                     height=40,
-                     width=None,
-                     label='label1',
-                     combobox_list=None,
-                     font_size=12):
+    def add_combobox(self, layout, height=40, width=None, label="label1", combobox_list=None, font_size=12):
         """
         Adds a label and combobox to a layout.
 
@@ -165,9 +160,7 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(
-            text=label, font_size=font_size, color=text_foreground
-        )
+        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
         label_widget.setMinimumHeight(height)
         label_widget.setFixedWidth(width[0])
         layout_row.addWidget(label_widget)
@@ -209,7 +202,7 @@ class CommonWindowUtils(object):
             A tuple containing the layout row, label object, toggle object, and second label object
         """
 
-        label = label or ['label1', 'label2']
+        label = label or ["label1", "label2"]
         width = width or [50, 100, 50]
 
         layout_row = QHBoxLayout()
@@ -232,7 +225,7 @@ class CommonWindowUtils(object):
 
         return layout_row, label1, toggle, label2
 
-    def add_icon_button(self, layout, icon, height=40, width=None, text='lineedit'):
+    def add_icon_button(self, layout, icon, height=40, width=None, text="lineedit"):
         """
         Add icon button.
 
@@ -273,7 +266,7 @@ class CommonWindowUtils(object):
             icon_color_active=self._get_color_theme("icon_active"),
             bg_color=self._get_color_theme("dark_one"),
             bg_color_hover=self._get_color_theme("dark_three"),
-            bg_color_pressed=self._get_color_theme("pink")
+            bg_color_pressed=self._get_color_theme("pink"),
         )
         button_obj1.setMinimumHeight(height)
         layout_row_obj.addWidget(button_obj1)
@@ -287,7 +280,7 @@ class CommonWindowUtils(object):
             selection_color=self._get_color_theme("white"),
             bg_color=self._get_color_theme("dark_one"),
             bg_color_active=self._get_color_theme("dark_three"),
-            context_color=self._get_color_theme("context_color")
+            context_color=self._get_color_theme("context_color"),
         )
         lineedit_obj.setMinimumHeight(height)
         layout_row_obj.addWidget(lineedit_obj)
@@ -296,7 +289,7 @@ class CommonWindowUtils(object):
 
         return [layout_row_obj, button_obj1, lineedit_obj]
 
-    def add_n_buttons(self, layout=None, num_buttons=1, height=40, width=[200], text=['button'], font_size=10):
+    def add_n_buttons(self, layout=None, num_buttons=1, height=40, width=[200], text=["button"], font_size=10):
         """
         Add a specified number of buttons to a layout object.
 
@@ -312,7 +305,8 @@ class CommonWindowUtils(object):
             The widths of the buttons. If list length is less than num_buttons, all buttons take the same width.
             Default is [200].
         text: list of str, optional
-            The texts to be displayed on the buttons. If list length is less than num_buttons, all buttons display the same text.
+            The texts to be displayed on the buttons.
+            If list length is less than num_buttons, all buttons display the same text.
             Default is ['button'].
         font_size: float or int, optional
             Font size. Default is ``10``.
@@ -486,17 +480,13 @@ class CommonWindowUtils(object):
             width=width,
             bg_color=self.themes["app_color"]["dark_one"],
             circle_color=self.themes["app_color"]["icon_color"],
-            active_color=self.themes["app_color"]["dark_one"]
+            active_color=self.themes["app_color"]["dark_one"],
         )
         toggle.setMaximumHeight(height)
         return toggle
 
     def _create_label(self, text, font_size, height, width):
-        label = PyLabel(
-            text=text,
-            font_size=font_size,
-            color=self.themes["app_color"]["text_foreground"]
-        )
+        label = PyLabel(text=text, font_size=font_size, color=self.themes["app_color"]["text_foreground"])
         label.setMinimumHeight(height)
         label.setAlignment(Qt.AlignLeft)
         label.setFixedWidth(width)
@@ -505,7 +495,7 @@ class CommonWindowUtils(object):
     def _get_color_theme(self, color_key):
         return self.themes["app_color"][color_key]
 
-    def _add_button(self, text='button', font_size=10):
+    def _add_button(self, text="button", font_size=10):
         button_obj = PyPushButton(
             text=text,
             radius=8,
@@ -513,6 +503,6 @@ class CommonWindowUtils(object):
             bg_color=self.themes["app_color"]["dark_one"],
             bg_color_hover=self.themes["app_color"]["dark_three"],
             bg_color_pressed=self.themes["app_color"]["dark_four"],
-            font_size=font_size
+            font_size=font_size,
         )
         return button_obj

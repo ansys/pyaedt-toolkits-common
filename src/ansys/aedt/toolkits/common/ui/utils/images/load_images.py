@@ -1,7 +1,8 @@
 import os
 import pathlib
+
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class LoadImages(object):
@@ -24,10 +25,10 @@ class LoadImages(object):
             return abs_path
 
     def icon_path(self, icon_name):
-        return self._build_asset_path('icons', icon_name)
+        return self._build_asset_path("icons", icon_name)
 
     def image_path(self, file_name):
-        return self._build_asset_path('files', file_name)
+        return self._build_asset_path("files", file_name)
 
     def _build_asset_path(self, folder, filename):
         path = os.path.join(self.images_path, folder, filename)

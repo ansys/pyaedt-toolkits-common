@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 import os
+import time
 from typing import Any
 from typing import Dict
 from typing import List
@@ -282,9 +283,7 @@ class AEDTCommon(Common):
         >>> toolkit_api = AEDTCommon()
         >>> msg = toolkit_api.launch_aedt()
         >>> response = toolkit_api.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.is_aedt_connected()
         (True, "Toolkit connected to process <process_id> on Grpc <grpc_port>")
@@ -373,9 +372,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.release_aedt()
         """
@@ -401,6 +398,7 @@ class AEDTCommon(Common):
             desktop_args["port"] = self.properties.selected_process
         else:  # pragma: no cover
             desktop_args["aedt_process_id"] = self.properties.selected_process
+
         self.desktop = pyaedt.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
@@ -445,9 +443,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_design()
 
         """
@@ -546,6 +542,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.release_aedt(True, True)
 
         """
@@ -591,6 +588,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.open_project("path/to/file")
         >>> toolkit_api.release_aedt()
 
@@ -629,6 +627,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.save_project()
         """
@@ -681,9 +680,7 @@ class AEDTCommon(Common):
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.get_design_names()
         """
         design_list: List[str] = []
@@ -703,6 +700,34 @@ class AEDTCommon(Common):
                 design_list.append(self.properties.active_design)
 
         return design_list
+
+    def wait_to_be_idle(self, timeout=60):
+        """Wait for the thread to be idle and ready to accept new task.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time out in seconds. The default is 60 seconds.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
+        >>> toolkit_api.get_design_names()
+        """
+        time.sleep(1)
+        status = self.get_thread_status()
+        cont = 0
+        while status == ToolkitThreadStatus.BUSY:
+            time.sleep(1)
+            cont += 1
+            status = self.get_thread_status()
+            if timeout and cont == timeout:
+                return False
+        return True
 
     def _save_project_info(self):
         # Save project and design info

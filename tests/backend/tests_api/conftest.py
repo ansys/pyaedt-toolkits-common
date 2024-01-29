@@ -24,7 +24,6 @@ import os
 import pathlib
 import shutil
 import tempfile
-import time
 
 from pyaedt import settings
 from pyaedt.generic.filesystem import Scratch
@@ -33,9 +32,12 @@ from tests_api.models import properties
 
 # Constants
 PROJECT_NAME = "Test"
-AEDT_DEFAULT_VERSION = "2023.2"
 
-config = {"desktop_version": AEDT_DEFAULT_VERSION, "non_graphical": True, "use_grpc": True}
+config = {
+    "desktop_version": properties.aedt_version,
+    "non_graphical": properties.non_graphical,
+    "use_grpc": properties.use_grpc,
+}
 
 # Check for the local config file, override defaults if found
 local_path = os.path.dirname(os.path.realpath(__file__))
@@ -49,11 +51,14 @@ properties.use_grpc = config.get("use_grpc", True)
 properties.non_graphical = config["non_graphical"]
 properties.aedt_version = config["desktop_version"]
 
+com_non_graphical = False
+if not properties.use_grpc and properties.non_graphical:
+    com_non_graphical = True
+
 # The import should be here to have the updated properties
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import Common
 from ansys.aedt.toolkits.common.backend.api import EDBCommon
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 settings.enable_error_handler = False
 settings.enable_desktop_logs = False
@@ -70,7 +75,6 @@ aedt_scratch = shutil.copy(aedt_project, local_scratch.path)
 edb_scratch = shutil.copytree(
     os.path.join(input_data_dir, "input_data", "edb_test.aedb"), os.path.join(local_scratch.path, "edb_test.aedb")
 )
-
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -101,13 +105,18 @@ def common(request):
 def aedt_common(request):
     logger.info("AEDTCommon API initialization")
     aedt_common = AEDTCommon(properties)
-    aedt_common.launch_thread(aedt_common.launch_aedt)
-    is_aedt_launched = wait_toolkit(aedt_common)
-    if is_aedt_launched:
+    if com_non_graphical:
+        logger.error("COM in non graphical not allowed")
         yield aedt_common
-        aedt_common.release_aedt(True, True)
     else:
-        logger.error("AEDT is not launched")
+        aedt_common.launch_thread(aedt_common.launch_aedt)
+        is_aedt_launched = aedt_common.wait_to_be_idle()
+        if is_aedt_launched:
+            yield aedt_common
+            aedt_common.release_aedt(True, True)
+        else:
+            logger.error("AEDT is not launched")
+
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
@@ -121,20 +130,6 @@ def edb_common(request):
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
-
-
-def wait_toolkit(aedt_common):
-    """Wait for the toolkit thread to be idle and ready to accept new task."""
-    time.sleep(1)
-    status = aedt_common.get_thread_status()
-    cont = 0
-    while status == ToolkitThreadStatus.BUSY:
-        time.sleep(1)
-        cont += 1
-        status = aedt_common.get_thread_status()
-        if cont == 60:
-            return False
-    return True
 
 
 failed_tests = set()
@@ -169,6 +164,13 @@ def aedt_example():
 @pytest.fixture(scope="session")
 def edb_example():
     return edb_scratch
+
+
+def skip_test(skip=False):
+    skip_flag = False
+    if com_non_graphical or skip:
+        skip_flag = True
+    return skip_flag
 
 
 def cleanup_process():

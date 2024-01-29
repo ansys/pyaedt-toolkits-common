@@ -1,6 +1,6 @@
 exclude: |
     (?x)(
-        src/ansys/aedt/toolkits/common/ui/ui_templates/.* |
+        src/ansys/aedt/toolkits/common/ui/.* |
         tests/input_data/.* |
         examples/input_files/.*
     )

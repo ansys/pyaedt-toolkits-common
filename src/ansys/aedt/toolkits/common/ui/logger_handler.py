@@ -2,7 +2,7 @@ import logging
 import os
 import tempfile
 
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 debug = general_settings.debug
 log_file = general_settings.log_file

@@ -1,7 +1,8 @@
-from PySide6.QtSvgWidgets import *
 from PySide6.QtCore import *
+from PySide6.QtSvgWidgets import *
 from PySide6.QtWidgets import *
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class MainWindow(object):
@@ -11,7 +12,6 @@ class MainWindow(object):
         self._app.setWindowTitle(general_settings.app_name)
 
     def setup_gui(self, main_window_logo=None):
-
         # Add title
         if not hasattr(general_settings, "main_title"):
             title = "Toolkit"
@@ -69,22 +69,23 @@ class MainWindow(object):
 
         self._app.ui.left_menu.select_only_one(selected_menu.objectName())
 
-        if selected_menu.objectName() == 'home_menu' and not is_left_visible:
+        if selected_menu.objectName() == "home_menu" and not is_left_visible:
             self._app.ui.set_page(self._app.ui.load_pages.home_page)
 
             self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(
                 menu=self._app.ui.left_column.menus.menu_home,
                 title="Home",
-                icon_path=self._app.ui.images_load.icon_path("icon_home.svg"))
+                icon_path=self._app.ui.images_load.icon_path("icon_home.svg"),
+            )
 
-        elif selected_menu.objectName() == 'top_settings' and not is_right_visible:
+        elif selected_menu.objectName() == "top_settings" and not is_right_visible:
             if is_left_visible:
                 self._app.ui.toggle_left_column()
             self._app.ui.toggle_right_column()
             self._app.ui.set_right_column_menu(title="Settings")
 
-        elif selected_menu.objectName() == 'progress_menu':
+        elif selected_menu.objectName() == "progress_menu":
             if is_left_visible:
                 self._app.ui.toggle_left_column()
             if is_progress_visible:

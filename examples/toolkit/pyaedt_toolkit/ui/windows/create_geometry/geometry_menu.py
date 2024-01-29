@@ -1,5 +1,9 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import QThread, Signal
+from PySide6.QtCore import QThread
+from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QComboBox
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWidgets import QVBoxLayout
 from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_page import Ui_Geometry
 
 
@@ -54,12 +58,8 @@ class GeometryMenu(object):
 
         # Create geometry button
         row_returns = self.ui.add_n_buttons(
-            geometry_button_layout,
-            num_buttons=1,
-            height=100,
-            width=[300],
-            text=["Create Geometry"],
-            font_size=20)
+            geometry_button_layout, num_buttons=1, height=100, width=[300], text=["Create Geometry"], font_size=20
+        )
 
         self.geometry_button_layout = row_returns[0]
         self.geometry_button = row_returns[1]
@@ -69,7 +69,7 @@ class GeometryMenu(object):
         # UI from Designer
 
         # Combo box
-        combo_box_style = '''
+        combo_box_style = """
             QComboBox {{
                 border: none;
                 padding: 10px;
@@ -83,14 +83,14 @@ class GeometryMenu(object):
                 background-color: {_bg_color};
                 color: {_color};
             }}
-        '''
-        custom_style = combo_box_style.format(_color=text_color,
-                                              _bg_color=background,
-                                              _font_size=self.app.general_settings.font["title_size"])
+        """
+        custom_style = combo_box_style.format(
+            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+        )
         self.geometry_combo.setStyleSheet(custom_style)
 
         # Multiplier line
-        line_style = '''
+        line_style = """
             QLineEdit {{
             border: none;
             padding: 10px;
@@ -99,36 +99,36 @@ class GeometryMenu(object):
             selection-background-color: red;
             font-size: {_font_size}pt;
             }}
-        '''
-        custom_style = line_style.format(_color=text_color,
-                                         _bg_color=background,
-                                         _font_size=self.app.general_settings.font["title_size"])
+        """
+        custom_style = line_style.format(
+            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+        )
         self.multiplier.setStyleSheet(custom_style)
 
         # Multiplier label button
-        multiplier_label_style = '''
+        multiplier_label_style = """
                     QLabel {{
                     color: {_color};
                     font-size: {_font_size}pt;
                     font-weight: bold;
                     }}
-                    '''
-        custom_style = multiplier_label_style.format(_color=text_color,
-                                                     _bg_color=background,
-                                                     _font_size=self.app.general_settings.font["title_size"])
+                    """
+        custom_style = multiplier_label_style.format(
+            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+        )
         self.multiplier_label.setStyleSheet(custom_style)
 
         # Geometry label button
-        select_geometry_label_style = '''
+        select_geometry_label_style = """
                             QLabel {{
                             color: {_color};
                             font-size: {_font_size}pt;
                             font-weight: bold;
                             }}
-                            '''
-        custom_style = select_geometry_label_style.format(_color=text_color,
-                                                          _bg_color=background,
-                                                          _font_size=self.app.general_settings.font["title_size"])
+                            """
+        custom_style = select_geometry_label_style.format(
+            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+        )
         self.select_geometry_label.setStyleSheet(custom_style)
 
     def geometry_button_clicked(self):
@@ -143,7 +143,9 @@ class GeometryMenu(object):
             self.app.logger.debug(msg)
             return False
 
-        if self.app.be_properties.active_project:
+        be_properties = self.app.get_properties()
+
+        if be_properties.get("active_project"):
             self.ui.progress.progress = 0
             selected_project = self.app.home_menu.project_combobox.currentText()
             selected_design = self.app.home_menu.design_combobox.currentText()

@@ -2,7 +2,7 @@
   "toolkit_name" : "example",
   "backend_url" : "127.0.0.1",
   "backend_port" : 5001,
-  "debug" : true,
+  "debug" : false,
   "app_name": "Example Wizard",
   "main_title": "Amazing Toolkit Wizard",
   "welcome_message": "Welcome to the future",
@@ -10,7 +10,7 @@
   "copyright" : "By: slopez",
   "year" : 2023,
   "theme" : "ansys.json",
-  "high_resolution": true,
+  "high_resolution": false,
   "add_left_menus" : [
       {
           "btn_icon": "icon_home.svg",
@@ -23,16 +23,8 @@
       {
             "btn_icon": "icon_signal.svg",
             "btn_id": "geometry_menu",
-            "btn_text": "Modeler",
-            "btn_tooltip": "Modeler",
-            "show_top": true,
-            "is_active": false
-      },
-      {
-            "btn_icon": "icon_signal.svg",
-            "btn_id": "geometry_menu2",
-            "btn_text": "Modeler",
-            "btn_tooltip": "Modeler",
+            "btn_text": "Primitives Builder",
+            "btn_tooltip": "Builder",
             "show_top": true,
             "is_active": false
       },
@@ -44,5 +36,6 @@
           "show_top": false,
           "is_active": false
       }
-  ]
+  ],
+  "primitives_created" : []
 }

@@ -1,17 +1,5 @@
-import json
-import os
-
+from models import properties
 import numpy as np
-
-from ansys.aedt.toolkits.common.backend.properties import properties
-
-# Load toolkit properties
-with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
-    _properties = json.load(fh)
-properties._unfreeze()
-for key, value in _properties.items():
-    setattr(properties, key, value)
-properties._freeze()
 
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
@@ -40,7 +28,7 @@ class ToolkitBackend(AEDTCommon):
 
     def __init__(self):
         """Initialize the ``Toolkit`` class."""
-        Backend.__init__(self)
+        AEDTCommon.__init__(self, properties)
         self.multiplier = 1.0
 
     def create_geometry(self):

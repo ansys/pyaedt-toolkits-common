@@ -1,50 +1,42 @@
 import os
 import sys
-import json
+
 from PySide6.QtWidgets import QApplication
-
-# Default properties
-from ansys.aedt.toolkits.common.ui.properties import general_settings
-
-# Load toolkit properties
-with open(os.path.join(os.path.dirname(__file__), "properties.json")) as fh:
-    _properties = json.load(fh)
-for key, value in _properties.items():
-    if hasattr(general_settings, key):
-        setattr(general_settings, key, value)
-
-# Import general common frontend modules
-from ansys.aedt.toolkits.common.ui.logger_handler import logger
-from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
-from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
-from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
-from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 
 # Toolkit frontend API
 from actions import Frontend
 
+# Default properties
+from models import properties
+
 # Toolkit windows
 from windows.create_geometry.geometry_menu import GeometryMenu
 
+from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
+from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
+from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
+
+# Import general common frontend modules
+from ansys.aedt.toolkits.common.ui.logger_handler import logger
+from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
+
 # Backend URL and port
-url = general_settings.backend_url
-port = general_settings.backend_port
+url = properties.backend_url
+port = properties.backend_port
 
 os.environ["QT_API"] = "pyside6"
 os.environ["QT_FONT_DPI"] = "96"
 
-if general_settings.high_resolution:
+if properties.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
 
 
 class ApplicationWindow(Frontend):
     def __init__(self):
         self.thread = None
-        self.general_settings = general_settings
+        self.properties = properties
 
         Frontend.__init__(self)
-
-        self.url = f"http://{url}:{port}"
 
         # General Settings
 
@@ -53,9 +45,8 @@ class ApplicationWindow(Frontend):
         self.ui.setup_ui()
 
         # Setup main
-        dummy = r"C:\AnsysDev\repos\pyaedt-toolkits-common\src\ansys\aedt\toolkits\common\ui\utils\images\icons\dummy.svg"
         self.main_window = MainWindow(self)
-        self.main_window.setup_gui(main_window_logo=dummy)
+        self.main_window.setup_gui()
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)
@@ -74,7 +65,7 @@ class ApplicationWindow(Frontend):
             self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
-            self.get_properties()
+            be_properties = self.get_properties()
             # Get AEDT installed versions
             installed_versions = self.installed_versions()
             self.settings_menu.signal_flag = False
@@ -85,8 +76,8 @@ class ApplicationWindow(Frontend):
             else:
                 self.settings_menu.aedt_version.addItem("AEDT not installed")
             self.settings_menu.signal_flag = True
-            if hasattr(self.be_properties, "aedt_version") and self.be_properties.aedt_version in installed_versions:
-                self.settings_menu.aedt_version.setCurrentText(self.be_properties.aedt_version)
+            if be_properties.get("aedt_version") in installed_versions:
+                self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
         # Toolkit specific wizard starts here
 
@@ -103,7 +94,7 @@ class ApplicationWindow(Frontend):
 
     def geometry_menu_clicked(self):
         selected_menu = self.main_window.get_selected_menu()
-        if selected_menu.objectName() == 'geometry_menu':
+        if selected_menu.objectName() == "geometry_menu":
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
 
 

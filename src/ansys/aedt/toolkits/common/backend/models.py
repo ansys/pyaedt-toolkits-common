@@ -22,6 +22,7 @@ class CommonProperties(BaseModel):
     url: str = "127.0.0.1"
     port: int = 5001
     debug: bool = True
+    toolkit_name: str = "common"
     log_file: str = "common_backend.log"
 
 
