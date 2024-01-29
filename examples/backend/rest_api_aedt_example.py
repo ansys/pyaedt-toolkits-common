@@ -10,11 +10,8 @@ from ansys.aedt.toolkits.common.backend.rest_api import toolkit_api
 def get_materials():
     logger.info("[GET] /Rest API dummy call.")
 
-    exit_code, msg = toolkit_api.get_thread_status()
-    if exit_code <= 0:
-        return jsonify(msg), 200
-    else:
-        return jsonify(msg), 500
+    status = toolkit_api.get_thread_status()
+    return jsonify(status.value), 200
 
 
 if __name__ == "__main__":

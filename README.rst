@@ -1,5 +1,5 @@
-AEDT template toolkit
-=====================
+AEDT common toolkit
+===================
 
 |pyansys| |PythonVersion| |GH-CI| |MIT| |coverage| |black|
 
@@ -10,14 +10,14 @@ AEDT template toolkit
 .. |PythonVersion| image:: https://img.shields.io/badge/python-3.10+-blue.svg
    :target: https://www.python.org/downloads/
 
-.. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-template/actions/workflows/ci_cd.yml/badge.svg
-   :target: https://github.com/ansys/pyaedt-toolkits-template/actions/workflows/ci_cd.yml
+.. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml/badge.svg
+   :target: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml
 
 .. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
 
-.. |coverage| image:: https://codecov.io/gh/ansys/pyaedt-toolkits-template/branch/main/graph/badge.svg
-   :target: https://codecov.io/gh/ansys/pyaedt-toolkits-antenna
+.. |coverage| image:: https://codecov.io/gh/ansys/pyaedt-toolkits-common/branch/main/graph/badge.svg
+   :target: https://codecov.io/gh/ansys/pyaedt-toolkits-common
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat
   :target: https://github.com/psf/black
@@ -27,13 +27,6 @@ AEDT template toolkit
 The ``ansys-aedt-toolkits-template`` package provides a template to create your own toolkit using PyAEDT.
 The toolkit could be used inside AEDT or launched from a python console.
 Toolkit features should be accessible from the user interface or directly from the API.
-This template shows how to use `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_ for the backend
-and `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_ for the frontend.
-
-
-If you want to start a new toolkit, go to `New toolkit guidelines <https://aedt.toolkit.template.docs.pyansys.com/version/dev/Toolkit_template.html>`_ section.
-
-If you want to test the template, go to `Getting Started <https://aedt.toolkit.template.docs.pyansys.com/version/dev/Getting_started.html>`_ section.
 
 
 Requirements
@@ -44,9 +37,9 @@ requires Ansys Electronics Desktop (AEDT) 2022 R2 or later. The AEDT Student Ver
 Documentation and issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
 In addition to installation and wizard information, the toolkit
-documentation provides `API reference <https://aedt.toolkit.template.docs.pyansys.com/version/dev/Toolkit/index.html>`_ and `Contribute <https://aedt.toolkit.template.docs.pyansys.com/version/dev/Contributing.html>`_ sections.
+documentation provides `API reference <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Toolkit/index.html>`_ and `Contribute <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Contributing.html>`_ sections.
 
-On the `Toolkit issues <https://github.com/ansys/pyaedt-toolkits-template/issues>`_ page, you can
+On the `Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page, you can
 create issues to submit questions, report bugs, and request new features.
 
 License

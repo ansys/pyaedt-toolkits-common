@@ -4,19 +4,21 @@ import time
 from PySide6 import QtWidgets
 import requests
 
+from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
-from ansys.aedt.toolkits.common.ui.properties import be_properties
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class FrontendGeneric(QtWidgets.QMainWindow):
-
     def __init__(self):
         logger.info("Frontend initialization...")
         self.ui = None
         super(FrontendGeneric, self).__init__()
 
-        self.be_properties = be_properties
-        self.url = None
+        url = general_settings.backend_url
+        port = general_settings.backend_port
+        self.url = f"http://{url}:{port}"
+
         self.logger = logger
 
         # Load toolkit icon
@@ -43,12 +45,12 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def backend_busy(self):
-        response = requests.get(self.url + "/get_status")
-        if response.ok and response.json() == "Backend running":
-            # logger.debug("Backend running")
-            return True
-        else:
-            logger.debug("Backend free")
+        try:
+            response = requests.get(self.url + "/status")
+            res = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
+            return res
+        except requests.exceptions.RequestException:
+            logger.error("Get backend status failed")
             return False
 
     def installed_versions(self):
@@ -65,24 +67,21 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def get_properties(self):
         try:
-            response = requests.get(self.url + "/get_properties")
+            response = requests.get(self.url + "/properties")
             if response.ok:
                 data = response.json()
-                logger.debug("Updating the properties from backend.")
                 if data:
-                    for key in data:
-                        setattr(be_properties, key, data[key])
-                    logger.debug("Properties from backend updated successfully.")
-                    return True
+                    logger.debug("Properties from backend updated successfully")
+                    return data
                 else:
-                    logger.debug("body is empty!")
+                    logger.debug("Backend properties empty")
                     return False
         except requests.exceptions.RequestException:
             self.ui.logger.log("Get properties failed")
 
-    def set_properties(self):
+    def set_properties(self, data):
         try:
-            response = requests.put(self.url + "/set_properties", json=be_properties.export_to_dict())
+            response = requests.put(self.url + "/properties", json=data)
             if response.ok:
                 response.json()
         except requests.exceptions.RequestException:
@@ -92,9 +91,9 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def find_process_ids(self, version):
         try:
-            self.get_properties()
-            be_properties.aedt_version = version
-            self.set_properties()
+            be_properties = self.get_properties()
+            be_properties["aedt_version"] = version
+            self.set_properties(be_properties)
             response = requests.get(self.url + "/aedt_sessions")
             sessions = []
             if response.ok:
@@ -105,30 +104,30 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def launch_aedt(self, selected_version, selected_process, non_graphical=False):
-        response = requests.get(self.url + "/get_status")
-
-        if response.ok and response.json() == "Backend running":
+        response = requests.get(self.url + "/status")
+        res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
+        res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
+        if res_busy:
             msg = "Please wait, toolkit running"
             logger.debug(msg)
             self.ui.logger.log(msg)
-
-        elif response.ok and response.json() == "Backend free":
+        elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "Toolkit not connected to AEDT":
-                self.get_properties()
-                if be_properties.selected_process == 0:
-                    be_properties.aedt_version = selected_version
-                    be_properties.non_graphical = non_graphical
+            if response.ok and response.json() == "Toolkit is not connected to AEDT.":
+                be_properties = self.get_properties()
+                if be_properties["selected_process"] == 0:
+                    be_properties["aedt_version"] = selected_version
+                    be_properties["non_graphical"] = non_graphical
                     if selected_process != "New Session":
                         text_splitted = selected_process.split(" ")
                         if len(text_splitted) == 5:
-                            be_properties.use_grpc = True
-                            be_properties.selected_process = int(text_splitted[4])
+                            be_properties["use_grpc"] = True
+                            be_properties["selected_process"] = int(text_splitted[4])
                         else:
-                            be_properties.use_grpc = False
-                            be_properties.selected_process = int(text_splitted[1])
-                    self.set_properties()
+                            be_properties["use_grpc"] = False
+                            be_properties["selected_process"] = int(text_splitted[1])
+                    self.set_properties(be_properties)
 
                 response = requests.post(self.url + "/launch_aedt")
 
@@ -154,14 +153,15 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.ui.progress.progress = 100
 
     def open_project(self, selected_project):
-        response = requests.get(self.url + "/get_status")
-
-        if response.ok and response.json() == "Backend running":
+        response = requests.get(self.url + "/status")
+        res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
+        res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
+        if res_busy:
             msg = "Please wait, toolkit running"
             logger.debug(msg)
             self.ui.logger.log(msg)
 
-        elif response.ok and response.json() == "Backend free":
+        elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
             if response.ok and response.json() == "Toolkit not connected to AEDT":
@@ -186,11 +186,11 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.ui.progress.progress = 100
 
     def get_aedt_data(self):
-        self.get_properties()
+        be_properties = self.get_properties()
         project_list = []
-        if be_properties.active_project:
-            if be_properties.project_list:
-                for project in be_properties.project_list:
+        if be_properties["active_project"]:
+            if be_properties["project_list"]:
+                for project in be_properties["project_list"]:
                     active_project_name = os.path.splitext(os.path.basename(project))[0]
                     project_list.append(active_project_name)
         else:
@@ -209,15 +209,15 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return os.path.splitext(os.path.basename(project_path))[0]
 
     def update_design_names(self, active_project=None):
-        self.get_properties()
+        be_properties = self.get_properties()
         if not active_project:
-            if be_properties.active_project == "No Project":
+            if be_properties["active_project"] == "No Project":
                 return ["No Design"]
-            active_project = os.path.splitext(os.path.basename(be_properties.active_project))[0]
+            active_project = os.path.splitext(os.path.basename(be_properties["active_project"]))[0]
         else:
-            be_properties.active_project = active_project
-            self.set_properties()
-        design_list = be_properties.design_list.get(active_project)
+            be_properties["active_project"] = active_project
+            self.set_properties(be_properties)
+        design_list = be_properties["design_list"].get(active_project)
         if not design_list:
             design_list = ["No Design"]
         return design_list
@@ -235,35 +235,33 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         )
 
         if file_name:
-            response = requests.get(self.url + "/get_status")
-
-            if response.ok and response.json() == "Backend running":
+            response = requests.get(self.url + "/status")
+            res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
+            res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
+            if res_busy:
                 self.write_log_line("Please wait, toolkit running")
-            elif response.ok and response.json() == "Backend free":
+            elif res_idle:
                 # self.project_name.setText(file_name)
-                properties = self.get_properties()
+                be_properties = self.get_properties()
                 # properties["active_project"] = file_name
                 # self.set_properties(properties)
                 # self.update_progress(0)
                 response = requests.post(self.url + "/save_project", json=file_name)
                 if response.ok:
-                    # self.update_progress(50)
-                    # Start the thread
-                    self.running = True
-                    logger.debug("Saving project: {}".format(file_name))
-                    self.start()
-                    self.write_log_line("Saving project process launched")
+                    msg = "Saving project: {}".format(file_name)
+                    logger.debug(msg)
+                    self.ui.logger.log(msg)
                 else:
                     msg = f"Failed backend call: {self.url}"
                     logger.debug(msg)
                     self.write_log_line(msg)
-                    # self.update_progress(100)
+                    self.ui.progress.progress = 100
 
     def release_only(self):
         """Release desktop."""
-        response = requests.get(self.url + "/get_status")
+        response = requests.get(self.url + "/status")
 
-        if response.ok and response.json() == "Backend running":
+        if response.ok and response.json() == "Toolkit is busy and processing a task.":
             self.write_log_line("Please wait, toolkit running")
         else:
             properties = {"close_projects": False, "close_on_exit": False}
@@ -272,9 +270,9 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def release_and_close(self):
         """Release and close desktop."""
-        response = requests.get(self.url + "/get_status")
+        response = requests.get(self.url + "/status")
 
-        if response.ok and response.json() == "Backend running":
+        if response.ok and response.json() == "Toolkit is busy and processing a task.":
             self.write_log_line("Please wait, toolkit running")
         elif response.ok and response.json() == "Backend free":
             properties = {"close_projects": True, "close_on_exit": True}

@@ -8,17 +8,17 @@ import time
 
 import psutil
 import requests
+import ui
+from ui.models import properties
 
 import backend
-import ui
-from ansys.aedt.toolkits.common.ui.properties import general_settings
 
 # Define global variables or constants
 BACKEND_FILE = os.path.join(backend.__path__[0], "rest_api.py")
 FRONTEND_FILE = os.path.join(ui.__path__[0], "run.py")
 IS_LINUX = os.name == "posix"
-URL = general_settings.backend_url
-PORT = general_settings.backend_port
+URL = properties.backend_url
+PORT = properties.backend_port
 PYTHON_PATH = sys.executable
 KILL_BACKEND = True
 BACKEND_COMMAND = [PYTHON_PATH, BACKEND_FILE]
@@ -125,7 +125,7 @@ def process_desktop_properties():
             "aedt_version": desktop_version,
             "use_grpc": grpc,
         }
-        requests.put(URL_CALL + "/set_properties", json=properties)
+        requests.put(URL_CALL + "/properties", json=properties)
         # requests.post(URL_CALL + "/launch_aedt")
 
 

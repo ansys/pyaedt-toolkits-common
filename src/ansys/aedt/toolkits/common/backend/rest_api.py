@@ -2,10 +2,11 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import Backend
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
-toolkit_api = Backend()
+toolkit_api = AEDTCommon()
 
 app = Flask(__name__)
 
@@ -16,33 +17,31 @@ app = Flask(__name__)
 @app.route("/health", methods=["GET"])
 def get_health():
     logger.info("[GET] /health (check if the server is healthy)")
-    desktop_connected, msg = toolkit_api.aedt_connected()
+    desktop_connected, msg = toolkit_api.is_aedt_connected()
     if desktop_connected:
         return jsonify(msg), 200
     else:
         return jsonify(msg), 200
 
 
-@app.route("/get_status", methods=["GET"])
-def get_status_call():
-    logger.info("[GET] /get_status (check if the thread is running)")
-    exit_code, msg = toolkit_api.get_thread_status()
-    if exit_code <= 0:
-        return jsonify(msg), 200
-    else:
-        return jsonify(msg), 500
+@app.route("/status", methods=["GET"])
+def get_status():
+    logger.info("[GET] /status (check if the thread is running).")
+    status = toolkit_api.get_thread_status()
+    if status in [ToolkitThreadStatus.BUSY, ToolkitThreadStatus.IDLE]:
+        return jsonify(status.value), 200
+    return jsonify(status.value), 500
 
 
-@app.route("/get_properties", methods=["GET"])
-def get_properties_call():
-    logger.info("[GET] /get_properties (get toolkit properties)")
+@app.route("/properties", methods=["GET"])
+def get_properties():
+    logger.info("[GET] /properties (get toolkit properties).")
     return jsonify(toolkit_api.get_properties()), 200
 
 
-@app.route("/set_properties", methods=["PUT"])
-def set_properties_call():
-    logger.info("[PUT] /set_properties (set toolkit properties)")
-
+@app.route("/properties", methods=["PUT"])
+def set_properties():
+    logger.info("[PUT] /properties (set toolkit properties).")
     body = request.json
     success, msg = toolkit_api.set_properties(body)
     if success:
@@ -73,7 +72,7 @@ def aedt_sessions_call():
 def launch_aedt_call():
     logger.info("[POST] /launch_aedt (launch or connect AEDT)")
 
-    response = toolkit_api.launch_aedt()
+    response = toolkit_api.launch_thread(toolkit_api.launch_aedt)
     if response:
         return jsonify("AEDT properties loaded"), 200
     else:
@@ -171,6 +170,7 @@ def get_design_names_call():
         return jsonify(response), 200
     else:
         return jsonify(response), 500
+
 
 # Uncomment to test rest api
 

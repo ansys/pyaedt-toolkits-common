@@ -1,0 +1,191 @@
+name: "CI"
+on:
+  pull_request:
+  push:
+    tags:
+      - "v*.*.*"
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+
+env:
+  MAIN_PYTHON_VERSION: '3.10'
+  DOCUMENTATION_CNAME: 'aedt.common.toolkit.docs.pyansys.com'
+  LIBRARY_NAME: 'ansys-aedt-toolkits-common'
+  LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
+  ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+
+  code-style:
+    name: "Code style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/code-style@v4
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+
+  doc-style:
+    name: "Documentation style"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ansys/actions/doc-style@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  doc-build:
+    name: "Build documentation"
+    runs-on: ubuntu-latest
+    needs: doc-style
+    steps:
+      - uses: ansys/actions/doc-build@v4
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          check-links: false
+
+  smoke-tests:
+    name: "Build and Smoke tests"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, ubuntu-latest ]
+        python-version: [ '3.8', '3.10' ]
+    runs-on: ${{ matrix.os }}
+    needs: [ code-style ]
+    steps:
+      - uses: ansys/actions/build-wheelhouse@v4
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+  tests_windows_aedt:
+    name: "Windows Tests AEDT"
+    strategy:
+      matrix:
+        python-version: [ '3.8', '3.10' ]
+      fail-fast: false
+    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    needs: [smoke-tests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Create Python venv
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\Activate.ps1
+
+      - name: Install packages for testing
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m pip install --upgrade pip
+          pip install --upgrade build wheel
+          pip install .[tests]
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
+
+      - name: Test AEDT common
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m aedt_common --cov
+
+      - name: AEDT Test
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m aedt --cov --cov-append
+
+      - name: "Combine coverage files"
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m coverage html -d .cov\total-html
+          python -m coverage xml -o .cov\total.xml
+
+      - name: "Upload coverage results"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
+        uses: actions/upload-artifact@v3
+        with:
+          path: .cov/total-html
+          name: html-total-coverage
+
+      - name: "Upload coverage report to codecov"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
+        uses: codecov/codecov-action@v3
+        with:
+          file: .cov/total.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+  build-library:
+    name: "Build library artifacts"
+    runs-on: ubuntu-latest
+    needs: [ doc-build, tests_windows_aedt ]
+    steps:
+      - uses: ansys/actions/build-library@v4
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+  release:
+    name: "Release"
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    needs: build-library
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: "Release to the private PyPI"
+        uses: ansys/actions/release-pypi-private@v4
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          twine-username: "__token__"
+          twine-token: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
+
+      #      - name: "Release to the public PyPI repository"
+      #        uses: ansys/actions/release-pypi-public@v4
+      #        with:
+      #          library-name: ${{ env.LIBRARY_NAME }}
+      #          twine-username: "__token__"
+      #          twine-token: ${{ secrets.PYPI_TOKEN }}
+
+      - name: "Release to GitHub"
+        uses: ansys/actions/release-github@v4
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+
+  doc-deploy-dev:
+    name: "Deploy development documentation"
+    runs-on: ubuntu-latest
+    needs: build-library
+    if: github.event_name == 'push'
+    steps:
+      - uses: ansys/actions/doc-deploy-dev@v4
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+  doc-deploy-stable:
+    name: "Deploy stable documentation"
+    runs-on: ubuntu-latest
+    needs: release
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    steps:
+      - uses: ansys/actions/doc-deploy-stable@v4
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}

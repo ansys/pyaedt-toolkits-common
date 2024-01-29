@@ -1,22 +1,22 @@
-from PySide6.QtWidgets import *
 from PySide6 import QtCore
 from PySide6 import QtGui
-from ansys.aedt.toolkits.common.ui.utils.themes.json_themes import ThemeHandler
-from ansys.aedt.toolkits.common.ui.properties import general_settings
+from PySide6.QtWidgets import *
 
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_title_bar.py_title_bar import PyTitleBar
+from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
+from ansys.aedt.toolkits.common.ui.utils.themes.json_themes import ThemeHandler
 from ansys.aedt.toolkits.common.ui.utils.ui_templates.pages.ui_main_pages import Ui_MainPages
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_credits.py_credits import PyCredits
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_column import PyLeftColumn
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu import PyLeftMenu
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress.py_progress import PyProgress
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_right_column.py_right_column import PyRightColumn
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_title_bar.py_title_bar import PyTitleBar
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWindow
 
 # Widgets
 from ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils import CommonWindowUtils
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWindow
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu import PyLeftMenu
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_column import PyLeftColumn
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_right_column.py_right_column import PyRightColumn
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_credits.py_credits import PyCredits
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress.py_progress import PyProgress
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 
 
 def setup_parent_ui(parent):
@@ -30,7 +30,6 @@ class MainWindowLayout(CommonWindowUtils):
     """Class representing the main window of the application."""
 
     def __init__(self, app):
-
         CommonWindowUtils.__init__(self)
 
         self.app = app
@@ -132,7 +131,7 @@ class MainWindowLayout(CommonWindowUtils):
             border_color=color["bg_two"],
             text_color=color["text_foreground"],
             border_radius=0,
-            border_size=0
+            border_size=0,
         )
         self.main_window_layout.addWidget(self.main_window)
 
@@ -145,10 +144,10 @@ class MainWindowLayout(CommonWindowUtils):
         self.central_layout.setSpacing(6)
 
         self.central_widget = QWidget(self.main_window)
-        style = (f'''
+        style = f"""
         color: {self.themes["app_color"]["text_foreground"]};
         font: {general_settings.font["text_size"]}pt "{general_settings.font["family"]}";
-        ''')
+        """
         self.central_widget.setStyleSheet(style)
         self.central_layout.addWidget(self.central_widget)
 
@@ -203,14 +202,16 @@ class MainWindowLayout(CommonWindowUtils):
             text_color=self.themes["app_color"]["text_active"],
             font_size=general_settings.font["title_size"],
             font_family=general_settings.font["family"],
-            width=10)
+            width=10,
+        )
 
         self.logger = PyLogger(
             text_color=self.themes["app_color"]["text_active"],
             background_color=self.themes["app_color"]["bg_two"],
             height=general_settings.progress_size["maximum"],
             font_size=general_settings.font["title_size"],
-            font_family=general_settings.font["family"])
+            font_family=general_settings.font["family"],
+        )
 
         self.progress_layout.addWidget(self.logger)
         self.logger.log("{} logger".format(general_settings.app_name))
@@ -230,7 +231,7 @@ class MainWindowLayout(CommonWindowUtils):
             version=general_settings.version,
             font_family=general_settings.font["family"],
             text_size=general_settings.font["text_size"],
-            text_description_color=self.themes["app_color"]["text_description"]
+            text_description_color=self.themes["app_color"]["text_description"],
         )
         self.credits_layout.addWidget(self.credits)
 
@@ -243,12 +244,7 @@ class MainWindowLayout(CommonWindowUtils):
         left_menu_minimum = general_settings.left_menu_size["minimum"]
         self.left_menu_frame.setMaximumSize(left_menu_minimum + (left_menu_margin * 2), 17280)
         self.left_menu_frame.setMinimumSize(left_menu_minimum + (left_menu_margin * 2), 0)
-        self.left_menu_layout.setContentsMargins(
-            left_menu_margin,
-            left_menu_margin,
-            left_menu_margin,
-            left_menu_margin
-        )
+        self.left_menu_layout.setContentsMargins(left_menu_margin, left_menu_margin, left_menu_margin, left_menu_margin)
         self.left_menu = PyLeftMenu(
             parent=self.left_menu_frame,
             app_parent=self.app,
@@ -262,7 +258,7 @@ class MainWindowLayout(CommonWindowUtils):
             icon_color_active=self.themes["app_color"]["icon_active"],
             context_color=self.themes["app_color"]["context_color"],
             text_foreground=self.themes["app_color"]["text_foreground"],
-            text_active=self.themes["app_color"]["text_active"]
+            text_active=self.themes["app_color"]["text_active"],
         )
 
         # Add left menu widget to left menu layout
@@ -282,18 +278,18 @@ class MainWindowLayout(CommonWindowUtils):
         self.left_column = PyLeftColumn(
             text_title="Settings Left Frame",
             text_title_size=general_settings.font["title_size"],
-            text_title_color=self.themes['app_color']['text_foreground'],
+            text_title_color=self.themes["app_color"]["text_foreground"],
             icon_path=self.images_load.icon_path("icon_settings.svg"),
-            dark_one=self.themes['app_color']['dark_one'],
-            bg_color=self.themes['app_color']['bg_three'],
-            btn_color=self.themes['app_color']['bg_three'],
-            btn_color_hover=self.themes['app_color']['bg_two'],
-            btn_color_pressed=self.themes['app_color']['bg_one'],
-            icon_color=self.themes['app_color']['icon_color'],
-            icon_color_hover=self.themes['app_color']['icon_hover'],
-            context_color=self.themes['app_color']['context_color'],
-            icon_color_pressed=self.themes['app_color']['icon_pressed'],
-            icon_close_path=self.images_load.icon_path("icon_close.svg")
+            dark_one=self.themes["app_color"]["dark_one"],
+            bg_color=self.themes["app_color"]["bg_three"],
+            btn_color=self.themes["app_color"]["bg_three"],
+            btn_color_hover=self.themes["app_color"]["bg_two"],
+            btn_color_pressed=self.themes["app_color"]["bg_one"],
+            icon_color=self.themes["app_color"]["icon_color"],
+            icon_color_hover=self.themes["app_color"]["icon_hover"],
+            context_color=self.themes["app_color"]["context_color"],
+            icon_color_pressed=self.themes["app_color"]["icon_pressed"],
+            icon_close_path=self.images_load.icon_path("icon_close.svg"),
         )
 
         # Add left column widget to left menu layout
@@ -313,17 +309,17 @@ class MainWindowLayout(CommonWindowUtils):
         self.right_column = PyRightColumn(
             text_title="Settings Right Frame",
             text_title_size=general_settings.font["title_size"],
-            text_title_color=self.themes['app_color']['text_foreground'],
+            text_title_color=self.themes["app_color"]["text_foreground"],
             icon_path=self.images_load.icon_path("icon_settings.svg"),
-            dark_one=self.themes['app_color']['dark_one'],
-            bg_color=self.themes['app_color']['bg_three'],
-            btn_color=self.themes['app_color']['bg_three'],
-            btn_color_hover=self.themes['app_color']['bg_two'],
-            btn_color_pressed=self.themes['app_color']['bg_one'],
-            icon_color=self.themes['app_color']['icon_color'],
-            icon_color_hover=self.themes['app_color']['icon_hover'],
-            context_color=self.themes['app_color']['context_color'],
-            icon_color_pressed=self.themes['app_color']['icon_pressed']
+            dark_one=self.themes["app_color"]["dark_one"],
+            bg_color=self.themes["app_color"]["bg_three"],
+            btn_color=self.themes["app_color"]["bg_three"],
+            btn_color_hover=self.themes["app_color"]["bg_two"],
+            btn_color_pressed=self.themes["app_color"]["bg_one"],
+            icon_color=self.themes["app_color"]["icon_color"],
+            icon_color_hover=self.themes["app_color"]["icon_hover"],
+            context_color=self.themes["app_color"]["context_color"],
+            icon_color_pressed=self.themes["app_color"]["icon_pressed"],
         )
 
         # Add left column widget to left menu layout
