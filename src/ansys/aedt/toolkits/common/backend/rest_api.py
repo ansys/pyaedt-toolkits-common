@@ -2,11 +2,17 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
-toolkit_api = AEDTCommon()
+try:
+    from api import ToolkitBackend
+
+    toolkit_api = ToolkitBackend()
+except ImportError:
+    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
+    toolkit_api = AEDTCommon()
 
 app = Flask(__name__)
 

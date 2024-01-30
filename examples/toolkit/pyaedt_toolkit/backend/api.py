@@ -29,6 +29,7 @@ class ToolkitBackend(AEDTCommon):
     def __init__(self):
         """Initialize the ``Toolkit`` class."""
         AEDTCommon.__init__(self, properties)
+        self.properties = properties
         self.multiplier = 1.0
 
     def create_geometry(self):
@@ -58,15 +59,19 @@ class ToolkitBackend(AEDTCommon):
         self.connect_design()
 
         if self.aedtapp:
-            multiplier = properties.multiplier
-            geometry = properties.geometry
+            multiplier = self.properties.multiplier
+            geometry = self.properties.geometry
             self.multiplier = multiplier
+            prim = None
             if geometry == "Box":
-                self.draw_box()
+                prim = self.draw_box()
             elif geometry == "Sphere":
-                self.draw_sphere()
+                prim = self.draw_sphere()
+            if not prim:
+                logger.error("Primitive not created")
+                return False
             self.release_aedt(False, False)
-            return True
+            return prim.name
         logger.error("Design not connected")
         return False
 

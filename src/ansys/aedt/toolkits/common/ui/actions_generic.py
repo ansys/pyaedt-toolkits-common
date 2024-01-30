@@ -120,6 +120,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                     be_properties["aedt_version"] = selected_version
                     be_properties["non_graphical"] = non_graphical
                     if selected_process != "New Session":
+                        be_properties["non_graphical"] = False
                         text_splitted = selected_process.split(" ")
                         if len(text_splitted) == 5:
                             be_properties["use_grpc"] = True

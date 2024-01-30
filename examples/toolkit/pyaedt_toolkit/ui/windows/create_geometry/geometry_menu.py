@@ -19,6 +19,10 @@ class CreateGeometryThread(QThread):
         self.multiplier = multiplier
 
     def run(self):
+        self.app.ui.progress.progress = 50
+        import time
+
+        time.sleep(1)
         success = self.app.create_geometry_toolkit(
             self.selected_project, self.selected_design, self.geometry, self.multiplier
         )
@@ -162,6 +166,9 @@ class GeometryMenu(object):
             )
             self.geometry_thread.finished_signal.connect(self.geometry_created_finished)
 
+            msg = "Creating geometry."
+            self.ui.logger.log(msg)
+
             self.geometry_thread.start()
 
         else:
@@ -180,4 +187,4 @@ class GeometryMenu(object):
             self.ui.logger.log(msg)
         else:
             msg = f"Failed backend call: {self.app.url}"
-            self.ui.logger.error(msg)
+            self.ui.logger.log(msg)
