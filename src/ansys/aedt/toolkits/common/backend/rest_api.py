@@ -11,17 +11,11 @@ toolkit_api = AEDTCommon()
 app = Flask(__name__)
 
 
-# Generic services
-
-
 @app.route("/health", methods=["GET"])
 def get_health():
     logger.info("[GET] /health (check if the server is healthy)")
-    desktop_connected, msg = toolkit_api.is_aedt_connected()
-    if desktop_connected:
-        return jsonify(msg), 200
-    else:
-        return jsonify(msg), 200
+    _, msg = toolkit_api.is_aedt_connected()
+    return jsonify(msg), 200
 
 
 @app.route("/status", methods=["GET"])
@@ -51,17 +45,15 @@ def set_properties():
 
 
 @app.route("/installed_versions", methods=["GET"])
-def installed_aedt_version_call():
+def installed_aedt_version():
     logger.info("[GET] /version (get the version)")
     return jsonify(toolkit_api.installed_aedt_version()), 200
 
 
 @app.route("/aedt_sessions", methods=["GET"])
-def aedt_sessions_call():
-    logger.info("[GET] /aedt_sessions (aedt sessions for specific version)")
-
+def aedt_sessions():
+    logger.info("[GET] /aedt_sessions (aedt sessions for specific version).")
     response = toolkit_api.aedt_sessions()
-
     if isinstance(response, list):
         return jsonify(response), 200
     else:
@@ -69,8 +61,8 @@ def aedt_sessions_call():
 
 
 @app.route("/launch_aedt", methods=["POST"])
-def launch_aedt_call():
-    logger.info("[POST] /launch_aedt (launch or connect AEDT)")
+def launch_aedt():
+    logger.info("[POST] /launch_aedt (launch or connect AEDT).")
 
     response = toolkit_api.launch_thread(toolkit_api.launch_aedt)
     if response:
@@ -80,14 +72,14 @@ def launch_aedt_call():
 
 
 @app.route("/open_project", methods=["POST"])
-def open_project_call():
-    logger.info("[POST] /open_project (open AEDT project)")
+def open_project():
+    logger.info("[POST] /open_project (open AEDT project).")
     body = request.data
 
     if not body:
-        msg = "body is empty!"
+        msg = "Body is empty."
         logger.error(msg)
-        return jsonify("body is empty!"), 500
+        return jsonify(msg), 500
 
     response = toolkit_api.open_project(body.decode())
 
@@ -98,17 +90,17 @@ def open_project_call():
 
 
 @app.route("/close_aedt", methods=["POST"])
-def close_aedt_call():
-    logger.info("[POST] /close_aedt (close AEDT)")
+def close_aedt():
+    logger.info("[POST] /close_aedt (close AEDT).")
 
     body = request.json
     aedt_keys = ["close_projects", "close_on_exit"]
     if not body:
-        msg = "body is empty!"
+        msg = "Body is empty."
         logger.error(msg)
         return jsonify(msg), 500
     elif not isinstance(body, dict) or not all(item in body for item in set(aedt_keys)):
-        msg = "body not correct"
+        msg = "Body not correct."
         logger.error(msg)
         return jsonify(msg), 500
 
@@ -123,15 +115,15 @@ def close_aedt_call():
 
 
 @app.route("/connect_design", methods=["POST"])
-def connect_design_call():
-    logger.info("[POST] /connect_design (connect or create a design)")
+def connect_design():
+    logger.info("[POST] /connect_design (connect or create a design).")
 
     body = request.json
 
     if not body:
-        msg = "body is empty!"
+        msg = "Body is empty."
         logger.error(msg)
-        return jsonify("body is empty!"), 500
+        return jsonify(msg), 500
 
     response = toolkit_api.connect_design(body["aedtapp"])
 
@@ -142,15 +134,15 @@ def connect_design_call():
 
 
 @app.route("/save_project", methods=["POST"])
-def save_project_call():
-    logger.info("[POST] /save_project (Save AEDT project)")
+def save_project():
+    logger.info("[POST] /save_project (Save AEDT project).")
 
     body = request.json
 
     if not body:
-        msg = "body is empty!"
+        msg = "Body is empty."
         logger.error(msg)
-        return jsonify("body is empty!"), 500
+        return jsonify(msg), 500
 
     response = toolkit_api.save_project(body)
 
@@ -161,11 +153,9 @@ def save_project_call():
 
 
 @app.route("/get_design_names", methods=["GET"])
-def get_design_names_call():
-    logger.info("[GET] /get_design_names (aedt designs for specific project)")
-
+def get_design_names():
+    logger.info("[GET] /get_design_names (aedt designs for specific project).")
     response = toolkit_api.get_design_names()
-
     if isinstance(response, list):
         return jsonify(response), 200
     else:
