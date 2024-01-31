@@ -9,7 +9,7 @@ class TestCommon:
         """Get properties."""
 
         api_properties = common.get_properties()
-        assert api_properties
+        assert not api_properties
         assert common.properties.new_property == api_properties["new_property"]
 
     def test_01_set_properties(self, common, assert_handler):

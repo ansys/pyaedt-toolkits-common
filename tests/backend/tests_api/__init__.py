@@ -1,2 +1,2 @@
-"""Test AEDT Module
+"""Test API
 """

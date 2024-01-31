@@ -1,3 +1,5 @@
+import json
+
 from flask import Flask
 from flask import jsonify
 from flask import request
@@ -33,6 +35,25 @@ def get_status():
     return jsonify(status.value), 500
 
 
+@app.route("/wait_thread", methods=["GET"])
+def wait_thread():
+    logger.info("[GET] /wait_thread (wait until the thread is idle).")
+
+    body = request.data
+
+    if not body:
+        msg = "Body is empty."
+        logger.error(msg)
+        return jsonify(msg), 500
+
+    response = toolkit_api.wait_to_be_idle(int(body.decode()))
+
+    if response:
+        return jsonify("AEDT properties loaded"), 200
+    else:
+        return jsonify("Fail to launch to AEDT"), 500
+
+
 @app.route("/properties", methods=["GET"])
 def get_properties():
     logger.info("[GET] /properties (get toolkit properties).")
@@ -60,7 +81,7 @@ def installed_aedt_version():
 def aedt_sessions():
     logger.info("[GET] /aedt_sessions (aedt sessions for specific version).")
     response = toolkit_api.aedt_sessions()
-    if isinstance(response, list):
+    if isinstance(response, dict):
         return jsonify(response), 200
     else:
         return jsonify(response), 500
@@ -87,7 +108,9 @@ def open_project():
         logger.error(msg)
         return jsonify(msg), 500
 
-    response = toolkit_api.open_project(body.decode())
+    data = body.decode("utf-8")
+    project_path = json.loads(data)
+    response = toolkit_api.open_project(project_path)
 
     if response:
         return jsonify("Project opened"), 200
@@ -158,9 +181,9 @@ def save_project():
         return jsonify(response), 500
 
 
-@app.route("/get_design_names", methods=["GET"])
+@app.route("/design_names", methods=["GET"])
 def get_design_names():
-    logger.info("[GET] /get_design_names (aedt designs for specific project).")
+    logger.info("[GET] /design_names (aedt designs for specific project).")
     response = toolkit_api.get_design_names()
     if isinstance(response, list):
         return jsonify(response), 200

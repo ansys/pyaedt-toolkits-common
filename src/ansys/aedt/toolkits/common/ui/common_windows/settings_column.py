@@ -132,11 +132,11 @@ class SettingsMenu(QObject):
             self.aedt_session.addItem("New Session")
             if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
                 sessions = self.app.find_process_ids(self.aedt_version.currentText())
-                for session in sessions:
-                    if session[1] == -1:
-                        self.aedt_session.addItem("Process {}".format(session[0], session[1]))
+                for pid in sessions:
+                    if sessions[pid] == -1:
+                        self.aedt_session.addItem("Process {}".format(pid))
                     else:
-                        self.aedt_session.addItem("Process {} on Grpc {}".format(session[0], session[1]))
+                        self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
 
     def launch_aedt(self):
         selected_session = self.aedt_session.currentText()

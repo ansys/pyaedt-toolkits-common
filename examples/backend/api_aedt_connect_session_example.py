@@ -15,12 +15,14 @@ new_properties = toolkit.get_properties()
 sessions = toolkit.aedt_sessions()
 
 # Find if it is COM or GRPC
-if sessions[0][1] == -1:
+first_key, first_value = next(iter(sessions.items()))
+
+if first_value == -1:
     use_grpc = False
-    selected_process = sessions[0][0]
+    selected_process = first_key
 else:
     use_grpc = True
-    selected_process = sessions[0][1]
+    selected_process = first_value
 
 # Set properties
 new_properties = {"selected_process": selected_process, "use_grpc": use_grpc}
