@@ -1,12 +1,9 @@
 import json
 import os
 
-import pytest
-
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 
-@pytest.mark.rest_api
 class TestRESTAPI:
     def test_00_get_status(self, client, assert_handler):
         response = client.get("/status")

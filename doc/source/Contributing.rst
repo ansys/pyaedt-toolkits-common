@@ -37,7 +37,7 @@ Adhere to code style
 --------------------
 The Motor Segmentation Toolkit is compliant with `PyAnsys code style
 <https://dev.docs.pyansys.com/coding-style/index.html>`_. It uses the tool
-`pre-commit <https://pre-commit.com/>`_ to check the code style.
+`pre-commit <https://pre-commit.com/>`_ to select the code style.
 
 You can install and activate this tool with these commands:
 

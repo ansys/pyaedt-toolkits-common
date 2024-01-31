@@ -1,9 +1,6 @@
 import os.path
 
-import pytest
 
-
-@pytest.mark.edb
 class TestEDB:
     """EDBCommon unit tests."""
 

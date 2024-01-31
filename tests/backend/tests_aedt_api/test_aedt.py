@@ -4,7 +4,6 @@ import pytest
 from tests_aedt_api.conftest import skip_test
 
 
-@pytest.mark.aedt
 class TestAEDT:
     """AEDTCommon unit tests."""
 

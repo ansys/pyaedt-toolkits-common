@@ -1,7 +1,3 @@
-import pytest
-
-
-@pytest.mark.common
 class TestCommon:
     """Common unit tests."""
 
