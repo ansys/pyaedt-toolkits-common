@@ -1,6 +1,10 @@
 from PySide6 import QtCore
 from PySide6 import QtGui
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
 from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages

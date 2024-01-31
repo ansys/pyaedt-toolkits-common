@@ -1,6 +1,6 @@
-from PySide6.QtCore import *
-from PySide6.QtSvgWidgets import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import Qt
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtWidgets import QLabel
 
 from ansys.aedt.toolkits.common.ui.models import general_settings
 
