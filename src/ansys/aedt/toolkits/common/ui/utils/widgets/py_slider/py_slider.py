@@ -1,22 +1,22 @@
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QSlider
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_slider.styles import Styles
 
 
 class PySlider(QSlider):
     def __init__(
-            self,
-            margin=0,
-            bg_size=20,
-            bg_radius=10,
-            bg_color="#1b1e23",
-            bg_color_hover="#1e2229",
-            handle_margin=2,
-            handle_size=16,
-            handle_radius=8,
-            handle_color="#568af2",
-            handle_color_hover="#6c99f4",
-            handle_color_pressed="#3f6fd1"
+        self,
+        margin=0,
+        bg_size=20,
+        bg_radius=10,
+        bg_color="#1b1e23",
+        bg_color_hover="#1e2229",
+        handle_margin=2,
+        handle_size=16,
+        handle_radius=8,
+        handle_color="#568af2",
+        handle_color_hover="#6c99f4",
+        handle_color_pressed="#3f6fd1",
     ):
         super(PySlider, self).__init__()
 
@@ -31,7 +31,7 @@ class PySlider(QSlider):
             _handle_radius=handle_radius,
             _handle_color=handle_color,
             _handle_color_hover=handle_color_hover,
-            _handle_color_pressed=handle_color_pressed
+            _handle_color_pressed=handle_color_pressed,
         )
 
         self.setStyleSheet(adjust_style)

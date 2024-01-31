@@ -1,10 +1,12 @@
-from PySide6.QtCore import QObject, QThread, QTimer
-from PySide6.QtWidgets import *
 import os
+
+from PySide6.QtCore import QObject
+from PySide6.QtCore import QThread
+from PySide6.QtCore import QTimer
+from PySide6.QtWidgets import QFileDialog
 
 
 class SettingsMenu(QObject):
-
     def __init__(self, main_window):
         super(SettingsMenu, self).__init__()
         self.main_window = main_window
@@ -64,7 +66,8 @@ class SettingsMenu(QObject):
             height=40,
             width=[75, 135],
             label="AEDT Session",
-            combobox_list=[])
+            combobox_list=[],
+        )
 
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
         self.aedt_session_label = row_returns[1]
@@ -79,7 +82,7 @@ class SettingsMenu(QObject):
             height=40,
             width=[100, 50, 100],
             label=["Graphical", "Non-graphical"],
-            font_size=12
+            font_size=12,
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
@@ -93,11 +96,13 @@ class SettingsMenu(QObject):
         )
 
         # Browse row
-        row_returns = self.ui.add_icon_button(self.ui.right_column.menus.settings_vertical_layout,
-                                              icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
-                                              height=40,
-                                              width=[40, 160],
-                                              text='Browse...')
+        row_returns = self.ui.add_icon_button(
+            self.ui.right_column.menus.settings_vertical_layout,
+            icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
+            height=40,
+            width=[40, 160],
+            text="Browse...",
+        )
 
         self.ui.right_column.menus.browse_file_group = row_returns[0]
         self.browse = row_returns[1]
@@ -116,7 +121,8 @@ class SettingsMenu(QObject):
             num_buttons=1,
             height=40,
             width=[200],
-            text=["Connect to AEDT"])
+            text=["Connect to AEDT"],
+        )
 
         self.ui.right_column.menus.connect_aedt_layout = row_returns[0]
         self.connect_aedt = row_returns[1]
@@ -148,9 +154,9 @@ class SettingsMenu(QObject):
 
         self.aedt_thread = QThread()
 
-        self.aedt_thread.started.connect(lambda: self.app.launch_aedt(selected_version,
-                                                                      selected_session,
-                                                                      non_graphical))
+        self.aedt_thread.started.connect(
+            lambda: self.app.launch_aedt(selected_version, selected_session, non_graphical)
+        )
 
         self.check_status_timer.start()
 
@@ -191,8 +197,12 @@ class SettingsMenu(QObject):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
 
-        file, _ = QFileDialog.getOpenFileName(self.ui.app, "QFileDialog.getOpenFileName()", "",
-                                              "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
-                                              options=options)
+        file, _ = QFileDialog.getOpenFileName(
+            self.ui.app,
+            "QFileDialog.getOpenFileName()",
+            "",
+            "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
+            options=options,
+        )
         if file != "":
             self.file.setText(file)

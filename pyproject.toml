@@ -32,6 +32,7 @@ dependencies = [
     "qdarkstyle",
     "flask",
     "pydantic",
+    "jsonschema"
 ]
 
 [project.optional-dependencies]

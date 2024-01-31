@@ -1,9 +1,14 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
+from PySide6.QtCore import Qt
+from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_button import PyLeftButton
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_icon.py_icon import PyIcon
 from ansys.aedt.toolkits.common.ui.utils.ui_templates.columns.ui_left_column import Ui_LeftColumn
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_icon.py_icon import PyIcon
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_button import PyLeftButton
 
 
 class PyLeftColumn(QWidget):
@@ -11,22 +16,22 @@ class PyLeftColumn(QWidget):
     released = Signal(object, name="left_column_released")
 
     def __init__(
-            self,
-            text_title="Title",
-            text_title_size=10,
-            text_title_color="#343b48",
-            dark_one="#1b1e23",
-            bg_color="#343b48",
-            btn_color="#c3ccdf",
-            btn_color_hover="#3c4454",
-            btn_color_pressed="#2c313c",
-            icon_path="no_icon.svg",
-            icon_color="#343b48",
-            icon_color_hover="#dce1ec",
-            icon_color_pressed="#edf0f5",
-            context_color="#dce1ec",
-            icon_close_path="no_icon.svg",
-            radius=8
+        self,
+        text_title="Title",
+        text_title_size=10,
+        text_title_color="#343b48",
+        dark_one="#1b1e23",
+        bg_color="#343b48",
+        btn_color="#c3ccdf",
+        btn_color_hover="#3c4454",
+        btn_color_pressed="#2c313c",
+        icon_path="no_icon.svg",
+        icon_color="#343b48",
+        icon_color_hover="#dce1ec",
+        icon_color_pressed="#edf0f5",
+        context_color="#dce1ec",
+        icon_close_path="no_icon.svg",
+        radius=8,
     ):
         super().__init__()
         self._text_title = text_title
@@ -73,12 +78,14 @@ class PyLeftColumn(QWidget):
 
         self.title_bg_frame = QFrame()
         self.title_bg_frame.setObjectName("title_bg_frame")
-        self.title_bg_frame.setStyleSheet(f'''
+        self.title_bg_frame.setStyleSheet(
+            f"""
         #title_bg_frame {{
             background-color: {self._bg_color};
             border-radius: {self._radius}px;
         }}
-        ''')
+        """
+        )
 
         self.title_bg_layout = QHBoxLayout(self.title_bg_frame)
         self.title_bg_layout.setContentsMargins(5, 5, 5, 5)
@@ -95,14 +102,16 @@ class PyLeftColumn(QWidget):
 
         self.title_label = QLabel(self._text_title)
         self.title_label.setObjectName("title_label")
-        self.title_label.setStyleSheet(f'''
+        self.title_label.setStyleSheet(
+            f"""
         #title_label {{
             font-size: {self._text_title_size}pt;
             color: {self._text_title_color};
             padding-bottom: 2px;
             background: none;
         }}
-        ''')
+        """
+        )
 
         self.btn_frame = QFrame()
         self.btn_frame.setFixedSize(30, 30)

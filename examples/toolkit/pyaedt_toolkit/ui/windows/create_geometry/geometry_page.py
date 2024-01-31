@@ -8,21 +8,50 @@
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
-    QMetaObject, QObject, QPoint, QRect,
-    QSize, QTime, QUrl, Qt)
-from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
-    QFont, QFontDatabase, QGradient, QIcon,
-    QImage, QKeySequence, QLinearGradient, QPainter,
-    QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QComboBox, QFrame, QHBoxLayout,
-    QLabel, QLineEdit, QSizePolicy, QSpacerItem,
-    QVBoxLayout, QWidget)
+from PySide6.QtCore import QCoreApplication
+from PySide6.QtCore import QDate
+from PySide6.QtCore import QDateTime
+from PySide6.QtCore import QLocale
+from PySide6.QtCore import QMetaObject
+from PySide6.QtCore import QObject
+from PySide6.QtCore import QPoint
+from PySide6.QtCore import QRect
+from PySide6.QtCore import QSize
+from PySide6.QtCore import QTime
+from PySide6.QtCore import QUrl
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QConicalGradient
+from PySide6.QtGui import QCursor
+from PySide6.QtGui import QFont
+from PySide6.QtGui import QFontDatabase
+from PySide6.QtGui import QGradient
+from PySide6.QtGui import QIcon
+from PySide6.QtGui import QImage
+from PySide6.QtGui import QKeySequence
+from PySide6.QtGui import QLinearGradient
+from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPalette
+from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QRadialGradient
+from PySide6.QtGui import QTransform
+from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QComboBox
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QLineEdit
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QSpacerItem
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
+
 
 class Ui_Geometry(object):
     def setupUi(self, Geometry):
         if not Geometry.objectName():
-            Geometry.setObjectName(u"Geometry")
+            Geometry.setObjectName("Geometry")
         Geometry.resize(605, 442)
         sizePolicy = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
@@ -31,9 +60,9 @@ class Ui_Geometry(object):
         Geometry.setSizePolicy(sizePolicy)
         Geometry.setMinimumSize(QSize(0, 0))
         self.verticalLayout_2 = QVBoxLayout(Geometry)
-        self.verticalLayout_2.setObjectName(u"verticalLayout_2")
+        self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.dimension_multiplier_label = QLabel(Geometry)
-        self.dimension_multiplier_label.setObjectName(u"dimension_multiplier_label")
+        self.dimension_multiplier_label.setObjectName("dimension_multiplier_label")
         sizePolicy1 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
@@ -48,7 +77,7 @@ class Ui_Geometry(object):
         self.verticalLayout_2.addWidget(self.dimension_multiplier_label)
 
         self.line = QFrame(Geometry)
-        self.line.setObjectName(u"line")
+        self.line.setObjectName("line")
         sizePolicy1.setHeightForWidth(self.line.sizePolicy().hasHeightForWidth())
         self.line.setSizePolicy(sizePolicy1)
         palette = QPalette()
@@ -85,9 +114,9 @@ class Ui_Geometry(object):
         palette.setBrush(QPalette.Active, QPalette.ToolTipText, brush)
         brush8 = QBrush(QColor(0, 0, 0, 127))
         brush8.setStyle(Qt.SolidPattern)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Active, QPalette.PlaceholderText, brush8)
-#endif
+        # endif
         palette.setBrush(QPalette.Active, QPalette.Accent, brush6)
         palette.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
         palette.setBrush(QPalette.Inactive, QPalette.Button, brush1)
@@ -104,9 +133,9 @@ class Ui_Geometry(object):
         palette.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush2)
         palette.setBrush(QPalette.Inactive, QPalette.ToolTipBase, brush7)
         palette.setBrush(QPalette.Inactive, QPalette.ToolTipText, brush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush8)
-#endif
+        # endif
         palette.setBrush(QPalette.Inactive, QPalette.Accent, brush6)
         palette.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
         palette.setBrush(QPalette.Disabled, QPalette.Button, brush1)
@@ -125,9 +154,9 @@ class Ui_Geometry(object):
         palette.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush)
         brush9 = QBrush(QColor(127, 0, 0, 127))
         brush9.setStyle(Qt.SolidPattern)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush9)
-#endif
+        # endif
         brush10 = QBrush(QColor(255, 76, 76, 255))
         brush10.setStyle(Qt.SolidPattern)
         palette.setBrush(QPalette.Disabled, QPalette.Accent, brush10)
@@ -140,10 +169,10 @@ class Ui_Geometry(object):
         self.verticalLayout_2.addWidget(self.line)
 
         self.horizontalLayout = QHBoxLayout()
-        self.horizontalLayout.setObjectName(u"horizontalLayout")
+        self.horizontalLayout.setObjectName("horizontalLayout")
         self.horizontalLayout.setContentsMargins(-1, 15, -1, 15)
         self.multiplier_label = QLabel(Geometry)
-        self.multiplier_label.setObjectName(u"multiplier_label")
+        self.multiplier_label.setObjectName("multiplier_label")
         sizePolicy.setHeightForWidth(self.multiplier_label.sizePolicy().hasHeightForWidth())
         self.multiplier_label.setSizePolicy(sizePolicy)
         self.multiplier_label.setFrameShape(QFrame.StyledPanel)
@@ -154,14 +183,14 @@ class Ui_Geometry(object):
         self.horizontalLayout.addWidget(self.multiplier_label)
 
         self.line_4 = QFrame(Geometry)
-        self.line_4.setObjectName(u"line_4")
+        self.line_4.setObjectName("line_4")
         self.line_4.setFrameShape(QFrame.VLine)
         self.line_4.setFrameShadow(QFrame.Sunken)
 
         self.horizontalLayout.addWidget(self.line_4)
 
         self.multiplier = QLineEdit(Geometry)
-        self.multiplier.setObjectName(u"multiplier")
+        self.multiplier.setObjectName("multiplier")
         sizePolicy2 = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Fixed)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
@@ -170,18 +199,17 @@ class Ui_Geometry(object):
 
         self.horizontalLayout.addWidget(self.multiplier)
 
-
         self.verticalLayout_2.addLayout(self.horizontalLayout)
 
         self.select_geometry_label = QLabel(Geometry)
-        self.select_geometry_label.setObjectName(u"select_geometry_label")
+        self.select_geometry_label.setObjectName("select_geometry_label")
         self.select_geometry_label.setFont(font)
         self.select_geometry_label.setAlignment(Qt.AlignCenter)
 
         self.verticalLayout_2.addWidget(self.select_geometry_label)
 
         self.line_2 = QFrame(Geometry)
-        self.line_2.setObjectName(u"line_2")
+        self.line_2.setObjectName("line_2")
         sizePolicy1.setHeightForWidth(self.line_2.sizePolicy().hasHeightForWidth())
         self.line_2.setSizePolicy(sizePolicy1)
         palette1 = QPalette()
@@ -200,9 +228,9 @@ class Ui_Geometry(object):
         palette1.setBrush(QPalette.Active, QPalette.AlternateBase, brush2)
         palette1.setBrush(QPalette.Active, QPalette.ToolTipBase, brush7)
         palette1.setBrush(QPalette.Active, QPalette.ToolTipText, brush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette.Active, QPalette.PlaceholderText, brush8)
-#endif
+        # endif
         palette1.setBrush(QPalette.Active, QPalette.Accent, brush6)
         palette1.setBrush(QPalette.Inactive, QPalette.WindowText, brush)
         palette1.setBrush(QPalette.Inactive, QPalette.Button, brush1)
@@ -219,9 +247,9 @@ class Ui_Geometry(object):
         palette1.setBrush(QPalette.Inactive, QPalette.AlternateBase, brush2)
         palette1.setBrush(QPalette.Inactive, QPalette.ToolTipBase, brush7)
         palette1.setBrush(QPalette.Inactive, QPalette.ToolTipText, brush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette.Inactive, QPalette.PlaceholderText, brush8)
-#endif
+        # endif
         palette1.setBrush(QPalette.Inactive, QPalette.Accent, brush6)
         palette1.setBrush(QPalette.Disabled, QPalette.WindowText, brush4)
         palette1.setBrush(QPalette.Disabled, QPalette.Button, brush1)
@@ -238,9 +266,9 @@ class Ui_Geometry(object):
         palette1.setBrush(QPalette.Disabled, QPalette.AlternateBase, brush1)
         palette1.setBrush(QPalette.Disabled, QPalette.ToolTipBase, brush7)
         palette1.setBrush(QPalette.Disabled, QPalette.ToolTipText, brush)
-#if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
+        # if QT_VERSION >= QT_VERSION_CHECK(5, 12, 0)
         palette1.setBrush(QPalette.Disabled, QPalette.PlaceholderText, brush9)
-#endif
+        # endif
         palette1.setBrush(QPalette.Disabled, QPalette.Accent, brush10)
         self.line_2.setPalette(palette1)
         font1 = QFont()
@@ -254,16 +282,16 @@ class Ui_Geometry(object):
         self.verticalLayout_2.addWidget(self.line_2)
 
         self.horizontalLayout_2 = QHBoxLayout()
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(0, 15, 0, 15)
         self.geometry_label = QLabel(Geometry)
-        self.geometry_label.setObjectName(u"geometry_label")
+        self.geometry_label.setObjectName("geometry_label")
         self.geometry_label.setFrameShape(QFrame.StyledPanel)
 
         self.horizontalLayout_2.addWidget(self.geometry_label)
 
         self.line_3 = QFrame(Geometry)
-        self.line_3.setObjectName(u"line_3")
+        self.line_3.setObjectName("line_3")
         self.line_3.setFrameShape(QFrame.VLine)
         self.line_3.setFrameShadow(QFrame.Sunken)
 
@@ -272,15 +300,14 @@ class Ui_Geometry(object):
         self.geometry_combo = QComboBox(Geometry)
         self.geometry_combo.addItem("")
         self.geometry_combo.addItem("")
-        self.geometry_combo.setObjectName(u"geometry_combo")
+        self.geometry_combo.setObjectName("geometry_combo")
 
         self.horizontalLayout_2.addWidget(self.geometry_combo)
-
 
         self.verticalLayout_2.addLayout(self.horizontalLayout_2)
 
         self.geometry_plot_layout = QVBoxLayout()
-        self.geometry_plot_layout.setObjectName(u"geometry_plot_layout")
+        self.geometry_plot_layout.setObjectName("geometry_plot_layout")
         self.geometry_plot_layout.setContentsMargins(-1, 0, -1, -1)
 
         self.verticalLayout_2.addLayout(self.geometry_plot_layout)
@@ -290,25 +317,24 @@ class Ui_Geometry(object):
         self.verticalLayout_2.addItem(self.verticalSpacer)
 
         self.button_layout = QVBoxLayout()
-        self.button_layout.setObjectName(u"button_layout")
+        self.button_layout.setObjectName("button_layout")
 
         self.verticalLayout_2.addLayout(self.button_layout)
-
 
         self.retranslateUi(Geometry)
 
         QMetaObject.connectSlotsByName(Geometry)
+
     # setupUi
 
     def retranslateUi(self, Geometry):
-        Geometry.setWindowTitle(QCoreApplication.translate("Geometry", u"Form", None))
-        self.dimension_multiplier_label.setText(QCoreApplication.translate("Geometry", u"Dimension multiplier", None))
-        self.multiplier_label.setText(QCoreApplication.translate("Geometry", u"Value", None))
-        self.multiplier.setText(QCoreApplication.translate("Geometry", u"1", None))
-        self.select_geometry_label.setText(QCoreApplication.translate("Geometry", u"Select geometry", None))
-        self.geometry_label.setText(QCoreApplication.translate("Geometry", u"Geometry", None))
-        self.geometry_combo.setItemText(0, QCoreApplication.translate("Geometry", u"Box", None))
-        self.geometry_combo.setItemText(1, QCoreApplication.translate("Geometry", u"Sphere", None))
+        Geometry.setWindowTitle(QCoreApplication.translate("Geometry", "Form", None))
+        self.dimension_multiplier_label.setText(QCoreApplication.translate("Geometry", "Dimension multiplier", None))
+        self.multiplier_label.setText(QCoreApplication.translate("Geometry", "Value", None))
+        self.multiplier.setText(QCoreApplication.translate("Geometry", "1", None))
+        self.select_geometry_label.setText(QCoreApplication.translate("Geometry", "Select geometry", None))
+        self.geometry_label.setText(QCoreApplication.translate("Geometry", "Geometry", None))
+        self.geometry_combo.setItemText(0, QCoreApplication.translate("Geometry", "Box", None))
+        self.geometry_combo.setItemText(1, QCoreApplication.translate("Geometry", "Sphere", None))
 
     # retranslateUi
-

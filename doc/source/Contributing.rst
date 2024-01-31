@@ -27,7 +27,7 @@ to create issues to report bugs and request new features.
 
 View documentation
 -------------------
-Documentation for the latest stable release is hosted at `Motor Segmentation Toolkit documentation <https://aedt.motor.toolkit.docs.pyansys.com/version/stable/>`_.
+Documentation for the latest stable release is hosted at `Common PyAEDT Toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/>`_.
 
 In the upper right corner of the documentation’s title bar, there is an option for switching from viewing
 the documentation for the latest stable release to viewing the documentation for the development version

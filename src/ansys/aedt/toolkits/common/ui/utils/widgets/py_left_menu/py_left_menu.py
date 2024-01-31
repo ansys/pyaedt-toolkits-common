@@ -1,10 +1,15 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu_button import PyLeftMenuButton
-from ansys.aedt.toolkits.common.ui.utils.widgets.py_div.py_div import PyDiv
+from PySide6.QtCore import QEasingCurve
+from PySide6.QtCore import QPropertyAnimation
+from PySide6.QtCore import Qt
+from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QPushButton
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_div.py_div import PyDiv
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu_button import PyLeftMenuButton
 
 
 class PyLeftMenu(QWidget):
@@ -12,27 +17,27 @@ class PyLeftMenu(QWidget):
     released = Signal(object)
 
     def __init__(
-            self,
-            parent=None,
-            app_parent=None,
-            dark_one="#1b1e23",
-            dark_three="#21252d",
-            dark_four="#272c36",
-            bg_one="#2c313c",
-            icon_color="#c3ccdf",
-            icon_color_hover="#dce1ec",
-            icon_color_pressed="#edf0f5",
-            icon_color_active="#f5f6f9",
-            context_color="#568af2",
-            text_foreground="#8a95aa",
-            text_active="#dce1ec",
-            radius=8,
-            minimum_width=50,
-            maximum_width=240,
-            icon_path="icon_menu.svg",
-            icon_path_close="icon_menu_close.svg",
-            toggle_text="Hide Menu",
-            toggle_tooltip="Show menu"
+        self,
+        parent=None,
+        app_parent=None,
+        dark_one="#1b1e23",
+        dark_three="#21252d",
+        dark_four="#272c36",
+        bg_one="#2c313c",
+        icon_color="#c3ccdf",
+        icon_color_hover="#dce1ec",
+        icon_color_pressed="#edf0f5",
+        icon_color_active="#f5f6f9",
+        context_color="#568af2",
+        text_foreground="#8a95aa",
+        text_active="#dce1ec",
+        radius=8,
+        minimum_width=50,
+        maximum_width=240,
+        icon_path="icon_menu.svg",
+        icon_path_close="icon_menu_close.svg",
+        toggle_text="Hide Menu",
+        toggle_tooltip="Show menu",
     ):
         super().__init__(parent)
         self._images_load = LoadImages()
@@ -75,11 +80,10 @@ class PyLeftMenu(QWidget):
             context_color=self._context_color,
             text_foreground=self._text_foreground,
             text_active=self._text_active,
-            icon_path=icon_path
+            icon_path=icon_path,
         )
         self.toggle_button.clicked.connect(self.toggle_animation)
         self.div_top = PyDiv(dark_four)
-
 
         self.top_layout.addWidget(self.toggle_button)
         self.top_layout.addWidget(self.div_top)
@@ -91,12 +95,12 @@ class PyLeftMenu(QWidget):
     def add_menus(self, parameters):
         if parameters != None:
             for parameter in parameters:
-                _btn_icon = parameter['btn_icon']
-                _btn_id = parameter['btn_id']
-                _btn_text = parameter['btn_text']
-                _btn_tooltip = parameter['btn_tooltip']
-                _show_top = parameter['show_top']
-                _is_active = parameter['is_active']
+                _btn_icon = parameter["btn_icon"]
+                _btn_id = parameter["btn_id"]
+                _btn_text = parameter["btn_text"]
+                _btn_tooltip = parameter["btn_tooltip"]
+                _show_top = parameter["show_top"]
+                _is_active = parameter["is_active"]
 
                 self.menu = PyLeftMenuButton(
                     self._app_parent,
@@ -115,7 +119,7 @@ class PyLeftMenu(QWidget):
                     text_foreground=self._text_foreground,
                     text_active=self._text_active,
                     icon_path=_btn_icon,
-                    is_active=_is_active
+                    is_active=_is_active,
                 )
                 self.menu.clicked.connect(self.btn_clicked)
                 self.menu.released.connect(self.btn_released)

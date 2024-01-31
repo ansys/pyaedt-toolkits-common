@@ -1,5 +1,5 @@
 class Styles(object):
-    style = '''
+    style = """
     QLineEdit {{
     background-color: {_bg_color};
     border-radius: {_radius}px;
@@ -14,4 +14,4 @@ class Styles(object):
     border: {_border_size}px solid {_context_color};
     background-color: {_bg_color_active};
     }}
-    '''
+    """

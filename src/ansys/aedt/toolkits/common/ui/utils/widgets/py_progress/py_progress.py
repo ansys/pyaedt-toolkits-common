@@ -1,6 +1,12 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
+from PySide6.QtCore import QRect
+from PySide6.QtCore import QRectF
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QFont
+from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPen
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QWidget
 
 
 class PyProgress(QWidget):
@@ -48,15 +54,16 @@ class PyProgress(QWidget):
     ...     sys.exit(app.exec())
     """
 
-    def __init__(self,
-                 progress=0,
-                 progress_color="#ff79c6",
-                 background_color="#151617",
-                 text_color="#FFFFFF",
-                 font_size=10,
-                 font_family="Segoe UI",
-                 width=10,
-                 ):
+    def __init__(
+        self,
+        progress=0,
+        progress_color="#ff79c6",
+        background_color="#151617",
+        text_color="#FFFFFF",
+        font_size=10,
+        font_family="Segoe UI",
+        width=10,
+    ):
         super().__init__()
         self._progress = progress
         self._backgroundColor = QColor(background_color)
@@ -93,7 +100,7 @@ class PyProgress(QWidget):
         pen = QPen(self._progressColor, self._progressWidth)
         paint.setPen(pen)
         rect = QRectF(-radius, -radius, 2 * radius, 2 * radius)
-        paint.drawArc(rect, 90 * 16, - self._progress / 100.0 * 360 * 16)
+        paint.drawArc(rect, 90 * 16, -self._progress / 100.0 * 360 * 16)
 
         # draw progress text
         font = QFont(self._font_family, self._font_size)
