@@ -1,8 +1,19 @@
-from PySide6.QtCore import *
-from PySide6.QtWidgets import *
+from PySide6.QtCore import QEasingCurve
+from PySide6.QtCore import QParallelAnimationGroup
+from PySide6.QtCore import QPropertyAnimation
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QSpacerItem
 
 from ansys.aedt.toolkits.common.ui.models import general_settings
-from ansys.aedt.toolkits.common.ui.utils.widgets import *
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyComboBox
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyIconButton
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyLineEdit
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyPushButton
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyToggle
 
 
 class CommonWindowUtils(object):

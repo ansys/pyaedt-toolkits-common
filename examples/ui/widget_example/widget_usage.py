@@ -1,8 +1,10 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from ansys.aedt.toolkits.common.ui.utils.widgets import *
 from random import randint
 import sys
+
+from PySide6.QtCore import *
+from PySide6.QtWidgets import *
+
+from ansys.aedt.toolkits.common.ui.utils.widgets import *
 
 
 class ApplicationWindow(QMainWindow):
@@ -13,13 +15,9 @@ class ApplicationWindow(QMainWindow):
         self.py_window.setFixedSize(400, 400)
 
         # Instantiate the widgets
-        self.progress_bar = PyProgress(progress=0,
-                                       progress_color="#FFB71B",
-                                       background_color="#313131",
-                                       width=10)
+        self.progress_bar = PyProgress(progress=0, progress_color="#FFB71B", background_color="#313131", width=10)
 
-        self.icon_but = PyIconButton('icon_signal.svg',
-                                     tooltip_text="Example", is_active=True)
+        self.icon_but = PyIconButton("icon_signal.svg", tooltip_text="Example", is_active=True)
 
         # Set window layout
 
@@ -31,7 +29,7 @@ class ApplicationWindow(QMainWindow):
         column_group1.setLayout(layout1)
 
         # Instantiate the widgets for the right column
-        self.icon = PyIcon('icon_signal.svg', "#FF0000")
+        self.icon = PyIcon("icon_signal.svg", "#FF0000")
         self.label = PyLabel("hola", font_size=15)
         self.divider = PyDiv(color="#FF0000", height=50, width=1)
         self.my_edit = PyLineEdit(place_holder_text="here your text")
@@ -46,13 +44,18 @@ class ApplicationWindow(QMainWindow):
         self.py_window.layout.setAlignment(Qt.AlignCenter)
 
         self.logger = PyLogger()
-        self.combo_box = PyComboBox(text_list=['Option 1', 'Option 2', 'Option 3'])
+        self.combo_box = PyComboBox(text_list=["Option 1", "Option 2", "Option 3"])
         self.credits = PyCredits(text="© 2023 MyApp Co.", version="1.2.3")
-        self.left_column = PyLeftColumn(text_title="Left Column",
-                                        text_title_size=8,
-                                        icon_close_path='icon_close.svg')
-        self.my_button = PyPushButton(text="My Button", radius=5, color="#000", bg_color="#fff", bg_color_hover="#eee",
-                                      bg_color_pressed="#ddd", font_size=10)
+        self.left_column = PyLeftColumn(text_title="Left Column", text_title_size=8, icon_close_path="icon_close.svg")
+        self.my_button = PyPushButton(
+            text="My Button",
+            radius=5,
+            color="#000",
+            bg_color="#fff",
+            bg_color_hover="#eee",
+            bg_color_pressed="#ddd",
+            font_size=10,
+        )
         self.toggle = PyToggle(50, "#777", "#DDD", "#00BCFF", QEasingCurve.OutBounce)
 
         # Create a GroupBox for column 3
@@ -67,15 +70,11 @@ class ApplicationWindow(QMainWindow):
         column_group3.setLayout(layout3)
 
         # Title
-        self.title = PyTitleBar(parent=self,
-                                app_parent=self,
-                                logo_width=50)
+        self.title = PyTitleBar(parent=self, app_parent=self, logo_width=50)
         title_layout = QVBoxLayout()
         title_layout.addWidget(self.title)
 
-        self.left_menu = PyLeftMenu(parent=self,
-                                    app_parent=self,
-                                    icon_path='icon_signal.svg')
+        self.left_menu = PyLeftMenu(parent=self, app_parent=self, icon_path="icon_signal.svg")
         self.left_menu.setMinimumWidth(150)
 
         # Create a GroupBox for the PyWindow widget
@@ -101,12 +100,12 @@ class ApplicationWindow(QMainWindow):
             btn_color="blue",
             btn_color_hover="darkblue",
             btn_color_pressed="lightblue",
-            icon_path='icon_signal.svg',
+            icon_path="icon_signal.svg",
             icon_color="black",
             icon_color_hover="darkgray",
             icon_color_pressed="lightgray",
             context_color="gray",
-            radius=10
+            radius=10,
         )
         main_layout.addWidget(self.right_column)
         main_layout.addWidget(window_group)

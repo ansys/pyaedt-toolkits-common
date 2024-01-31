@@ -1,6 +1,9 @@
-from PySide6.QtWidgets import QWidget, QVBoxLayout, QLabel
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap, QPainter
+from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
 
 class PyIcon(QWidget):
@@ -37,11 +40,7 @@ class PyIcon(QWidget):
     >>>     app.exec()
     """
 
-    def __init__(
-            self,
-            icon_path,
-            icon_color="#000000"
-    ):
+    def __init__(self, icon_path, icon_color="#000000"):
         super().__init__()
 
         self._icon_path = icon_path

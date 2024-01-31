@@ -1,6 +1,13 @@
-from PySide6.QtWidgets import QPushButton, QLabel, QGraphicsDropShadowEffect
-from PySide6.QtGui import QPainter, QColor, QPixmap, QBrush
-from PySide6.QtCore import QEvent, QRect, QPoint, Qt
+from PySide6.QtCore import QEvent
+from PySide6.QtCore import QRect
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QPushButton
 
 
 class PyIconButton(QPushButton):
@@ -72,26 +79,27 @@ class PyIconButton(QPushButton):
     >>>     window.show()
     >>>     app.exec()
     """
+
     def __init__(
-            self,
-            icon_path=None,
-            tooltip_text="",
-            btn_id=None,
-            width=30,
-            height=30,
-            radius=8,
-            bg_color="#343b48",
-            bg_color_hover="#3c4454",
-            bg_color_pressed="#2c313c",
-            icon_color="#c3ccdf",
-            icon_color_hover="#dce1ec",
-            icon_color_pressed="#edf0f5",
-            icon_color_active="#f5f6f9",
-            dark_one="#1b1e23",
-            text_foreground="#8a95aa",
-            context_color="#568af2",
-            top_margin=40,
-            is_active=False
+        self,
+        icon_path=None,
+        tooltip_text="",
+        btn_id=None,
+        width=30,
+        height=30,
+        radius=8,
+        bg_color="#343b48",
+        bg_color_hover="#3c4454",
+        bg_color_pressed="#2c313c",
+        icon_color="#c3ccdf",
+        icon_color_hover="#dce1ec",
+        icon_color_pressed="#edf0f5",
+        icon_color_active="#f5f6f9",
+        dark_one="#1b1e23",
+        text_foreground="#8a95aa",
+        context_color="#568af2",
+        top_margin=40,
+        is_active=False,
     ):
         super().__init__()
 
@@ -118,11 +126,7 @@ class PyIconButton(QPushButton):
         # TOOLTIP
         if tooltip_text:
             self._tooltip_text = tooltip_text
-            self._tooltip = Tooltip(
-                tooltip_text,
-                dark_one,
-                text_foreground
-            )
+            self._tooltip = Tooltip(tooltip_text, dark_one, text_foreground)
             self._tooltip.hide()
 
     def set_active(self, is_active):
@@ -149,11 +153,7 @@ class PyIconButton(QPushButton):
         rect = QRect(0, 0, self.width(), self.height())
         paint.setPen(Qt.NoPen)
         paint.setBrush(brush)
-        paint.drawRoundedRect(
-            rect,
-            self._set_border_radius,
-            self._set_border_radius
-        )
+        paint.drawRoundedRect(rect, self._set_border_radius, self._set_border_radius)
 
         # DRAW ICONS
         self.icon_paint(paint, self._set_icon_path, rect)
@@ -204,11 +204,7 @@ class PyIconButton(QPushButton):
             painter.fillRect(icon.rect(), self._icon_color_active)
         else:
             painter.fillRect(icon.rect(), self._set_icon_color)
-        qp.drawPixmap(
-            (rect.width() - icon.width()) / 2,
-            (rect.height() - icon.height()) / 2,
-            icon
-        )
+        qp.drawPixmap((rect.width() - icon.width()) / 2, (rect.height() - icon.height()) / 2, icon)
         painter.end()
 
     def set_icon(self, icon_path):
@@ -217,9 +213,9 @@ class PyIconButton(QPushButton):
 
 
 class Tooltip(QLabel):
-    style_tooltip = """ 
-    QLabel {{		
-        background-color: {_dark_one};	
+    style_tooltip = """
+    QLabel {{
+        background-color: {_dark_one};
         color: {_text_foreground};
         padding-left: 10px;
         padding-right: 10px;
@@ -229,19 +225,11 @@ class Tooltip(QLabel):
     }}
     """
 
-    def __init__(
-            self,
-            tooltip,
-            dark_one,
-            text_foreground
-    ):
+    def __init__(self, tooltip, dark_one, text_foreground):
         QLabel.__init__(self)
 
-        style = self.style_tooltip.format(
-            _dark_one=dark_one,
-            _text_foreground=text_foreground
-        )
-        self.setObjectName(u"label_tooltip")
+        style = self.style_tooltip.format(_dark_one=dark_one, _text_foreground=text_foreground)
+        self.setObjectName("label_tooltip")
         self.setStyleSheet(style)
         self.setMinimumHeight(34)
         self.setText(tooltip)

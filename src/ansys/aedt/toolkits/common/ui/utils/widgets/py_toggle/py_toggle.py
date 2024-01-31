@@ -1,16 +1,23 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
+from PySide6.QtCore import Property
+from PySide6.QtCore import QEasingCurve
+from PySide6.QtCore import QPoint
+from PySide6.QtCore import QPropertyAnimation
+from PySide6.QtCore import QRect
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QFont
+from PySide6.QtGui import QPainter
+from PySide6.QtWidgets import QCheckBox
 
 
 class PyToggle(QCheckBox):
     def __init__(
-            self,
-            width=50,
-            bg_color="#777",
-            circle_color="#DDD",
-            active_color="#00BCFF",
-            animation_curve=QEasingCurve.OutBounce
+        self,
+        width=50,
+        bg_color="#777",
+        circle_color="#DDD",
+        active_color="#00BCFF",
+        animation_curve=QEasingCurve.OutBounce,
     ):
         QCheckBox.__init__(self)
         self.setFixedSize(width, 28)

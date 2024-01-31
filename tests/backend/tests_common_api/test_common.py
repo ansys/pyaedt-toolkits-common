@@ -1,7 +1,3 @@
-import pytest
-
-
-@pytest.mark.common
 class TestCommon:
     """Common unit tests."""
 
@@ -46,3 +42,5 @@ class TestCommon:
 
     def test_02_installed_aedt_version(self, common, assert_handler):
         """Installed AEDT version."""
+        installed_versions = common.installed_aedt_version()
+        assert isinstance(installed_versions, list)

@@ -1,19 +1,17 @@
-from api import ToolkitBackend
 from ansys.aedt.toolkits.common.backend.multithreading_server import MultithreadingServer
 from ansys.aedt.toolkits.common.backend.rest_api import app
 from ansys.aedt.toolkits.common.backend.rest_api import jsonify
 from ansys.aedt.toolkits.common.backend.rest_api import logger
-
-toolkit_api = ToolkitBackend()
+from ansys.aedt.toolkits.common.backend.rest_api import toolkit_api
 
 
 @app.route("/create_geometry", methods=["POST"])
-def create_geometry_call():
-    logger.info("[POST] /create_geometry (create a box or sphere in HFSS)")
+def create_geometry():
+    logger.info("[POST] /create_geometry (create a box or sphere in HFSS).")
 
     response = toolkit_api.create_geometry()
     if response:
-        return jsonify("Geometry created"), 200
+        return response, 200
     else:
         return jsonify("Geometry not created"), 500
 

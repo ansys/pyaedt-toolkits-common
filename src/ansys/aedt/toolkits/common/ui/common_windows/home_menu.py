@@ -1,4 +1,6 @@
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QSpacerItem
 
 
 class HomeMenu(object):
@@ -30,7 +32,7 @@ class HomeMenu(object):
             height=40,
             width=[100, 50, 100],
             label=["AEDT Mode", "File Mode"],
-            font_size=12
+            font_size=12,
         )
 
         self.ui.left_column.menus.file_mode_select_row = row_returns[0]
@@ -53,11 +55,13 @@ class HomeMenu(object):
         self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
 
         # Browse row
-        row_returns = self.ui.add_icon_button(self.ui.left_column.menus.home_vertical_layout,
-                                              icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
-                                              height=40,
-                                              width=[40, 160],
-                                              text='Browse...')
+        row_returns = self.ui.add_icon_button(
+            self.ui.left_column.menus.home_vertical_layout,
+            icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
+            height=40,
+            width=[40, 160],
+            text="Browse...",
+        )
 
         self.ui.left_column.menus.browse_file_group = row_returns[0]
         self.browse = row_returns[1]
@@ -68,11 +72,13 @@ class HomeMenu(object):
         self.browse.clicked.connect(lambda: self.browse_file())
 
         # Project row
-        row_returns = self.ui.add_combobox(self.ui.left_column.menus.home_vertical_layout,
-                                           height=40,
-                                           width=[75, 135],
-                                           label="Project",
-                                           combobox_list=["No Project"])
+        row_returns = self.ui.add_combobox(
+            self.ui.left_column.menus.home_vertical_layout,
+            height=40,
+            width=[75, 135],
+            label="Project",
+            combobox_list=["No Project"],
+        )
 
         self.ui.left_column.menus.browse_project_group = row_returns[0]
         self.project = row_returns[1]
@@ -81,18 +87,19 @@ class HomeMenu(object):
         self.project_combobox.setEnabled(False)
 
         # Design row
-        row_returns = self.ui.add_combobox(self.ui.left_column.menus.home_vertical_layout,
-                                           height=40,
-                                           width=[75, 135],
-                                           label="Design",
-                                           combobox_list=["No Design"])
+        row_returns = self.ui.add_combobox(
+            self.ui.left_column.menus.home_vertical_layout,
+            height=40,
+            width=[75, 135],
+            label="Design",
+            combobox_list=["No Design"],
+        )
 
         self.ui.left_column.menus.browse_design_group = row_returns[0]
         self.design = row_returns[1]
         self.design_combobox = row_returns[2]
 
     def mode_changed(self):
-
         if self.mode == "file_based":
             self.mode = "aedt_based"
             self.project.setVisible(True)
@@ -109,19 +116,23 @@ class HomeMenu(object):
             self.design_combobox.setVisible(False)
             self.file.setVisible(True)
             self.browse.setVisible(True)
-        self.ui.logger.log(f'Setting Mode to {self.mode}')
+        self.ui.logger.log(f"Setting Mode to {self.mode}")
 
     def browse_file(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         if self.mode == "file_based":
-            file, _ = QFileDialog.getOpenFileName(self.ui.app, "QFileDialog.getOpenFileName()", "",
-                                                  "All Files (*)",
-                                                  options=options)
+            file, _ = QFileDialog.getOpenFileName(
+                self.ui.app, "QFileDialog.getOpenFileName()", "", "All Files (*)", options=options
+            )
         else:
-            file, _ = QFileDialog.getOpenFileName(self.ui.app, "QFileDialog.getOpenFileName()", "",
-                                                  "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
-                                                  options=options)
+            file, _ = QFileDialog.getOpenFileName(
+                self.ui.app,
+                "QFileDialog.getOpenFileName()",
+                "",
+                "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
+                options=options,
+            )
         if file != "":
             self.file.setText(file)
 

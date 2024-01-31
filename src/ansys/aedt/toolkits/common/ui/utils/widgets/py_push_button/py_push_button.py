@@ -1,20 +1,20 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QPushButton
+
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_push_button.styles import Styles
 
 
 class PyPushButton(QPushButton):
     def __init__(
-            self,
-            text,
-            radius,
-            color,
-            bg_color,
-            bg_color_hover,
-            bg_color_pressed,
-            font_size,
-            parent=None,
+        self,
+        text,
+        radius,
+        color,
+        bg_color,
+        bg_color_hover,
+        bg_color_pressed,
+        font_size,
+        parent=None,
     ):
         super().__init__()
 

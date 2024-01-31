@@ -1,5 +1,5 @@
-from PySide6.QtWidgets import *
 from PySide6.QtGui import QFont
+from PySide6.QtWidgets import QTextEdit
 
 
 class PyLogger(QTextEdit):
@@ -22,16 +22,12 @@ class PyLogger(QTextEdit):
         Logger height. The default is ``10``.
     """
 
-    def __init__(self,
-                 text_color="#f5f6f9",
-                 background_color="#000000",
-                 font_size=10,
-                 font_family="Segoe UI",
-                 height=50
-                 ):
+    def __init__(
+        self, text_color="#f5f6f9", background_color="#000000", font_size=10, font_family="Segoe UI", height=50
+    ):
         super().__init__()
         self.setReadOnly(True)
-        font = QFont(font_family, font_size),
+        font = (QFont(font_family, font_size),)
         self.setFont(font)
         self.setStyleSheet(f"background-color: {background_color}; color: {text_color}")
         self.setFixedHeight(height)

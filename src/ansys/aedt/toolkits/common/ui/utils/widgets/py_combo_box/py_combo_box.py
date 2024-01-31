@@ -1,6 +1,5 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QComboBox
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_combo_box.styles import Styles
 
@@ -44,13 +43,16 @@ class PyComboBox(QComboBox):
     ...     window = MyApp()
     ...     sys.exit(app.exec())
     """
-    def __init__(self,
-                 text_list,
-                 radius=5,
-                 color="#000000",
-                 bg_color="#FFFFFF",
-                 bg_color_hover="#FFFFFF",
-                 bg_color_pressed="#FFFFFF"):
+
+    def __init__(
+        self,
+        text_list,
+        radius=5,
+        color="#000000",
+        bg_color="#FFFFFF",
+        bg_color_hover="#FFFFFF",
+        bg_color_pressed="#FFFFFF",
+    ):
         super().__init__()
         self.addItems(text_list)
         self.setCursor(Qt.PointingHandCursor)
@@ -60,6 +62,6 @@ class PyComboBox(QComboBox):
             _radius=radius,
             _bg_color=bg_color,
             _bg_color_hover=bg_color_hover,
-            _bg_color_pressed=bg_color_pressed
+            _bg_color_pressed=bg_color_pressed,
         )
         self.setStyleSheet(custom_style)

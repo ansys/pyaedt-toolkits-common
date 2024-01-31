@@ -1,6 +1,11 @@
-from PySide6.QtWidgets import *
-from PySide6.QtCore import *
-from PySide6.QtGui import *
+from PySide6.QtCore import QEvent
+from PySide6.QtCore import QRect
+from PySide6.QtCore import Qt
+from PySide6.QtGui import QBrush
+from PySide6.QtGui import QColor
+from PySide6.QtGui import QPainter
+from PySide6.QtGui import QPixmap
+from PySide6.QtWidgets import QPushButton
 
 
 class PyLeftButton(QPushButton):
@@ -43,24 +48,25 @@ class PyLeftButton(QPushButton):
         Whether the button is active.
 
     """
+
     def __init__(
-            self,
-            btn_id=None,
-            width=30,
-            height=30,
-            radius=8,
-            bg_color="#343b48",
-            bg_color_hover="#3c4454",
-            bg_color_pressed="#2c313c",
-            icon_color="#c3ccdf",
-            icon_color_hover="#dce1ec",
-            icon_color_pressed="#edf0f5",
-            icon_color_active="#f5f6f9",
-            icon_path="no_icon.svg",
-            dark_one="#1b1e23",
-            context_color="#568af2",
-            text_foreground="#8a95aa",
-            is_active=False
+        self,
+        btn_id=None,
+        width=30,
+        height=30,
+        radius=8,
+        bg_color="#343b48",
+        bg_color_hover="#3c4454",
+        bg_color_pressed="#2c313c",
+        icon_color="#c3ccdf",
+        icon_color_hover="#dce1ec",
+        icon_color_pressed="#edf0f5",
+        icon_color_active="#f5f6f9",
+        icon_path="no_icon.svg",
+        dark_one="#1b1e23",
+        context_color="#568af2",
+        text_foreground="#8a95aa",
+        is_active=False,
     ):
         super().__init__()
 
@@ -106,11 +112,7 @@ class PyLeftButton(QPushButton):
         rect = QRect(0, 0, self.width(), self.height())
         paint.setPen(Qt.NoPen)
         paint.setBrush(brush)
-        paint.drawRoundedRect(
-            rect,
-            self._set_border_radius,
-            self._set_border_radius
-        )
+        paint.drawRoundedRect(rect, self._set_border_radius, self._set_border_radius)
 
         self.icon_paint(paint, self._set_icon_path, rect)
 
@@ -162,11 +164,7 @@ class PyLeftButton(QPushButton):
             painter.fillRect(icon.rect(), self._context_color)
         else:
             painter.fillRect(icon.rect(), self._set_icon_color)
-        qp.drawPixmap(
-            (rect.width() - icon.width()) / 2,
-            (rect.height() - icon.height()) / 2,
-            icon
-        )
+        qp.drawPixmap((rect.width() - icon.width()) / 2, (rect.height() - icon.height()) / 2, icon)
         painter.end()
 
     def set_icon(self, icon_path):

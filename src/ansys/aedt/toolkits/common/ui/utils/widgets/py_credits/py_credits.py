@@ -1,5 +1,10 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QSpacerItem
+from PySide6.QtWidgets import QWidget
 
 
 class PyCredits(QWidget):
@@ -47,15 +52,15 @@ class PyCredits(QWidget):
     """
 
     def __init__(
-            self,
-            text="© 2023 MyApp Co.",
-            version="0.0.1",
-            bg="#FFFFFF",
-            font_family="Segoe UI",
-            text_size=9,
-            text_description_color="#00000",
-            radius=8,
-            padding=10
+        self,
+        text="© 2023 MyApp Co.",
+        version="0.0.1",
+        bg="#FFFFFF",
+        font_family="Segoe UI",
+        text_size=9,
+        text_description_color="#00000",
+        radius=8,
+        padding=10,
     ):
         super().__init__()
 

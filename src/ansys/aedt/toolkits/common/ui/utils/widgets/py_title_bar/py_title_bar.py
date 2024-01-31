@@ -1,10 +1,14 @@
-from PySide6.QtCore import Signal, QSize
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
-from PySide6.QtSvgWidgets import *
+from PySide6.QtCore import QSize
+from PySide6.QtCore import Qt
+from PySide6.QtCore import Signal
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QLabel
+from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
-
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_div.py_div import PyDiv
 
 from .py_title_button import PyTitleButton
@@ -18,26 +22,26 @@ class PyTitleBar(QWidget):
     released = Signal(object)
 
     def __init__(
-            self,
-            parent,
-            app_parent,
-            logo_image="ANSS_BIG.D.svg",
-            logo_width=10,
-            dark_one="#1b1e23",
-            bg_color="#343b48",
-            div_color="#3c4454",
-            btn_bg_color="#343b48",
-            btn_bg_color_hover="#3c4454",
-            btn_bg_color_pressed="#2c313c",
-            icon_color="#c3ccdf",
-            icon_color_hover="#dce1ec",
-            icon_color_pressed="#edf0f5",
-            icon_color_active="#f5f6f9",
-            context_color="#6c99f4",
-            text_foreground="#8a95aa",
-            radius=8,
-            font_family="Segoe UI",
-            title_size=10,
+        self,
+        parent,
+        app_parent,
+        logo_image="ANSS_BIG.D.svg",
+        logo_width=10,
+        dark_one="#1b1e23",
+        bg_color="#343b48",
+        div_color="#3c4454",
+        btn_bg_color="#343b48",
+        btn_bg_color_hover="#3c4454",
+        btn_bg_color_pressed="#2c313c",
+        icon_color="#c3ccdf",
+        icon_color_hover="#dce1ec",
+        icon_color_pressed="#edf0f5",
+        icon_color_active="#f5f6f9",
+        context_color="#6c99f4",
+        text_foreground="#8a95aa",
+        radius=8,
+        font_family="Segoe UI",
+        title_size=10,
     ):
         super().__init__(parent)
 
@@ -100,10 +104,10 @@ class PyTitleBar(QWidget):
     def add_menus(self, parameters):
         if parameters is not None and len(parameters) > 0:
             for parameter in parameters:
-                _btn_icon = self._images_load.icon_path(parameter['btn_icon'])
-                _btn_id = parameter['btn_id']
-                _btn_tooltip = parameter['btn_tooltip']
-                _is_active = parameter['is_active']
+                _btn_icon = self._images_load.icon_path(parameter["btn_icon"])
+                _btn_id = parameter["btn_id"]
+                _btn_tooltip = parameter["btn_tooltip"]
+                _is_active = parameter["is_active"]
 
                 self.menu = PyTitleButton(
                     self._parent,
@@ -121,7 +125,7 @@ class PyTitleBar(QWidget):
                     context_color=self._context_color,
                     text_foreground=self._text_foreground,
                     icon_path=_btn_icon,
-                    is_active=_is_active
+                    is_active=_is_active,
                 )
                 self.menu.clicked.connect(self.btn_clicked)
                 self.menu.released.connect(self.btn_released)
@@ -145,15 +149,11 @@ class PyTitleBar(QWidget):
             if _is_maximized:
                 self._parent.ui.main_window_layout.setContentsMargins(0, 0, 0, 0)
                 self._parent.ui.main_window.set_stylesheet(border_radius=0, border_size=0)
-                self.maximize_restore_button.set_icon(
-                    self._images_load.icon_path("icon_restore.svg")
-                )
+                self.maximize_restore_button.set_icon(self._images_load.icon_path("icon_restore.svg"))
             else:
                 self._parent.ui.main_window_layout.setContentsMargins(10, 10, 10, 10)
                 self._parent.ui.main_window.set_stylesheet(border_radius=10, border_size=2)
-                self.maximize_restore_button.set_icon(
-                    self._images_load.icon_path("icon_maximize.svg")
-                )
+                self.maximize_restore_button.set_icon(self._images_load.icon_path("icon_maximize.svg"))
 
         # CHECK EVENT
         if self._parent.isMaximized():
@@ -210,7 +210,7 @@ class PyTitleBar(QWidget):
             context_color=self._context_color,
             text_foreground=self._text_foreground,
             radius=6,
-            icon_path=self._images_load.icon_path("icon_minimize.svg")
+            icon_path=self._images_load.icon_path("icon_minimize.svg"),
         )
 
         self.maximize_restore_button = PyTitleButton(
@@ -228,7 +228,7 @@ class PyTitleBar(QWidget):
             context_color=self._context_color,
             text_foreground=self._text_foreground,
             radius=6,
-            icon_path=self._images_load.icon_path("icon_maximize.svg")
+            icon_path=self._images_load.icon_path("icon_maximize.svg"),
         )
 
         self.close_button = PyTitleButton(
@@ -246,7 +246,7 @@ class PyTitleBar(QWidget):
             context_color=self._context_color,
             text_foreground=self._text_foreground,
             radius=6,
-            icon_path=self._images_load.icon_path("icon_close.svg")
+            icon_path=self._images_load.icon_path("icon_close.svg"),
         )
 
         self.title_bar_layout.addWidget(self.bg)

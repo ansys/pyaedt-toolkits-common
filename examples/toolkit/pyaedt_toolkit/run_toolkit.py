@@ -14,8 +14,8 @@ from ui.models import properties
 import backend
 
 # Define global variables or constants
-BACKEND_FILE = os.path.join(backend.__path__[0], "rest_api.py")
-FRONTEND_FILE = os.path.join(ui.__path__[0], "run.py")
+BACKEND_FILE = os.path.join(backend.__path__[0], "run_backend.py")
+FRONTEND_FILE = os.path.join(ui.__path__[0], "run_frontend.py")
 IS_LINUX = os.name == "posix"
 URL = properties.backend_url
 PORT = properties.backend_port

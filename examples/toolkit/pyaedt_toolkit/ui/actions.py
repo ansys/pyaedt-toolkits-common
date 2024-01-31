@@ -16,12 +16,13 @@ class Frontend(FrontendGeneric):
             if project_selected == "No Project":
                 project_selected = generate_unique_project_name()
                 project_selected = self.get_project_name(project_selected)
+                be_properties["active_project"] = project_selected
 
             for project in be_properties["project_list"]:
                 if self.get_project_name(project) == project_selected:
                     be_properties["active_project"] = project
                     if project_selected in list(be_properties["design_list"].keys()):
-                        designs = be_properties["design_lis"][project_selected]
+                        designs = be_properties["design_list"][project_selected]
                         for design in designs:
                             if design_selected == design:
                                 be_properties["active_design"] = design
@@ -30,14 +31,17 @@ class Frontend(FrontendGeneric):
         else:
             project_selected = generate_unique_project_name()
             project_selected = self.get_project_name(project_selected)
+            be_properties["active_project"] = project_selected
 
         # Multiplier and geometry
         be_properties["multiplier"] = float(multiplier)
         be_properties["geometry"] = geometry
-        be_properties["active_project"] = project_selected
+
         self.set_properties(be_properties)
 
         response = requests.post(self.url + "/create_geometry")
+
+        self.properties.primitives_created.append(response.text)
 
         if response.ok:
             msg = "Geometry created."

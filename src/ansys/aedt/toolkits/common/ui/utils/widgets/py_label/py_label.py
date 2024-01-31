@@ -19,11 +19,7 @@ class PyLabel(QLabel):
         Weight for the font, by default is 'bold'.
     """
 
-    def __init__(self,
-                 text="",
-                 color="#000000",
-                 font_size=8,
-                 font_weight='bold'):
+    def __init__(self, text="", color="#000000", font_size=8, font_weight="bold"):
         super().__init__()
         text and self.setText(text)
         self.apply_stylesheet(color, font_size, font_weight)

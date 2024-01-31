@@ -8,9 +8,9 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
-import psutil
 import pyaedt
 from pyaedt import Desktop
+from pyaedt.generic.general_methods import active_sessions
 from pyaedt.misc import list_installed_ansysem
 from pydantic import ValidationError
 
@@ -145,8 +145,8 @@ class Common:
             logger.debug(msg)
         return updated, msg
 
-    def launch_thread(self, process):
-        self.thread_manager.launch_thread(process)
+    def launch_thread(self, process) -> ThreadManager:
+        return self.thread_manager.launch_thread(process)
 
     def get_thread_status(self) -> ToolkitThreadStatus:
         """Get the toolkit thread status.
@@ -176,7 +176,7 @@ class Common:
         return res
 
     @staticmethod
-    def installed_aedt_version():
+    def installed_aedt_version() -> List:
         """
         Get the installed AEDT versions.
 
@@ -202,7 +202,7 @@ class Common:
         logger.debug(str(installed_versions))
         return installed_versions
 
-    def aedt_sessions(self):
+    def aedt_sessions(self) -> Dict[int, int]:
         """Get information for the active AEDT sessions.
 
         Returns
@@ -215,29 +215,47 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.aedt_sessions()
-        [[pid1, grpc_port1], [pid2, grpc_port2]]
+        {pid1: grpc_port1, pid2: grpc_port2}
         """
-        res = []
+
+        res = {}
         if not self.properties.is_toolkit_busy and self.properties.aedt_version:
-            keys = ["ansysedt.exe"]
-            version = self.properties.aedt_version
-            if version and "." in version:
-                version = version[-4:].replace(".", "")
-            if version < "222":  # pragma: no cover
-                version = version[:2] + "." + version[2]
-            for process in filter(lambda p: p.name() in keys, psutil.process_iter()):
-                cmd = process.cmdline()
-                if version in cmd[0]:
-                    try:
-                        grpc_index = cmd.index("-grpcsrv") + 1
-                        port = int(cmd[grpc_index])
-                    except (ValueError, IndexError):
-                        port = -1
-                    res.append([process.pid, port])
+            res = active_sessions(
+                version=self.properties.aedt_version, student_version=False, non_graphical=self.properties.non_graphical
+            )
+        if res:  # pragma: no cover
             logger.debug(f"Active AEDT sessions: {res}.")
-        else:  # pragma: no cover
+        else:
             logger.debug("No active sessions.")
         return res
+
+    def wait_to_be_idle(self, timeout: Optional[int] = 60) -> bool:
+        """Wait for the thread to be idle and ready to accept new task.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time out in seconds. The default is 60 seconds.
+
+        Examples
+        --------
+        >>> import time
+        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+        >>> toolkit_api = AEDTCommon()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
+        >>> toolkit_api.get_design_names()
+        """
+        time.sleep(1)
+        status = self.get_thread_status()
+        cont = 0
+        while status == ToolkitThreadStatus.BUSY:
+            time.sleep(1)
+            cont += 1
+            status = self.get_thread_status()
+            if timeout and cont == timeout:  # pragma: no cover
+                return False
+        return True
 
 
 class AEDTCommon(Common):
@@ -295,7 +313,7 @@ class AEDTCommon(Common):
         logger.debug(msg)
         return connected, msg
 
-    def launch_aedt(self):
+    def launch_aedt(self) -> bool:
         """Launch AEDT.
 
         This method is launched in a thread if grpc is enabled. AEDT is released once it is opened.
@@ -469,13 +487,13 @@ class AEDTCommon(Common):
         aedt_app = pyaedt.Hfss
         if design_name != "No Design":
             project_name = self.get_project_name(project_name)
+            active_design = design_name
             if design_name in self.properties.design_list[project_name]:
                 self.aedtapp = self.desktop[[project_name, design_name]]
-                if self.aedtapp:
-                    active_design = self.aedtapp.design_name
-                else:  # pragma: no cover
+                if not self.aedtapp:  # pragma: no cover
                     logger.error("Wrong active project and design.")
                     return False
+                active_design = self.aedtapp.design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
             design_name = pyaedt.generate_unique_name(app_name)
             aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
@@ -700,34 +718,6 @@ class AEDTCommon(Common):
                 design_list.append(self.properties.active_design)
 
         return design_list
-
-    def wait_to_be_idle(self, timeout=60):
-        """Wait for the thread to be idle and ready to accept new task.
-
-        Parameters
-        ----------
-        timeout : int, optional
-            Time out in seconds. The default is 60 seconds.
-
-        Examples
-        --------
-        >>> import time
-        >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-        >>> toolkit_api = AEDTCommon()
-        >>> toolkit_api.launch_aedt()
-        >>> toolkit_api.wait_to_be_idle()
-        >>> toolkit_api.get_design_names()
-        """
-        time.sleep(1)
-        status = self.get_thread_status()
-        cont = 0
-        while status == ToolkitThreadStatus.BUSY:
-            time.sleep(1)
-            cont += 1
-            status = self.get_thread_status()
-            if timeout and cont == timeout:
-                return False
-        return True
 
     def _save_project_info(self):
         # Save project and design info

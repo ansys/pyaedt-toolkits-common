@@ -1,4 +1,6 @@
-from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QHBoxLayout
+from PySide6.QtWidgets import QWidget
 
 
 class PyDiv(QWidget):
@@ -34,10 +36,8 @@ class PyDiv(QWidget):
     >>>     window.show()
     >>>     app.exec()
     """
-    def __init__(self,
-                 color="#000000",
-                 height=0,
-                 width=20):
+
+    def __init__(self, color="#000000", height=0, width=20):
         super().__init__()
 
         self.layout = QHBoxLayout(self)

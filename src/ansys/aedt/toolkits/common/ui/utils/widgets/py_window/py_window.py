@@ -1,13 +1,25 @@
-from PySide6.QtWidgets import *
-from PySide6.QtGui import *
+from PySide6.QtGui import QColor
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QGraphicsDropShadowEffect
+from PySide6.QtWidgets import QHBoxLayout
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.styles import Styles
 
 
 class PyWindow(QFrame):
-    def __init__(self, parent, margin=0, spacing=2,
-                 bg_color="#2c313c", text_color="#fff", text_font="9pt 'Segoe UI'",
-                 border_radius=10, border_size=2, border_color="#343b48", enable_shadow=True):
+    def __init__(
+        self,
+        parent,
+        margin=0,
+        spacing=2,
+        bg_color="#2c313c",
+        text_color="#fff",
+        text_font="9pt 'Segoe UI'",
+        border_radius=10,
+        border_size=2,
+        border_color="#343b48",
+        enable_shadow=True,
+    ):
         super().__init__(parent)
         self.parent = parent
         self.margin = margin
@@ -32,8 +44,9 @@ class PyWindow(QFrame):
         if enable_shadow:
             self._addDropShadow()
 
-    def set_stylesheet(self, bg_color=None, border_radius=None, border_size=None,
-                       border_color=None, text_color=None, text_font=None):
+    def set_stylesheet(
+        self, bg_color=None, border_radius=None, border_size=None, border_color=None, text_color=None, text_font=None
+    ):
         # Use provided if not None else get the instance attribute
         style_args = {
             "_bg_color": bg_color or self.bg_color,
@@ -41,7 +54,7 @@ class PyWindow(QFrame):
             "_border_size": border_size or self.border_size,
             "_border_color": border_color or self.border_color,
             "_text_color": text_color or self.text_color,
-            "_text_font": text_font or self.text_font
+            "_text_font": text_font or self.text_font,
         }
 
         self.setStyleSheet(Styles.bg_style.format(**style_args))
