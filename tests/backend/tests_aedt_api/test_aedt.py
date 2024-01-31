@@ -1,7 +1,7 @@
 import os
 
 import pytest
-from tests_api.conftest import skip_test
+from tests_aedt_api.conftest import skip_test
 
 
 @pytest.mark.aedt
@@ -37,7 +37,6 @@ class TestAEDT:
         if skip_test():
             pytest.skip()
 
-        assert aedt_common.open_project(aedt_example)
         assert not aedt_common.open_project(aedt_example)
 
     def test_03_save_project(self, aedt_common, assert_handler, aedt_example):

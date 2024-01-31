@@ -1,0 +1,5 @@
+{
+  "debug" : true,
+  "log_file" : "test_edb_api.log",
+  "desktop_version": "2023.2"
+}

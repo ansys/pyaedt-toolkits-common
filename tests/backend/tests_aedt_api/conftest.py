@@ -28,10 +28,7 @@ import tempfile
 from pyaedt import settings
 from pyaedt.generic.filesystem import Scratch
 import pytest
-from tests_api.models import properties
-
-# Constants
-PROJECT_NAME = "Test"
+from tests_aedt_api.models import properties
 
 config = {
     "desktop_version": properties.aedt_version,
@@ -55,11 +52,6 @@ com_non_graphical = False
 if not properties.use_grpc and properties.non_graphical:
     com_non_graphical = True
 
-# The import should be here to have the updated properties
-from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-from ansys.aedt.toolkits.common.backend.api import Common
-from ansys.aedt.toolkits.common.backend.api import EDBCommon
-
 settings.enable_error_handler = False
 settings.enable_desktop_logs = False
 settings.use_grpc_api = config.get("use_grpc", True)
@@ -71,10 +63,6 @@ local_scratch = Scratch(scratch_path)
 input_data_dir = pathlib.Path(__file__).parent.parent.parent
 aedt_project = os.path.join(input_data_dir, "input_data", "Test.aedt")
 aedt_scratch = shutil.copy(aedt_project, local_scratch.path)
-
-edb_scratch = shutil.copytree(
-    os.path.join(input_data_dir, "input_data", "edb_test.aedb"), os.path.join(local_scratch.path, "edb_test.aedb")
-)
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -92,17 +80,9 @@ logger.addHandler(console_handler)
 
 
 @pytest.fixture(scope="session")
-def common(request):
-    logger.info("Common API initialization")
-    common_api = Common(properties)
-    yield common_api
-    # Check if any test has failed
-    if request.session.testsfailed == 0:
-        cleanup_process()
-
-
-@pytest.fixture(scope="session")
 def aedt_common(request):
+    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
     logger.info("AEDTCommon API initialization")
     aedt_common = AEDTCommon(properties)
     if com_non_graphical:
@@ -112,21 +92,13 @@ def aedt_common(request):
         aedt_common.launch_thread(aedt_common.launch_aedt)
         is_aedt_launched = aedt_common.wait_to_be_idle()
         if is_aedt_launched:
+            aedt_common.open_project(aedt_scratch)
             yield aedt_common
             aedt_common.release_aedt(True, True)
         else:
             logger.error("AEDT is not launched")
 
-    # Check if any test has failed
-    if request.session.testsfailed == 0:
-        cleanup_process()
-
-
-@pytest.fixture(scope="session")
-def edb_common(request):
-    logger.info("EDBCommon API initialization")
-    edb_common = EDBCommon(properties)
-    yield edb_common
+    aedt_common.release_aedt(True, True)
     # Check if any test has failed
     if request.session.testsfailed == 0:
         cleanup_process()
@@ -159,11 +131,6 @@ def assert_handler(request):
 @pytest.fixture(scope="session")
 def aedt_example():
     return aedt_scratch
-
-
-@pytest.fixture(scope="session")
-def edb_example():
-    return edb_scratch
 
 
 def skip_test(skip=False):

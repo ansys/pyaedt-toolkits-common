@@ -487,12 +487,13 @@ class AEDTCommon(Common):
         aedt_app = pyaedt.Hfss
         if design_name != "No Design":
             project_name = self.get_project_name(project_name)
-            active_design = self.aedtapp.design_name
+            active_design = design_name
             if design_name in self.properties.design_list[project_name]:
                 self.aedtapp = self.desktop[[project_name, design_name]]
                 if not self.aedtapp:  # pragma: no cover
                     logger.error("Wrong active project and design.")
                     return False
+                active_design = self.aedtapp.design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
             design_name = pyaedt.generate_unique_name(app_name)
             aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
