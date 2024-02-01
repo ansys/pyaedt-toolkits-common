@@ -27,18 +27,23 @@ dependencies = [
     "build==1.0.3",
     "twine==4.0.2",
     "pyaedt",
-    "PySide6-Essentials",
-    "pyqtgraph",
-    "qdarkstyle",
-    "flask",
     "pydantic",
-    "jsonschema"
+    "jsonschema",
 ]
 
 [project.optional-dependencies]
+all = [
+    "pytest==8.0.0",
+    "pytest-cov==4.1.0",
+    "flask",
+    "PySide6-Essentials",
+    "pyqtgraph",
+    "qdarkstyle",
+]
 tests = [
     "pytest==8.0.0",
     "pytest-cov==4.1.0",
+    "flask",
 ]
 doc = [
     "ansys-sphinx-theme==0.13.1",

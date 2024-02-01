@@ -13,7 +13,7 @@ sys.path.append(pathlib.Path(__file__).parent.parent.parent)
 path = os.path.join(pathlib.Path(__file__).parent.parent.parent, "src")
 print(path)
 sys.path.append(path)
-from ansys.aedt.toolkits.motor import __version__
+from ansys.aedt.toolkits.common import __version__
 
 print(__version__)
 # Project information

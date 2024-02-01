@@ -146,6 +146,7 @@ class Common:
         return updated, msg
 
     def launch_thread(self, process) -> ThreadManager:
+        """Launch thread."""
         return self.thread_manager.launch_thread(process)
 
     def get_thread_status(self) -> ToolkitThreadStatus:

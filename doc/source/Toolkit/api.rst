@@ -1,16 +1,23 @@
-Toolkit API
+Backend API
 ===========
 The Toolkit API contains the ``Toolkit`` class, which provides methods for
 controlling the toolkit workflow. In addition to methods for creating a new
 or connecting to an existing AEDT session, this API provides methods for automating
 the segmentation and skew of a 3D motor.
 
-.. currentmodule:: ansys.aedt.toolkits.motor.backend.api
+- **Toolkit API**: Contains the ``Toolkit`` class, which provides methods for
+  controlling the toolkit workflow. In addition to methods for creating a new
+  or connecting to an existing AEDT session, this API provides methods for automating
+  the segmentation and skew of a 3D motor.
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
 
 .. autosummary::
    :toctree: _autosummary
 
-   Toolkit
+   AEDTCommon
+   EDBCommon
+   Common
 
 This code shows how to use the ``Toolkit`` class:
 
