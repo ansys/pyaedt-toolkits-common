@@ -455,9 +455,38 @@ class CommonWindowUtils(object):
         minimum_progress = general_settings.progress_size["minimum"]
         maximum_progress = general_settings.progress_size["maximum"]
         progress_box_height = self.progress_frame.height()
-        # self.progress.__setattr__("progress", randint(0, 100))
         progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
         self.progress_frame.setMaximumHeight(progress_width)
+
+    @staticmethod
+    def item_index(layout, item):
+        """
+        Item index.
+        """
+        try:
+            for i in range(layout.count()):
+                if layout.itemAt(i) == item:
+                    return i
+                elif layout.itemAt(i).widget() == item:
+                    return i
+            return -1
+        except:
+            return -1
+
+    @staticmethod
+    def remove_item(layout, index):
+        """
+        Remove item by index.
+        """
+        item = layout.itemAt(index)
+        if item:
+            widget = item.widget()
+            if widget:
+                layout.removeWidget(widget)
+                widget.deleteLater()
+            else:
+                layout.removeItem(item)
+        layout.update()
 
     @staticmethod
     def create_animation(obj, property_name, start_val, end_val):
