@@ -25,7 +25,8 @@ import tempfile
 
 from pyaedt.generic.filesystem import Scratch
 import pytest
-from tests_common_api.models import properties
+
+from tests.backend.tests_common_api.models import properties
 
 scratch_path = tempfile.gettempdir()
 local_scratch = Scratch(scratch_path)

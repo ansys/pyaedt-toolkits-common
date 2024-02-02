@@ -26,7 +26,8 @@ import tempfile
 from pyaedt import settings
 from pyaedt.generic.filesystem import Scratch
 import pytest
-from tests_edb_api.models import properties
+
+from tests.backend.tests_edb_api.models import properties
 
 config = {"desktop_version": properties.aedt_version}
 
