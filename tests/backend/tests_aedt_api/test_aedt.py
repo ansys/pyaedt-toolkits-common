@@ -1,7 +1,8 @@
 import os
 
 import pytest
-from tests_aedt_api.conftest import skip_test
+
+from tests.backend.tests_aedt_api.conftest import skip_test
 
 
 class TestAEDT:

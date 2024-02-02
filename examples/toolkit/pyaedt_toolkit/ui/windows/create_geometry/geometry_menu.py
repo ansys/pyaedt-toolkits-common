@@ -177,11 +177,6 @@ class GeometryMenu(object):
     def geometry_created_finished(self, success):
         self.ui.progress.progress = 100
 
-        # Update project and designs
-        project_list = self.app.get_aedt_data()
-        self.main_window.home_menu.project_combobox.clear()
-        self.main_window.home_menu.project_combobox.addItems(project_list)
-
         if success:
             msg = "Geometry created."
             self.ui.logger.log(msg)
