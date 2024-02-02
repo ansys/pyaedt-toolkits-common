@@ -1,9 +1,10 @@
+.. _ref_toolkit_architecture:
+
 Architecture
 ============
 
-PyAEDT consolidates and extends all existing capital around scripting for AEDT,
-allowing reuse of existing code, sharing of best practices, and collaboration.
+The architecture is defined in the following picture:
 
-Picture of the architecture
-
-Explain Properties
+.. image:: ../_static/toolkit_architecture.png
+  :width: 800
+  :alt: Toolkit architecture

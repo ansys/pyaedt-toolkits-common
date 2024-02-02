@@ -1,14 +1,14 @@
 Backend API
 ===========
-The Toolkit API contains the ``Toolkit`` class, which provides methods for
-controlling the toolkit workflow. In addition to methods for creating a new
-or connecting to an existing AEDT session, this API provides methods for automating
-the segmentation and skew of a 3D motor.
+The backend API contains three classes: ``Common``, ``AEDTCommon``, ``EDBCommon``, which provides methods for
+controlling the toolkit workflow.
 
-- **Toolkit API**: Contains the ``Toolkit`` class, which provides methods for
-  controlling the toolkit workflow. In addition to methods for creating a new
-  or connecting to an existing AEDT session, this API provides methods for automating
-  the segmentation and skew of a 3D motor.
+- **Common**: provides methods for controlling the toolkit flow.
+
+- **AEDTCommon**: provides methods for controlling AEDT and it inherits ``Common`` class.
+
+- **EDBCommon**: provides methods for controlling EDB and it inherits ``Common`` class.
+
 
 .. currentmodule:: ansys.aedt.toolkits.common.backend.api
 
@@ -19,39 +19,45 @@ the segmentation and skew of a 3D motor.
    EDBCommon
    Common
 
-This code shows how to use the ``Toolkit`` class:
+This code shows how to use the ``AEDTCommon`` class:
 
 .. code:: python
 
-    # Import required modules
-    import time
+    # Import API
+    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+    from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
-    # Import backend
-    from ansys.aedt.toolkits.motor.backend.api import Toolkit
+    # Object with generic methods to control the toolkits
+    toolkit = AEDTCommon(properties)
 
-    # Initialize generic service
-    service = Toolkit()
+    # Get the default properties
+    properties_from_backend = toolkit.get_properties()
 
-    # Get the default properties loaded from JSON file
-    properties = service.get_properties()
+    # Set properties, useful to set more than one property
+    new_properties = {"use_grpc": True, "debug": False}
+    flag1, msg1 = toolkit.set_properties(new_properties)
 
-    # Set properties
-    new_properties = {"aedt_version": "2023.2"}
-    service.set_properties(new_properties)
-    properties = service.get_properties()
+    # Get new properties
+    new_properties1 = toolkit.get_properties()
 
-    # Launch AEDT
-    msg = service.launch_aedt()
+    # Get AEDT installed versions
+    versions = toolkit.installed_aedt_version()
+
+    # Launch AEDT. This is launched in a thread.
+    msg3 = toolkit.launch_thread(toolkit.launch_aedt)
 
     # Wait until thread is finished
-    response = service.get_thread_status()
-    while response[0] == 0:
-        time.sleep(1)
-        response = service.get_thread_status()
+    toolkit.wait_to_be_idle()
 
-    # Segment and skew motor
-    service.segmentation()
-    service.apply_skew()
+    # Get new properties. Now the properties should contain the project information.
+    new_properties4 = toolkit.get_properties()
+
+    # Connect to the design
+    flag2 = toolkit.connect_design()
+
+    # Create a box
+    box = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])
+    box_name = box.name
 
     # Release AEDT
-    service.release_aedt()
+    flag3 = toolkit.release_aedt()
