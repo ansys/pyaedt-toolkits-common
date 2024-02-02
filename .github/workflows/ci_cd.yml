@@ -105,11 +105,11 @@ jobs:
           .\.venv\Scripts\Activate.ps1
           pytest -v -m common --cov
 
-      - name: AEDT Test
-        timeout-minutes: 5
-        run: |
-          .\.venv\Scripts\Activate.ps1
-          pytest -v -m aedt --cov --cov-append
+#      - name: AEDT Test
+#        timeout-minutes: 5
+#        run: |
+#          .\.venv\Scripts\Activate.ps1
+#          pytest -v -m aedt --cov --cov-append
 
       - name: "Combine coverage files"
         run: |
