@@ -1,10 +1,10 @@
 .. _ref_getting_started:
 
 ===============
-Getting Started
+Getting started
 ===============
 
-If you want to develop a new toolkit, you will need first to understand the architecture.
+If you want to develop a new toolkit, you need first to understand the architecture.
 
 This repository is a common API for any new AEDT toolkit. It standardizes AEDT toolkits implementation.
 
