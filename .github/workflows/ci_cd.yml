@@ -103,14 +103,7 @@ jobs:
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-          pytest -v -m backend\tests_common_api --cov
-          echo "Current Directory: $(pwd)"
-
-      - name: Debug Info
-        run: |
-          echo "Current Directory: $(pwd)"
-          echo "Contents of Current Directory: $(ls -la)"
-    # Add more debugging information as needed
+          pytest -v -m common --cov
 
 #      - name: AEDT Test
 #        timeout-minutes: 5
