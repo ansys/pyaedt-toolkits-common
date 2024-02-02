@@ -105,32 +105,32 @@ jobs:
           .\.venv\Scripts\Activate.ps1
           pytest -v -m common --cov
 
-#      - name: AEDT Test
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          pytest -v -m aedt --cov --cov-append
+      - name: AEDT Test
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m aedt --cov --cov-append
 
-#      - name: "Combine coverage files"
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          python -m coverage html -d .cov\total-html
-#          python -m coverage xml -o .cov\total.xml
-#
-#      - name: "Upload coverage results"
-#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
-#        uses: actions/upload-artifact@v4
-#        with:
-#          path: .cov/total-html
-#          name: html-total-coverage
-#
-#      - name: "Upload coverage report to codecov"
-#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
-#        uses: codecov/codecov-action@v4
-#        with:
-#          file: .cov/total.xml
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: "Combine coverage files"
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m coverage html -d .cov\total-html
+          python -m coverage xml -o .cov\total.xml
+
+      - name: "Upload coverage results"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
+        uses: actions/upload-artifact@v4
+        with:
+          path: .cov/total-html
+          name: html-total-coverage
+
+      - name: "Upload coverage report to codecov"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
+        uses: codecov/codecov-action@v4
+        with:
+          file: .cov/total.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   build-library:
     name: "Build library artifacts"
