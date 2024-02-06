@@ -2,7 +2,8 @@ exclude: |
     (?x)(
         src/ansys/aedt/toolkits/common/ui/utils/ui_templates/.* |
         tests/.* |
-        examples/.*
+        examples/.* |
+        README.rst
     )
 
 repos:
