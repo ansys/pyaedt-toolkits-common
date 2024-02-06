@@ -19,27 +19,3 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
-import os
-
-
-class TestEDB:
-    """EDBCommon unit tests."""
-
-    def test_00_load_edb(self, edb_common, common_temp_dir):
-        """Load EDB."""
-        edb_example = os.path.join(common_temp_dir, "input_data", "edb_test.aedb")
-        assert not edb_common.load_edb(edb_example + "dummy")
-        assert edb_common.load_edb(edb_example)
-        assert not edb_common.load_edb(edb_example)
-
-    def test_01_save_edb(self, edb_common, common_temp_dir):
-        """Save EDB."""
-        assert edb_common.save_edb()
-        new_path = os.path.join(common_temp_dir, "input_data", "new_edb.aedb")
-        assert edb_common.save_edb(new_path)
-
-    def test_02_close_edb(self, edb_common):
-        """Close EDB."""
-        assert edb_common.close_edb()
-        assert not edb_common.close_edb()

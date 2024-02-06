@@ -20,26 +20,20 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+"""
+Common conftest
+"""
 import os
+from pathlib import Path
+import shutil
+
+import pytest
 
 
-class TestEDB:
-    """EDBCommon unit tests."""
+@pytest.fixture(scope="session")
+def common_temp_dir(tmp_path_factory):
+    tmp_dir = tmp_path_factory.mktemp("test_common_toolkit_workflows", numbered=True)
+    src_folder = os.path.join(Path(__file__).parent, "input_data")
+    shutil.copytree(src_folder, os.path.join(tmp_dir, "input_data"))
 
-    def test_00_load_edb(self, edb_common, common_temp_dir):
-        """Load EDB."""
-        edb_example = os.path.join(common_temp_dir, "input_data", "edb_test.aedb")
-        assert not edb_common.load_edb(edb_example + "dummy")
-        assert edb_common.load_edb(edb_example)
-        assert not edb_common.load_edb(edb_example)
-
-    def test_01_save_edb(self, edb_common, common_temp_dir):
-        """Save EDB."""
-        assert edb_common.save_edb()
-        new_path = os.path.join(common_temp_dir, "input_data", "new_edb.aedb")
-        assert edb_common.save_edb(new_path)
-
-    def test_02_close_edb(self, edb_common):
-        """Close EDB."""
-        assert edb_common.close_edb()
-        assert not edb_common.close_edb()
+    yield tmp_dir

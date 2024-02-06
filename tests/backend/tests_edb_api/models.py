@@ -32,8 +32,6 @@ from ansys.aedt.toolkits.common.backend.models import common_properties
 class BackendProperties(BaseModel):
     """Store toolkit properties."""
 
-    new_property: bool = True
-
 
 class Properties(BackendProperties, CommonProperties, validate_assignment=True):
     """Store all properties."""

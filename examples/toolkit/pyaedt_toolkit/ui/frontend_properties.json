@@ -9,7 +9,7 @@
   "version" : "v0.0.1",
   "copyright" : "By: slopez",
   "year" : 2023,
-  "theme" : "ansys.json",
+  "theme" : "dracula.json",
   "high_resolution": true,
   "add_left_menus" : [
       {
