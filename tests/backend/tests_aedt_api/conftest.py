@@ -1,3 +1,25 @@
+# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 """
 API Test Configuration Module
 -----------------------------
@@ -20,16 +42,15 @@ You can enable the API log file in the backend_properties.json.
 
 import json
 import logging
-import os
 import pathlib
 import shutil
-import tempfile
 
 from pyaedt import settings
-from pyaedt.generic.filesystem import Scratch
 import pytest
 
+# Load properties from backend_properties.json
 from tests.backend.tests_aedt_api.models import properties
+from tests.conftest import common_temp_dir
 
 config = {
     "desktop_version": properties.aedt_version,
@@ -38,112 +59,80 @@ config = {
 }
 
 # Check for the local config file, override defaults if found
-local_path = os.path.dirname(os.path.realpath(__file__))
-local_config_file = os.path.join(local_path, "local_config.json")
-if os.path.exists(local_config_file):
+local_path = pathlib.Path(__file__).resolve().parent
+local_config_file = pathlib.Path(local_path, "local_config.json")
+if local_config_file.exists():
     with open(local_config_file) as f:
         local_config = json.load(f)
     config.update(local_config)
 
-properties.use_grpc = config.get("use_grpc", True)
+properties.use_grpc = config["use_grpc"]
 properties.non_graphical = config["non_graphical"]
 properties.aedt_version = config["desktop_version"]
 
-com_non_graphical = False
-if not properties.use_grpc and properties.non_graphical:
-    com_non_graphical = True
-
 settings.enable_error_handler = False
 settings.enable_desktop_logs = False
-settings.use_grpc_api = config.get("use_grpc", True)
+settings.use_grpc_api = config["use_grpc"]
 settings.non_graphical = config["non_graphical"]
 
-scratch_path = tempfile.gettempdir()
-local_scratch = Scratch(scratch_path)
+failed_tests = set()
 
-input_data_dir = pathlib.Path(__file__).parent.parent.parent
-aedt_project = os.path.join(input_data_dir, "input_data", "Test.aedt")
-aedt_scratch = shutil.copy(aedt_project, local_scratch.path)
 
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-log_file = os.path.join(local_scratch.path, "pytest_api.log")
-file_handler = logging.FileHandler(log_file)
-formatter = logging.Formatter("%(levelname)s - %(message)s")
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
+def create_logger(temp_dir, name):
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+    log_file = pathlib.Path(temp_dir, name)
+    file_handler = logging.FileHandler(log_file)
+    formatter = logging.Formatter("%(levelname)s - %(message)s")
+    file_handler.setFormatter(formatter)
+    logger.addHandler(file_handler)
+    logging.StreamHandler()
+    formatter = logging.Formatter("%(levelname)s - %(message)s")
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+    return logger
 
-logging.StreamHandler()
-formatter = logging.Formatter("%(levelname)s - %(message)s")
-console_handler = logging.StreamHandler()
-console_handler.setFormatter(formatter)
-logger.addHandler(console_handler)
+
+def release_logger(logger):
+    for handler in logger.handlers[:]:
+        handler.close()
+        logger.removeHandler(handler)
 
 
 @pytest.fixture(scope="session")
-def aedt_common(request):
+def aedt_common(common_temp_dir):
     from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
+    logger = create_logger(common_temp_dir, "pytest_aedt_api.log")
 
     logger.info("AEDTCommon API initialization")
     aedt_common = AEDTCommon(properties)
-    if com_non_graphical:
-        logger.error("COM in non graphical not allowed")
-        yield aedt_common
-    else:
-        aedt_common.launch_thread(aedt_common.launch_aedt)
-        is_aedt_launched = aedt_common.wait_to_be_idle()
-        if is_aedt_launched:
-            aedt_common.open_project(aedt_scratch)
+    aedt_common.launch_thread(aedt_common.launch_aedt)
+    is_aedt_launched = aedt_common.wait_to_be_idle()
+    aedt_project = pathlib.Path(common_temp_dir, "input_data", "Test.aedt")
+    if is_aedt_launched:
+        project_flag = aedt_common.open_project(str(aedt_project))
+        if project_flag:
             yield aedt_common
-            aedt_common.release_aedt(True, True)
         else:
-            logger.error("AEDT is not launched")
+            logger.error("Open project failed")
+        aedt_common.release_aedt(True, True)
+        logger.info("AEDT released")
+    else:
+        logger.error("AEDT is not launched")
 
-    aedt_common.release_aedt(True, True)
     # Check if any test has failed
-    if request.session.testsfailed == 0:
-        cleanup_process()
-
-
-failed_tests = set()
+    if not failed_tests:
+        logger.info(f"All tests passed successfully")
+        release_logger(logger)
+        shutil.rmtree(pathlib.Path(common_temp_dir.parent), ignore_errors=True)
+    else:
+        for failed_test in failed_tests:
+            logger.error(f"FAILED: {failed_test.name}")
+        release_logger(logger)
 
 
 def pytest_runtest_makereport(item, call):
     if call.excinfo is not None and call.excinfo.typename == "AssertionError":
         failed_tests.add(item)
-
-
-@pytest.fixture(scope="session")
-def assert_handler(request):
-    def finalizer():
-        # Code to run after the test
-        logger.info("Test Teardown")
-        # Check if any test has failed during the session
-        if request.session.testsfailed != 0:
-            # Additional code to run when an assert fails
-            for failed_test in failed_tests:
-                logger.error(f"FAILED: {failed_test.name}")
-
-    request.addfinalizer(finalizer)
-
-    return assert_handler
-
-
-@pytest.fixture(scope="session")
-def aedt_example():
-    return aedt_scratch
-
-
-def skip_test(skip=False):
-    skip_flag = False
-    if com_non_graphical or skip:
-        skip_flag = True
-    return skip_flag
-
-
-def cleanup_process():
-    """Cleanup process after the test is completed."""
-    for handler in logger.handlers:
-        if isinstance(handler, logging.FileHandler):
-            handler.close()
-    shutil.rmtree(local_scratch.path, ignore_errors=True)
