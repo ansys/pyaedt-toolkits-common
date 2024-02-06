@@ -21,8 +21,9 @@
 # SOFTWARE.
 
 import os
+import pytest
 
-
+@pytest.mark.tests_edb_api
 class TestEDB:
     """EDBCommon unit tests."""
 

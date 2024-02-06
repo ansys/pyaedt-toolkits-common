@@ -21,8 +21,10 @@
 # SOFTWARE.
 
 import os
+import pytest
 
 
+@pytest.mark.tests_aedt_api
 class TestAEDT:
     """AEDTCommon unit tests."""
 
