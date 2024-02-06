@@ -103,7 +103,7 @@ jobs:
         timeout-minutes: 2
         run: |
           .\.venv\Scripts\Activate.ps1
-          pytest -v -m backend\tests_common_api --cov
+          pytest -v -m tests_common_api --cov
 
 #      - name: Test AEDT API
 #        timeout-minutes: 5
