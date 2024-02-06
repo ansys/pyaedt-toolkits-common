@@ -49,7 +49,7 @@ from pyaedt import settings
 import pytest
 
 # Load properties from backend_properties.json
-from tests.backend.tests_aedt_api.models import properties
+from tests.backend.tests_edb_api.models import properties
 from tests.conftest import common_temp_dir
 
 config = {"desktop_version": properties.aedt_version}
