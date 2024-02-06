@@ -91,9 +91,12 @@ def clean_python_processes():
             (ip, port) = conn.laddr
             pid = conn.pid
             if ip == URL and port == PORT and pid and pid != 0:
-                process = psutil.Process(pid)
-                print(f"Killing process {process.pid} on {ip}:{port}")
-                process.terminate()
+                try:
+                    process = psutil.Process(pid)
+                    print(f"Killing process {process.pid} on {ip}:{port}")
+                    process.terminate()
+                except:
+                    print(f"Process {process.pid} on {ip}:{port} was already killed")
 
 
 def check_backend_communication():

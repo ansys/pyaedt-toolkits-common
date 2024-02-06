@@ -1,5 +1,5 @@
-AEDT common toolkit
-===================
+PyAEDT Common Toolkit
+=====================
 
 |pyansys| |PythonVersion| |GH-CI| |MIT| |coverage| |black|
 
@@ -24,22 +24,38 @@ AEDT common toolkit
   :alt: black
 
 
-The ``ansys-aedt-toolkits-template`` package provides a template to create your own toolkit using PyAEDT.
-The toolkit could be used inside AEDT or launched from a python console.
-Toolkit features should be accessible from the user interface or directly from the API.
+The ``pyaedt-toolkits-common`` package provides common methods to create a new toolkit using PyAEDT.
+This package has two main parts: backend and user interface.
+
+The backend has some common methods to control Ansys Electronics Desktop (AEDT) session, and in addition,
+it has a REST API based on `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
+
+The user interface has some common methods to create a desktop application based on `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
+
+You can install both backend and user interface methods from PyPI:
+
+.. code:: python
+
+    pip install pyaedt-toolkits-common[all]
+
+You can install only the backend methods from PyPI, this is useful if you only need the common API:
+
+.. code:: python
+
+    pip install pyaedt-toolkits-common
 
 
 Requirements
 ~~~~~~~~~~~~
 In addition to the runtime dependencies listed in the installation information, this toolkit
-requires Ansys Electronics Desktop (AEDT) 2022 R2 or later. The AEDT Student Version is also supported.
+requires Ansys Electronics Desktop (AEDT) 2023 R2 or later. The AEDT Student Version is also supported.
 
 Documentation and issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
-In addition to installation and wizard information, the toolkit
-documentation provides `API reference <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Toolkit/index.html>`_ and `Contribute <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Contributing.html>`_ sections.
+The documentation provides the `API reference <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Toolkit/index.html>`_ to create a new toolkit,
+you can also find a `Toolkit example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_.
 
-On the `Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page, you can
+On the `Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
 create issues to submit questions, report bugs, and request new features.
 
 License

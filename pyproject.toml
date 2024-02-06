@@ -27,18 +27,23 @@ dependencies = [
     "build==1.0.3",
     "twine==4.0.2",
     "pyaedt",
-    "PySide6-Essentials",
-    "pyqtgraph",
-    "qdarkstyle",
-    "flask",
     "pydantic",
-    "jsonschema"
+    "jsonschema",
 ]
 
 [project.optional-dependencies]
+all = [
+    "pytest==8.0.0",
+    "pytest-cov==4.1.0",
+    "flask",
+    "PySide6-Essentials",
+    "pyqtgraph",
+    "qdarkstyle",
+]
 tests = [
     "pytest==8.0.0",
     "pytest-cov==4.1.0",
+    "flask",
 ]
 doc = [
     "ansys-sphinx-theme==0.13.2",
@@ -48,7 +53,7 @@ doc = [
     "sphinx-copybutton==0.5.2",
     "enum-tools[sphinx]==0.11.0",
     "sphinx-autoapi==3.0.0",
-    "sphinx-autobuild==2021.3.14",
+    "sphinx-autobuild==2024.2.4",
     "sphinx-autodoc-typehints==1.25.3",
     "sphinx-gallery==0.15.0",
     "sphinx-notfound-page==1.0.0",

@@ -383,7 +383,3 @@ class MainWindowLayout(CommonWindowUtils):
             QtGui.QIcon.On,
         )
         return icon
-
-    def update_progress_number(self, value):
-        # This method will be called whenever the progress_updated signal is emitted
-        print(f"Progress Number Updated: {value}")

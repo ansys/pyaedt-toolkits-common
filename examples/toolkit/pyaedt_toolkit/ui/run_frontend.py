@@ -1,7 +1,15 @@
 import os
 import sys
 
+# PySide6 Widgets
 from PySide6.QtWidgets import QApplication
+from PySide6.QtWidgets import QFrame
+from PySide6.QtWidgets import QSpacerItem
+from PySide6.QtWidgets import QSizePolicy
+from PySide6.QtWidgets import QWidget
+
+# Toolkit PySide6 Widgets
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 
 # Toolkit frontend API
 from actions import Frontend
@@ -90,12 +98,41 @@ class ApplicationWindow(Frontend):
         self.geometry_menu.setup()
         self.ui.left_menu.clicked.connect(self.geometry_menu_clicked)
 
+        self.spacer1_index = -1
+        self.spacer2_index = -1
+        self.label_index = -1
+
         self.ui.set_page(self.ui.load_pages.home_page)
 
     def geometry_menu_clicked(self):
         selected_menu = self.main_window.get_selected_menu()
-        if selected_menu.objectName() == "geometry_menu":
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
+        menu_name = selected_menu.objectName()
+        if self.label_index != -1 and menu_name != "geometry_menu":
+            self.ui.remove_item(self.ui.left_column.menus.home_vertical_layout, self.label_index)
+            self.label_index = -1
+
+        if menu_name == "geometry_menu":
+            # is_left_visible = self.ui.is_left_column_visible()
+            # current_page = self.ui.load_pages.pages.currentIndex()
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
+
+            self.ui.toggle_left_column()
+
+            self.ui.set_left_column_menu(
+                menu=self.ui.left_column.menus.menu_home,
+                title="Primitives Builder",
+                icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
+            )
+            if self.label_index == -1:
+
+                msg = "Press 'Create Geometry' button"
+                label_widget = PyLabel(
+                    text=msg,
+                    font_size=self.ui.app.properties.font["title_size"],
+                    color=self.ui.themes["app_color"]["text_description"])
+                self.ui.left_column.menus.home_vertical_layout.addWidget(label_widget)
+                self.label_index = self.ui.item_index(self.ui.left_column.menus.home_vertical_layout, label_widget)
 
 
 if __name__ == "__main__":

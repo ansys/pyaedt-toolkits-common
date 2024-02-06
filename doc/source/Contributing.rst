@@ -15,19 +15,19 @@ development mode, run these commands:
 
 .. code::
 
-    git clone https://github.com/ansys/pymotorcad-pyaedt-toolkit.git
-    cd pymotorcad-pyaedt-toolkit
+    git clone https://github.com/ansys-internal/pyaedt-toolkits-common.git
+    cd pyaedt-toolkits-common
     python -m pip install --upgrade pip
-    pip install -e .
+    pip install -e .[all]
 
 Post issues
 -----------
-Use the `Motor Segmentation Toolkit Issues <https://github.com/ansys/pymotorcad-pyaedt-toolkit/issues>`_ page
+Use the `PyAEDT Common Toolkit Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page
 to create issues to report bugs and request new features.
 
 View documentation
 -------------------
-Documentation for the latest stable release is hosted at `Common PyAEDT Toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/>`_.
+Documentation for the latest stable release is hosted at `PyAEDT Common Toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/>`_.
 
 In the upper right corner of the documentation’s title bar, there is an option for switching from viewing
 the documentation for the latest stable release to viewing the documentation for the development version
@@ -35,7 +35,7 @@ or previously released versions.
 
 Adhere to code style
 --------------------
-The Motor Segmentation Toolkit is compliant with `PyAnsys code style
+The Common Toolkit is compliant with `PyAnsys code style
 <https://dev.docs.pyansys.com/coding-style/index.html>`_. It uses the tool
 `pre-commit <https://pre-commit.com/>`_ to select the code style.
 
