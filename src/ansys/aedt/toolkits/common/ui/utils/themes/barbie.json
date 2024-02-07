@@ -1,0 +1,28 @@
+{
+    "theme_name": "barbie",
+    "app_color": {
+        "dark_one": "#d65a9f",
+        "dark_two": "#c74991",
+        "dark_three": "#b33883",
+        "dark_four": "#a02775",
+        "bg_one": "#e570a4",
+        "bg_two": "#e35f9c",
+        "bg_three": "#e14e94",
+        "icon_color": "#cf1a70",
+        "icon_hover": "#d02876",
+        "icon_pressed": "#c70662",
+        "icon_active": "#dca0b9",
+        "context_color": "#c70662",
+        "context_hover": "#cc1468",
+        "context_pressed": "#d02876",
+        "text_title": "#cf1a70",
+        "text_foreground": "#ffffff",
+        "text_description": "#c361a2",
+        "text_active": "#cf1a70",
+        "white": "#ffffff",
+        "pink": "#cf1a70",
+        "green": "#86ff86",
+        "red": "#cf1a70",
+        "yellow": "#ffd53d"
+    }
+}
