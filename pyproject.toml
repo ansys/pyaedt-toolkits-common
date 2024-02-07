@@ -58,6 +58,10 @@ doc = [
     "sphinx-gallery==0.15.0",
     "sphinx-notfound-page==1.0.0",
     "nbsphinx==0.9.3",
+    "sphinx_design",
+    "jupytext",
+    "ipython==8.16.1",
+    "jupyterlab==4.0.6",
 ]
 
 [tool.flit.module]
@@ -65,8 +69,10 @@ name = "ansys.aedt.toolkits.common"
 
 [project.urls]
 Source = "https://github.com/ansys/pyaedt-toolkits-common.git"
-Tracker = "https://github.com/ansys/pyaedt-toolkits-common/issues"
-Homepage = "https://github.com/ansys/pyaedt-toolkits-common.git"
+Issues = "https://github.com/ansys/pyaedt-toolkits-common/issues"
+Discussions = "https://github.com/ansys/pyaedt-toolkits-common/discussions"
+Documentation = "https://aedt.common.toolkit.docs.pyansys.com"
+Releases = "https://github.com/ansys/pyaedt-toolkits-common/releases"
 
 
 [tool.black]
