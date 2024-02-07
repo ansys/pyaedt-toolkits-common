@@ -52,10 +52,14 @@ requires Ansys Electronics Desktop (AEDT) 2023 R2 or later. The AEDT Student Ver
 
 Documentation and issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
-The documentation provides the `API reference <https://aedt.toolkit.common.docs.pyansys.com/version/dev/Toolkit/index.html>`_ to create a new toolkit,
-you can also find a `Toolkit example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_.
+Documentation for the latest stable release is hosted at
+`Common toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/index.html>`_.
 
-On the `Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
+In the upper right corner of the documentation's title bar, there is an option for switching from
+viewing the documentation for the latest stable release to viewing the documentation for the
+development version or previously released versions.
+
+On the `Common toolkit issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
 create issues to submit questions, report bugs, and request new features.
 
 License
