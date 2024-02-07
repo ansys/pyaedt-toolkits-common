@@ -262,7 +262,6 @@ class Common:
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -319,11 +318,9 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
-        >>> msg = toolkit_api.launch_aedt()
-        >>> response = toolkit_api.get_thread_status()
+        >>> toolkit_api.launch_aedt()
         >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.is_aedt_connected()
@@ -348,7 +345,6 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -409,7 +405,6 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -480,13 +475,11 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_design()
-
         """
 
         if self.aedtapp:
@@ -579,13 +572,11 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
         >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.release_aedt(True, True)
-
         """
         released = False
         if self.desktop:
@@ -625,7 +616,6 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -664,7 +654,6 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -717,7 +706,6 @@ class AEDTCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import AEDTCommon
         >>> toolkit_api = AEDTCommon()
         >>> toolkit_api.launch_aedt()
@@ -833,7 +821,6 @@ class EDBCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
         >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")
@@ -864,7 +851,6 @@ class EDBCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
         >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")
@@ -894,7 +880,6 @@ class EDBCommon(Common):
 
         Examples
         --------
-        >>> import time
         >>> from ansys.aedt.toolkits.common.backend.api import EDBCommon
         >>> toolkit_api = EDBCommon()
         >>> toolkit_api.load_edb("path/to/file")

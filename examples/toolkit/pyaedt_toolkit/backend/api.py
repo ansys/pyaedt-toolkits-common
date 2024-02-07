@@ -1,3 +1,8 @@
+import sys
+import pathlib
+
+sys.path.append(str(pathlib.Path(__file__).parent))
+
 from models import properties
 import numpy as np
 
@@ -12,18 +17,11 @@ class ToolkitBackend(AEDTCommon):
 
     Examples
     --------
-    >>> import time
+    >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
     >>> toolkit_api = ToolkitBackend()
-    >>> msg1 = toolkit_api.launch_aedt()
-    >>> response = toolkit_api.get_thread_status()
-    >>> while response[0] == 0:
-    >>>     time.sleep(1)
-    >>>     response = toolkit_api.get_thread_status()
-    >>> msg3 = toolkit_api.create_geometry()
-    >>> response = toolkit_api.get_thread_status()
-    >>> while response[0] == 0:
-    >>>     time.sleep(1)
-    >>>     response = toolkit_api.get_thread_status()
+    >>> toolkit_api.launch_aedt()
+    >>> toolkit_api.wait_to_be_idle()
+    >>> toolkit_api.create_geometry()
     """
 
     def __init__(self):
@@ -43,18 +41,10 @@ class ToolkitBackend(AEDTCommon):
         Examples
         --------
         >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
-        >>> import time
         >>> toolkit_api = ToolkitBackend()
-        >>> msg1 = toolkit_api.launch_aedt()
-        >>> response = toolkit_api.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
-        >>> msg3 = toolkit_api.create_geometry()
-        >>> response = toolkit_api.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = toolkit_api.get_thread_status()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
+        >>> toolkit_api.create_geometry()
         """
         self.connect_design()
 
@@ -86,16 +76,12 @@ class ToolkitBackend(AEDTCommon):
         Examples
         --------
         >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
-        >>> import time
-        >>> service = ToolkitBackend()
-        >>> msg1 = service.launch_aedt()
-        >>> response = service.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = service.get_thread_status()
-        >>> service.connect_design()
-        >>> service.draw_box()
-        >>> service.release_aedt()
+        >>> toolkit_api = ToolkitBackend()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
+        >>> toolkit_api.connect_design()
+        >>> toolkit_api.draw_box()
+        >>> toolkit_api.release_aedt()
         """
         props = self._comp_props()
         pos_x = props[0][0]
@@ -122,15 +108,12 @@ class ToolkitBackend(AEDTCommon):
         Examples
         --------
         >>> from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
-        >>> import time
-        >>> service = ToolkitBackend()
-        >>> msg1 = service.launch_aedt()
-        >>> response = service.get_thread_status()
-        >>> while response[0] == 0:
-        >>>     time.sleep(1)
-        >>>     response = service.get_thread_status()
-        >>> service.connect_design()
-        >>> service.draw_sphere()
+        >>> toolkit_api = ToolkitBackend()
+        >>> toolkit_api.launch_aedt()
+        >>> toolkit_api.wait_to_be_idle()
+        >>> toolkit_api.connect_design()
+        >>> toolkit_api.draw_sphere()
+        >>> toolkit_api.release_aedt()
         """
 
         props = self._comp_props()
