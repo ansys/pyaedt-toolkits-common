@@ -1,9 +1,8 @@
-import time
+# To run this example the user must have at least one active AEDT session.
 
 from models import properties
 
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 # Object with generic methods to control the toolkits
 toolkit = AEDTCommon(properties)
@@ -34,13 +33,8 @@ new_properties = toolkit.get_properties()
 # Launch AEDT. This is launched in a thread, so the script and the launch_aedt call run in parallel.
 msg2 = toolkit.launch_thread(toolkit.launch_aedt)
 
-# Get thread status
-status = toolkit.get_thread_status()
-
-# Wait until AEDT is launched.
-while status == ToolkitThreadStatus.BUSY:
-    time.sleep(1)
-    status = toolkit.get_thread_status()
+# Wait for the toolkit thread to be idle and ready to accept new task.
+toolkit.wait_to_be_idle()
 
 # Get new properties. Now the properties should contain the project information.
 new_properties = toolkit.get_properties()
