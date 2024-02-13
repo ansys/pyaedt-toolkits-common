@@ -45,7 +45,7 @@ class ApplicationWindow(QMainWindow):
 
         self.logger = PyLogger()
         self.combo_box = PyComboBox(text_list=["Option 1", "Option 2", "Option 3"])
-        self.credits = PyCredits(text="© 2023 MyApp Co.", version="1.2.3")
+        self.credits = PyCredits(text="© 2024 MyApp Co.", version="1.2.3")
         self.left_column = PyLeftColumn(text_title="Left Column", text_title_size=8, icon_close_path="icon_close.svg")
         self.my_button = PyPushButton(
             text="My Button",
