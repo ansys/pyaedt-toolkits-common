@@ -1,5 +1,6 @@
 import os
 import time
+from typing import Optional
 
 from PySide6 import QtWidgets
 import requests
@@ -8,17 +9,18 @@ from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.models import general_settings
 
+MSG_TK_RUNNING = "Please wait, toolkit running"
+
 
 class FrontendGeneric(QtWidgets.QMainWindow):
     def __init__(self):
         logger.info("Frontend initialization...")
+        
+        super().__init__()
         self.ui = None
-        super(FrontendGeneric, self).__init__()
-
         url = general_settings.backend_url
         port = general_settings.backend_port
         self.url = f"http://{url}:{port}"
-
         self.logger = logger
 
         # Load toolkit icon
@@ -58,6 +60,22 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             response_content = response.json()
         return response_success, response_content
 
+    def check_connection(self):
+        """Check the backend connection.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+        """
+        url = self.url + "/health"
+        response_success, response_content = self.poll_url(url)
+        if response_success:
+            logger.debug(response_content)
+        else:
+            logger.error(response_content)
+        return response_success
+
     def backend_busy(self):
         try:
             response = requests.get(self.url + "/status")
@@ -75,8 +93,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 return versions
         except requests.exceptions.RequestException:
             msg = "Get AEDT installed versions failed"
-            logger.error(msg)
-            self.ui.logger.log(msg)
+            self.log_and_update_progress(msg, log_level="error")
             return False
 
     def get_properties(self):
@@ -99,9 +116,8 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             if response.ok:
                 response.json()
         except requests.exceptions.RequestException:
-            msg = f"Set properties failed"
-            logger.error(msg)
-            self.ui.logger.log(msg)
+            msg = "Set properties failed"
+            self.log_and_update_progress(msg, log_level="error")
 
     def find_process_ids(self, version):
         try:
@@ -122,9 +138,8 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
         if res_busy:
-            msg = "Please wait, toolkit running"
-            logger.debug(msg)
-            self.ui.logger.log(msg)
+            msg = MSG_TK_RUNNING
+            self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
@@ -147,35 +162,25 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 response = requests.post(self.url + "/launch_aedt")
 
                 if response.status_code == 200:
-                    self.ui.progress.progress = 50
                     msg = "Launching AEDT"
-                    logger.debug(msg)
-                    self.ui.logger.log(msg)
+                    self.log_and_update_progress(msg, log_level="debug", progress=50)
                 else:
                     msg = f"Failed backend call: {self.url}"
-                    logger.error(msg)
-                    self.ui.logger.log(msg)
-                    self.ui.progress.progress = 100
+                    self.log_and_update_progress(msg, log_level="error", progress=100)
             else:
                 msg = response.json()
-                logger.debug(msg)
-                self.ui.logger.log(msg)
-                self.ui.progress.progress = 100
+                self.log_and_update_progress(msg, log_level="debug", progress=100)
         else:
             msg = response.json()
-            logger.debug(msg)
-            self.ui.logger.log(msg)
-            self.ui.progress.progress = 100
+            self.log_and_update_progress(msg, log_level="debug", progress=100)
 
     def open_project(self, selected_project):
         response = requests.get(self.url + "/status")
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
         if res_busy:
-            msg = "Please wait, toolkit running"
-            logger.debug(msg)
-            self.ui.logger.log(msg)
-
+            msg = MSG_TK_RUNNING
+            self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
@@ -183,22 +188,16 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"
-                    self.ui.logger.log(msg)
+                    self.log_and_update_progress(msg, log_level="debug")
                 else:
                     msg = f"Failed backend call: {self.url} + '/'open_project"
-                    logger.error(msg)
-                    self.ui.logger.log(msg)
-                    self.ui.progress.progress = 100
+                    self.log_and_update_progress(msg, log_level="error", progress=100)
             else:
                 msg = response.json()
-                logger.debug(msg)
-                self.ui.logger.log(msg)
-                self.ui.progress.progress = 100
+                self.log_and_update_progress(msg, log_level="debug", progress=100)
         else:
             msg = response.json()
-            logger.debug(msg)
-            self.ui.logger.log(msg)
-            self.ui.progress.progress = 100
+            self.log_and_update_progress(msg, log_level="debug", progress=100)
 
     def get_aedt_data(self):
         be_properties = self.get_properties()
@@ -254,30 +253,23 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
             res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
             if res_busy:
-                self.write_log_line("Please wait, toolkit running")
+                msg = MSG_TK_RUNNING
+                self.log_and_update_progress(msg, log_level="debug")
             elif res_idle:
-                # self.project_name.setText(file_name)
-                be_properties = self.get_properties()
-                # properties["active_project"] = file_name
-                # self.set_properties(properties)
-                # self.update_progress(0)
                 response = requests.post(self.url + "/save_project", json=file_name)
                 if response.ok:
                     msg = "Saving project: {}".format(file_name)
-                    logger.debug(msg)
-                    self.ui.logger.log(msg)
+                    self.log_and_update_progress(msg, log_level="debug")
                 else:
                     msg = f"Failed backend call: {self.url}"
-                    logger.debug(msg)
-                    self.write_log_line(msg)
-                    self.ui.progress.progress = 100
+                    self.log_and_update_progress(msg, log_level="error", progress=100)
 
     def release_only(self):
         """Release desktop."""
         response = requests.get(self.url + "/status")
 
-        if response.ok and response.json() == "Toolkit is busy and processing a task.":
-            self.write_log_line("Please wait, toolkit running")
+        if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
+            self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
         else:
             properties = {"close_projects": False, "close_on_exit": False}
             if self.close():
@@ -287,9 +279,9 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         """Release and close desktop."""
         response = requests.get(self.url + "/status")
 
-        if response.ok and response.json() == "Toolkit is busy and processing a task.":
-            self.write_log_line("Please wait, toolkit running")
-        elif response.ok and response.json() == "Backend free":
+        if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
+            self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
+        elif response.ok and response.json() == ToolkitThreadStatus.IDLE.value:
             properties = {"close_projects": True, "close_on_exit": True}
             if self.close():
                 requests.post(self.url + "/close_aedt", json=properties)
@@ -309,3 +301,28 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             event.accept()
         else:
             event.ignore()
+
+    def log_and_update_progress(self, msg, log_level: str = "debug", progress: Optional[int] = None):
+        """Log a message and update the progress bar.
+        
+        This method logs the given message at the specified log level, and updates the progress
+        bar to the given progress percentage if provided.
+        """
+
+        # Toolkit logging
+        log_levels = {
+            "debug": logger.debug,
+            "info": logger.info,
+            "warning": logger.warning,
+            "error": logger.error,
+            "critical": logger.critical
+        }
+        log_func = log_levels.get(log_level, "debug")
+        log_func(msg)
+
+        # UI logging
+        self.ui.logger.log(msg)
+
+        # Update progress bar if needed
+        if progress is not None:
+            self.ui.progress.progress = progress
