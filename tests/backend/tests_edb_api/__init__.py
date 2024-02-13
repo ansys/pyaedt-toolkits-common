@@ -1,2 +1,2 @@
-"""Test API
+"""Test EDBCommon API
 """

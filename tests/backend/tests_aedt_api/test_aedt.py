@@ -1,59 +1,63 @@
 import os
-
 import pytest
 
-from tests.backend.tests_aedt_api.conftest import skip_test
+from tests.backend.conftest import PROJECT_NAME
 
+pytestmark = [pytest.mark.aedt_common_api]
 
-class TestAEDT:
-    """AEDTCommon unit tests."""
+class TestAEDTCommon:
+    """Class defining a workflow to test AEDTCommon."""
 
-    def test_00_connect_aedt(self, aedt_common, assert_handler):
+    def test_00_connect_aedt(self, aedt_common):
         """Connect AEDT."""
 
-        if skip_test():
-            pytest.skip()
-
+        if not aedt_common.properties.use_grpc and aedt_common.properties.non_graphical:
+            pytest.skip("Unauthorized configuration (COM and non graphical)")
+        
         assert aedt_common.connect_aedt()
         assert aedt_common.connect_aedt()
         assert aedt_common.release_aedt()
 
-    def test_01_connect_design(self, aedt_common, assert_handler):
+    def test_01_connect_design(self, aedt_common):
         """Connect design."""
 
-        if skip_test():
-            pytest.skip()
+        if not aedt_common.properties.use_grpc and aedt_common.properties.non_graphical:
+            pytest.skip("Unauthorized configuration (COM and non graphical)")
 
         assert aedt_common.connect_design()
         assert aedt_common.connect_design()
+
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Maxwell3D")
+
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
 
-    def test_02_open_project(self, aedt_common, assert_handler, aedt_example):
+    def test_02_open_project(self, aedt_common, common_temp_dir):
         """Open AEDT project."""
 
-        if skip_test():
-            pytest.skip()
+        if not aedt_common.properties.use_grpc and aedt_common.properties.non_graphical:
+            pytest.skip("Unauthorized configuration (COM and non graphical)")
 
-        assert not aedt_common.open_project(aedt_example)
+        aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
+        aedt_common.open_project(aedt_file)
+        assert not aedt_common.open_project(aedt_file)
 
-    def test_03_save_project(self, aedt_common, assert_handler, aedt_example):
+    def test_03_save_project(self, aedt_common, common_temp_dir):
         """Save AEDT project."""
 
-        if skip_test():
-            pytest.skip()
+        if not aedt_common.properties.use_grpc and aedt_common.properties.non_graphical:
+            pytest.skip("Unauthorized configuration (COM and non graphical)")
 
         assert aedt_common.save_project()
-        new_project = os.path.join(os.path.dirname(aedt_example), "New.aedt")
-        assert aedt_common.save_project(new_project)
+        new_aedt_file = os.path.join(common_temp_dir, "input_data", "New.aedt")
+        assert aedt_common.save_project(new_aedt_file)
 
-    def test_04_get_design_names(self, aedt_common, assert_handler):
+    def test_04_get_design_names(self, aedt_common):
         """Get design names."""
 
-        if skip_test():
-            pytest.skip()
+        if not aedt_common.properties.use_grpc and aedt_common.properties.non_graphical:
+            pytest.skip("Unauthorized configuration (COM and non graphical)")
 
         design_names = aedt_common.get_design_names()
         assert isinstance(design_names, list)
