@@ -24,25 +24,39 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         # Load toolkit icon
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
 
-    def check_connection(self):
+    def poll_url(self, url: str, timeout: int = 10):
+        """Perform GET requests on an URL.
+        
+        Continuously perform GET requests to the specified URL until a valid response is received.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time out in seconds. The default is 10 seconds.
+        
+        Returns
+        -------
+        tuple
+            A 2-tuple containing a string and a boolean.
+            The boolean states if the GET requests succeeded.
+            The string represents the response or exception content.
+        """
+        logger.debug(f"Poll url '{url}'")
+
+        count = 0
+        response_content = None
+        response_success = False
         try:
-            logger.debug("Check backend connection")
-            count = 0
-            response = False
-            while not response and count < 10:
+            while not response_success and count < 10:
                 time.sleep(1)
-                response = requests.get(self.url + "/health")
+                response = requests.get(url)
+                response_success = response.ok
                 count += 1
-
-            if response.ok:
-                logger.debug(response.json())
-                return True
-            logger.error(response.json())
-            return False
-
         except requests.exceptions.RequestException as e:
-            logger.error("Backend not running")
-            return False
+            response_content = f"Backend error occured. Exception {str(e)}"
+        else:
+            response_content = response.json()
+        return response_success, response_content
 
     def backend_busy(self):
         try:
