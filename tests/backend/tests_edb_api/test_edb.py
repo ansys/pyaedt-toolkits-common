@@ -23,7 +23,7 @@
 import os
 import pytest
 
-from tests.backend.conftest import PROJECT_NAME
+PROJECT_NAME = "edb_test"
 
 pytestmark = [pytest.mark.edb_api]
 
