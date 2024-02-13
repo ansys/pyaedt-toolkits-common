@@ -55,6 +55,7 @@ class Properties(CommonProperties, validate_assignment=True):
         attributes = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())
         return f"Properties({attributes})"
 
+
 common_kwargs = {}
 if os.path.expanduser(os.path.join(os.path.dirname(__file__), "common_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "common_properties.json")) as file_handler:

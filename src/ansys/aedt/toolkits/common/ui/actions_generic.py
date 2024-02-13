@@ -37,7 +37,7 @@ MSG_TK_RUNNING = "Please wait, toolkit running"
 class FrontendGeneric(QtWidgets.QMainWindow):
     def __init__(self):
         logger.info("Frontend initialization...")
-        
+
         super().__init__()
         self.ui = None
         url = general_settings.backend_url
@@ -50,14 +50,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def poll_url(self, url: str, timeout: int = 10):
         """Perform GET requests on an URL.
-        
+
         Continuously perform GET requests to the specified URL until a valid response is received.
 
         Parameters
         ----------
         timeout : int, optional
             Time out in seconds. The default is 10 seconds.
-        
+
         Returns
         -------
         tuple
@@ -77,7 +77,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 response_success = response.ok
                 count += 1
         except requests.exceptions.RequestException as e:
-            response_content = f"Backend error occured. Exception {str(e)}"
+            response_content = f"Backend error occurred. Exception {str(e)}"
         else:
             response_content = response.json()
         return response_success, response_content
@@ -326,7 +326,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
     def log_and_update_progress(self, msg, log_level: str = "debug", progress: Optional[int] = None):
         """Log a message and update the progress bar.
-        
+
         This method logs the given message at the specified log level, and updates the progress
         bar to the given progress percentage if provided.
         """
@@ -337,7 +337,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             "info": logger.info,
             "warning": logger.warning,
             "error": logger.error,
-            "critical": logger.critical
+            "critical": logger.critical,
         }
         log_func = log_levels.get(log_level, "debug")
         log_func(msg)

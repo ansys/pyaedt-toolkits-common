@@ -732,8 +732,7 @@ class AEDTCommon(Common):
         return design_list
 
     def __save_project_info(self):
-        """Save project and design info.
-        """
+        """Save project and design info."""
         # Save project and design info
         new_properties = {}
         project_list = self.desktop.odesktop.GetProjectList()
@@ -832,7 +831,7 @@ class EDBCommon(Common):
         if not edb_path:  # pragma: no cover
             edb_path = self.properties.active_project
         if self.edb:
-            logger.error(f"Close EDB {edb_path} before loading a new project." )
+            logger.error(f"Close EDB {edb_path} before loading a new project.")
             return False
         print(self.properties)
         if os.path.exists(edb_path):
