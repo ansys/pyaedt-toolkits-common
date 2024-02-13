@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QFrame
 from PySide6.QtWidgets import QHBoxLayout
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QSpacerItem
+from PySide6.QtWidgets import QPushButton
 
 from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyComboBox
