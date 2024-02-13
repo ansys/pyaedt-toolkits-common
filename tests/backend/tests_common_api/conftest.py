@@ -40,62 +40,32 @@ You can enable the API log file in the backend_properties.json.
 
 """
 
-import logging
-import pathlib
-import shutil
-
-from pyaedt import settings
 import pytest
 
-# Load properties from backend_properties.json
-from tests.backend.tests_common_api.models import properties
-from tests.conftest import common_temp_dir
+from ansys.aedt.toolkits.common.backend.api import Common
+from ansys.aedt.toolkits.common.backend.models import Properties
+from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
 
-failed_tests = set()
+# Setup config
+config = DEFAULT_CONFIG.copy()
+local_cfg = read_local_config()
+config.update(local_cfg)
 
-
-def create_logger(temp_dir, name):
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.DEBUG)
-    log_file = pathlib.Path(temp_dir, name)
-    file_handler = logging.FileHandler(log_file)
-    formatter = logging.Formatter("%(levelname)s - %(message)s")
-    file_handler.setFormatter(formatter)
-    logger.addHandler(file_handler)
-    logging.StreamHandler()
-    formatter = logging.Formatter("%(levelname)s - %(message)s")
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-    return logger
-
-
-def release_logger(logger):
-    for handler in logger.handlers[:]:
-        handler.close()
-        logger.removeHandler(handler)
+# Update AEDT settings
+setup_aedt_settings(config)
 
 
 @pytest.fixture(scope="session")
-def common(common_temp_dir):
-    from ansys.aedt.toolkits.common.backend.api import Common
-
-    logger = create_logger(common_temp_dir, "pytest_common_api.log")
-
+def common(logger):
+    """Initialize toolkit with common API."""
     logger.info("Common API initialization")
+
+    properties = Properties()
+    properties.aedt_version = config["desktop_version"]
+    properties.non_graphical = config["non_graphical"]
+    properties.use_grpc = config["use_grpc"]
+    properties.debug = config["debug"]
+
     common_api = Common(properties)
+
     yield common_api
-    # Check if any test has failed
-    if not failed_tests:
-        logger.info(f"All tests passed successfully")
-        release_logger(logger)
-        shutil.rmtree(pathlib.Path(common_temp_dir.parent), ignore_errors=True)
-    else:
-        for failed_test in failed_tests:
-            logger.error(f"FAILED: {failed_test.name}")
-        release_logger(logger)
-
-
-def pytest_runtest_makereport(item, call):
-    if call.excinfo is not None and call.excinfo.typename == "AssertionError":
-        failed_tests.add(item)

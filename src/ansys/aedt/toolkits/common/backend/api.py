@@ -230,8 +230,9 @@ class Common:
 
         Returns
         -------
-        list
-            List of AEDT process IDs (PIDs).
+        dict
+            Dict of AEDT process IDs (PIDS) {AEDT PID: port}.
+            If the PID corresponds to a COM session, the port is set to -1.
 
         Examples
         --------
@@ -252,7 +253,7 @@ class Common:
             logger.debug("No active sessions.")
         return res
 
-    def wait_to_be_idle(self, timeout: Optional[int] = 60) -> bool:
+    def wait_to_be_idle(self, timeout: int = 60) -> bool:
         """Wait for the thread to be idle and ready to accept new task.
 
         Parameters
@@ -275,7 +276,7 @@ class Common:
             time.sleep(1)
             cont += 1
             status = self.get_thread_status()
-            if timeout and cont == timeout:  # pragma: no cover
+            if cont == timeout:  # pragma: no cover
                 return False
         return True
 
@@ -297,14 +298,14 @@ class AEDTCommon(Common):
     >>> msg = toolkit_api.launch_aedt()
     """
 
-    def __init__(self, backend_properties=None):
+    def __init__(self, backend_properties: Optional[ThreadManager] = None):
         if backend_properties:
             self.properties = backend_properties
             self.thread_manager = ThreadManager(self.properties)
         else:
             self.properties = common_properties
             self.thread_manager = ThreadManager()
-        Common.__init__(self, self.properties)
+        super().__init__(self.properties)
         self.desktop = None
         self.aedtapp = None
 
@@ -383,7 +384,7 @@ class AEDTCommon(Common):
                 self.properties.selected_process = self.desktop.aedt_process_id
                 logger.debug("Process ID {}.".format(str(self.desktop.aedt_process_id)))
 
-            self._save_project_info()
+            self.__save_project_info()
 
             if self.desktop.project_list():
                 # If there are projects not saved in the session, PyAEDT could find issues loading some properties
@@ -535,7 +536,7 @@ class AEDTCommon(Common):
 
             self.aedtapp = aedt_app(**aedt_app_args)
             self.aedtapp.save_project()
-            self._save_project_info()
+            self.__save_project_info()
 
         if self.aedtapp:
             project_name = self.aedtapp.project_file
@@ -631,7 +632,7 @@ class AEDTCommon(Common):
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} opened".format(project_name))
-            self._save_project_info()
+            self.__save_project_info()
             self.release_aedt(False, False)
             return True
 
@@ -730,7 +731,9 @@ class AEDTCommon(Common):
 
         return design_list
 
-    def _save_project_info(self):
+    def __save_project_info(self):
+        """Save project and design info.
+        """
         # Save project and design info
         new_properties = {}
         project_list = self.desktop.odesktop.GetProjectList()
@@ -785,7 +788,7 @@ class AEDTCommon(Common):
 class EDBCommon(Common):
     """Generic API to control EDB.
 
-    It provides basic functions to control AEDT and properties to share between backend and frontend.
+    It provides basic functions to control EDB and properties to share between backend and frontend.
 
     Parameters
     ----------
@@ -803,7 +806,7 @@ class EDBCommon(Common):
         self.properties = common_properties
         if backend_properties:
             self.properties = backend_properties
-        Common.__init__(self)
+        super().__init__(self.properties)
         self.edb = None
 
     def load_edb(self, edb_path=None):
@@ -826,11 +829,12 @@ class EDBCommon(Common):
         >>> toolkit_api.load_edb("path/to/file")
         >>> toolkit_api.close_edb()
         """
-        if self.edb:
-            logger.error("Close EDB")
-            return False
         if not edb_path:  # pragma: no cover
             edb_path = self.properties.active_project
+        if self.edb:
+            logger.error(f"Close EDB {edb_path} before loading a new project." )
+            return False
+        print(self.properties)
         if os.path.exists(edb_path):
             aedt_version = self.properties.aedt_version
             self.properties.active_project = edb_path
@@ -859,7 +863,7 @@ class EDBCommon(Common):
         if self.edb:
             self.edb.close_edb()
             self.edb = None
-            logger.error("Edb closed")
+            logger.info("Edb closed")
             return True
         else:
             logger.error("Edb not initialized")

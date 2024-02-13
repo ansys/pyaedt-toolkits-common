@@ -41,7 +41,7 @@ class LoadImages(object):
             else:
                 abs_path = general_settings.images
             if not os.path.exists(abs_path):
-                msg = "{} does not exist".format(abs_path)
+                msg = f"{abs_path} does not exist"
                 logger.error(msg)
                 raise FileNotFoundError(msg)
             return abs_path

@@ -12,10 +12,7 @@ def _default_theme_setup(path: Path) -> Path:
 
 class ThemeHandler:
     def __init__(self) -> None:
-        if not hasattr(general_settings, "theme"):
-            theme = "ansys.json"
-        else:
-            theme = general_settings.theme
+        theme = general_settings.theme
         current_file = Path(__file__).resolve()
         current_dir = current_file.parent
         theme_file = current_file.parent / theme
