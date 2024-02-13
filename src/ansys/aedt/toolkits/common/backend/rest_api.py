@@ -1,3 +1,4 @@
+from enum import Enum
 import json
 
 from flask import Flask
@@ -6,16 +7,16 @@ from flask import request
 
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 
-try:
-    from api import ToolkitBackend
+class BodyErrorMessage(str, Enum):
+    """Body error message."""
 
-    toolkit_api = ToolkitBackend()
-except ImportError:
-    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+    EMPTY = "Body is empty."
+    INCORRECT_CONTENT = "Body content is not correct."
 
-    toolkit_api = AEDTCommon()
 
+toolkit_api = AEDTCommon()
 app = Flask(__name__)
 
 
@@ -40,24 +41,24 @@ def wait_thread():
     logger.info("[GET] /wait_thread (wait until the thread is idle).")
 
     body = request.data
-
     if not body:
-        msg = "Body is empty."
+        msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
         return jsonify(msg), 500
+    timeout = int(body.decode())
 
-    response = toolkit_api.wait_to_be_idle(int(body.decode()))
-
+    response = toolkit_api.wait_to_be_idle(timeout=timeout)
     if response:
-        return jsonify("AEDT properties loaded"), 200
+        return jsonify("Thread is idle, you can proceed"), 200
     else:
-        return jsonify("Fail to launch to AEDT"), 500
+        return jsonify(f"Timeout ({timeout} seconds) exceeded"), 500
 
 
 @app.route("/properties", methods=["GET"])
 def get_properties():
     logger.info("[GET] /properties (get toolkit properties).")
-    return jsonify(toolkit_api.get_properties()), 200
+    response = toolkit_api.get_properties()
+    return jsonify(response), 200
 
 
 @app.route("/properties", methods=["PUT"])
@@ -74,7 +75,8 @@ def set_properties():
 @app.route("/installed_versions", methods=["GET"])
 def installed_aedt_version():
     logger.info("[GET] /version (get the version)")
-    return jsonify(toolkit_api.installed_aedt_version()), 200
+    response = toolkit_api.installed_aedt_version()
+    return jsonify(response), 200
 
 
 @app.route("/aedt_sessions", methods=["GET"])
@@ -104,7 +106,7 @@ def open_project():
     body = request.data
 
     if not body:
-        msg = "Body is empty."
+        msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
         return jsonify(msg), 500
 
@@ -125,11 +127,11 @@ def close_aedt():
     body = request.json
     aedt_keys = ["close_projects", "close_on_exit"]
     if not body:
-        msg = "Body is empty."
+        msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
         return jsonify(msg), 500
-    elif not isinstance(body, dict) or not all(item in body for item in set(aedt_keys)):
-        msg = "Body not correct."
+    elif not isinstance(body, dict) or not all(item in body for item in aedt_keys):
+        msg = BodyErrorMessage.INCORRECT_CONTENT.value
         logger.error(msg)
         return jsonify(msg), 500
 
@@ -148,14 +150,12 @@ def connect_design():
     logger.info("[POST] /connect_design (connect or create a design).")
 
     body = request.json
-
     if not body:
-        msg = "Body is empty."
+        msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
         return jsonify(msg), 500
 
     response = toolkit_api.connect_design(body["aedtapp"])
-
     if response:
         return jsonify("Design connected"), 200
     else:
@@ -167,14 +167,12 @@ def save_project():
     logger.info("[POST] /save_project (Save AEDT project).")
 
     body = request.json
-
     if not body:
-        msg = "Body is empty."
+        msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
         return jsonify(msg), 500
 
     response = toolkit_api.save_project(body)
-
     if response:
         return jsonify("Project saved: {}".format(body)), 200
     else:
