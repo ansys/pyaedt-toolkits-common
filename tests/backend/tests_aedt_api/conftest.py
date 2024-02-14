@@ -28,8 +28,9 @@ Description
 ===========
 This module contains the configuration and fixture for the pytest-based tests for the API.
 
-The default configuration can be changed by placing a file called local_config.json in the same
-directory as this module. An example of the contents of local_config.json
+The default configuration can be changed by placing a file called local_config.json.
+An example of the contents of local_config.json:
+
 {
   "desktop_version": "2023.2",
   "non_graphical": false,
@@ -53,6 +54,7 @@ config.update(local_cfg)
 
 # Update AEDT settings
 setup_aedt_settings(config)
+
 
 @pytest.fixture(scope="session")
 def aedt_common(logger):

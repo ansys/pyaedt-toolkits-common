@@ -27,7 +27,6 @@ import shutil
 from typing import Optional
 
 from pyaedt import settings
-# from pyaedt.generic.filesystem import Scratch
 import pytest
 
 DEFAULT_CONFIG = {
@@ -38,6 +37,7 @@ DEFAULT_CONFIG = {
 }
 LOCAL_CFG_FILE = "local_config.json"
 PROJECT_NAME = "Test"
+
 
 def read_local_config() -> dict:
     """Read local configuration from JSON file.
@@ -54,6 +54,7 @@ def read_local_config() -> dict:
             local_config = json.load(f)
         res.update(local_config)
     return res
+
 
 def setup_aedt_settings(config: Optional[dict] = None):
     """Set up AEDT settings.
@@ -72,15 +73,17 @@ def setup_aedt_settings(config: Optional[dict] = None):
         settings.use_grpc_api = config["use_grpc"]
         settings.non_graphical = config["non_graphical"]
 
+
 failed_tests = set()
+
 
 def pytest_runtest_makereport(item, call):
     if call.excinfo is not None and call.excinfo.typename == "AssertionError":
         failed_tests.add(item)
 
+
 @pytest.fixture(scope="session")
 def common_temp_dir(tmp_path_factory, request):
-
     tmp_dir = tmp_path_factory.mktemp("test_common", numbered=True)
     src_folder = os.path.join(pathlib.Path(__file__).parent.parent, "input_data")
     shutil.copytree(src_folder, os.path.join(tmp_dir, "input_data"))
@@ -116,7 +119,10 @@ def logger(request, common_temp_dir) -> Logger:
         if request.session.testsfailed != 0:
             for failed_test in failed_tests:
                 logger.error(f"FAILED: {failed_test.nodeid}")
-    
+        for handler in logger.handlers[:]:
+            handler.close()
+            logger.removeHandler(handler)
+
     request.addfinalizer(log_finalizer)
 
     # Create a stream handler for logging to the console
@@ -126,4 +132,3 @@ def logger(request, common_temp_dir) -> Logger:
     logger.addHandler(console_handler)
 
     return logger
-

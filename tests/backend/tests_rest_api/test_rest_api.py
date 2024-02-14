@@ -28,7 +28,7 @@ from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
 pytestmark = [pytest.mark.rest_api]
 
-@pytest.mark.tests_rest_api
+
 class TestRESTAPI:
     """Class defining a workflow to test the Flask application REST API."""
 

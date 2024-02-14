@@ -27,6 +27,7 @@ from tests.backend.conftest import PROJECT_NAME
 
 pytestmark = [pytest.mark.aedt_common_api]
 
+
 class TestAEDTCommon:
     """Class defining a workflow to test AEDTCommon."""
 

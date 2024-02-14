@@ -24,6 +24,7 @@ import pytest
 
 pytestmark = [pytest.mark.common_api]
 
+
 class TestCommon:
     """Class defining a workflow to test Common."""
 
