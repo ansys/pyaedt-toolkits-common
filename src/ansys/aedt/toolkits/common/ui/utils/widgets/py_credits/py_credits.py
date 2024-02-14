@@ -17,7 +17,7 @@ class PyCredits(QWidget):
     Parameters
     ----------
     text : str, optional
-        Copyright text to be displayed. The default is ``"© 2023 MyApp Co."``.
+        Copyright text to be displayed. The default is ``"© 2024 MyApp Co."``.
     version : str, optional
         Version information text to be displayed. The default is ``"0.0.1"``.
     bg : str, optional
@@ -53,7 +53,7 @@ class PyCredits(QWidget):
 
     def __init__(
         self,
-        text="© 2023 MyApp Co.",
+        text="© 2024 MyApp Co.",
         version="0.0.1",
         bg="#FFFFFF",
         font_family="Segoe UI",

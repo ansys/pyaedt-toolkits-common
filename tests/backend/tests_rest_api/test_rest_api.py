@@ -26,9 +26,12 @@ import pytest
 
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 
+pytestmark = [pytest.mark.rest_api]
 
-@pytest.mark.tests_rest_api
+
 class TestRESTAPI:
+    """Class defining a workflow to test the Flask application REST API."""
+
     def test_00_get_status(self, client):
         response = client.get("/status")
         assert response.status_code == 200
@@ -72,7 +75,7 @@ class TestRESTAPI:
         assert response.status_code == 200
 
     def test_07_save_project(self, client, common_temp_dir):
-        new_project = os.path.join(common_temp_dir, "input_data", "New.aedt")
+        new_project = os.path.join(common_temp_dir, "New.aedt")
         response = client.post("/save_project", json=new_project)
         assert response.status_code == 200
         assert os.path.exists(new_project)

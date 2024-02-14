@@ -23,10 +23,13 @@
 import os
 import pytest
 
+from tests.backend.conftest import PROJECT_NAME
 
-@pytest.mark.tests_aedt_api
-class TestAEDT:
-    """AEDTCommon unit tests."""
+pytestmark = [pytest.mark.aedt_common_api]
+
+
+class TestAEDTCommon:
+    """Class defining a workflow to test AEDTCommon."""
 
     def test_00_connect_aedt(self, aedt_common):
         """Connect AEDT."""
@@ -40,30 +43,33 @@ class TestAEDT:
 
         assert aedt_common.connect_design()
         assert aedt_common.connect_design()
+
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Maxwell3D")
+
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
 
     def test_02_open_project(self, aedt_common, common_temp_dir):
         """Open AEDT project."""
 
-        opened_project = os.path.join(common_temp_dir, "input_data", "Test.aedt")
-        assert not aedt_common.open_project(opened_project)
+        aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
+        aedt_common.open_project(aedt_file)
+        assert not aedt_common.open_project(aedt_file)
 
     def test_03_save_project(self, aedt_common, common_temp_dir):
         """Save AEDT project."""
 
         assert aedt_common.save_project()
-        new_project = os.path.join(common_temp_dir, "input_data", "New.aedt")
-        assert aedt_common.save_project(new_project)
+        new_aedt_file = os.path.join(common_temp_dir, "input_data", "New.aedt")
+        assert aedt_common.save_project(new_aedt_file)
 
     def test_04_get_design_names(self, aedt_common):
         """Get design names."""
 
         design_names = aedt_common.get_design_names()
-        number_designs = len(design_names)
         assert isinstance(design_names, list)
+
         aedt_common.properties.active_project = aedt_common.properties.project_list[0]
         active_project_name = aedt_common.get_project_name(aedt_common.properties.active_project)
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]

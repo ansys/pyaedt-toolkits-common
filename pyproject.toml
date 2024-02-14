@@ -90,3 +90,13 @@ source = ["ansys.aedt"]
 
 [tool.coverage.report]
 show_missing = true
+
+[tool.pytest.ini_options]
+minversion = "7.1"
+xfail_strict = false
+markers = [
+    "aedt_common_api: mark test as related to the AEDT common API.",
+    "common_api: mark test as related to the common API.",
+    "edb_api: mark test as related to the EDB API.",
+    "rest_api: mark test as related to the REST API.",
+]

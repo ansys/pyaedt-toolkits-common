@@ -96,32 +96,31 @@ jobs:
           python -m pip install --upgrade pip
           pip install --upgrade build wheel
           pip install .[tests]
-        env:
-          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
-      - name: Test Common API
-        timeout-minutes: 2
-        run: |
-          .\.venv\Scripts\Activate.ps1
-          pytest -v -m tests_common_api --cov
-
-      - name: Test AEDT API
+      - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-          pytest -v -m tests_aedt_api --cov --cov-append
+          pytest -v -m aedt_common_api --cov
+
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m common_api --cov --cov-append
 
       - name: Test EDB API
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-          pytest -v -m tests_edb_api --cov --cov-append
+          pytest -v -m edb_api --cov --cov-append
 
       - name: Test REST API
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-          pytest -v -m tests_rest_api --cov --cov-append
+
+          pytest -v -m rest_api --cov --cov-append
 
       - name: "Combine coverage files"
         run: |
