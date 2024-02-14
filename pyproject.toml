@@ -28,7 +28,6 @@ dependencies = [
     "twine==5.0.0",
     "pyaedt",
     "pydantic",
-    "jsonschema",
 ]
 
 [project.optional-dependencies]
