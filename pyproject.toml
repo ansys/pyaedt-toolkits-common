@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
     "build==1.0.3",
-    "twine==4.0.2",
+    "twine==5.0.0",
     "pyaedt",
     "pydantic",
     "jsonschema",
