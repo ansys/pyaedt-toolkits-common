@@ -8,16 +8,16 @@ from PySide6.QtWidgets import QSpacerItem
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QWidget
 
-# Toolkit PySide6 Widgets
+# toolkit PySide6 Widgets
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 
-# Toolkit frontend API
+# toolkit frontend API
 from actions import Frontend
 
 # Default properties
 from models import properties
 
-# Toolkit windows
+# toolkit windows
 from windows.create_geometry.geometry_menu import GeometryMenu
 
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
@@ -87,7 +87,7 @@ class ApplicationWindow(Frontend):
             if be_properties.get("aedt_version") in installed_versions:
                 self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
-        # Toolkit specific wizard starts here
+        # toolkit specific wizard starts here
 
         # Home menu
         self.home_menu = HomeMenu(self)

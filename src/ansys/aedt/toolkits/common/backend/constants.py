@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """
-Toolkit common constants
+toolkit common constants
 """
 
 

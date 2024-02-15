@@ -1,6 +1,6 @@
 {
   "aedt_version" : "2023.2",
-  "non_graphical" : false,
+  "non_graphical" : true,
   "active_project" : "",
   "active_design": "",
   "project_list" : [],
