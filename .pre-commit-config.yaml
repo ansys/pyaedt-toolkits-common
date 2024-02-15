@@ -3,6 +3,7 @@ exclude: |
         src/ansys/aedt/toolkits/common/ui/utils/ui_templates/.* |
         tests/.* |
         examples/.* |
+        doc/getting_started/installation.rst |
         README.rst
     )
 

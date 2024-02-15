@@ -1,35 +1,39 @@
-.. _ref_getting_started:
+.. _getting_started:
 
 ===============
 Getting started
 ===============
 
-If you want to develop a new toolkit, you need first to understand the architecture.
+If you want to develop a new toolkit, you need first to learn how the :ref:`architecture` works.
 
-This repository is a common API for any new AEDT toolkit. It standardizes AEDT toolkits implementation.
+.. grid:: 2
 
-The API provides some methods to connect to an existing AEDT session, open an existing
-AEDT project or initialize a new AEDT session, which should be the basic capability of any toolkit.
+    .. grid-item-card:: Architecture :fa:`person-running`
+        :padding: 2 2 2 2
+        :link: architecture
+        :link-type: doc
 
-The architecture is split in two main parts:
+        Learn more about the toolkit architecture.
 
-1. The backend, using `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_. Flask creates a REST API,
-which let interact different services by simply doing HTTP requests.
+    .. grid-item-card:: Installation :fa:`book-bookmark`
+        :padding: 2 2 2 2
+        :link: installation
+        :link-type: doc
 
-2. The frontend, using `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_. Pyside6 has a designer tool
-which allows to create user interfaces and it is translated to python directly.
+        Learn how to install the library.
 
-Using Flask, the toolkit becomes interface agnostic, then you can decide change it and use a WebUI for instance
-as user interface.
+    .. grid-item-card:: Example toolkit :fa:`scroll`
+        :padding: 2 2 2 2
+        :link: example_toolkit
+        :link-type: doc
 
-You can install the library like any other open source package. You can add this project as a dependency of the new toolkit.
-
-If you need more information, go to :ref:`ref_toolkit_architecture`.
+        Example toolkit using the common methods.
 
 
 .. toctree::
    :hidden:
    :maxdepth: 2
 
-   Architecture
-   Installation
+   architecture
+   installation
+   example_toolkit
