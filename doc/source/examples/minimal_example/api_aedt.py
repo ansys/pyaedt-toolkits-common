@@ -1,8 +1,8 @@
 # # AEDT API example
 #
-# This example shows how to use the common AEDT API to
+# This example shows how to use the Common AEDT API to
 # launch a new AEDT session in a thread,
-# create an HFSS design and create a coaxial.
+# create a HFSS design and create a coaxial.
 
 # ## Perform required imports
 #
@@ -11,7 +11,6 @@
 # +
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-
 # -
 
 # ## Initialize toolkit
