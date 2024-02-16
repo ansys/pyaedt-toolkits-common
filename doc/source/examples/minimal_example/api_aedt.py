@@ -8,10 +8,8 @@
 #
 # Perform required imports.
 
-# +
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-# -
 
 # ## Initialize toolkit
 #

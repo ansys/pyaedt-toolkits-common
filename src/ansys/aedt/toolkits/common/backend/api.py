@@ -355,6 +355,7 @@ class AEDTCommon(Common):
         if not connected:
             logger.debug("Launching AEDT.")
             pyaedt.settings.use_grpc_api = self.properties.use_grpc
+            pyaedt.settings.enable_logger = self.properties.debug
             desktop_args = {
                 "specified_version": self.properties.aedt_version,
                 "non_graphical": self.properties.non_graphical,
@@ -424,6 +425,7 @@ class AEDTCommon(Common):
 
         # Connect to AEDT
         pyaedt.settings.use_grpc_api = self.properties.use_grpc
+        pyaedt.settings.enable_logger = self.properties.debug
         logger.debug("Connecting AEDT.")
 
         desktop_args = {
@@ -496,6 +498,7 @@ class AEDTCommon(Common):
             design_name = self.properties.active_design
 
         pyaedt.settings.use_grpc_api = self.properties.use_grpc
+        pyaedt.settings.enable_logger = self.properties.debug
 
         if not app_name:
             app_name = "HFSS"
