@@ -161,6 +161,10 @@ nbsphinx_allow_errors = True
 
 # Sphinx gallery customization
 
+nbsphinx_thumbnails = {
+    "examples/minimal_example/api_aedt": "_static/thumbnails/coaxial.png",
+}
+
 nbsphinx_custom_formats = {
     ".py": ["jupytext.reads", {"fmt": ""}],
 }

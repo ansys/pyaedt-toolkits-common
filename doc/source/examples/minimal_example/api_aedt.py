@@ -1,14 +1,15 @@
 # # AEDT API example
 #
-# This example shows how to use the common AEDT API to launch a new AEDT session in a thread, create an Icepak design
-# and create a box.
+# This example shows how to use the common AEDT API to
+# launch a new AEDT session in a thread,
+# create an HFSS design and create a coaxial.
 
 # ## Perform required imports
 #
 # Perform required imports.
 
 # +
-
+import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 
 # -
@@ -27,11 +28,10 @@ properties_from_backend = toolkit.get_properties()
 
 # ## Set properties
 #
-# Modify properties with a dictionary.
+# Set non graphical mode.
 
-new_properties = {"use_grpc": True, "debug": False}
+new_properties = {"non_graphical": True}
 flag_set_properties, msg_set_properties = toolkit.set_properties(new_properties)
-
 
 # ## Initialize AEDT
 #
@@ -43,13 +43,16 @@ thread_msg = toolkit.launch_thread(toolkit.launch_aedt)
 #
 # Wait for the toolkit thread to be idle and ready to accept a new task.
 
-toolkit.wait_to_be_idle()
+idle = toolkit.wait_to_be_idle()
+if not idle:
+    print("AEDT not initialized.")
+    sys.exit()
 
 # ## Connect design
 #
 # Connect or create a new design.
 
-toolkit.connect_design("Icepak")
+toolkit.connect_design("HFSS")
 
 # ## Get toolkit properties
 #
@@ -59,9 +62,9 @@ new_properties_from_backend = toolkit.get_properties()
 
 # ## Create a box
 #
-# Create a box in the design.
+# Create a coaxial in the design.
 
-box = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])
+coax = toolkit.aedtapp.modeler.create_coaxial([0, 0, 0], 1)
 
 # ## Save and release AEDT
 #
