@@ -163,6 +163,7 @@ nbsphinx_allow_errors = True
 
 nbsphinx_thumbnails = {
     "examples/aedt_common/api_aedt": "_static/thumbnails/coaxial.png",
+    "examples/properties_common/api_properties": "_static/thumbnails/book.png",
 }
 
 nbsphinx_custom_formats = {
