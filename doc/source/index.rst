@@ -78,15 +78,15 @@ Developers can create tools that seamlessly integrate with existing toolkits, pr
 and extensible ecosystem.
 This interoperability is crucial for users who may need functionalities from multiple toolkits in their workflows.
 
-Code Reusability
-~~~~~~~~~~~~~~~~
+Reuse code
+~~~~~~~~~~
 
 A common toolkit framework encourages the reuse of code components across different toolkits.
 Developers can leverage existing modules, functions, and libraries, saving time and effort in creating similar
 functionalities from scratch. This promotes a more efficient development process and reduces redundancy.
 
-Maintenability
-~~~~~~~~~~~~~~
+Maintain
+~~~~~~~~
 
 Standardized frameworks make it easier to maintain and update AEDT toolkits.
 When changes or improvements are required, developers can follow a unified set of procedures, ensuring that updates are
@@ -101,14 +101,13 @@ It becomes easier for multiple developers to work on different aspects of the to
 as they all adhere to the same framework.
 This collaborative environment can lead to faster development cycles and a more robust set of tools.
 
-Documentation and Training
+Documentation and training
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A standardized framework comes with consistent documentation and training resources.
 This makes it easier for developers to understand the structure of the toolkit, its functionalities, and best practices.
-It also facilitates the onboarding of new developers, as they can follow established guidelines and documentation.
 
-Quality Assurance
+Quality assurance
 ~~~~~~~~~~~~~~~~~
 
 A common toolkit framework enables better quality assurance processes.
