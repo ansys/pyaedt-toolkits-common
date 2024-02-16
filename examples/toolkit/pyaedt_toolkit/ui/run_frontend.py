@@ -50,11 +50,11 @@ class ApplicationWindow(Frontend):
 
         # Create user interface object
         self.ui = MainWindowLayout(self)
-        self.ui.setup_ui()
+        self.ui.setup()
 
         # Setup main
         self.main_window = MainWindow(self)
-        self.main_window.setup_gui()
+        self.main_window.setup()
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)
@@ -70,7 +70,6 @@ class ApplicationWindow(Frontend):
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
-            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
             be_properties = self.get_properties()
