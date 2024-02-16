@@ -27,8 +27,8 @@ properties_from_backend = toolkit.get_properties()
 #
 # Set non graphical mode.
 
-new_properties = {"non_graphical": True}
-flag_set_properties, msg_set_properties = toolkit.set_properties(new_properties)
+set_properties = {"non_graphical": True}
+flag_set_properties, msg_set_properties = toolkit.set_properties(set_properties)
 
 # ## Initialize AEDT
 #
@@ -55,7 +55,7 @@ toolkit.connect_design("HFSS")
 #
 # Properties contain the project information.
 
-new_properties_from_backend = toolkit.get_properties()
+new_properties = toolkit.get_properties()
 
 # ## Create a box
 #

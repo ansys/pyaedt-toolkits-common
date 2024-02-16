@@ -836,9 +836,11 @@ class EDBCommon(Common):
         if self.edb:
             logger.error(f"Close EDB {edb_path} before loading a new project.")
             return False
-        print(self.properties)
+
         if os.path.exists(edb_path):
             aedt_version = self.properties.aedt_version
+            pyaedt.settings.enable_logger = self.properties.debug
+            pyaedt.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
             self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
             logger.debug("Project {} opened".format(edb_path))
