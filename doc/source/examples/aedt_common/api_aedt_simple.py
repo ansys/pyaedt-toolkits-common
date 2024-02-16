@@ -1,4 +1,4 @@
-# # AEDT API example
+# # AEDT simple example
 #
 # This example shows how to use the Common AEDT API to
 # launch a new AEDT session in a thread,
@@ -57,7 +57,7 @@ toolkit.connect_design("HFSS")
 
 new_properties = toolkit.get_properties()
 
-# ## Create a box
+# ## Create a coaxial
 #
 # Create a coaxial in the design.
 

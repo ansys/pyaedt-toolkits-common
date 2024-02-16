@@ -162,7 +162,7 @@ nbsphinx_allow_errors = True
 # Sphinx gallery customization
 
 nbsphinx_thumbnails = {
-    "examples/aedt_common/api_aedt": "_static/thumbnails/coaxial.png",
+    "examples/aedt_common/api_aedt_simple": "_static/thumbnails/coaxial.png",
     "examples/properties_common/api_properties": "_static/thumbnails/book.png",
 }
 
