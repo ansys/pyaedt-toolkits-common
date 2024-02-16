@@ -10,6 +10,7 @@ Common AEDT API examples.
 
     aedt_common/api_aedt_simple.py
     aedt_common/api_aedt_open_project.py
+    aedt_common/api_aedt_connect_session.py
 
 Common EDB API
 ~~~~~~~~~~~~~~
@@ -26,3 +27,7 @@ Common API examples.
 .. nbgallery::
 
     properties_common/api_properties.py
+
+REST API
+~~~~~~~~
+Find here a `REST API example <https://github.com/ansys-internal/pyaedt-toolkits-common>`_.
