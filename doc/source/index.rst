@@ -43,7 +43,7 @@ This package provides common methods and best practices to create a new Ansys El
         :link: contributing
         :link-type: doc
 
-        Learn how to contribute to the Magnet Segmentation Toolkit codebase or documentation.
+        Learn how to contribute to the PyAEDT Common Toolkit codebase or documentation.
 
 .. toctree::
    :hidden:
