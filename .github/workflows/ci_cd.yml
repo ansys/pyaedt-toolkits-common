@@ -45,13 +45,64 @@ jobs:
 
   doc-build:
     name: "Build documentation"
-    runs-on: ubuntu-latest
-    needs: doc-style
+    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    timeout-minutes: 10
     steps:
-      - uses: ansys/actions/doc-build@v5
+      - uses: actions/checkout@v4
+
+      - name: "Set up Python"
+        uses: ansys/actions/_setup-python@main
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          check-links: false
+          use-cache: false
+
+      - name: 'Create virtual env'
+        run: |
+          python -m venv .venv
+
+      - name: "Update pip"
+        run: |
+          . .venv\Scripts\Activate.ps1
+          python -m pip install pip -U
+          python -m pip install wheel setuptools -U
+          python -c "import sys; print(sys.executable)"
+
+      - name: Install common toolkit with doc dependencies
+        run: |
+          . .venv\Scripts\Activate.ps1
+          pip install .
+          pip install .[doc]
+
+      - name: Retrieve common toolkit version
+        run: |
+          . .venv\Scripts\Activate.ps1
+          echo "Common Toolkit version is: $(python -c "from ansys.aedt.toolkits.common import __version__; print(); print(__version__)")"
+
+      - name: Build the documentation (HTML)
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          cd doc
+          .\make.bat html
+
+      - name: Build the documentation (PDF)
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          cd doc
+          .\make.bat pdf
+
+      - name: Upload HTML Documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-html
+          path: doc/_build/html
+          retention-days: 1
+
+      - name: Upload PDF Documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-pdf
+          path: doc/_build/latex/*.pdf
+          retention-days: 7
 
   smoke-tests:
     name: "Build and Smoke tests"
