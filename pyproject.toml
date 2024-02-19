@@ -39,7 +39,7 @@ all = [
     "qdarkstyle",
 ]
 tests = [
-    "pytest==8.0.0",
+    "pytest==8.0.1",
     "pytest-cov==4.1.0",
     "flask",
 ]
