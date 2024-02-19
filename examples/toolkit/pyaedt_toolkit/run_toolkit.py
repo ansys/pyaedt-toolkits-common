@@ -129,7 +129,6 @@ def process_desktop_properties():
             "use_grpc": grpc,
         }
         requests.put(URL_CALL + "/properties", json=properties)
-        # requests.post(URL_CALL + "/launch_aedt")
 
 
 # Main Execution

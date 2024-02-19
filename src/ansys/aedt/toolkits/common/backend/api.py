@@ -213,7 +213,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2022.2", "2023.2", "2024.1"]
+        ["2023.2", "2024.1"]
         """
 
         # Detect existing AEDT installation
