@@ -36,7 +36,7 @@ class MainWindow(object):
     def setup(self, main_window_logo=None):
         # Add title
         if not hasattr(general_settings, "main_title"):
-            title = "Toolkit"
+            title = "toolkit"
         else:
             title = general_settings.main_title
         self._app.ui.title_bar.set_title(title)

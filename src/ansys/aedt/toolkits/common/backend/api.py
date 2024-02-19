@@ -45,10 +45,10 @@ from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
 class ToolkitThreadStatus(str, Enum):
     """Status of the toolkit thread."""
 
-    IDLE = "Toolkit is idle and ready to accept a new task."
-    BUSY = "Toolkit is busy and processing a task."
-    CRASHED = "Toolkit has crashed and is not functional."
-    UNKNOWN = "Toolkit unknown status."
+    IDLE = "toolkit is idle and ready to accept a new task."
+    BUSY = "toolkit is busy and processing a task."
+    CRASHED = "toolkit has crashed and is not functional."
+    UNKNOWN = "toolkit unknown status."
 
 
 class PropertiesUpdate(str, Enum):
@@ -67,11 +67,11 @@ class ToolkitConnectionStatus:
 
     def __str__(self):
         if self.desktop:
-            res = f"Toolkit is connected to process {self.desktop.aedt_process_id}"
+            res = f"toolkit is connected to process {self.desktop.aedt_process_id}"
             if self.desktop.port != 0:
                 res += f" on Grpc {self.desktop.port}."
         else:
-            res = "Toolkit is not connected to AEDT."
+            res = "toolkit is not connected to AEDT."
         return res
 
     def is_connected(self):
@@ -213,7 +213,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2022.2", "2023.2", "2024.1"]
+        ["2023.2", "2024.1"]
         """
 
         # Detect existing AEDT installation
@@ -325,7 +325,7 @@ class AEDTCommon(Common):
         >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.connect_aedt()
         >>> toolkit_api.is_aedt_connected()
-        (True, "Toolkit connected to process <process_id> on Grpc <grpc_port>")
+        (True, "toolkit connected to process <process_id> on Grpc <grpc_port>")
         >>> toolkit_api.release_aedt()
         """
         tcs = ToolkitConnectionStatus(desktop=self.desktop)
@@ -355,6 +355,7 @@ class AEDTCommon(Common):
         if not connected:
             logger.debug("Launching AEDT.")
             pyaedt.settings.use_grpc_api = self.properties.use_grpc
+            pyaedt.settings.enable_logger = self.properties.debug
             desktop_args = {
                 "specified_version": self.properties.aedt_version,
                 "non_graphical": self.properties.non_graphical,
@@ -419,11 +420,12 @@ class AEDTCommon(Common):
 
         is_aedt_connected = self.is_aedt_connected()
         if is_aedt_connected[0]:
-            logger.debug("Toolkit is connected to AEDT.")
+            logger.debug("toolkit is connected to AEDT.")
             return True
 
         # Connect to AEDT
         pyaedt.settings.use_grpc_api = self.properties.use_grpc
+        pyaedt.settings.enable_logger = self.properties.debug
         logger.debug("Connecting AEDT.")
 
         desktop_args = {
@@ -439,10 +441,10 @@ class AEDTCommon(Common):
         self.desktop = pyaedt.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
-            logger.error("Toolkit is not connected to AEDT.")
+            logger.error("toolkit is not connected to AEDT.")
             return False
 
-        logger.debug("Toolkit is connected to AEDT.")
+        logger.debug("toolkit is connected to AEDT.")
         return True
 
     def connect_design(self, app_name: Optional[str] = None):
@@ -496,6 +498,7 @@ class AEDTCommon(Common):
             design_name = self.properties.active_design
 
         pyaedt.settings.use_grpc_api = self.properties.use_grpc
+        pyaedt.settings.enable_logger = self.properties.debug
 
         if not app_name:
             app_name = "HFSS"
@@ -548,10 +551,10 @@ class AEDTCommon(Common):
                 self.properties.design_list[self.aedtapp.project_name].append(active_design)
             self.properties.active_project = project_name
             self.properties.active_design = active_design
-            logger.info("Toolkit is connected to AEDT design.")
+            logger.info("toolkit is connected to AEDT design.")
             return True
         else:  # pragma: no cover
-            logger.error("Toolkit not connected to AEDT design.")
+            logger.error("toolkit not connected to AEDT design.")
             return False
 
     def release_aedt(self, close_projects=False, close_on_exit=False):
@@ -833,9 +836,11 @@ class EDBCommon(Common):
         if self.edb:
             logger.error(f"Close EDB {edb_path} before loading a new project.")
             return False
-        print(self.properties)
+
         if os.path.exists(edb_path):
             aedt_version = self.properties.aedt_version
+            pyaedt.settings.enable_logger = self.properties.debug
+            pyaedt.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
             self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
             logger.debug("Project {} opened".format(edb_path))

@@ -33,4 +33,12 @@ html:
 pdf:
 	@$(SPHINXBUILD) -M latex "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
 	cd $(BUILDDIR)/latex && latexmk -r latexmkrc -pdf *.tex -interaction=nonstopmode || true
-	(test -f $(BUILDDIR)/latex/ansys-aedt-toolkits-common.pdf && echo pdf exists) || exit 1
+	(test -f $(BUILDDIR)/latex/ansys-common-toolkit.pdf && echo pdf exists) || exit 1
+
+# build docs like the CI build
+cibuild:
+	mkdir source/examples -p
+	echo 'Examples' > source/examples/index.rst
+	echo '========' >> source/examples/index.rst
+	$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O) -j auto -w build_errors.txt -N
+	python print_errors.py

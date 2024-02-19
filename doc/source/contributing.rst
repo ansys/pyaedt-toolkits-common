@@ -6,11 +6,11 @@ Overall guidance on contributing to a PyAnsys repository appears in
 in the *PyAnsys Developer's Guide*. Ensure that you are thoroughly familiar
 with this guide before attempting to contribute to PyAEDT or its toolkits.
  
-The following contribution information is specific to PyAEDT toolkits.
+The following contribution information is specific to this library.
 
 Clone the repository
 --------------------
-To clone and install the latest version of the Motor Segmentation Toolkit in
+To clone and install the latest version of the PyAEDT Common Toolkit in
 development mode, run these commands:
 
 .. code::
@@ -22,7 +22,7 @@ development mode, run these commands:
 
 Post issues
 -----------
-Use the `PyAEDT Common Toolkit Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page
+Use the `PyAEDT Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page
 to create issues to report bugs and request new features.
 
 View documentation

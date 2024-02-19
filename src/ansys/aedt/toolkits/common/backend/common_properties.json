@@ -1,6 +1,6 @@
 {
-  "aedt_version" : "2023.2",
-  "non_graphical" : false,
+  "aedt_version" : "2024.1",
+  "non_graphical" : true,
   "active_project" : "",
   "active_design": "",
   "project_list" : [],
@@ -10,7 +10,7 @@
   "is_toolkit_busy" : false,
   "url" : "127.0.0.1",
   "port" : 5001,
-  "debug" : true,
+  "debug" : false,
   "toolkit_name": "common",
   "log_file" : "common_backend.log"
 }

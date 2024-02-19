@@ -161,11 +161,24 @@ nbsphinx_allow_errors = True
 
 # Sphinx gallery customization
 
+nbsphinx_thumbnails = {
+    "examples/aedt_common/api_aedt_simple": "_static/thumbnails/coaxial.png",
+    "examples/properties_common/api_properties": "_static/thumbnails/book.png",
+}
+
 nbsphinx_custom_formats = {
     ".py": ["jupytext.reads", {"fmt": ""}],
 }
 
-exclude_patterns = ["_build", "sphinx_boogergreen_theme_1", "Thumbs.db", ".DS_Store", "*.txt", "conf.py"]
+exclude_patterns = [
+    "_build",
+    "sphinx_boogergreen_theme_1",
+    "Thumbs.db",
+    ".DS_Store",
+    "*.txt",
+    "conf.py",
+    "examples/properties_common/models.py",
+]
 
 # if os.name != "posix":
 #     extensions.append("sphinx_gallery.gen_gallery")
