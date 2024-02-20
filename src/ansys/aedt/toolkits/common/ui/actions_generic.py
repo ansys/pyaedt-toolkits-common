@@ -48,13 +48,16 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         # Load toolkit icon
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
 
-    def poll_url(self, url: str, timeout: int = 10):
-        """Perform GET requests on an URL.
+    @staticmethod
+    def poll_url(url: str, timeout: int = 10):
+        """Perform GET requests on URL.
 
         Continuously perform GET requests to the specified URL until a valid response is received.
 
         Parameters
         ----------
+        url : str
+            URL to poll.
         timeout : int, optional
             Time out in seconds. The default is 10 seconds.
 
@@ -71,7 +74,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         response_content = None
         response_success = False
         try:
-            while not response_success and count < 10:
+            while not response_success and count < timeout:
                 time.sleep(1)
                 response = requests.get(url)
                 response_success = response.ok
@@ -141,10 +144,11 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = "Set properties failed"
             self.log_and_update_progress(msg, log_level="error")
 
-    def find_process_ids(self, version):
+    def find_process_ids(self, version, non_graphical):
         try:
             be_properties = self.get_properties()
             be_properties["aedt_version"] = version
+            be_properties["non_graphical"] = non_graphical
             self.set_properties(be_properties)
             response = requests.get(self.url + "/aedt_sessions")
             sessions = []
@@ -206,7 +210,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "toolkit not connected to AEDT":
+            if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"

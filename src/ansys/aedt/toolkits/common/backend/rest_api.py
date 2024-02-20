@@ -21,13 +21,11 @@
 # SOFTWARE.
 
 from enum import Enum
-import json
 
 from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
@@ -39,7 +37,16 @@ class BodyErrorMessage(str, Enum):
     INCORRECT_CONTENT = "Body content is not correct."
 
 
-toolkit_api = AEDTCommon()
+try:
+    from api import ToolkitBackend
+
+    toolkit_api = ToolkitBackend()
+
+except ImportError:
+    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
+    toolkit_api = AEDTCommon()
+
 app = Flask(__name__)
 
 
@@ -133,8 +140,8 @@ def open_project():
         logger.error(msg)
         return jsonify(msg), 500
 
-    data = body.decode("utf-8")
-    project_path = json.loads(data)
+    project_path = body.decode("utf-8")
+    # project_path = json.loads(data)
     response = toolkit_api.open_project(project_path)
 
     if response:

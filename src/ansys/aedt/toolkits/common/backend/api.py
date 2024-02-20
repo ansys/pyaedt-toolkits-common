@@ -218,10 +218,20 @@ class Common:
 
         # Detect existing AEDT installation
         installed_versions = []
+
         for ver in list_installed_ansysem():
-            installed_versions.append(
-                "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
-            )
+            if "ANSYSEMSV_ROOT" in ver:
+                # Handle the special case
+                installed_versions.append(
+                    "20{}.{} STUDENT".format(
+                        ver.replace("ANSYSEMSV_ROOT", "")[:2], ver.replace("ANSYSEMSV_ROOT", "")[-1]
+                    )
+                )
+            else:
+                installed_versions.append(
+                    "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
+                )
+
         logger.debug(str(installed_versions))
         return installed_versions
 
@@ -356,9 +366,13 @@ class AEDTCommon(Common):
             logger.debug("Launching AEDT.")
             pyaedt.settings.use_grpc_api = self.properties.use_grpc
             pyaedt.settings.enable_logger = self.properties.debug
+
+            version, is_student = self.__get_aedt_version()
+
             desktop_args = {
-                "specified_version": self.properties.aedt_version,
+                "specified_version": version,
                 "non_graphical": self.properties.non_graphical,
+                "student_version": is_student,
             }
 
             # AEDT with COM
@@ -428,9 +442,12 @@ class AEDTCommon(Common):
         pyaedt.settings.enable_logger = self.properties.debug
         logger.debug("Connecting AEDT.")
 
+        version, is_student = self.__get_aedt_version()
+
         desktop_args = {
-            "specified_version": self.properties.aedt_version,
+            "specified_version": version,
             "non_graphical": self.properties.non_graphical,
+            "student_version": is_student,
             "new_desktop_session": False,
         }
         if self.properties.use_grpc:
@@ -524,13 +541,17 @@ class AEDTCommon(Common):
             active_design = design_name
 
         if not self.aedtapp and aedt_app:
+
+            version, is_student = self.__get_aedt_version()
+
             aedt_app_args = {
-                "specified_version": self.properties.aedt_version,
+                "specified_version": version,
                 "port": self.properties.selected_process,
                 "non_graphical": self.properties.non_graphical,
                 "new_desktop_session": False,
                 "projectname": project_name,
                 "designname": active_design,
+                "student_version": is_student,
             }
             if self.properties.use_grpc:
                 aedt_app_args["port"] = self.properties.selected_process
@@ -733,6 +754,17 @@ class AEDTCommon(Common):
                 design_list.append(self.properties.active_design)
 
         return design_list
+
+    def __get_aedt_version(self):
+        """Get AEDT version and if student version is used."""
+        if "STUDENT" in self.properties.aedt_version:
+            version_text = self.properties.aedt_version.split(" ")
+            version = version_text[0]
+            is_student = True
+        else:
+            version = self.properties.aedt_version
+            is_student = False
+        return version, is_student
 
     def __save_project_info(self):
         """Save project and design info."""

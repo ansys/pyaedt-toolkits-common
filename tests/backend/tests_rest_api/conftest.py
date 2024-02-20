@@ -55,6 +55,7 @@ config.update(local_cfg)
 # Update AEDT settings
 setup_aedt_settings(config)
 
+
 @pytest.fixture(scope="session")
 def client(logger, common_temp_dir):
     """Create a test client."""
@@ -73,7 +74,7 @@ def client(logger, common_temp_dir):
         timeout = 60
         response = client.get("/wait_thread", json=timeout)
         aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
-        client.post("/open_project", json=aedt_file)
+        client.post("/open_project", data=aedt_file)
         assert response.status_code == 200
 
         yield client

@@ -70,6 +70,7 @@ class ApplicationWindow(Frontend):
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
+            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
             be_properties = self.get_properties()
@@ -115,8 +116,9 @@ class ApplicationWindow(Frontend):
             # is_left_visible = self.ui.is_left_column_visible()
             # current_page = self.ui.load_pages.pages.currentIndex()
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
-
-            self.ui.toggle_left_column()
+            is_left_visible = self.ui.is_left_column_visible()
+            if not is_left_visible:
+                self.ui.toggle_left_column()
 
             self.ui.set_left_column_menu(
                 menu=self.ui.left_column.menus.menu_home,

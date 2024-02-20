@@ -158,8 +158,10 @@ class SettingsMenu(QObject):
         if self.signal_flag:
             self.aedt_session.clear()
             self.aedt_session.addItem("New Session")
+            non_graphical_pos = self.graphical_mode.position
+            non_graphical = non_graphical_pos == 24.0
             if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
-                sessions = self.app.find_process_ids(self.aedt_version.currentText())
+                sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
                 for pid in sessions:
                     if sessions[pid] == -1:
                         self.aedt_session.addItem("Process {}".format(pid))
