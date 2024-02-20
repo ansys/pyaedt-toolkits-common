@@ -114,7 +114,7 @@ class MainWindowLayout(CommonWindowUtils):
         self.right_column_layout = None
         self.right_column = None
 
-    def setup_ui(self):
+    def setup(self):
         """Setup UI for parent widget."""
         setup_parent_ui(self.app)
         self.setup_main_window()

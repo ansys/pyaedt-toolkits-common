@@ -32,7 +32,7 @@ from pydantic import Field
 class CommonProperties(BaseModel):
     """Store common AEDT properties."""
 
-    aedt_version: str = "2023.2"
+    aedt_version: str = "2024.1"
     non_graphical: bool = False
     active_project: str = ""
     active_design: str = ""

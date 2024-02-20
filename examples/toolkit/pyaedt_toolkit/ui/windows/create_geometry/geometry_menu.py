@@ -142,7 +142,7 @@ class GeometryMenu(object):
             return False
 
         if self.app.backend_busy():
-            msg = "Toolkit running"
+            msg = "toolkit running"
             self.ui.logger.log(msg)
             self.app.logger.debug(msg)
             return False
@@ -172,7 +172,7 @@ class GeometryMenu(object):
             self.geometry_thread.start()
 
         else:
-            self.ui.logger.log("Toolkit not connect to AEDT.")
+            self.ui.logger.log("toolkit not connect to AEDT.")
 
     def geometry_created_finished(self, success):
         self.ui.progress.progress = 100

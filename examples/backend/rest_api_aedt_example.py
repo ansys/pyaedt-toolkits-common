@@ -5,7 +5,7 @@ from ansys.aedt.toolkits.common.backend.rest_api import logger
 from ansys.aedt.toolkits.common.backend.rest_api import toolkit_api
 
 
-# Toolkit entrypoints
+# toolkit entrypoints
 @app.route("/dummy", methods=["GET"])
 def get_materials():
     logger.info("[GET] /Rest API dummy call.")

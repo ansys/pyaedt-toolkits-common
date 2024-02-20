@@ -9,7 +9,7 @@ This module contains the configuration and fixture for the pytest-based tests fo
 The default configuration can be changed by placing a file called local_config.json in the same
 directory as this module. An example of the contents of local_config.json
 {
-  "desktop_version": "2023.2",
+  "desktop_version": "2024.1",
   "non_graphical": false,
   "use_grpc": true
 }
@@ -30,7 +30,7 @@ from pyaedt import settings
 import pytest
 
 DEFAULT_CONFIG = {
-    "desktop_version": "2023.2",
+    "desktop_version": "2024.1",
     "non_graphical": True,
     "use_grpc": True,
     "debug": False

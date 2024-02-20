@@ -23,11 +23,14 @@ PyAEDT Common Toolkit
   :target: https://github.com/psf/black
   :alt: black
 
+The ``pyaedt-toolkits-common`` package provides common methods to create a new Ansys Electronics Desktop (AEDT) toolkit.
 
-The ``pyaedt-toolkits-common`` package provides common methods to create a new toolkit using PyAEDT.
+A common toolkit library can bring numerous advantages, enhancing efficiency, consistency, and collaboration
+in the creation and development of AEDT toolkits.
+
 This package has two main parts: backend and user interface.
 
-The backend has some common methods to control Ansys Electronics Desktop (AEDT) session, and in addition,
+The backend has some common methods to control AEDT session, and in addition,
 it has a REST API based on `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
 
 The user interface has some common methods to create a desktop application based on `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.

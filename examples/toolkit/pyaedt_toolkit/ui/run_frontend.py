@@ -8,16 +8,16 @@ from PySide6.QtWidgets import QSpacerItem
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QWidget
 
-# Toolkit PySide6 Widgets
+# toolkit PySide6 Widgets
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 
-# Toolkit frontend API
+# toolkit frontend API
 from actions import Frontend
 
 # Default properties
 from models import properties
 
-# Toolkit windows
+# toolkit windows
 from windows.create_geometry.geometry_menu import GeometryMenu
 
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
@@ -50,11 +50,11 @@ class ApplicationWindow(Frontend):
 
         # Create user interface object
         self.ui = MainWindowLayout(self)
-        self.ui.setup_ui()
+        self.ui.setup()
 
         # Setup main
         self.main_window = MainWindow(self)
-        self.main_window.setup_gui()
+        self.main_window.setup()
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)
@@ -70,7 +70,6 @@ class ApplicationWindow(Frontend):
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
-            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
             be_properties = self.get_properties()
@@ -87,7 +86,7 @@ class ApplicationWindow(Frontend):
             if be_properties.get("aedt_version") in installed_versions:
                 self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
-        # Toolkit specific wizard starts here
+        # toolkit specific wizard starts here
 
         # Home menu
         self.home_menu = HomeMenu(self)

@@ -165,7 +165,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "Toolkit is not connected to AEDT.":
+            if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
                 if be_properties["selected_process"] == 0:
                     be_properties["aedt_version"] = selected_version
@@ -206,7 +206,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "Toolkit not connected to AEDT":
+            if response.ok and response.json() == "toolkit not connected to AEDT":
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"
@@ -331,7 +331,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         bar to the given progress percentage if provided.
         """
 
-        # Toolkit logging
+        # toolkit logging
         log_levels = {
             "debug": logger.debug,
             "info": logger.info,

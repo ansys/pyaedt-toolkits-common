@@ -38,9 +38,9 @@ class UIProperties(BaseModel):
     backend_port: int = 5001
     debug: bool = True
     log_file: str = "common_frontend.log"
-    app_name: str = "Toolkit Wizard"
-    main_title: str = "Toolkit Template Wizard"
-    welcome_message: str = "Welcome to the Toolkit"
+    app_name: str = "toolkit Wizard"
+    main_title: str = "toolkit Template Wizard"
+    welcome_message: str = "Welcome to the toolkit"
     version: str = "v0.0.1"
     copyright: str = "By: x"
     year: int = 2024

@@ -25,7 +25,7 @@ class ToolkitBackend(AEDTCommon):
     """
 
     def __init__(self):
-        """Initialize the ``Toolkit`` class."""
+        """Initialize the ``toolkit`` class."""
         AEDTCommon.__init__(self, properties)
         self.properties = properties
         self.multiplier = 1.0
