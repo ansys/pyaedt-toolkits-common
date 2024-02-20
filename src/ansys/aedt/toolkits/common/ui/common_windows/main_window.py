@@ -90,10 +90,10 @@ class MainWindow(object):
         is_progress_visible = self._app.ui.is_progress_visible()
 
         self._app.ui.left_menu.select_only_one(selected_menu.objectName())
+
         if selected_menu.objectName() == "home_menu":
-            self._app.ui.set_page(self._app.ui.load_pages.home_page)
-        if selected_menu.objectName() == "home_menu" and not is_left_visible:
-            self._app.ui.toggle_left_column()
+            if not is_left_visible:
+                self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(
                 menu=self._app.ui.left_column.menus.menu_home,
                 title="Home",
@@ -107,13 +107,11 @@ class MainWindow(object):
             self._app.ui.set_right_column_menu(title="Settings")
 
         elif selected_menu.objectName() == "progress_menu":
-            if is_left_visible:
-                self._app.ui.toggle_left_column()
             if is_progress_visible:
                 selected_menu.set_active(False)
             self._app.ui.toggle_progress()
 
-        elif is_left_visible or selected_menu.objectName() == "close_left_column" or is_right_visible:
+        elif selected_menu.objectName() == "close_left_column" or is_right_visible:
             if self._app.ui.is_left_column_visible():
                 selected_menu.set_active(False)
                 self._app.ui.toggle_left_column()

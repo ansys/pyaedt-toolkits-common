@@ -48,13 +48,16 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         # Load toolkit icon
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
 
-    def poll_url(self, url: str, timeout: int = 10):
-        """Perform GET requests on an URL.
+    @staticmethod
+    def poll_url(url: str, timeout: int = 10):
+        """Perform GET requests on URL.
 
         Continuously perform GET requests to the specified URL until a valid response is received.
 
         Parameters
         ----------
+        url : str
+            URL to poll.
         timeout : int, optional
             Time out in seconds. The default is 10 seconds.
 
@@ -71,7 +74,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         response_content = None
         response_success = False
         try:
-            while not response_success and count < 10:
+            while not response_success and count < timeout:
                 time.sleep(1)
                 response = requests.get(url)
                 response_success = response.ok
