@@ -144,10 +144,11 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = "Set properties failed"
             self.log_and_update_progress(msg, log_level="error")
 
-    def find_process_ids(self, version):
+    def find_process_ids(self, version, non_graphical):
         try:
             be_properties = self.get_properties()
             be_properties["aedt_version"] = version
+            be_properties["non_graphical"] = non_graphical
             self.set_properties(be_properties)
             response = requests.get(self.url + "/aedt_sessions")
             sessions = []
@@ -209,7 +210,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         elif res_idle:
             self.ui.progress.progress = 0
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "toolkit not connected to AEDT":
+            if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"

@@ -20,9 +20,7 @@ class CreateGeometryThread(QThread):
 
     def run(self):
         self.app.ui.progress.progress = 50
-        import time
 
-        time.sleep(1)
         success = self.app.create_geometry_toolkit(
             self.selected_project, self.selected_design, self.geometry, self.multiplier
         )
@@ -141,8 +139,8 @@ class GeometryMenu(object):
             self.ui.logger.log(msg)
             return False
 
-        if self.app.backend_busy():
-            msg = "toolkit running"
+        if self.geometry_thread and self.geometry_thread.isRunning() or self.app.backend_busy():
+            msg = "Toolkit running"
             self.ui.logger.log(msg)
             self.app.logger.debug(msg)
             return False
