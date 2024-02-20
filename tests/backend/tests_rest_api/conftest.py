@@ -74,8 +74,7 @@ def client(logger, common_temp_dir):
         timeout = 60
         response = client.get("/wait_thread", json=timeout)
         aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
-        # Comment these lines if you want to run the tests locally
-        client.post("/open_project", json=aedt_file)
+        client.post("/open_project", data=aedt_file)
         assert response.status_code == 200
 
         yield client
