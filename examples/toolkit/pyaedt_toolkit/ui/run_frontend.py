@@ -8,8 +8,6 @@ from PySide6.QtWidgets import QSpacerItem
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QWidget
 
-# toolkit PySide6 Widgets
-from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 
 # toolkit frontend API
 from actions import Frontend
@@ -19,6 +17,7 @@ from models import properties
 
 # toolkit windows
 from windows.create_geometry.geometry_menu import GeometryMenu
+from windows.plot_design.plot_design_menu import PlotDesignMenu
 
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
@@ -98,9 +97,13 @@ class ApplicationWindow(Frontend):
         self.geometry_menu.setup()
         self.ui.left_menu.clicked.connect(self.geometry_menu_clicked)
 
+        # Plot design menu
+        self.plot_design_menu = PlotDesignMenu(self)
+        self.plot_design_menu.setup()
+        self.ui.left_menu.clicked.connect(self.plot_design_menu_clicked)
+
         self.spacer1_index = -1
         self.spacer2_index = -1
-        self.label_index = -1
 
         self.ui.set_page(self.ui.load_pages.home_page)
 
@@ -108,32 +111,37 @@ class ApplicationWindow(Frontend):
         selected_menu = self.main_window.get_selected_menu()
         self.ui.left_menu.select_only_one(selected_menu.objectName())
         menu_name = selected_menu.objectName()
-        if self.label_index != -1 and menu_name != "geometry_menu":
-            self.ui.remove_item(self.ui.left_column.menus.home_vertical_layout, self.label_index)
-            self.label_index = -1
 
         if menu_name == "geometry_menu":
-            # is_left_visible = self.ui.is_left_column_visible()
-            # current_page = self.ui.load_pages.pages.currentIndex()
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
+
             is_left_visible = self.ui.is_left_column_visible()
             if not is_left_visible:
                 self.ui.toggle_left_column()
 
             self.ui.set_left_column_menu(
-                menu=self.ui.left_column.menus.menu_home,
+                menu=self.geometry_menu.geometry_column_widget,
                 title="Primitives Builder",
                 icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
             )
-            if self.label_index == -1:
 
-                msg = "Press 'Create Geometry' button"
-                label_widget = PyLabel(
-                    text=msg,
-                    font_size=self.ui.app.properties.font["title_size"],
-                    color=self.ui.themes["app_color"]["text_description"])
-                self.ui.left_column.menus.home_vertical_layout.addWidget(label_widget)
-                self.label_index = self.ui.item_index(self.ui.left_column.menus.home_vertical_layout, label_widget)
+    def plot_design_menu_clicked(self):
+        selected_menu = self.main_window.get_selected_menu()
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
+        menu_name = selected_menu.objectName()
+
+        if menu_name == "plot_design_menu":
+            self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
+
+            is_left_visible = self.ui.is_left_column_visible()
+            if not is_left_visible:
+                self.ui.toggle_left_column()
+
+            self.ui.set_left_column_menu(
+                menu=self.plot_design_menu.plot_design_column_widget,
+                title="Plot Design",
+                icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
+            )
 
 
 if __name__ == "__main__":

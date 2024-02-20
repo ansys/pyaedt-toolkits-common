@@ -37,7 +37,7 @@
   },
   "font" : {
       "family" : "Segoe UI",
-      "title_size" : 10,
+      "title_size" : 12,
       "text_size" : 9
   },
   "high_resolution": false,
