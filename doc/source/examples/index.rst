@@ -30,4 +30,4 @@ Common API examples.
 
 REST API
 ~~~~~~~~
-Find here a `REST API example <https://github.com/ansys-internal/pyaedt-toolkits-common>`_.
+Find here a `REST API example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/backend/rest_api_aedt_example.py>`_.
