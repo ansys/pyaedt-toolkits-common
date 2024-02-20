@@ -3,7 +3,7 @@
 Installation
 ============
 
-If you want to use this library for a toolkit or automated workflow, you can install the backend standalone or
+If you want to use this library for a toolkit or workflow, you can install the backend standalone or
 install backend and user interface common methods.
 
 You can install both backend and user interface methods from PyPI::

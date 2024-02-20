@@ -10,6 +10,7 @@ AEDT project or initialize a new AEDT session, which should be the basic capabil
 
 The architecture is divided in two main parts:
 
+
 1. The backend, using `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_. Flask creates a REST API,
 which let interact different services by simply doing HTTP requests.
 

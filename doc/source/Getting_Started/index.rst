@@ -20,7 +20,7 @@ If you want to develop a new toolkit, you need first to learn how the :ref:`arch
         :link: installation
         :link-type: doc
 
-        Learn how to install the library.
+        Learn how to install the common library.
 
     .. grid-item-card:: Example toolkit :fa:`scroll`
         :padding: 2 2 2 2
