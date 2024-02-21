@@ -79,6 +79,7 @@ toolkit.connect_design()
 
 toolkit.logger.info("Create Box")
 box = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])
+box.plot()
 
 # ## Save and release AEDT
 #

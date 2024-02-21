@@ -85,6 +85,7 @@ new_properties = toolkit.get_properties()
 # Create a waveguide in the design.
 
 wg = toolkit.aedtapp.modeler.create_waveguide([0, 0, 0], 1)
+toolkit.aedtapp.plot()
 
 # ## Save and release AEDT
 #
