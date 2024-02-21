@@ -60,6 +60,10 @@ doc = [
     "jupytext",
     "ipython==8.16.1",
     "jupyterlab==4.0.6",
+    "pypandoc",
+]
+ci = [
+    "pypandoc-binary==1.13",
 ]
 
 [tool.flit.module]

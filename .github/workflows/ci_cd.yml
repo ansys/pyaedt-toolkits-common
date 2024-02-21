@@ -67,11 +67,12 @@ jobs:
           python -m pip install wheel setuptools -U
           python -c "import sys; print(sys.executable)"
 
-      - name: Install common toolkit with doc dependencies
+      - name: Install common toolkit with doc and ci dependencies
         run: |
           . .venv\Scripts\Activate.ps1
           pip install .
           pip install .[doc]
+          pip install .[ci]
 
       - name: Retrieve common toolkit version
         run: |
