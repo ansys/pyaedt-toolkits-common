@@ -163,9 +163,6 @@ nbsphinx_allow_errors = True
 
 nbsphinx_thumbnails = {
     "examples/aedt_common/api_aedt_simple": "_static/thumbnails/coaxial.png",
-    "examples/aedt_common/api_aedt_open_project": "_static/thumbnails/box.png",
-    "examples/aedt_common/api_aedt_connect_session": "_static/thumbnails/waveguide.png",
-    "examples/edb_common/api_edb": "_static/thumbnails/layout.png",
     "examples/properties_common/api_properties": "_static/thumbnails/book.png",
 }
 
