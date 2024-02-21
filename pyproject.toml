@@ -60,6 +60,12 @@ doc = [
     "jupytext",
     "ipython==8.16.1",
     "jupyterlab==4.0.6",
+    "pypandoc",
+    "vtk==9.2.6",
+]
+ci = [
+    "pypandoc-binary==1.13",
+    "vtk-osmesa==9.2.20230527.dev0",
 ]
 
 [tool.flit.module]
