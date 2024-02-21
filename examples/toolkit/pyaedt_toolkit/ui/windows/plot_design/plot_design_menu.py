@@ -116,6 +116,8 @@ class PlotDesignMenu(object):
     def get_model_finished(self):
         self.ui.progress.progress = 100
 
+        self.app.ui._clear_layout(self.plot_design_menu_layout)
+
         if self.get_model_thread.model_info:
             model_info = self.get_model_thread.model_info
             self.plotter = BackgroundPlotter(show=False)
@@ -139,7 +141,7 @@ class PlotDesignMenu(object):
                     cad_mesh, color=model_info[element][1], show_scalar_bar=False, opacity=model_info[element][2]
                 )
 
-            # self.plotter.clear_button_widgets()
+            self.plotter.clear_button_widgets()
 
             aedt_model = QVBoxLayout()
 

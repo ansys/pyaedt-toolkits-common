@@ -92,6 +92,8 @@ class MainWindow(object):
         self._app.ui.left_menu.select_only_one(selected_menu.objectName())
 
         if selected_menu.objectName() == "home_menu":
+            selected_menu.set_active(True)
+            self._app.ui.set_page(self._app.ui.load_pages.home_page)
             if not is_left_visible:
                 self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(

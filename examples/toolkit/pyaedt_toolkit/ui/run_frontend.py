@@ -113,6 +113,7 @@ class ApplicationWindow(Frontend):
         menu_name = selected_menu.objectName()
 
         if menu_name == "geometry_menu":
+            selected_menu.set_active(True)
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
 
             is_left_visible = self.ui.is_left_column_visible()
@@ -131,6 +132,7 @@ class ApplicationWindow(Frontend):
         menu_name = selected_menu.objectName()
 
         if menu_name == "plot_design_menu":
+            selected_menu.set_active(True)
             self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
 
             is_left_visible = self.ui.is_left_column_visible()
