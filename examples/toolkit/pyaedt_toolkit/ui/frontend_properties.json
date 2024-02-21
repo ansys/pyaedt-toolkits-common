@@ -29,6 +29,14 @@
             "is_active": false
       },
       {
+            "btn_icon": "icon_widgets.svg",
+            "btn_id": "plot_design_menu",
+            "btn_text": "Plot Design",
+            "btn_tooltip": "Design",
+            "show_top": true,
+            "is_active": false
+      },
+      {
           "btn_icon": "icon_heart.svg",
           "btn_id": "progress_menu",
           "btn_text": "Progress",

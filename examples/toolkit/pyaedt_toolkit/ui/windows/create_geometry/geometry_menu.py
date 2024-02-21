@@ -4,7 +4,12 @@ from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
+from PySide6.QtWidgets import QWidget
 from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_page import Ui_Geometry
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_column import Ui_LeftColumn
+
+# toolkit PySide6 Widgets
+from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 
 
 class CreateGeometryThread(QThread):
@@ -12,7 +17,8 @@ class CreateGeometryThread(QThread):
 
     def __init__(self, app, selected_project, selected_design, geometry, multiplier):
         super().__init__()
-        self.app = app
+        self.geometry_menu = app
+        self.app = app.app
         self.selected_project = selected_project
         self.selected_design = selected_design
         self.geometry = geometry
@@ -29,27 +35,34 @@ class CreateGeometryThread(QThread):
 
 class GeometryMenu(object):
     def __init__(self, main_window):
+        # General properties
         self.main_window = main_window
         self.ui = main_window.ui
         self.app = self.ui.app
 
-        # Add page to the default ones
+        # Add page
         geometry_menu_index = self.ui.add_page(Ui_Geometry)
         self.ui.load_pages.pages.setCurrentIndex(geometry_menu_index)
         self.geometry_menu_widget = self.ui.load_pages.pages.currentWidget()
 
+        # Add left column
+        new_column_widget = QWidget()
+        new_ui = Ui_LeftColumn()
+        new_ui.setupUi(new_column_widget)
+        self.ui.left_column.menus.menus.addWidget(new_column_widget)
+        self.geometry_column_widget = new_column_widget
+        self.geometry_column_vertical_layout = new_ui.geometry_vertical_layout
+
+        # Specific properties
         self.geometry_combo = self.geometry_menu_widget.findChild(QComboBox, "geometry_combo")
         self.multiplier = self.geometry_menu_widget.findChild(QLineEdit, "multiplier")
         self.select_geometry_label = self.geometry_menu_widget.findChild(QLabel, "select_geometry_label")
         self.multiplier_label = self.geometry_menu_widget.findChild(QLabel, "dimension_multiplier_label")
         self.geometry_button_layout = None
         self.geometry_button = None
-
         self.geometry_thread = None
 
     def setup(self):
-        # You can create the UI with the QT Designer or using the common API
-
         # Modify theme
         app_color = self.app.ui.themes["app_color"]
         text_color = app_color["text_active"]
@@ -133,6 +146,14 @@ class GeometryMenu(object):
         )
         self.select_geometry_label.setStyleSheet(custom_style)
 
+        # Set Column
+        msg = "Press 'Create Geometry' button"
+        label_widget = PyLabel(
+            text=msg,
+            font_size=self.ui.app.properties.font["title_size"],
+            color=self.ui.themes["app_color"]["text_description"])
+        self.geometry_column_vertical_layout.addWidget(label_widget)
+
     def geometry_button_clicked(self):
         if not self.app.check_connection():
             msg = "Backend not running."
@@ -156,7 +177,7 @@ class GeometryMenu(object):
 
             # Start a separate thread for the backend call
             self.geometry_thread = CreateGeometryThread(
-                app=self.app,
+                app=self,
                 selected_project=selected_project,
                 selected_design=selected_design,
                 geometry=geometry,
@@ -170,7 +191,7 @@ class GeometryMenu(object):
             self.geometry_thread.start()
 
         else:
-            self.ui.logger.log("toolkit not connect to AEDT.")
+            self.ui.logger.log("Toolkit not connect to AEDT.")
 
     def geometry_created_finished(self, success):
         self.ui.progress.progress = 100

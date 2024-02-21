@@ -29,6 +29,7 @@ from PySide6.QtWidgets import QHBoxLayout
 from PySide6.QtWidgets import QPushButton
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QSpacerItem
+from PySide6.QtWidgets import QWidgetItem
 
 from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyComboBox
@@ -480,6 +481,22 @@ class CommonWindowUtils(object):
         progress_box_height = self.progress_frame.height()
         progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
         self.progress_frame.setMaximumHeight(progress_width)
+
+    def _clear_layout(self, layout):
+        """Clear all layout."""
+        for i in reversed(range(layout.count())):
+            item = layout.itemAt(i)
+            if isinstance(item, QWidgetItem):
+                item.widget().close()
+            elif isinstance(item, QSpacerItem):
+                pass
+                # no need to do extra stuff
+            else:
+                self._clear_layout(item.layout())
+
+            # remove the item from layout
+            layout.removeItem(item)
+        self.parameters = {}
 
     @staticmethod
     def item_index(layout, item):

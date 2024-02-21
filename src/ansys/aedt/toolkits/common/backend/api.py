@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import base64
 from dataclasses import dataclass
 from enum import Enum
 import os
@@ -93,7 +94,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2023.1"}
+    >>> new_properties = {"aedt_version": "2024.1"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -289,6 +290,25 @@ class Common:
             if cont == timeout:  # pragma: no cover
                 return False
         return True
+
+    @staticmethod
+    def serialize_obj_base64(file_path):
+        """Encode a bytes-like object.
+
+        Parameters
+        ----------
+        file_path : str
+            File to serialize.
+
+        Returns
+        -------
+        bytes
+            Encoded data.
+        """
+        with open(file_path, "rb") as f:
+            data = f.read()
+        encoded_data = base64.b64encode(data)
+        return encoded_data
 
 
 class AEDTCommon(Common):
@@ -754,6 +774,55 @@ class AEDTCommon(Common):
                 design_list.append(self.properties.active_design)
 
         return design_list
+
+    def export_aedt_model(
+        self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
+    ):
+        """Export model in OBJ format and then encode the files if the option is enabled.
+
+        Parameters
+        ----------
+        obj_list : list, optional
+            List of objects to export. Export every model object except 3D ones, vacuum and air objects.
+        export_path : str, optional
+            Full path of the exported obj file.
+        export_as_single_objects : bool, optional
+            Define if the model will be exported as single obj or list of objs for each object.
+        air_objects : bool, optional
+            Define if air and vacuum objects will be exported.
+        encode : bool, optional
+            Encode file.
+
+        Returns
+        -------
+        list or dict
+            Lisf of exported OBJ files or encoded data.
+        """
+        if not self.aedtapp:
+            self.connect_design()
+        files = []
+        if self.aedtapp:
+            files = self.aedtapp.post.export_model_obj(
+                obj_list=obj_list,
+                export_path=export_path,
+                export_as_single_objects=export_as_single_objects,
+                air_objects=air_objects,
+            )
+            self.release_aedt(False, False)
+            # Plot exported files using the following code
+            # from pyaedt.generic.plot import ModelPlotter
+            # model = ModelPlotter()
+            # for file in files:
+            #     model.add_object(file[0], file[1], file[2])
+            if encode:
+                model_info = {}
+                for element in files:
+                    element_path = element[0]
+                    encoded_obj = self.serialize_obj_base64(element_path)
+                    name = os.path.splitext(os.path.basename(element_path))[0]
+                    model_info[name] = [encoded_obj.decode("utf-8"), element[1], element[2]]
+                return model_info
+        return files
 
     def __get_aedt_version(self):
         """Get AEDT version and if student version is used."""
