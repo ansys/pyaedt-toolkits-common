@@ -293,7 +293,7 @@ class Common:
 
     @staticmethod
     def serialize_obj_base64(file_path):
-        """Wait for the thread to be idle and ready to accept new task.
+        """Encode a bytes-like object.
 
         Parameters
         ----------
@@ -302,7 +302,7 @@ class Common:
 
         Returns
         -------
-        basestring
+        bytes
             Encoded data.
         """
         with open(file_path, "rb") as f:
@@ -779,6 +779,19 @@ class AEDTCommon(Common):
         self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
     ):
         """Export model in OBJ format and then encode the files if the option is enabled.
+
+        Parameters
+        ----------
+        obj_list : list, optional
+            List of objects to export. Export every model object except 3D ones, vacuum and air objects.
+        export_path : str, optional
+            Full path of the exported obj file.
+        export_as_single_objects : bool, optional
+            Define if the model will be exported as single obj or list of objs for each object.
+        air_objects : bool, optional
+            Define if air and vacuum objects will be exported.
+        encode : bool, optional
+            Encode file.
 
         Returns
         -------
