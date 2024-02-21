@@ -20,6 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import base64
 from dataclasses import dataclass
 from enum import Enum
 import os
@@ -289,6 +290,25 @@ class Common:
             if cont == timeout:  # pragma: no cover
                 return False
         return True
+
+    @staticmethod
+    def serialize_obj_base64(file_path):
+        """Wait for the thread to be idle and ready to accept new task.
+
+        Parameters
+        ----------
+        file_path : str
+            File to serialize.
+
+        Returns
+        -------
+        basestring
+            Encoded data.
+        """
+        with open(file_path, "rb") as f:
+            data = f.read()
+        encoded_data = base64.b64encode(data)
+        return encoded_data
 
 
 class AEDTCommon(Common):
@@ -754,6 +774,42 @@ class AEDTCommon(Common):
                 design_list.append(self.properties.active_design)
 
         return design_list
+
+    def export_aedt_model(
+        self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
+    ):
+        """Export model in OBJ format and then encode the files if the option is enabled.
+
+        Returns
+        -------
+        list or dict
+            Lisf of exported OBJ files or encoded data.
+        """
+        if not self.aedtapp:
+            self.connect_design()
+        files = []
+        if self.aedtapp:
+            files = self.aedtapp.post.export_model_obj(
+                obj_list=obj_list,
+                export_path=export_path,
+                export_as_single_objects=export_as_single_objects,
+                air_objects=air_objects,
+            )
+            self.release_aedt(False, False)
+            # Plot exported files using the following code
+            # from pyaedt.generic.plot import ModelPlotter
+            # model = ModelPlotter()
+            # for file in files:
+            #     model.add_object(file[0], file[1], file[2])
+            if encode:
+                model_info = {}
+                for element in files:
+                    element_path = element[0]
+                    encoded_obj = self.serialize_obj_base64(element_path)
+                    name = os.path.splitext(os.path.basename(element_path))[0]
+                    model_info[name] = [encoded_obj.decode("utf-8"), element[1], element[2]]
+                return model_info
+        return files
 
     def __get_aedt_version(self):
         """Get AEDT version and if student version is used."""

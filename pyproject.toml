@@ -37,6 +37,7 @@ all = [
     "PySide6-Essentials",
     "pyqtgraph",
     "qdarkstyle",
+    "pyvistaqt",
 ]
 tests = [
     "pytest==8.0.1",

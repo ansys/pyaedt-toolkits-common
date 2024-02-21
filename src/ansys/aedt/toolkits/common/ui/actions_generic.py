@@ -225,6 +225,54 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = response.json()
             self.log_and_update_progress(msg, log_level="debug", progress=100)
 
+    def get_aedt_model(self, project_selected, design_selected, air_objects=True):
+        """Get AEDT model.
+
+        Parameters
+        ----------
+        project_selected : str
+            Project name.
+        design_selected : str
+            Design name.
+        air_objects : bool, optional
+            Define if air and vacuum objects will be exported.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+        """
+        # Set active project and design
+        be_properties = self.get_properties()
+
+        if project_selected == "No Project" or design_selected == "No Design":
+            logger.error("Wrong project or design")
+            return False
+        else:
+            for project in be_properties["project_list"]:
+                if self.get_project_name(project) == project_selected:
+                    be_properties["active_project"] = project
+                    if project_selected in list(be_properties["design_list"].keys()):
+                        designs = be_properties["design_list"][project_selected]
+                        for design in designs:
+                            if design_selected == design:
+                                be_properties["active_design"] = design
+                                break
+                    break
+
+        self.set_properties(be_properties)
+
+        response = requests.get(self.url + "/get_aedt_model", json={"air_objects": air_objects, "encode": True})
+
+        if response.ok:
+            msg = "Geometry created."
+            logger.info(msg)
+            return response.json()
+        else:
+            msg = f"Failed backend call: {self.url}"
+            logger.error(msg)
+            return False
+
     def get_aedt_data(self):
         be_properties = self.get_properties()
         project_list = []

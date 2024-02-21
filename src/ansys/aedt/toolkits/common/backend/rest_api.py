@@ -130,6 +130,32 @@ def launch_aedt():
         return jsonify("Fail to launch to AEDT"), 500
 
 
+@app.route("/get_aedt_model", methods=["GET"])
+def get_hfss_model_call():
+    logger.info("[GET] /get_aedt_model (Get 3D model in AEDT)")
+
+    body = request.json
+
+    # Default values
+    default_values = {
+        "obj_list": None,
+        "export_path": None,
+        "export_as_single_objects": True,
+        "air_objects": False,
+        "encode": True,
+    }
+
+    # Extract values from the request body
+    params = {key: body.get(key, default_values[key]) for key in default_values}
+
+    response = toolkit_api.export_aedt_model(**params)
+
+    if response:
+        return jsonify(response), 200
+    else:
+        return jsonify("Antenna not created"), 500
+
+
 @app.route("/open_project", methods=["POST"])
 def open_project():
     logger.info("[POST] /open_project (open AEDT project).")

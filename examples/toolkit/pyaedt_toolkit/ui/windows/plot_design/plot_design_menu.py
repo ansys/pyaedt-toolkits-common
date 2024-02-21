@@ -6,6 +6,57 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
+import tempfile
+from pyvistaqt import BackgroundPlotter
+
+
+class PlotDesignThread(QThread):
+    finished_signal = Signal(bool)
+
+    def __init__(self, app, selected_project, selected_design):
+        super().__init__()
+        self.app = app
+        self.temp_folder = tempfile.mkdtemp()
+        self.selected_project = selected_project
+        self.selected_design = selected_design
+        self.plotter = None
+
+    def run(self):
+        self.app.ui.progress.progress = 50
+
+        success = self.app.get_aedt_model(
+            self.selected_project, self.selected_design, air_objects=True
+        )
+
+        if success:
+            model_info = success
+            self.plotter = BackgroundPlotter(show=False)
+            for element in model_info:
+                # Decode response
+                encoded_data = model_info[element][0]
+                encoded_data_bytes = bytes(encoded_data, "utf-8")
+                decoded_data = base64.b64decode(encoded_data_bytes)
+                # Create obj file locally
+                file_path = os.path.join(self.temp_folder, element + ".obj")
+                with open(file_path, "wb") as f:
+                    f.write(decoded_data)
+                # Create PyVista object
+                if not os.path.exists(file_path):
+                    return
+
+                cad_mesh = pv.read(file_path)
+
+                cad_actor = self.plotter.add_mesh(
+                    cad_mesh, color=model_info[element][1], show_scalar_bar=False, opacity=model_info[element][2]
+                )
+            self.plotter.clear_button_widgets()
+            aedt_model = QtWidgets.QVBoxLayout()
+
+            aedt_model.addWidget(self.plotter.app_window)
+            self.plot_design_menu_widget.modeler_page_layout.addLayout(aedt_model, 0, 0, 1, 1)
+            self.plotter.show()
+
+        self.finished_signal.emit(success)
 
 
 class PlotDesignMenu(object):
@@ -32,6 +83,7 @@ class PlotDesignMenu(object):
         # Specific properties
         self.plot_design_button_layout = None
         self.plot_design_button = None
+        self.get_model_thread = None
 
     def setup(self):
 
@@ -56,7 +108,7 @@ class PlotDesignMenu(object):
             self.ui.logger.log(msg)
             return False
 
-        if self.geometry_thread and self.geometry_thread.isRunning() or self.app.backend_busy():
+        if self.get_model_thread and self.get_model_thread.isRunning() or self.app.backend_busy():
             msg = "Toolkit running"
             self.ui.logger.log(msg)
             self.app.logger.debug(msg)
@@ -66,4 +118,30 @@ class PlotDesignMenu(object):
 
         if be_properties.get("active_project"):
             self.ui.progress.progress = 0
-        pass
+            selected_project = self.app.home_menu.project_combobox.currentText()
+            selected_design = self.app.home_menu.design_combobox.currentText()
+            # Start a separate thread for the backend call
+            self.get_model_thread = PlotDesignThread(
+                app=self.app,
+                selected_project=selected_project,
+                selected_design=selected_design,
+            )
+            self.get_model_thread.finished_signal.connect(self.get_model_finished)
+
+            msg = "Exporting model."
+            self.ui.logger.log(msg)
+
+            self.get_model_thread.start()
+
+        else:
+            self.ui.logger.log("Toolkit not connect to AEDT.")
+
+    def get_model_finished(self, success):
+        self.ui.progress.progress = 100
+
+        if success:
+            msg = "Model exported."
+            self.ui.logger.log(msg)
+        else:
+            msg = f"Failed backend call: {self.app.url}"
+            self.ui.logger.log(msg)

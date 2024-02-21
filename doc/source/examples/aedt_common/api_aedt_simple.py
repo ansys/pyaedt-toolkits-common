@@ -63,8 +63,20 @@ new_properties = toolkit.get_properties()
 
 coax = toolkit.aedtapp.modeler.create_coaxial([0, 0, 0], 1)
 
-# ## Save and release AEDT
+# ## Release AEDT
 #
-# Save and release AEDT.
+# Release AEDT.
+
+toolkit.release_aedt(False, False)
+
+# ## Export AEDT model
+#
+# Export OBJ files.
+
+files = toolkit.export_aedt_model()
+
+# ## Release and close AEDT
+#
+# Release and close AEDT.
 
 toolkit.release_aedt(True, True)
