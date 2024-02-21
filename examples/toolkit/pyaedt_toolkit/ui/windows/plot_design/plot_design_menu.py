@@ -8,6 +8,9 @@ from PySide6.QtWidgets import QWidget
 from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
 import tempfile
 from pyvistaqt import BackgroundPlotter
+import base64
+import pyvista as pv
+import os
 
 
 class PlotDesignThread(QThread):
@@ -15,48 +18,20 @@ class PlotDesignThread(QThread):
 
     def __init__(self, app, selected_project, selected_design):
         super().__init__()
-        self.app = app
-        self.temp_folder = tempfile.mkdtemp()
+        self.plot_design_menu = app
+        self.app = app.app
         self.selected_project = selected_project
         self.selected_design = selected_design
-        self.plotter = None
+        self.model_info = None
 
     def run(self):
         self.app.ui.progress.progress = 50
 
-        success = self.app.get_aedt_model(
+        self.model_info = self.app.get_aedt_model(
             self.selected_project, self.selected_design, air_objects=True
         )
 
-        if success:
-            model_info = success
-            self.plotter = BackgroundPlotter(show=False)
-            for element in model_info:
-                # Decode response
-                encoded_data = model_info[element][0]
-                encoded_data_bytes = bytes(encoded_data, "utf-8")
-                decoded_data = base64.b64decode(encoded_data_bytes)
-                # Create obj file locally
-                file_path = os.path.join(self.temp_folder, element + ".obj")
-                with open(file_path, "wb") as f:
-                    f.write(decoded_data)
-                # Create PyVista object
-                if not os.path.exists(file_path):
-                    return
-
-                cad_mesh = pv.read(file_path)
-
-                cad_actor = self.plotter.add_mesh(
-                    cad_mesh, color=model_info[element][1], show_scalar_bar=False, opacity=model_info[element][2]
-                )
-            self.plotter.clear_button_widgets()
-            aedt_model = QtWidgets.QVBoxLayout()
-
-            aedt_model.addWidget(self.plotter.app_window)
-            self.plot_design_menu_widget.modeler_page_layout.addLayout(aedt_model, 0, 0, 1, 1)
-            self.plotter.show()
-
-        self.finished_signal.emit(success)
+        self.finished_signal.emit(self.model_info)
 
 
 class PlotDesignMenu(object):
@@ -65,12 +40,14 @@ class PlotDesignMenu(object):
         self.main_window = main_window
         self.ui = main_window.ui
         self.app = self.ui.app
+        self.temp_folder = tempfile.mkdtemp()
 
         # Add page from common toolkit
         self.ui.load_pages.pages.addWidget(self.ui.load_pages.empty_page)
         plot_design_index = self.ui.load_pages.pages.indexOf(self.ui.load_pages.empty_page)
         self.ui.load_pages.pages.setCurrentIndex(plot_design_index)
         self.plot_design_menu_widget = self.ui.load_pages.pages.currentWidget()
+        self.plot_design_menu_layout = self.plot_design_menu_widget.layout()
 
         # Add left column
         new_column_widget = QWidget()
@@ -122,7 +99,7 @@ class PlotDesignMenu(object):
             selected_design = self.app.home_menu.design_combobox.currentText()
             # Start a separate thread for the backend call
             self.get_model_thread = PlotDesignThread(
-                app=self.app,
+                app=self,
                 selected_project=selected_project,
                 selected_design=selected_design,
             )
@@ -136,10 +113,42 @@ class PlotDesignMenu(object):
         else:
             self.ui.logger.log("Toolkit not connect to AEDT.")
 
-    def get_model_finished(self, success):
+    def get_model_finished(self):
         self.ui.progress.progress = 100
 
-        if success:
+        if self.get_model_thread.model_info:
+            model_info = self.get_model_thread.model_info
+            self.plotter = BackgroundPlotter(show=False)
+
+            for element in model_info:
+                # Decode response
+                encoded_data = model_info[element][0]
+                encoded_data_bytes = bytes(encoded_data, "utf-8")
+                decoded_data = base64.b64decode(encoded_data_bytes)
+                # Create obj file locally
+                file_path = os.path.join(self.temp_folder, element + ".obj")
+                with open(file_path, "wb") as f:
+                    f.write(decoded_data)
+                # Create PyVista object
+                if not os.path.exists(file_path):
+                    break
+
+                cad_mesh = pv.read(file_path)
+
+                self.plotter.add_mesh(
+                    cad_mesh, color=model_info[element][1], show_scalar_bar=False, opacity=model_info[element][2]
+                )
+
+            # self.plotter.clear_button_widgets()
+
+            aedt_model = QVBoxLayout()
+
+            aedt_model.addWidget(self.plotter.app_window)
+
+            self.plot_design_menu_layout.addLayout(aedt_model)
+
+            self.plotter.show()
+
             msg = "Model exported."
             self.ui.logger.log(msg)
         else:

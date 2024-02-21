@@ -17,7 +17,8 @@ class CreateGeometryThread(QThread):
 
     def __init__(self, app, selected_project, selected_design, geometry, multiplier):
         super().__init__()
-        self.app = app
+        self.geometry_menu = app
+        self.app = app.app
         self.selected_project = selected_project
         self.selected_design = selected_design
         self.geometry = geometry
@@ -176,7 +177,7 @@ class GeometryMenu(object):
 
             # Start a separate thread for the backend call
             self.geometry_thread = CreateGeometryThread(
-                app=self.app,
+                app=self,
                 selected_project=selected_project,
                 selected_design=selected_design,
                 geometry=geometry,

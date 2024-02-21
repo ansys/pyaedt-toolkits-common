@@ -140,7 +140,7 @@ class ApplicationWindow(Frontend):
             self.ui.set_left_column_menu(
                 menu=self.plot_design_menu.plot_design_column_widget,
                 title="Plot Design",
-                icon_path=self.ui.images_load.icon_path("icon_heart.svg"),
+                icon_path=self.ui.images_load.icon_path("icon_widgets.svg"),
             )
 
 
