@@ -25,7 +25,6 @@ class CreateGeometryThread(QThread):
         self.multiplier = multiplier
 
     def run(self):
-        self.app.ui.progress.progress = 50
 
         success = self.app.create_geometry_toolkit(
             self.selected_project, self.selected_design, self.geometry, self.multiplier
@@ -157,19 +156,19 @@ class GeometryMenu(object):
     def geometry_button_clicked(self):
         if not self.app.check_connection():
             msg = "Backend not running."
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
             return False
 
         if self.geometry_thread and self.geometry_thread.isRunning() or self.app.backend_busy():
             msg = "Toolkit running"
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
             self.app.logger.debug(msg)
             return False
 
         be_properties = self.app.get_properties()
 
         if be_properties.get("active_project"):
-            self.ui.progress.progress = 0
+            self.ui.update_progress(0)
             selected_project = self.app.home_menu.project_combobox.currentText()
             selected_design = self.app.home_menu.design_combobox.currentText()
             multiplier = self.multiplier.text()
@@ -186,19 +185,30 @@ class GeometryMenu(object):
             self.geometry_thread.finished_signal.connect(self.geometry_created_finished)
 
             msg = "Creating geometry."
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
 
             self.geometry_thread.start()
 
         else:
-            self.ui.logger.log("Toolkit not connect to AEDT.")
+            self.ui.update_logger("Toolkit not connect to AEDT.")
 
     def geometry_created_finished(self, success):
-        self.ui.progress.progress = 100
+        self.ui.update_progress(100)
+        selected_project = self.app.home_menu.project_combobox.currentText()
+        selected_design = self.app.home_menu.design_combobox.currentText()
+
+        properties = self.app.get_properties()
+        active_project = self.app.get_project_name(properties["active_project"])
+        active_design = properties["active_design"]
+        if active_project != selected_project or active_design != selected_design:
+            self.app.home_menu.update_project()
+            self.app.home_menu.update_design()
 
         if success:
             msg = "Geometry created."
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
         else:
             msg = f"Failed backend call: {self.app.url}"
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
+
+        self.ui.window_refresh()

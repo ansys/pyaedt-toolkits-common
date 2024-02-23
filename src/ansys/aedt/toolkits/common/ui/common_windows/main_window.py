@@ -94,13 +94,14 @@ class MainWindow(object):
         if selected_menu.objectName() == "home_menu":
             selected_menu.set_active(True)
             self._app.ui.set_page(self._app.ui.load_pages.home_page)
-            if not is_left_visible:
-                self._app.ui.toggle_left_column()
             self._app.ui.set_left_column_menu(
                 menu=self._app.ui.left_column.menus.menu_home,
                 title="Home",
                 icon_path=self._app.ui.images_load.icon_path("icon_home.svg"),
             )
+
+            if not is_left_visible:
+                self._app.ui.toggle_left_column()
 
         elif selected_menu.objectName() == "top_settings" and not is_right_visible:
             if is_left_visible:
@@ -119,3 +120,5 @@ class MainWindow(object):
                 self._app.ui.toggle_left_column()
             elif self._app.ui.is_right_column_visible:
                 self._app.ui.toggle_right_column()
+
+        self._app.ui.window_refresh()

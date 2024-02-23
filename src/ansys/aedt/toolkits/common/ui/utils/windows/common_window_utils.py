@@ -56,6 +56,7 @@ class CommonWindowUtils(object):
         self.themes = None
         self.group = None
         self.progress_frame = None
+        self.__resize = 1
 
     def set_page(self, page):
         """
@@ -420,6 +421,22 @@ class CommonWindowUtils(object):
         """
         self.start_box_animation("right")
 
+    def window_refresh(self):
+        """Resfresh"""
+        # Store the original size
+        original_size = self.app.size()
+
+        if self.__resize == 1:
+            self.__resize = -1
+        else:
+            self.__resize = 1
+
+        # Change the size slightly to trigger a repaint
+        self.app.resize(original_size.width() + self.__resize, original_size.height())
+
+        # Restore the original size
+        self.app.resize(original_size)
+
     def start_box_animation(self, direction):
         """
         Starts a box animation in the specified direction.
@@ -482,7 +499,7 @@ class CommonWindowUtils(object):
         progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
         self.progress_frame.setMaximumHeight(progress_width)
 
-    def _clear_layout(self, layout):
+    def clear_layout(self, layout):
         """Clear all layout."""
         for i in reversed(range(layout.count())):
             item = layout.itemAt(i)
@@ -492,11 +509,20 @@ class CommonWindowUtils(object):
                 pass
                 # no need to do extra stuff
             else:
-                self._clear_layout(item.layout())
+                self.clear_layout(item.layout())
 
             # remove the item from layout
             layout.removeItem(item)
-        self.parameters = {}
+
+    def update_progress(self, progress_value):
+        """Clear all layout."""
+        self.progress.progress = progress_value
+        self.window_refresh()
+
+    def update_logger(self, text):
+        """Clear all layout."""
+        self.logger.log(text)
+        self.window_refresh()
 
     @staticmethod
     def item_index(layout, item):
