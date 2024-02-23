@@ -59,7 +59,7 @@ doc = [
     "nbsphinx==0.9.3",
     "sphinx_design",
     "jupytext",
-    "ipython==8.16.1",
+    "ipython==8.22.1",
     "jupyterlab==4.0.6",
     "pypandoc",
     "vtk==9.2.6",
