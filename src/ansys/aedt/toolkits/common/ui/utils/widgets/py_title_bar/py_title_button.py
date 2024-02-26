@@ -12,6 +12,77 @@ from PySide6.QtWidgets import QPushButton
 
 
 class PyTitleButton(QPushButton):
+    """
+    Customizable title button.
+
+    Inherits QPushButton and provides a customizable title button.
+
+    Parameters
+    ----------
+    parent : QWidget
+        Parent widget.
+    app_parent : QWidget, optional
+        Application parent widget. The default is ``None``.
+    tooltip_text : str, optional
+        Tooltip text for the button. The default is an empty string.
+    btn_id : str, optional
+        Button ID. The default is ``None``.
+    width : int, optional
+        Width of the button. The default is ``30``.
+    height : int, optional
+        Height of the button. The default is ``30``.
+    radius : int, optional
+        Border radius of the button. The default is ``8``.
+    bg_color : str, optional
+        Background color of the button. The default is ``"#343b48"``.
+    bg_color_hover : str, optional
+        Background color when the mouse hovers over the button. The default is ``"#3c4454"``.
+    bg_color_pressed : str, optional
+        Background color when the button is pressed. The default is ``"#2c313c"``.
+    icon_color : str, optional
+        Icon color of the button. The default is ``"#c3ccdf"``.
+    icon_color_hover : str, optional
+        Icon color when the mouse hovers over the button. The default is ``"#dce1ec"``.
+    icon_color_pressed : str, optional
+        Icon color when the button is pressed. The default is ``"#edf0f5"``.
+    icon_color_active : str, optional
+        Icon color when the button is active. The default is ``"#f5f6f9"``.
+    icon_path : str, optional
+        Path to the icon image. The default is ``"no_icon.svg"``.
+    dark_one : str, optional
+        Dark color for styling. The default is ``"#1b1e23"``.
+    context_color : str, optional
+        Context color for styling. The default is ``"#568af2"``.
+    text_foreground : str, optional
+        Text foreground color. The default is ``"#8a95aa"``.
+    is_active : bool, optional
+        Initial state of the button (active or not). The default is ``False``.
+
+    Examples
+    --------
+    >>> import sys
+    >>> from PySide6.QtWidgets import QApplication, QWidget
+    >>> from ansys.aedt.toolkits.common.ui.utils.widgets import PyTitleButton
+
+    >>> class MyApp(QWidget):
+    ...     def __init__(self):
+    ...         super().__init__()
+    ...         self.title_button = PyTitleButton(self, tooltip_text="Click me!")
+    ...         self.title_button.clicked.connect(self.on_button_clicked)
+    ...         self.title_button.released.connect(self.on_button_released)
+    ...
+    ...     def on_button_clicked(self):
+    ...         print("Button Clicked!")
+    ...
+    ...     def on_button_released(self):
+    ...         print("Button Released!")
+    ...
+    >>> if __name__ == "__main__":
+    ...     app = QApplication([])
+    ...     window = MyApp()
+    ...     sys.exit(app.exec())
+    """
+
     def __init__(
         self,
         parent,
@@ -36,12 +107,10 @@ class PyTitleButton(QPushButton):
     ):
         super().__init__()
 
-        # SET DEFAULT PARAMETERS
         self.setFixedSize(width, height)
         self.setCursor(Qt.PointingHandCursor)
         self.setObjectName(btn_id)
 
-        # PROPERTIES
         self._bg_color = bg_color
         self._bg_color_hover = bg_color_hover
         self._bg_color_pressed = bg_color_pressed
@@ -52,36 +121,51 @@ class PyTitleButton(QPushButton):
         self._context_color = context_color
         self._top_margin = self.height() + 6
         self._is_active = is_active
-        # Set Parameters
+
         self._set_bg_color = bg_color
         self._set_icon_path = icon_path
         self._set_icon_color = icon_color
         self._set_border_radius = radius
-        # Parent
+
         self._parent = parent
         self._app_parent = app_parent
 
-        # TOOLTIP
         self._tooltip_text = tooltip_text
         self._tooltip = _ToolTip(app_parent, tooltip_text, dark_one, context_color, text_foreground)
         self._tooltip.hide()
 
-    # SET ACTIVE MENU
-    # ///////////////////////////////////////////////////////////////
     def set_active(self, is_active):
+        """
+        Set the active state of the button.
+
+        Parameters
+        ----------
+        is_active : bool
+            True to set the button as active, False otherwise.
+        """
         self._is_active = is_active
         self.repaint()
 
-    # RETURN IF IS ACTIVE MENU
-    # ///////////////////////////////////////////////////////////////
     def is_active(self):
+        """
+        Check if the button is in an active state.
+
+        Returns
+        -------
+        bool
+            True if the button is active, False otherwise.
+        """
         return self._is_active
 
-    # PAINT EVENT
-    # painting the button and the icon
-    # ///////////////////////////////////////////////////////////////
     def paintEvent(self, event):
-        # PAINTER
+        """
+        Paint the button and its icon.
+
+        Parameters
+        ----------
+        event : QEvent
+            Paint event.
+        """
         paint = QPainter()
         paint.begin(self)
         paint.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -105,10 +189,16 @@ class PyTitleButton(QPushButton):
         # END PAINTER
         paint.end()
 
-    # CHANGE STYLES
-    # Functions with custom styles
-    # ///////////////////////////////////////////////////////////////
     def change_style(self, event):
+        """
+        Change the style of the button based on the given event.
+
+        Parameters
+        ----------
+        event : QEvent
+            The event triggering the style change.
+
+        """
         if event == QEvent.Enter:
             self._set_bg_color = self._bg_color_hover
             self._set_icon_color = self._icon_color_hover
@@ -126,26 +216,41 @@ class PyTitleButton(QPushButton):
             self._set_icon_color = self._icon_color_hover
             self.repaint()
 
-    # MOUSE OVER
-    # Event triggered when the mouse is over the BTN
-    # ///////////////////////////////////////////////////////////////
     def enterEvent(self, event):
+        """
+        Event triggered when the mouse enters the button.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse enter event.
+        """
         self.change_style(QEvent.Enter)
         self.move_tooltip()
         self._tooltip.show()
 
-    # MOUSE LEAVE
-    # Event fired when the mouse leaves the BTN
-    # ///////////////////////////////////////////////////////////////
     def leaveEvent(self, event):
+        """
+        Event triggered when the mouse leaves the button.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse leave event.
+        """
         self.change_style(QEvent.Leave)
         self.move_tooltip()
         self._tooltip.hide()
 
-    # MOUSE PRESS
-    # Event triggered when the left button is pressed
-    # ///////////////////////////////////////////////////////////////
     def mousePressEvent(self, event):
+        """
+        Event triggered when the left mouse button is pressed.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse press event.
+        """
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonPress)
             # SET FOCUS
@@ -153,18 +258,33 @@ class PyTitleButton(QPushButton):
             # EMIT SIGNAL
             return self.clicked.emit()
 
-    # MOUSE RELEASED
-    # Event triggered after the mouse button is released
-    # ///////////////////////////////////////////////////////////////
     def mouseReleaseEvent(self, event):
+        """
+        Event triggered when the left mouse button is released.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse release event.
+        """
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonRelease)
             # EMIT SIGNAL
             return self.released.emit()
 
-    # DRAW ICON WITH COLORS
-    # ///////////////////////////////////////////////////////////////
     def icon_paint(self, qp, image, rect):
+        """
+        Draw the icon with specified colors.
+
+        Parameters
+        ----------
+        qp : QPainter
+            The QPainter object.
+        image : str
+            Path to the icon image.
+        rect : QRect
+            Rectangle representing the button's area.
+        """
         icon = QPixmap(image)
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
@@ -175,15 +295,22 @@ class PyTitleButton(QPushButton):
         qp.drawPixmap((rect.width() - icon.width()) / 2, (rect.height() - icon.height()) / 2, icon)
         painter.end()
 
-    # SET ICON
-    # ///////////////////////////////////////////////////////////////
     def set_icon(self, icon_path):
+        """
+        Set the icon of the button.
+
+        Parameters
+        ----------
+        icon_path : str
+            Path to the icon image.
+        """
         self._set_icon_path = icon_path
         self.repaint()
 
-    # MOVE TOOLTIP
-    # ///////////////////////////////////////////////////////////////
     def move_tooltip(self):
+        """
+        Move the tooltip to the appropriate position relative to the button.
+        """
         # GET MAIN WINDOW PARENT
         gp = self.mapToGlobal(QPoint(0, 0))
 
@@ -201,8 +328,6 @@ class PyTitleButton(QPushButton):
         self._tooltip.move(pos_x, pos_y)
 
 
-# TOOLTIP
-# ///////////////////////////////////////////////////////////////
 class _ToolTip(QLabel):
     # TOOLTIP / LABEL StyleSheet
     style_tooltip = """

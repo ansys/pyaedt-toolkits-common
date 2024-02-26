@@ -78,6 +78,14 @@ class PyProgress(QWidget):
 
     @property
     def progress(self):
+        """
+        Get the current progress value.
+
+        Returns
+        -------
+        float or int
+            The current progress value.
+        """
         return self._progress
 
     @progress.setter
@@ -87,6 +95,14 @@ class PyProgress(QWidget):
             self.update()
 
     def paintEvent(self, e):
+        """
+        Paint the progress bar.
+
+        Parameters
+        ----------
+        e : QPaintEvent
+            Paint event.
+        """
         paint = QPainter(self)
         paint.setRenderHint(QPainter.Antialiasing)
 

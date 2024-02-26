@@ -104,7 +104,7 @@ class PlotDesignMenu(object):
         # Test 3D PLOT without backend
         # plotter = BackgroundPlotter(show=False)
         #
-        # cad_mesh = pv.read(r"C:\AnsysDev\repos\pyaedt-toolkits-common\examples\ui\widget_example\Box1.obj")
+        # cad_mesh = pv.read(r"C:\AnsysDev\repos\pyaedt-toolkits-common\examples\ui\background_3dplot\Box1.obj")
         #
         # plotter.add_mesh(cad_mesh)
         #

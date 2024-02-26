@@ -49,8 +49,8 @@ This package provides common methods and best practices to create a new Ansys El
    :hidden:
 
    getting_started/index
-   toolkit/ui
    toolkit/api
+   toolkit/ui
    examples/index
    contributing
 

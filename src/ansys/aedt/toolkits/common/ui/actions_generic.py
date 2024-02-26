@@ -25,6 +25,7 @@ import time
 from typing import Optional
 
 from PySide6 import QtWidgets
+from PySide6.QtWidgets import QMainWindow
 import requests
 
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
@@ -34,7 +35,9 @@ from ansys.aedt.toolkits.common.ui.models import general_settings
 MSG_TK_RUNNING = "Please wait, toolkit running"
 
 
-class FrontendGeneric(QtWidgets.QMainWindow):
+class FrontendGeneric(QMainWindow):
+    """This class provides a generic frontend for controlling the toolkit."""
+
     def __init__(self):
         logger.info("Frontend initialization...")
 
@@ -102,6 +105,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return response_success
 
     def backend_busy(self):
+        """
+        Check if the backend is currently busy.
+
+        Returns
+        -------
+        bool
+            ``True`` if the backend is busy, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/status")
             res = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
@@ -111,6 +122,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def installed_versions(self):
+        """
+        Get the installed versions of AEDT.
+
+        Returns
+        -------
+        list or False
+            A list of installed AEDT versions if successful, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/installed_versions")
             if response.ok:
@@ -122,6 +141,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def get_properties(self):
+        """
+        Get properties from the backend.
+
+        Returns
+        -------
+        dict or False
+            A dictionary of properties if successful, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/properties")
             if response.ok:
@@ -136,6 +163,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.ui.update_logger("Get properties failed")
 
     def set_properties(self, data):
+        """
+        Set properties in the backend.
+
+        Parameters
+        ----------
+        data : dict
+            Dictionary of properties to set.
+        """
         try:
             response = requests.put(self.url + "/properties", json=data)
             if response.ok:
@@ -145,6 +180,21 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.log_and_update_progress(msg, log_level="error")
 
     def find_process_ids(self, version, non_graphical):
+        """
+        Find AEDT sessions based on the selected version and graphical mode.
+
+        Parameters
+        ----------
+        version : str
+            AEDT version.
+        non_graphical : bool
+            Flag indicating graphical or non-graphical mode.
+
+        Returns
+        -------
+        list or False
+            A list of found AEDT sessions if successful, ``False`` otherwise.
+        """
         try:
             be_properties = self.get_properties()
             be_properties["aedt_version"] = version
@@ -160,6 +210,17 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def launch_aedt(self, selected_version, selected_process, non_graphical=False):
+        """Launch AEDT.
+
+        Parameters
+        ----------
+        selected_version : str
+            The selected AEDT version.
+        selected_process : str
+            The selected AEDT process.
+        non_graphical : bool, optional
+            Flag indicating whether to run AEDT in non-graphical mode. The default is False.
+        """
         response = requests.get(self.url + "/status")
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
@@ -201,6 +262,13 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.log_and_update_progress(msg, log_level="debug", progress=100)
 
     def open_project(self, selected_project):
+        """Open an AEDT project.
+
+        Parameters
+        ----------
+        selected_project : str
+            The path to the selected AEDT project.
+        """
         response = requests.get(self.url + "/status")
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
@@ -274,6 +342,13 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def get_aedt_data(self):
+        """Get a list of AEDT projects.
+
+        Returns
+        -------
+        list
+            A list of AEDT project names. Returns ["No Project"] if no projects are available.
+        """
         be_properties = self.get_properties()
         project_list = []
         if be_properties["active_project"]:
@@ -297,6 +372,18 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return os.path.splitext(os.path.basename(project_path))[0]
 
     def update_design_names(self, active_project=None):
+        """Update design names based on the active project.
+
+        Parameters
+        ----------
+        active_project : str, optional
+            The active AEDT project. If not provided, the current active project will be used.
+
+        Returns
+        -------
+        list
+            A list of design names.
+        """
         be_properties = self.get_properties()
         if not active_project:
             if be_properties["active_project"] == "No Project":
@@ -316,6 +403,18 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return design_list
 
     def save_project(self):
+        """Save the current AEDT project.
+
+        Opens a file dialog to select a location to save the AEDT project. The project is saved
+        with a '.aedt' extension.
+
+        Note:
+            This method relies on backend communication to save the project.
+
+        Returns
+        -------
+        None
+        """
         dialog = QtWidgets.QFileDialog()
         dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
         dialog.setFileMode(QtWidgets.QFileDialog.FileMode.AnyFile)
@@ -344,7 +443,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                     self.log_and_update_progress(msg, log_level="error", progress=100)
 
     def release_only(self):
-        """Release desktop."""
+        """Release the AEDT desktop without closing projects."""
         response = requests.get(self.url + "/status")
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
@@ -355,7 +454,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 requests.post(self.url + "/close_aedt", json=properties)
 
     def release_and_close(self):
-        """Release and close desktop."""
+        """Release and close the AEDT desktop."""
         response = requests.get(self.url + "/status")
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
@@ -366,9 +465,11 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 requests.post(self.url + "/close_aedt", json=properties)
 
     def on_cancel_clicked(self):
+        """Handle cancel button click."""
         self.close()
 
     def closeEvent(self, event):
+        """Handle the close event of the application window."""
         close = QtWidgets.QMessageBox.question(
             self, "QUIT", "Confirm quit?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
         )
@@ -386,6 +487,15 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
         This method logs the given message at the specified log level, and updates the progress
         bar to the given progress percentage if provided.
+
+        Parameters
+        ----------
+        msg : str
+            The log message.
+        log_level : str, optional
+            The log level (debug, info, warning, error, critical). The default is "debug".
+        progress : int, optional
+            The progress percentage. If provided, it updates the progress bar.
         """
 
         # toolkit logging

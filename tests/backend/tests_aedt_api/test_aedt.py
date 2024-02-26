@@ -75,3 +75,15 @@ class TestAEDTCommon:
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]
         design_names = aedt_common.get_design_names()
         assert len(design_names) == 3
+
+    def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
+        """Get aedt model."""
+
+        aedt_common.connect_design()
+        assert aedt_common.aedtapp.modeler.create_box([0, 0, 0], [10, 20, 30])
+        assert aedt_common.release_aedt()
+        encoded_files = aedt_common.export_aedt_model(air_objects=True, encode=True, export_path=common_temp_dir)
+        assert isinstance(encoded_files, dict)
+        files = aedt_common.export_aedt_model(air_objects=True, encode=False, export_path=common_temp_dir)
+        assert isinstance(files, list)
+

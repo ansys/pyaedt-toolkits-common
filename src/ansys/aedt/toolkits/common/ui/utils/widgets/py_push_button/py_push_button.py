@@ -5,6 +5,30 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_push_button.styles import St
 
 
 class PyPushButton(QPushButton):
+    """
+    Initialize the PyPushButton.
+
+    Parameters
+    ----------
+    text : str
+        The title text for the right column.
+    radius : int
+        The border radius of the button.
+    color : str
+        The text color of the button.
+    bg_color : str
+        The background color of the button.
+    bg_color_hover : int
+        The background color of the button when hovered.
+    bg_color_pressed : str
+        The background color of the button when pressed.
+    font_size : int
+        The font size of the text on the button.
+    parent : str, optional
+        The parent widget. The default is None.
+
+    """
+
     def __init__(
         self,
         text,

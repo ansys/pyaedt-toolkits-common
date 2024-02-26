@@ -12,6 +12,43 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_column.py_left_button i
 
 
 class PyLeftColumn(QWidget):
+    """
+    Custom widget representing a left column with a title, an icon, and a close button.
+
+    Parameters
+    ----------
+    text_title : str
+        The title text for the left column.
+    text_title_size : int
+        The font size of the title text.
+    text_title_color : str
+        The color of the title text.
+    dark_one : str
+        Color representing a dark shade.
+    bg_color : str
+        Background color of the left column.
+    btn_color : str
+        Color of the close button.
+    btn_color_hover : str
+        Color of the close button when hovered.
+    btn_color_pressed : str
+        Color of the close button when pressed.
+    icon_path : str
+        Path to the icon image file.
+    icon_color : str
+        Color of the icon.
+    icon_color_hover : str
+        Color of the icon when hovered.
+    icon_color_pressed : str
+        Color of the icon when pressed.
+    context_color : str
+        Color representing a context or active state.
+    icon_close_path : str
+        Path to the close icon image file.
+    radius : int
+        Border radius of the left column.
+    """
+
     clicked = Signal(object, name="left_column_clicked")
     released = Signal(object, name="left_column_released")
 
@@ -59,12 +96,21 @@ class PyLeftColumn(QWidget):
         self.btn_close.released.connect(self.btn_released)
 
     def btn_clicked(self):
+        """
+        Emit signal when the close button is clicked.
+        """
         self.clicked.emit(self.btn_close)
 
     def btn_released(self):
+        """
+        Emit signal when the close button is released.
+        """
         self.released.emit(self.btn_close)
 
     def setup_ui(self):
+        """
+        Set up the user interface for the left column.
+        """
         self.base_layout = QVBoxLayout(self)
         self.base_layout.setContentsMargins(0, 0, 0, 0)
         self.base_layout.setSpacing(0)

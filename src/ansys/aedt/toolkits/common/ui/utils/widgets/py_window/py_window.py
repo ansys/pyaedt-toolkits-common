@@ -7,6 +7,36 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.styles import Styles
 
 
 class PyWindow(QFrame):
+    """
+    Custom window frame widget with customizable styling and drop shadow effect.
+
+    Inherits QFrame and provides a customizable window frame.
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget for this PyWindow.
+    margin : int, optional
+        The margin size around the window frame. Default is 0.
+    spacing : int, optional
+        The spacing between layout items. Default is 2.
+    bg_color : str, optional
+        The background color of the window frame. Default is "#2c313c".
+    text_color : str, optional
+        The text color of the window frame. Default is "#fff".
+    text_font : str, optional
+        The font of the text in the window frame. Default is "9pt 'Segoe UI'".
+    border_radius : int, optional
+        The border radius of the window frame corners. Default is 10.
+    border_size : int, optional
+        The size of the border around the window frame. Default is 2.
+    border_color : str, optional
+        The color of the border around the window frame. Default is "#343b48".
+    enable_shadow : bool, optional
+        Whether to enable the drop shadow effect. Default is True.
+
+    """
+
     def __init__(
         self,
         parent,
@@ -47,6 +77,43 @@ class PyWindow(QFrame):
     def set_stylesheet(
         self, bg_color=None, border_radius=None, border_size=None, border_color=None, text_color=None, text_font=None
     ):
+        """
+        Sets the style sheet of the PyWindow with customizable attributes.
+
+        Parameters
+        ----------
+        bg_color : str, optional
+            The background color of the window frame.
+        border_radius : int, optional
+            The border radius of the window frame corners.
+        border_size : int, optional
+            The size of the border around the window frame.
+        border_color : str, optional
+            The color of the border around the window frame.
+        text_color : str, optional
+            The text color of the window frame.
+        text_font : str, optional
+            The font of the text in the window frame.
+
+        Examples
+        --------
+        >>> import sys
+        >>> from PySide6.QtWidgets import QApplication, QMainWindow
+        >>> from ansys.aedt.toolkits.common.ui.utils.widgets import PyWindow
+
+        >>> class MyApp(QMainWindow):
+        ...     def __init__(self):
+        ...         super().__init__()
+        ...         self.window = PyWindow(self)
+        ...         self.setCentralWidget(self.window)
+        ...         self.show()
+
+        >>> if __name__ == "__main__":
+        ...     app = QApplication([])
+        ...     window = MyApp()
+        ...     sys.exit(app.exec())
+
+        """
         # Use provided if not None else get the instance attribute
         style_args = {
             "_bg_color": bg_color or self.bg_color,
