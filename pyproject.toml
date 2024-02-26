@@ -47,6 +47,7 @@ tests = [
 ]
 doc = [
     "pyaedt[all]",
+    "PySide6-Essentials",
     "ansys-sphinx-theme==0.14.0",
     "numpydoc==1.6.0",
     "recommonmark==0.7.1",
