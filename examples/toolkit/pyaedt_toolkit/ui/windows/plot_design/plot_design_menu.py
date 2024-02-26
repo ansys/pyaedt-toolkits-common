@@ -101,6 +101,18 @@ class PlotDesignMenu(object):
         self.plot_design_button_layout.addWidget(self.plot_design_button)
         self.plot_design_button.clicked.connect(self.plot_design_button_clicked)
 
+        # Test 3D PLOT without backend
+        # plotter = BackgroundPlotter(show=False)
+        #
+        # cad_mesh = pv.read(r"C:\AnsysDev\repos\pyaedt-toolkits-common\examples\ui\widget_example\Box1.obj")
+        #
+        # plotter.add_mesh(cad_mesh)
+        #
+        # plotter.view_isometric()
+        # plotter.add_axes_at_origin(labels_off=True, line_width=5)
+        # plotter.show_grid()
+        # self.plot_design_grid.addWidget(plotter, 0, 0)
+
     def plot_design_button_clicked(self):
 
         if not self.app.check_connection():
