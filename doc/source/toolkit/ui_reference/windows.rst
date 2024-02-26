@@ -5,7 +5,7 @@ Windows
 The window layout template is defined in the following directory:
 `Main window layout <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/main_window>`_.
 
-The following directory contains the setup of the **main_window**, **home_menu** and **settings_column**.
+The following directory contains the setup of the **main window**, **home menu** and **settings column**.
 `Common window setup <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/common_windows>`_
 
 The following script shows how you can use the previous files to initialize the application.
