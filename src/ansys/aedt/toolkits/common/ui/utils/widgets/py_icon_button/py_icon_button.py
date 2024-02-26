@@ -130,13 +130,37 @@ class PyIconButton(QPushButton):
             self._tooltip.hide()
 
     def set_active(self, is_active):
+        """
+        Set the active state of the button.
+
+        Parameters
+        ----------
+        is_active : bool
+            Whether the button is active or not.
+        """
         self._is_active = is_active
         self.repaint()
 
     def is_active(self):
+        """
+        Check if the button is in an active state.
+
+        Returns
+        -------
+        bool
+            True if the button is active, False otherwise.
+        """
         return self._is_active
 
     def paintEvent(self, event):
+        """
+        Paint the button.
+
+        Parameters
+        ----------
+        event : QEvent
+            Paint event.
+        """
         # PAINTER
         paint = QPainter()
         paint.begin(self)
@@ -162,6 +186,14 @@ class PyIconButton(QPushButton):
         paint.end()
 
     def change_style(self, event):
+        """
+        Change the style of the button based on the given event.
+
+        Parameters
+        ----------
+        event : QEvent
+            Event triggering the style change.
+        """
         if event == QEvent.Enter:
             self._set_bg_color = self._bg_color_hover
             self._set_icon_color = self._icon_color_hover
@@ -180,23 +212,67 @@ class PyIconButton(QPushButton):
             self.repaint()
 
     def enterEvent(self, event):
+        """
+        Handle the enter event.
+
+        Parameters
+        ----------
+        event : QEvent
+            Enter event.
+        """
         self.change_style(QEvent.Enter)
 
     def leaveEvent(self, event):
+        """
+        Handle the leave event.
+
+        Parameters
+        ----------
+        event : QEvent
+            Leave event.
+        """
         self.change_style(QEvent.Leave)
 
     def mousePressEvent(self, event):
+        """
+        Handle the mouse press event.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse press event.
+        """
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonPress)
             self.setFocus()
             return self.clicked.emit()
 
     def mouseReleaseEvent(self, event):
+        """
+        Handle the mouse release event.
+
+        Parameters
+        ----------
+        event : QEvent
+            Mouse release event.
+        """
         if event.button() == Qt.LeftButton:
             self.change_style(QEvent.MouseButtonRelease)
             return self.released.emit()
 
     def icon_paint(self, qp, image, rect):
+        """
+        Paint the icon on the button.
+
+        Parameters
+        ----------
+        qp : QPainter
+            QPainter object.
+        image : str
+            Path to the icon image file.
+        rect : QRect
+            Rectangle for the icon placement.
+        """
         icon = QPixmap(image)
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
@@ -208,11 +284,32 @@ class PyIconButton(QPushButton):
         painter.end()
 
     def set_icon(self, icon_path):
+        """
+        Set the icon for the button.
+
+        Parameters
+        ----------
+        icon_path : str
+            Path to the icon image file.
+        """
         self._set_icon_path = icon_path
         self.repaint()
 
 
 class Tooltip(QLabel):
+    """
+    Tooltip class to display tooltip for the PyIconButton.
+
+    Parameters
+    ----------
+    tooltip : str
+        Text to be displayed in the tooltip.
+    dark_one : str
+        Dark color for theming.
+    text_foreground : str
+        Text foreground color.
+    """
+
     style_tooltip = """
     QLabel {{
         background-color: {_dark_one};

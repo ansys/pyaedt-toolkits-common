@@ -11,6 +11,47 @@ from PySide6.QtWidgets import QCheckBox
 
 
 class PyToggle(QCheckBox):
+    """
+    Customizable toggle switch.
+
+    Inherits QCheckBox and provides a customizable toggle switch with options
+    for width, background color, circle color, active color, and animation curve.
+
+    Parameters
+    ----------
+    width : int, optional
+        Width of the toggle switch. The default is ``50``.
+    bg_color : str, optional
+        Background color of the toggle switch. The default is ``"#777"``.
+    circle_color : str, optional
+        Color of the circle in the toggle switch. The default is ``"#DDD"``.
+    active_color : str, optional
+        Color of the toggle switch when active. The default is ``"#00BCFF"``.
+    animation_curve : QEasingCurve, optional
+        Animation curve for the toggle switch. The default is ``QEasingCurve.OutBounce``.
+
+    Examples
+    --------
+    >>> import sys
+    >>> from PySide6.QtWidgets import QApplication
+    >>> from ansys.aedt.toolkits.common.ui.utils.widgets import PyToggle
+
+    >>> class MyApp(QWidget):
+    ...     def __init__(self):
+    ...         super().__init__()
+    ...         self.toggle = PyToggle()
+    ...         self.toggle.stateChanged.connect(self.toggle_state_changed)
+    ...         self.toggle.show()
+
+    ...     def toggle_state_changed(self, state):
+    ...         print("Toggle State:", state)
+
+    >>> if __name__ == "__main__":
+    ...     app = QApplication([])
+    ...     window = MyApp()
+    ...     sys.exit(app.exec())
+    """
+
     def __init__(
         self,
         width=50,

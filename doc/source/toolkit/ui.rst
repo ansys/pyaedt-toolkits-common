@@ -7,11 +7,7 @@ using the `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
 The user interface (UI) API provides a set of pre-built components, utilities, and an API that simplifies
 the development of robust and user-friendly applications.
 
-The user interface (UI) API contains three main modules: ``Utils``, ``Windows``, ``actions_generic``:
-
-- **windows**: provides the initialization of the defaults windows.
-
-- **actions_generic**: provides methods to call the default REST API.
+The user interface (UI) API contains three main modules: **Utils**, **Windows**, **Generic actions**:
 
 .. grid:: 2
 
@@ -20,7 +16,7 @@ The user interface (UI) API contains three main modules: ``Utils``, ``Windows``,
         :link: ui_reference/utils
         :link-type: doc
 
-        Methods to common desktop widgets, theme definition or user interface templates.
+        Common user interface classes to define widgets and load templates.
 
     .. grid-item-card:: Windows :fa:`book-bookmark`
         :padding: 2 2 2 2
@@ -29,7 +25,7 @@ The user interface (UI) API contains three main modules: ``Utils``, ``Windows``,
 
         Defaults windows initialization.
 
-    .. grid-item-card:: UI API reference :fa:`scroll`
+    .. grid-item-card:: Generic actions :fa:`scroll`
         :padding: 2 2 2 2
         :link: ui_reference/actions
         :link-type: doc
@@ -51,4 +47,7 @@ The provided user interface has the following structure:
   :width: 800
   :alt: User interface
 
-Find here a `Default UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/ui/default_ui/default_ui.py>`_.
+The user interface is contained inside the main window. The main window contains some common widgets that are by default
+initialized, such as the credits, title... New pages are added in the content widget.
+
+In the following script, you can find how to initialize the default UI: `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/ui/default_ui/default_ui.py>`_.
