@@ -62,7 +62,7 @@ doc = [
     "ipython==8.22.1",
     "jupyterlab==4.0.6",
     "pypandoc",
-    "vtk==9.2.6",
+    "vtk==9.3.0",
 ]
 ci = [
     "pypandoc-binary==1.13",
