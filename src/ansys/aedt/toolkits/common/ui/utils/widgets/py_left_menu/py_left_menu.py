@@ -16,7 +16,7 @@ class PyLeftMenu(QWidget):
     """
     Custom widget representing a left menu with toggle button, top and bottom layouts, and animated toggle behavior.
 
-     Parameters:
+     Parameters
      ----------
      parent: QWidget, optional
          The parent widget.

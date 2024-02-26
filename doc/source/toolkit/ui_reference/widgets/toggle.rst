@@ -1,6 +1,6 @@
-=========
-PyComboBox
-=========
+========
+PyToggle
+========
 
 .. currentmodule:: ansys.aedt.toolkits.common.ui.utils.widgets.py_toggle.py_toggle
 

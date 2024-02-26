@@ -15,7 +15,8 @@ class PyLeftColumn(QWidget):
     """
     Custom widget representing a left column with a title, an icon, and a close button.
 
-    Parameters:
+    Parameters
+    ----------
     text_title : str
         The title text for the left column.
     text_title_size : int

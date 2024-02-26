@@ -76,10 +76,26 @@ class PyToggle(QCheckBox):
 
     @Property(float)
     def position(self):
+        """
+        Get the current position of the toggle switch.
+
+        Returns
+        -------
+        float
+            The current position of the toggle switch.
+        """
         return self._position
 
     @position.setter
     def position(self, pos):
+        """
+        Set up the animation for the toggle switch.
+
+        Parameters
+        ----------
+        value : int
+            The state of the toggle switch.
+        """
         self._position = pos
         self.update()
 
@@ -93,9 +109,30 @@ class PyToggle(QCheckBox):
         self.animation.start()
 
     def hitButton(self, pos: QPoint):
+        """
+        Determine if a button press occurred within the toggle switch.
+
+        Parameters
+        ----------
+        pos : QPoint
+            The position of the button press.
+
+        Returns
+        -------
+        bool
+            True if the button press occurred within the toggle switch, False otherwise.
+        """
         return self.contentsRect().contains(pos)
 
     def paintEvent(self, e):
+        """
+        Paint the toggle switch.
+
+        Parameters
+        ----------
+        e : QPaintEvent
+            Paint event.
+        """
         p = QPainter(self)
         p.setRenderHint(QPainter.Antialiasing)
         p.setFont(QFont("Segoe UI", 9))
