@@ -133,7 +133,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                     logger.debug("Backend properties empty")
                     return False
         except requests.exceptions.RequestException:
-            self.ui.logger.log("Get properties failed")
+            self.ui.update_logger("Get properties failed")
 
     def set_properties(self, data):
         try:
@@ -167,7 +167,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = MSG_TK_RUNNING
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
-            self.ui.progress.progress = 0
+            self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
             if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
@@ -208,7 +208,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = MSG_TK_RUNNING
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
-            self.ui.progress.progress = 0
+            self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
             if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 response = requests.post(self.url + "/open_project", data=selected_project)
@@ -302,12 +302,17 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             if be_properties["active_project"] == "No Project":
                 return ["No Design"]
             active_project = os.path.splitext(os.path.basename(be_properties["active_project"]))[0]
+            if not active_project:
+                be_properties["active_project"] = "No Project"
         else:
             be_properties["active_project"] = active_project
-            self.set_properties(be_properties)
+
         design_list = be_properties["design_list"].get(active_project)
         if not design_list:
             design_list = ["No Design"]
+            be_properties["active_design"] = "No Design"
+        be_properties["design_list"] = design_list
+        self.set_properties(be_properties)
         return design_list
 
     def save_project(self):
@@ -395,8 +400,8 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         log_func(msg)
 
         # UI logging
-        self.ui.logger.log(msg)
+        self.ui.update_logger(msg)
 
         # Update progress bar if needed
         if progress is not None:
-            self.ui.progress.progress = progress
+            self.ui.update_progress(progress)

@@ -8,7 +8,6 @@ from PySide6.QtWidgets import QSpacerItem
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QWidget
 
-
 # toolkit frontend API
 from actions import Frontend
 
@@ -65,7 +64,7 @@ class ApplicationWindow(Frontend):
         # Populate settings column
         if not success:
             msg = "Error getting properties from backend. User interface running without backend"
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
@@ -109,7 +108,6 @@ class ApplicationWindow(Frontend):
 
     def geometry_menu_clicked(self):
         selected_menu = self.main_window.get_selected_menu()
-        self.ui.left_menu.select_only_one(selected_menu.objectName())
         menu_name = selected_menu.objectName()
 
         if menu_name == "geometry_menu":
@@ -117,8 +115,6 @@ class ApplicationWindow(Frontend):
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
 
             is_left_visible = self.ui.is_left_column_visible()
-            if not is_left_visible:
-                self.ui.toggle_left_column()
 
             self.ui.set_left_column_menu(
                 menu=self.geometry_menu.geometry_column_widget,
@@ -126,24 +122,31 @@ class ApplicationWindow(Frontend):
                 icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
             )
 
+            if not is_left_visible:
+                self.ui.toggle_left_column()
+
+            self.ui.window_refresh()
+
     def plot_design_menu_clicked(self):
         selected_menu = self.main_window.get_selected_menu()
-        self.ui.left_menu.select_only_one(selected_menu.objectName())
+        # self.ui.left_menu.select_only_one(selected_menu.objectName())
         menu_name = selected_menu.objectName()
 
         if menu_name == "plot_design_menu":
             selected_menu.set_active(True)
             self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
 
-            is_left_visible = self.ui.is_left_column_visible()
-            if not is_left_visible:
-                self.ui.toggle_left_column()
-
             self.ui.set_left_column_menu(
                 menu=self.plot_design_menu.plot_design_column_widget,
                 title="Plot Design",
                 icon_path=self.ui.images_load.icon_path("icon_widgets.svg"),
             )
+
+            is_left_visible = self.ui.is_left_column_visible()
+            if not is_left_visible:
+                self.ui.toggle_left_column()
+
+            self.ui.window_refresh()
 
 
 if __name__ == "__main__":

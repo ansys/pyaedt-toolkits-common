@@ -23,6 +23,7 @@
 import base64
 from dataclasses import dataclass
 from enum import Enum
+import gc
 import os
 import time
 from typing import Any
@@ -475,6 +476,8 @@ class AEDTCommon(Common):
         else:  # pragma: no cover
             desktop_args["aedt_process_id"] = self.properties.selected_process
 
+        gc.collect()
+
         self.desktop = pyaedt.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
@@ -644,6 +647,7 @@ class AEDTCommon(Common):
         if not released and close_projects and close_on_exit and self.connect_aedt():
             self.desktop.release_desktop(close_projects, close_on_exit)
         logger.info("Desktop released.")
+        gc.collect()
         return True
 
     def open_project(self, project_name=None):
@@ -802,6 +806,8 @@ class AEDTCommon(Common):
             self.connect_design()
         files = []
         if self.aedtapp:
+            self.aedtapp.save_project()
+            self.aedtapp.post
             files = self.aedtapp.post.export_model_obj(
                 obj_list=obj_list,
                 export_path=export_path,

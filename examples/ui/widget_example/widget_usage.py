@@ -132,13 +132,13 @@ class ApplicationWindow(QMainWindow):
     def simulate_progress(self):
         progress = randint(0, 100)
         self.progress_bar.progress = progress
-        self.logger.log(f"Progress: {progress}%")
+        self.ui.update_logger(f"Progress: {progress}%")
 
     def on_combo_box_changed(self, text):
-        self.logger.log(f"ComboBox changed: {text}")
+        self.ui.update_logger(f"ComboBox changed: {text}")
 
     def icon_pushed_changed(self):
-        self.logger.log(f"Icon pushed")
+        self.ui.update_logger(f"Icon pushed")
 
 
 if __name__ == "__main__":

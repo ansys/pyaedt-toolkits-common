@@ -59,7 +59,7 @@ class HomeMenu(object):
         self.ui.left_column.menus.browse_project_group = row_returns[0]
         self.project = row_returns[1]
         self.project_combobox = row_returns[2]
-        self.project_combobox.currentIndexChanged.connect(lambda: self.update_project_info())
+        self.project_combobox.currentIndexChanged.connect(lambda: self.update_design())
         self.project_combobox.setEnabled(False)
 
         # Design row
@@ -78,9 +78,25 @@ class HomeMenu(object):
         spacer = QSpacerItem(0, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
 
-    def update_project_info(self):
-        active_project = self.main_window.home_menu.project_combobox.currentText()
-        design_list = self.app.update_design_names(active_project)
+    # def update_project_info(self):
+    #     active_project = self.main_window.home_menu.project_combobox.currentText()
+    #     design_list = self.app.update_design_names(active_project)
+    #     self.main_window.home_menu.design_combobox.clear()
+    #     self.main_window.home_menu.design_combobox.addItems(design_list)
+    #     pass
+
+    def update_project(self):
+        self.project_combobox.blockSignals(True)
+        project_list = self.app.get_aedt_data()
+        self.main_window.home_menu.project_combobox.setEnabled(True)
+        self.main_window.home_menu.project_combobox.clear()
+        self.main_window.home_menu.project_combobox.addItems(project_list)
+        self.project_combobox.blockSignals(False)
+        return project_list
+
+    def update_design(self):
+        self.project_combobox.blockSignals(True)
+        design_list = self.app.update_design_names()
         self.main_window.home_menu.design_combobox.clear()
         self.main_window.home_menu.design_combobox.addItems(design_list)
-        pass
+        self.project_combobox.blockSignals(False)

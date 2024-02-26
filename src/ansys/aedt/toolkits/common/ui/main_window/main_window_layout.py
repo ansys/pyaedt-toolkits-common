@@ -240,7 +240,7 @@ class MainWindowLayout(CommonWindowUtils):
         )
 
         self.progress_layout.addWidget(self.logger)
-        self.logger.log("{} logger".format(general_settings.app_name))
+        self.update_logger("{} logger".format(general_settings.app_name))
         self.progress_layout.addWidget(self.progress)
 
     def setup_credits_frame(self):
