@@ -84,7 +84,6 @@ class TestAEDTCommon:
         assert aedt_common.release_aedt()
         encoded_files = aedt_common.export_aedt_model(air_objects=True, encode=True, export_path=common_temp_dir)
         assert isinstance(encoded_files, dict)
-        aedt_common.serialize_obj_base64()
         files = aedt_common.export_aedt_model(air_objects=True, encode=False, export_path=common_temp_dir)
         assert isinstance(files, list)
 
