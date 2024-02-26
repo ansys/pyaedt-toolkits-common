@@ -39,10 +39,9 @@ The following provides an overview of each:
 
 In addition to the wrapped PySide6 widgets available in this toolkit, several user interface templates enhance the overall layout:
 
-- **left_column**
-- **right_column**
-- **main_pages**
+- **left column**
+- **right column**
+- **main pages**
 
 These templates serve as a foundation for creating default layouts. You can explore these templates in the
 `UI templates <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/utils/ui_templates>`_.
-
