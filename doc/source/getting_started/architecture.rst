@@ -68,15 +68,19 @@ Toolkit architecture is defined with the following structure:
 3. `common <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common>`_ contains the toolkit code. It is split in backend and frontend.
 
     3.1 `backend <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/backend>`_: It is the part of the toolkit that is not visible to the end user.
+
         It receives requests and prepares data which is sent back to the frontend.
         There are four important files:
+
             3.1.1 **rest_api.py** where the HTTP requests are defined.
             3.1.2 **api.py** where the toolkit API is defined.
             3.1.3 **common_properties.json** where the common backend properties are defined.
             3.1.4 **models.py** defines the **Properties** class to store all backend properties.
 
     3.2 `ui <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui>`_: It is the part of the toolkit that interfaces with the end user.
+
         There are two main files:
+
         3.2.1 **common_properties.json** where the common ui properties are defined.
         3.2.2 **models.py** defines the **UIProperties** class to store all ui properties.
 
