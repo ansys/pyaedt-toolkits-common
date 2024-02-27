@@ -43,7 +43,7 @@ goto end
 cd "%BUILDDIR%\latex"
 for %%f in (*.tex) do (
 xelatex "%%f" --interaction=nonstopmode)
-if NOT EXIST ansys-common-toolkit.pdf (
+if NOT EXIST ansys-aedt-toolkits-common.pdf (
 	Echo "no pdf generated!"
 	exit /b 1)
 Echo "pdf generated!"

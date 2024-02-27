@@ -50,4 +50,4 @@ The provided user interface has the following structure:
 The user interface is contained inside the main window. The main window contains some common widgets that are by default
 initialized, such as the credits, title... New pages are added in the content widget.
 
-In the following script, you can find how to initialize the default UI: `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/ui/default_ui/default_ui.py>`_.
+You can find how to initialize the `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/ui/default_ui/default_ui.py>`_.
