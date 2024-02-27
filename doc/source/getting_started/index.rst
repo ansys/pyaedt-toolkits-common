@@ -29,6 +29,13 @@ If you want to develop a new toolkit, you need first to learn how the :ref:`arch
 
         Example toolkit using the common methods.
 
+    .. grid-item-card:: REST API :fa:`pen`
+        :padding: 2 2 2 2
+        :link: rest_api
+        :link-type: doc
+
+        Learn how toolkit REST API is designed.
+
 
 .. toctree::
    :hidden:
