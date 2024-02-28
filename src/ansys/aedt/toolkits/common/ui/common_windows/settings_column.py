@@ -95,6 +95,8 @@ class SettingsMenu(QObject):
         self.aedt_session_label = row_returns[1]
         self.aedt_session = row_returns[2]
 
+        self.aedt_session.currentTextChanged.connect(lambda: self.ui.window_refresh())
+
         # Add line
         self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
 
@@ -111,6 +113,8 @@ class SettingsMenu(QObject):
         self.graphical_label = row_returns[1]
         self.graphical_mode = row_returns[2]
         self.non_graphical_label = row_returns[3]
+
+        self.graphical_mode.stateChanged.connect(self.toggle_change)
 
         # Add line
         self.ui.add_vertical_line(
@@ -131,6 +135,7 @@ class SettingsMenu(QObject):
         self.file = row_returns[2]
 
         self.browse.clicked.connect(lambda: self.browse_file())
+        self.file.textChanged.connect(self.on_text_changed)
 
         # Add line
         self.ui.add_vertical_line(
@@ -167,6 +172,7 @@ class SettingsMenu(QObject):
                         self.aedt_session.addItem("Process {}".format(pid))
                     else:
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+            self.ui.window_refresh()
 
     def launch_aedt(self):
         selected_session = self.aedt_session.currentText()
@@ -219,3 +225,10 @@ class SettingsMenu(QObject):
         )
         if file != "":
             self.file.setText(file)
+        self.ui.window_refresh()
+
+    def on_text_changed(self):
+        self.ui.window_refresh()
+
+    def toggle_change(self):
+        self.ui.window_refresh()

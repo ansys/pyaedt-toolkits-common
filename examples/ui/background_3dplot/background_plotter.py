@@ -27,17 +27,9 @@ class ApplicationWindow(QMainWindow):
 
         self.grid_layout = QGridLayout(self.central_widget)
 
-        plotter = BackgroundPlotter(show=False)
+        self.plotter = BackgroundPlotter(show=False)
 
-        cad_mesh = pv.read("Box1.obj")
-
-        plotter.add_mesh(cad_mesh)
-
-        plotter.view_isometric()
-        plotter.add_axes_at_origin(labels_off=True, line_width=5)
-        plotter.show_grid()
-
-        self.grid_layout.addWidget(plotter, 0, 0)
+        self.grid_layout.addWidget(self.plotter, 0, 0)
 
         self.v_layout = QVBoxLayout()
 
@@ -62,6 +54,13 @@ class ApplicationWindow(QMainWindow):
         # Handle the selection change and update the text edit
         selected_option = f"Selected Option: {index + 1}"
         self.logger.log(selected_option)
+        cad_mesh = pv.read("Box1.obj")
+
+        self.plotter.add_mesh(cad_mesh)
+
+        self.plotter.view_isometric()
+        self.plotter.add_axes_at_origin(labels_off=True, line_width=5)
+        self.plotter.show_grid()
 
 
 if __name__ == "__main__":

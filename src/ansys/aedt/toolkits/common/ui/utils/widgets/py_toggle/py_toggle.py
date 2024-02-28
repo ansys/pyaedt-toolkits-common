@@ -69,7 +69,7 @@ class PyToggle(QCheckBox):
         self._circle_color = circle_color
         self._active_color = active_color
 
-        self._position = 3
+        self._position = 4
         self.animation = QPropertyAnimation(self, b"position")
         self.animation.setEasingCurve(animation_curve)
         self.stateChanged.connect(self.setup_animation)
@@ -97,7 +97,7 @@ class PyToggle(QCheckBox):
             The state of the toggle switch.
         """
         self._position = pos
-        self.update()
+        # self.update()
 
     # START STOP ANIMATION
     def setup_animation(self, value):
