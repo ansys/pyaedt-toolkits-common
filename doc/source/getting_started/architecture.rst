@@ -22,7 +22,7 @@ By leveraging Flask, the toolkit becomes interface-agnostic, allowing flexibilit
 Installation
 ~~~~~~~~~~~~
 
-The library can be installed like any other open-source package and added as a dependency to the new toolkit project.
+The library can be installed like any other open source package and added as a dependency to the new toolkit project.
 :ref:`Installation page <installation>`.
 
 Toolkit architecture diagram
@@ -95,7 +95,7 @@ stores the backend properties that are shared between backend and frontend. Prop
 
 To understand how backend and frontend interact you can refer to `ui actions <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py>`_.
 For example, when an event is triggered by the frontend, the `get_properties() <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L143>`_
-method builds the GET HTTP request to send to the backend in order to retrieve properties from backend.
+method builds the GET HTTP request to send to the backend to retrieve properties from backend.
 The event of setting up a property calls the `set_properties() <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L165>`_
 method which builds the PUT HTTP request that is sent to the backend.
 

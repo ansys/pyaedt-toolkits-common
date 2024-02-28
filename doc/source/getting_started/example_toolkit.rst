@@ -7,7 +7,7 @@ Explore a hands-on `toolkit example <https://github.com/ansys-internal/pyaedt-to
 
 This example shows how to create a new toolkit using the common library.
 
-Example Walkthrough
+Example walkthrough
 ~~~~~~~~~~~~~~~~~~~
 
 Follow the steps outlined in the example to gain practical insights into toolkit implementation:
@@ -87,7 +87,7 @@ To introduce new properties to the toolkit, define them using models. Properties
 so they are protected. In models, specify the type. In this example, two new properties, "multiplier" and "geometry,"
 are defined as float and string, respectively.
 
-In "backend_properties.json", define default values for both common and new properties.
+In `backend_properties.json`, define default values for both common and new properties.
 These properties are correctly loaded by being imported into the toolkit API, as seen here.
 
 .. code:: python
@@ -97,8 +97,8 @@ These properties are correctly loaded by being imported into the toolkit API, as
 Run backend
 ~~~~~~~~~~~
 
-This script, conventionally named "rest_api.py" for its role in managing the REST API of the toolkit,
-is referred to as "run_backend.py" in this example. Upon execution, this script launches a server that listens for incoming requests.
+This script, conventionally named `rest_api.py` for its role in managing the REST API of the toolkit,
+is referred to as `run_backend.py` in this example. Upon execution, this script launches a server that listens for incoming requests.
 
 Similar to the API, this file inherits the common REST API, containing only the specific REST API functionalities
 required for the toolkit. The following Python code segment imports the REST API application from the common library:
@@ -116,7 +116,7 @@ Additionally, it creates an instance of the toolkit API object:
 Run frontend
 ~~~~~~~~~~~~
 
-The "run_frontend.py" script serves as the application launcher for the toolkit's user interface, built using PySide6.
+The `run_frontend.py` script serves as the application launcher for the user interface, built using PySide6.
 The file concludes with the following code, ensuring proper initialization using PySide6:
 
 .. code:: python
@@ -142,11 +142,11 @@ User interface properties
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Similar to the backend, the user interface has its properties.
-The "frontend_properties.json" file enables customization of the user interface theme, addition of new tabs, or modification of the URL and port for backend communication.
+The `frontend_properties.json` file enables customization of the user interface theme, addition of new tabs, or modification of the URL and port for backend communication.
 
 Run toolkit
 ~~~~~~~~~~~
 
-The "run_toolkit.py" script facilitates the simultaneous execution of both the backend and user interface in two different threads.
+The `run_toolkit.py` script facilitates the simultaneous execution of both the backend and user interface in two different threads.
 This eliminates the need for users to launch the backend and frontend separately.
 In cases where the backend is running remotely, users should first execute the backend on the remote machine before running this script.

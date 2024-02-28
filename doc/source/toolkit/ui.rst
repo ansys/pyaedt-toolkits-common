@@ -50,6 +50,6 @@ The provided user interface has the following structure:
   :alt: User interface
 
 The user interface is contained inside the main window. The main window contains some common widgets that are by default
-initialized, such as the credits, title... New pages are added in the content widget.
+initialized, such as the credits, title. New pages are added in the content widget.
 
 You can find how to initialize the `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/ui/default_ui_exampley>`_.
