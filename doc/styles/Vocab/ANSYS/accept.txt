@@ -39,4 +39,5 @@ PyTitleBar
 PyIconButton
 PyLineEdit
 PyLogger
+ApplicationWindow
 
