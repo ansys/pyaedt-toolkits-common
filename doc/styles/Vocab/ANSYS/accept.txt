@@ -40,4 +40,5 @@ PyIconButton
 PyLineEdit
 PyLogger
 ApplicationWindow
+walkthrough
 
