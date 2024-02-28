@@ -15,19 +15,17 @@ from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
 class CreateGeometryThread(QThread):
     finished_signal = Signal(bool)
 
-    def __init__(self, app, selected_project, selected_design, geometry, multiplier):
+    def __init__(self, app, selected_project, selected_design):
         super().__init__()
         self.geometry_menu = app
         self.app = app.app
         self.selected_project = selected_project
         self.selected_design = selected_design
-        self.geometry = geometry
-        self.multiplier = multiplier
 
     def run(self):
 
         success = self.app.create_geometry_toolkit(
-            self.selected_project, self.selected_design, self.geometry, self.multiplier
+            self.selected_project, self.selected_design
         )
         self.finished_signal.emit(success)
 
@@ -103,6 +101,8 @@ class GeometryMenu(object):
         )
         self.geometry_combo.setStyleSheet(custom_style)
 
+        # self.geometry_combo.currentIndexChanged.connect(self.handle_geometry_change)
+
         # Multiplier line
         line_style = """
             QLineEdit {{
@@ -118,6 +118,7 @@ class GeometryMenu(object):
             _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
         )
         self.multiplier.setStyleSheet(custom_style)
+        self.multiplier.textChanged.connect(self.on_text_changed)
 
         # Multiplier label button
         multiplier_label_style = """
@@ -153,6 +154,12 @@ class GeometryMenu(object):
             color=self.ui.themes["app_color"]["text_description"])
         self.geometry_column_vertical_layout.addWidget(label_widget)
 
+    def handle_geometry_change(self):
+        self.ui.window_refresh()
+
+    def on_text_changed(self):
+        self.ui.window_refresh()
+
     def geometry_button_clicked(self):
         if not self.app.check_connection():
             msg = "Backend not running."
@@ -167,20 +174,24 @@ class GeometryMenu(object):
 
         be_properties = self.app.get_properties()
 
+        geometry = self.geometry_combo.currentText()
+        multiplier = self.multiplier.text()
+
+        be_properties["geometry"] = geometry
+        be_properties["multiplier"] = multiplier
+
+        self.app.set_properties(be_properties)
+
         if be_properties.get("active_project"):
             self.ui.update_progress(0)
             selected_project = self.app.home_menu.project_combobox.currentText()
             selected_design = self.app.home_menu.design_combobox.currentText()
-            multiplier = self.multiplier.text()
-            geometry = self.geometry_combo.currentText()
 
             # Start a separate thread for the backend call
             self.geometry_thread = CreateGeometryThread(
                 app=self,
                 selected_project=selected_project,
                 selected_design=selected_design,
-                geometry=geometry,
-                multiplier=multiplier,
             )
             self.geometry_thread.finished_signal.connect(self.geometry_created_finished)
 
