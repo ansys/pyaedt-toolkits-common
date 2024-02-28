@@ -11,18 +11,22 @@ AEDT project or initialize a new AEDT session, which should be the basic capabil
 The architecture is divided in two main parts:
 
 
-1. The backend, using `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_. Flask creates a REST API,
-which let interact different services by simply doing HTTP requests.
+1. **Backend**: Comprising API and REST API, the API is built on PyAEDT, and the REST API utilizes `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
+Flask facilitates the creation of a REST API, enabling interaction between different services through HTTP requests.
 
-2. The user interface, using `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_. Pyside6 has a designer tool
-which allows to create user interfaces and it is translated to python directly.
+2. **User interface**: Implemented using `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
+Pyside6 includes a designer tool for creating user interfaces, translated directly to Python.
 
-Using Flask, the toolkit becomes interface agnostic, then you can decide change it and use a WebUI for instance
-as user interface.
+By leveraging Flask, the toolkit becomes interface-agnostic, allowing flexibility in choosing different user interfaces such as a WebUI.
 
-You can install the library like any other open source package. You can add this project as a dependency of the new toolkit.
+Installation
+~~~~~~~~~~~~
 
-The architecture is defined in the following picture:
+The library can be installed like any other open-source package and added as a dependency to the new toolkit project.
+:ref:`Installation page <installation>`.
+
+Toolkit architecture diagram
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. image:: ../_static/toolkit_architecture.png
   :width: 800
@@ -30,7 +34,8 @@ The architecture is defined in the following picture:
 
 Toolkit frontend and backend
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Toolkit architecture is defined with the following structure:
+
+The library is structured as follows:
 
 .. code-block:: text
 
@@ -61,38 +66,33 @@ Toolkit architecture is defined with the following structure:
    ├── pyproject.toml
    └── README.rst
 
-1. `.github <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/.github>`_ contains the GitHub actions.
+1. `.github <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/.github>`_: Contains GitHub actions configuration.
 
-2. `doc <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/doc>`_ contains the documentation structure.
+2. `doc <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/doc>`_: Documentation structure.
 
-3. `common <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common>`_ contains the toolkit code. It is split in backend and frontend.
+3. `common <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common>`_: Toolkit code, split into backend and frontend.
 
-    3.1 `backend <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/backend>`_: It is the part of the toolkit that is not visible to the end user.
+    3.1 `backend <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/backend>`_: The non-user-facing part of the toolkit, handling requests and preparing data for the frontend. Key files include:
 
-        It receives requests and prepares data which is sent back to the frontend.
-        There are four important files:
+        3.1.1 **rest_api.py**: Defines Flask entrypoints.
+        3.1.2 **api.py**: Defines the toolkit API.
+        3.1.3 **common_properties.json**: Defines common backend properties.
+        3.1.4 **models.py**: Defines the properties class to store backend properties.
 
-            3.1.1 **rest_api.py** where the HTTP requests are defined.
-            3.1.2 **api.py** where the toolkit API is defined.
-            3.1.3 **common_properties.json** where the common backend properties are defined.
-            3.1.4 **models.py** defines the **Properties** class to store all backend properties.
+    3.2 `ui <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui>`_: The user interface part of the toolkit. Key files include:
 
-    3.2 `ui <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui>`_: It is the part of the toolkit that interfaces with the end user.
+        3.2.1 **common_properties.json**: Defines common user interface properties.
+        3.2.2 **models.py**: Defines the properties class to store user interface properties.
 
-        There are two main files:
+4. `tests <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/tests>`_: Folder containing backend unit tests.
 
-        3.2.1 **common_properties.json** where the common ui properties are defined.
-        3.2.2 **models.py** defines the **UIProperties** class to store all ui properties.
-
-4. `tests <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/tests>`_: folder containing the unit tests of the backend.
-
-Properties: How the information is exchanged
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Models and properties
+~~~~~~~~~~~~~~~~~~~~~
 
 The `models.py <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/models.py>`_
-stores the backend properties that are shared between backend and frontend by simply loading the
-`properties <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/common_properties.json>`_
-content in the class properties.
+stores the backend properties that are shared between backend and frontend. Properties are loaded by loading the content of
+`properties <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/common_properties.json>`_ in the class properties.
+
 To understand how backend and frontend interact you can refer to `ui actions <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py>`_.
 For example, when an event is triggered by the frontend, the `get_properties() <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L143>`_
 method builds the GET HTTP request to send to the backend in order to retrieve properties from backend.
@@ -108,16 +108,18 @@ controlling the toolkit workflow.
 REST API
 ~~~~~~~~
 
-REST APIs are the most common web interfaces that allow various clients to communicate with services via the REST API.
+REST APIs are standard web interfaces allowing clients to communicate with services via HTTP requests.
 JSON is the standard for transferring data. In fact REST APIs accept JSON for request payload and also send responses
 to JSON.
+
 In the client-server architecture model, the client sends the request to the server to fetch some information.
 Server-side technologies decode JSON information and transmit back the response to the client and this interaction is
 handled by the HTTP protocol.
 
 How frontend and backend interact?
-----------------------------------
-Frontend sends a HTTP request to retrieve data, while backend returns appropriate results.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Frontend sends HTTP requests to retrieve data, while the backend returns appropriate results.
 
 The toolkit uses CRUD (Create, Read, Update & Delete) operations that simply are HTTP request methods that specify
 the action to perform through the request.
