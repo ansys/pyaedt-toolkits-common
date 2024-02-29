@@ -41,7 +41,7 @@
       "text_size" : 9
   },
   "high_resolution": false,
-  "theme" : "ansys.json",
+  "theme" : "ansys_dark.json",
   "images" : "",
   "add_left_menus" : [
         {

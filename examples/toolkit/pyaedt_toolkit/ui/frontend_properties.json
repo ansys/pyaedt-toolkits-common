@@ -9,7 +9,7 @@
   "version" : "v0.0.1",
   "copyright" : "By: slopez",
   "year" : 2023,
-  "theme" : "ansys.json",
+  "theme" : "ansys_dark.json",
   "high_resolution": false,
   "add_left_menus" : [
       {
@@ -21,7 +21,7 @@
           "is_active": false
       },
       {
-            "btn_icon": "icon_signal.svg",
+            "btn_icon": "icon_plot_3d.svg",
             "btn_id": "geometry_menu",
             "btn_text": "Primitives Builder",
             "btn_tooltip": "Builder",
@@ -29,7 +29,7 @@
             "is_active": false
       },
       {
-            "btn_icon": "icon_widgets.svg",
+            "btn_icon": "icon_plot_2d.svg",
             "btn_id": "plot_design_menu",
             "btn_text": "Plot Design",
             "btn_tooltip": "Design",
@@ -37,7 +37,7 @@
             "is_active": false
       },
       {
-          "btn_icon": "icon_heart.svg",
+          "btn_icon": "icon_log.svg",
           "btn_id": "progress_menu",
           "btn_text": "Progress",
           "btn_tooltip": "Progress",

@@ -28,7 +28,7 @@ class ApplicationWindow(QMainWindow):
         self.grid_layout = QGridLayout(self.central_widget)
 
         self.plotter = BackgroundPlotter(show=False)
-
+        # self.plotter.set_icon(self.images_load.image_path("icon.ico"))
         self.grid_layout.addWidget(self.plotter, 0, 0)
 
         self.v_layout = QVBoxLayout()

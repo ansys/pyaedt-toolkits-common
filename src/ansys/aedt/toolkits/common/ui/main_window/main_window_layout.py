@@ -185,11 +185,15 @@ class MainWindowLayout(CommonWindowUtils):
         self.title_bar_frame.setLayout(self.title_bar_layout)
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 
+        logo = self.images_load.image_path("ansys-primary-logo-black.svg")
+        if self.themes["theme_name"] == "ansys_dark":
+            logo = self.images_load.image_path("ansys-primary-logo-white.svg")
+
         self.title_bar = PyTitleBar(
             parent=self.main_window,
             app_parent=self.app,
-            logo_width=100,
-            logo_image=self.images_load.image_path("ANSS_Title.svg"),
+            logo_width=70,
+            logo_image=self.images_load.image_path(logo),
             bg_color=self.themes["app_color"]["bg_two"],
             div_color=self.themes["app_color"]["bg_three"],
             btn_bg_color=self.themes["app_color"]["bg_two"],
