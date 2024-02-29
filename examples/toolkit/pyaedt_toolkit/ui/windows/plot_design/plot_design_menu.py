@@ -1,5 +1,7 @@
 import time
 
+from PySide6.QtCore import Slot
+from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QComboBox
@@ -30,7 +32,6 @@ class PlotDesignThread(QThread):
         self.model_info = None
 
     def run(self):
-
         self.model_info = self.app.get_aedt_model(
             self.selected_project, self.selected_design, air_objects=True
         )
@@ -67,6 +68,9 @@ class PlotDesignMenu(object):
         self.plot_design_button = None
         self.get_model_thread = None
 
+        # self.plotter = BackgroundPlotter(show=False)
+        # self.plot_design_grid.addWidget(self.plotter, 0, 0)
+
     def setup(self):
         # Modify theme
         app_color = self.app.ui.themes["app_color"]
@@ -100,18 +104,6 @@ class PlotDesignMenu(object):
         self.plot_design_button = row_returns[1]
         self.plot_design_button_layout.addWidget(self.plot_design_button)
         self.plot_design_button.clicked.connect(self.plot_design_button_clicked)
-
-        # Test 3D PLOT without backend
-        # plotter = BackgroundPlotter(show=False)
-        #
-        # cad_mesh = pv.read(r"C:\AnsysDev\repos\pyaedt-toolkits-common\examples\ui\background_3dplot\Box1.obj")
-        #
-        # plotter.add_mesh(cad_mesh)
-        #
-        # plotter.view_isometric()
-        # plotter.add_axes_at_origin(labels_off=True, line_width=5)
-        # plotter.show_grid()
-        # self.plot_design_grid.addWidget(plotter, 0, 0)
 
     def plot_design_button_clicked(self):
 

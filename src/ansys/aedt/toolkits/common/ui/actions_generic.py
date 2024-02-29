@@ -78,7 +78,7 @@ class FrontendGeneric(QMainWindow):
         response_success = False
         try:
             while not response_success and count < timeout:
-                time.sleep(1)
+                time.sleep(0.1)
                 response = requests.get(url)
                 response_success = response.ok
                 count += 1

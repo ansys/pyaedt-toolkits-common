@@ -39,4 +39,6 @@ PyTitleBar
 PyIconButton
 PyLineEdit
 PyLogger
+ApplicationWindow
+walkthrough
 
