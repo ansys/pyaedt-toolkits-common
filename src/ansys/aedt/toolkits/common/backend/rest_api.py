@@ -116,7 +116,7 @@ def aedt_sessions():
     response = toolkit_api.aedt_sessions()
     if isinstance(response, dict):
         return jsonify(response), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 
