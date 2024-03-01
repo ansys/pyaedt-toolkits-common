@@ -34,6 +34,12 @@ class TestCommon:
         api_properties = common.get_properties()
         assert api_properties
 
+    def test_00_get_default_properties(self, common_default):
+        """Get properties."""
+
+        api_properties = common_default.get_properties()
+        assert api_properties
+
     def test_01_set_properties(self, common):
         """Set properties."""
 
@@ -68,3 +74,11 @@ class TestCommon:
         """Installed AEDT version."""
         installed_versions = common.installed_aedt_version()
         assert isinstance(installed_versions, list)
+
+    def test_03_aedt_sessions(self, common):
+        """AEDT sessions."""
+        assert common.aedt_sessions()
+
+    def test_04_wait_idle(self, common):
+        """AEDT sessions."""
+        assert not common.wait_to_be_idle(timeout=0)

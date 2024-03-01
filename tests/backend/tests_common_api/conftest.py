@@ -70,3 +70,13 @@ def common(logger):
     common_api = Common(properties)
 
     yield common_api
+
+
+@pytest.fixture(scope="session")
+def common_default(logger):
+    """Initialize toolkit with common API."""
+    logger.info("Common API initialization with default properties")
+
+    common_api_default = Common()
+
+    yield common_api_default
