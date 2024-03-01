@@ -60,7 +60,7 @@ class TestRESTAPI:
         new_properties = {
             "port": True,
         }
-        response = client.put("/properties", json=new_properties)
+        response = client.put("/properties", json={})
         assert response.status_code == 500
 
     def test_04_installed_versions(self, client):
@@ -79,7 +79,7 @@ class TestRESTAPI:
         response = client.post("/connect_design", json={"aedtapp": "Icepak"})
         assert response.status_code == 200
 
-        response = client.post("/connect_design", json=None)
+        response = client.post("/connect_design", json={})
         assert response.status_code == 500
 
     def test_07_save_project(self, client, common_temp_dir):
@@ -87,7 +87,7 @@ class TestRESTAPI:
         response = client.post("/save_project", json=new_project)
         assert response.status_code == 200
         assert os.path.exists(new_project)
-        response = client.post("/save_project", json=None)
+        response = client.post("/save_project", json={})
         assert response.status_code == 500
 
     def test_08_get_design_names(self, client):
@@ -97,15 +97,15 @@ class TestRESTAPI:
         assert isinstance(data, list)
 
     def test_09_wait_thread(self, client):
-        response = client.get("/wait_thread", json=None)
+        response = client.get("/wait_thread", data={})
         assert response.status_code == 500
 
     def test_10_open_project(self, client):
-        response = client.post("/open_project", data=None)
+        response = client.post("/open_project", data={})
         assert response.status_code == 500
 
     def test_11_close_aedt(self, client):
-        response = client.post("/close_aedt", json=None)
+        response = client.post("/close_aedt", json={})
         assert response.status_code == 500
         response = client.post("/close_aedt", json=[True])
         assert response.status_code == 500
