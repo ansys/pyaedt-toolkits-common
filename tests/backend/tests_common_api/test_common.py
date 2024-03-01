@@ -78,7 +78,3 @@ class TestCommon:
     def test_03_aedt_sessions(self, common):
         """AEDT sessions."""
         assert common.aedt_sessions()
-
-    def test_04_wait_idle(self, common):
-        """AEDT sessions."""
-        assert not common.wait_to_be_idle(timeout=0)

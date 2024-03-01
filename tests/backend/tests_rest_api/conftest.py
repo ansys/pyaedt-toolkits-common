@@ -72,9 +72,9 @@ def client(logger, common_temp_dir):
         client.put("/properties", json=properties)
         client.post("/launch_aedt")
         timeout = 60
-        response = client.get("/wait_thread", json=timeout)
+        client.get("/wait_thread", json=timeout)
         aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
-        client.post("/open_project", data=aedt_file)
+        response = client.post("/open_project", data=aedt_file)
         assert response.status_code == 200
 
         yield client

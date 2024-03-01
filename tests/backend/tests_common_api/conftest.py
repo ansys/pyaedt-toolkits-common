@@ -62,6 +62,7 @@ def common(logger):
     logger.info("Common API initialization")
 
     properties = Properties()
+    print(properties)
     properties.aedt_version = config["desktop_version"]
     properties.non_graphical = config["non_graphical"]
     properties.use_grpc = config["use_grpc"]

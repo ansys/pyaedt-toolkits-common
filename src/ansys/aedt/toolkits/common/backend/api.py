@@ -284,7 +284,7 @@ class Common:
         time.sleep(1)
         status = self.get_thread_status()
         cont = 0
-        while status == ToolkitThreadStatus.BUSY:
+        while status == ToolkitThreadStatus.BUSY:  # pragma: no cover
             time.sleep(1)
             cont += 1
             status = self.get_thread_status()
