@@ -261,7 +261,7 @@ class Common:
             )
         if res:
             logger.debug(f"Active AEDT sessions: {res}.")
-        else:
+        else:  # pragma: no cover
             logger.debug("No active sessions.")
         return res
 

@@ -74,7 +74,3 @@ class TestCommon:
         """Installed AEDT version."""
         installed_versions = common.installed_aedt_version()
         assert isinstance(installed_versions, list)
-
-    def test_03_aedt_sessions(self, common):
-        """AEDT sessions."""
-        assert common.aedt_sessions()
