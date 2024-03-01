@@ -60,8 +60,7 @@ class MainWindow(object):
         # Load main page
         self._app.ui.set_page(self._app.ui.load_pages.home_page)
 
-        # Add logo to main page
-        # depending on the theme, we can change the logo to white or black version
+        # Add logo to main page depending on the theme, we can change the logo to white or black version
         if not main_window_logo:
             main_window_logo = self._app.ui.images_load.image_path("ansys-primary-logo-black.svg")
             if self._app.ui.themes["theme_name"] == "ansys_dark":
@@ -70,8 +69,7 @@ class MainWindow(object):
         self._app.ui.load_pages.logo_layout.addWidget(main_logo, Qt.AlignCenter, Qt.AlignCenter)
         # this logo has an aspect ratio of 2:1. The frame this is going into in the layout is 300x120, so to preserve
         # the aspect ratio, we set the size to 240x120. Alternatively you could adjust the frame size in the layout
-        main_logo.setFixedSize(240,120) # maximum size logo can be before it starts to stretch/squish
-
+        main_logo.setFixedSize(240, 120)  # maximum size logo can be before it starts to stretch/squish
 
         welcome_label = self._app.ui.load_pages.home_page.findChild(QLabel, "label")
         # Add welcome message
