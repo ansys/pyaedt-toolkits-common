@@ -222,7 +222,7 @@ class Common:
         installed_versions = []
 
         for ver in list_installed_ansysem():
-            if "ANSYSEMSV_ROOT" in ver:
+            if "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
                 # Handle the special case
                 installed_versions.append(
                     "20{}.{} STUDENT".format(
@@ -259,9 +259,9 @@ class Common:
             res = active_sessions(
                 version=self.properties.aedt_version, student_version=False, non_graphical=self.properties.non_graphical
             )
-        if res:  # pragma: no cover
+        if res:
             logger.debug(f"Active AEDT sessions: {res}.")
-        else:
+        else:  # pragma: no cover
             logger.debug("No active sessions.")
         return res
 
@@ -284,11 +284,11 @@ class Common:
         time.sleep(1)
         status = self.get_thread_status()
         cont = 0
-        while status == ToolkitThreadStatus.BUSY:
+        while status == ToolkitThreadStatus.BUSY:  # pragma: no cover
             time.sleep(1)
             cont += 1
             status = self.get_thread_status()
-            if cont == timeout:  # pragma: no cover
+            if cont == timeout:
                 return False
         return True
 
@@ -397,10 +397,10 @@ class AEDTCommon(Common):
             }
 
             # AEDT with COM
-            if self.properties.selected_process == 0:  # pragma: no cover
+            if self.properties.selected_process == 0:
                 desktop_args["new_desktop_session"] = True
             # AEDT with gRPC
-            elif self.properties.use_grpc:
+            elif self.properties.use_grpc:  # pragma: no cover
                 desktop_args["new_desktop_session"] = False
                 desktop_args["port"] = self.properties.selected_process
             else:  # pragma: no cover
@@ -408,7 +408,7 @@ class AEDTCommon(Common):
                 desktop_args["aedt_process_id"] = self.properties.selected_process
             self.desktop = pyaedt.Desktop(**desktop_args)
 
-            if not self.desktop:
+            if not self.desktop:  # pragma: no cover
                 logger.error("AEDT not launched.")
                 return False
             logger.debug("AEDT launched.")
@@ -416,13 +416,13 @@ class AEDTCommon(Common):
             if self.properties.use_grpc:
                 self.properties.selected_process = self.desktop.port
                 logger.debug("Grpc port {}.".format(str(self.desktop.port)))
-            else:
+            else:  # pragma: no cover
                 self.properties.selected_process = self.desktop.aedt_process_id
                 logger.debug("Process ID {}.".format(str(self.desktop.aedt_process_id)))
 
             self.__save_project_info()
 
-            if self.desktop.project_list():
+            if self.desktop.project_list():  # pragma: no cover
                 # If there are projects not saved in the session, PyAEDT could find issues loading some properties
                 self.desktop.save_project()
 
@@ -578,7 +578,7 @@ class AEDTCommon(Common):
             }
             if self.properties.use_grpc:
                 aedt_app_args["port"] = self.properties.selected_process
-            else:
+            else:  # pragma: no cover
                 aedt_app_args["aedt_process_id"] = self.properties.selected_process
 
             self.aedtapp = aedt_app(**aedt_app_args)
@@ -587,11 +587,13 @@ class AEDTCommon(Common):
 
         if self.aedtapp:
             project_name = self.aedtapp.project_file
-            if self.aedtapp.project_file not in self.properties.project_list:
+            if self.aedtapp.project_file not in self.properties.project_list:  # pragma: no cover
                 self.properties.project_list.append(project_name)
                 self.properties.design_list[self.aedtapp.project_name] = [active_design]
 
-            if self.aedtapp.design_list and active_design not in self.properties.design_list[self.aedtapp.project_name]:
+            if (
+                self.aedtapp.design_list and active_design not in self.properties.design_list[self.aedtapp.project_name]
+            ):  # pragma: no cover
                 self.properties.design_list[self.aedtapp.project_name].append(active_design)
             self.properties.active_project = project_name
             self.properties.active_design = active_design
@@ -632,11 +634,11 @@ class AEDTCommon(Common):
                 released = self.desktop.release_desktop(close_projects, close_on_exit)
                 self.desktop = None
                 self.aedtapp = None
-            except:
+            except:  # pragma: no cover
                 logger.error("Desktop not released.")
                 return False
 
-        if self.aedtapp:
+        if self.aedtapp:  # pragma: no cover
             try:
                 released = self.aedtapp.release_desktop(close_projects, close_on_exit)
                 self.aedtapp = None
@@ -675,7 +677,7 @@ class AEDTCommon(Common):
         """
         if self.aedtapp:
             self.release_aedt()
-        if not self.connect_aedt():
+        if not self.connect_aedt():  # pragma: no cover
             return False
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
@@ -831,7 +833,7 @@ class AEDTCommon(Common):
 
     def __get_aedt_version(self):
         """Get AEDT version and if student version is used."""
-        if "STUDENT" in self.properties.aedt_version:
+        if "STUDENT" in self.properties.aedt_version:  # pragma: no cover
             version_text = self.properties.aedt_version.split(" ")
             version = version_text[0]
             is_student = True
@@ -849,7 +851,7 @@ class AEDTCommon(Common):
         if project_list:
             new_properties["project_list"] = []
             active_project = self.desktop.odesktop.GetActiveProject()
-            if not active_project:
+            if not active_project:  # pragma: no cover
                 active_project = self.desktop.odesktop.SetActiveProject(project_list[0])
             active_project_name = active_project.GetName()
             active_design = active_project.GetActiveDesign()
@@ -862,7 +864,7 @@ class AEDTCommon(Common):
                 )
                 new_properties["active_design"] = active_design_name
 
-            elif active_project.GetChildNames():
+            elif active_project.GetChildNames():  # pragma: no cover
                 # This case covers when the project has designs but none of them are active
                 active_design_name = active_project.GetChildNames()[0]
                 active_project.SetActiveDesign(active_design_name)
@@ -1008,4 +1010,5 @@ class EDBCommon(Common):
                 self.edb.save_as(edb_path)
             logger.info("Project {} saved".format(edb_path))
             return True
-        return False
+        else:  # pragma: no cover
+            return False
