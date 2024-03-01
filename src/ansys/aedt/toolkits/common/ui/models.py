@@ -53,7 +53,7 @@ class UIProperties(BaseModel):
     progress_size: Dict[str, int] = Field(default_factory=dict)
     font: Dict[str, Any] = Field(default_factory=dict)
     high_resolution: bool = False
-    theme: str = "ansys.json"
+    theme: str = "ansys_dark.json"
     images: str = ""
     add_left_menus: List[Dict] = Field(default_factory=list)
     add_title_bar_menus: List[Dict] = Field(default_factory=list)

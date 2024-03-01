@@ -119,7 +119,7 @@ class ApplicationWindow(Frontend):
             self.ui.set_left_column_menu(
                 menu=self.geometry_menu.geometry_column_widget,
                 title="Primitives Builder",
-                icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
+                icon_path=self.ui.images_load.icon_path("icon_plot_3d.svg"),
             )
 
             if not is_left_visible:
@@ -139,7 +139,7 @@ class ApplicationWindow(Frontend):
             self.ui.set_left_column_menu(
                 menu=self.plot_design_menu.plot_design_column_widget,
                 title="Plot Design",
-                icon_path=self.ui.images_load.icon_path("icon_widgets.svg"),
+                icon_path=self.ui.images_load.icon_path("icon_plot_2d.svg"),
             )
 
             is_left_visible = self.ui.is_left_column_visible()
