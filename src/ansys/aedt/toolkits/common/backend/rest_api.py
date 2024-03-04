@@ -151,10 +151,10 @@ def get_hfss_model_call():
 
     response = toolkit_api.export_aedt_model(**params)
 
-    if response:
+    if response:  # pragma: no cover
         return jsonify(response), 200
     else:
-        return jsonify("Antenna not created"), 500
+        return jsonify("No model exported"), 500
 
 
 @app.route("/open_project", methods=["POST"])
