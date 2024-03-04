@@ -28,7 +28,7 @@ class ApplicationWindow(QMainWindow):
         self.grid_layout = QGridLayout(self.central_widget)
 
         self.plotter = BackgroundPlotter(show=False)
-        # self.plotter.set_icon(self.images_load.image_path("icon.ico"))
+
         self.grid_layout.addWidget(self.plotter, 0, 0)
 
         self.v_layout = QVBoxLayout()
@@ -47,18 +47,39 @@ class ApplicationWindow(QMainWindow):
         self.v_layout.addWidget(self.logger)
 
         # Connect the combo box signal to a slot
-
         self.combo_box.currentIndexChanged.connect(lambda index: self.update_information(index))
+
+        # Initial plot
+        self.update_information(0)
 
     def update_information(self, index):
         # Handle the selection change and update the text edit
         selected_option = f"Selected Option: {index + 1}"
         self.logger.log(selected_option)
-        cad_mesh = pv.read("Box1.obj")
+
+        # Clear existing mesh
+        self.plotter.clear()
+
+        # Add new mesh based on combo box option
+        if index == 0:
+            cad_mesh = pv.Sphere(radius=1)
+            camera_position = [(3, 3, 3), (0, 0, 0), (0, 0, 1)]
+        elif index == 1:
+            cad_mesh = pv.Cylinder(radius=1, height=3)
+            camera_position = [(0, 0, 5), (0, 0, 0), (0, 1, 0)]
+        else:
+            cad_mesh = pv.Box()
+            camera_position = [(-2, -2, -2), (0, 0, 0), (0, 0, 1)]
 
         self.plotter.add_mesh(cad_mesh)
 
-        self.plotter.view_isometric()
+        # Set camera position and focal point
+        self.plotter.camera_position = camera_position
+        self.plotter.reset_camera_clipping_range()
+
+        # Show the updated visualization
+        self.plotter.show()
+
         self.plotter.add_axes_at_origin(labels_off=True, line_width=5)
         self.plotter.show_grid()
 

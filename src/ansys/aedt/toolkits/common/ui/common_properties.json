@@ -55,7 +55,7 @@
             "is_active": false
         },
         {
-            "btn_icon": "icon_heart.svg",
+            "btn_icon": "icon_log.svg",
             "btn_id": "progress_menu",
             "btn_text": "Progress",
             "btn_tooltip": "Progress",
