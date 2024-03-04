@@ -422,7 +422,7 @@ class CommonWindowUtils(object):
         self.start_box_animation("right")
 
     def window_refresh(self):
-        """Resfresh"""
+        """Window refresh"""
         # Store the original size
         original_size = self.app.size()
 
@@ -517,12 +517,10 @@ class CommonWindowUtils(object):
     def update_progress(self, progress_value):
         """Clear all layout."""
         self.progress.progress = progress_value
-        self.window_refresh()
 
     def update_logger(self, text):
         """Clear all layout."""
         self.logger.log(text)
-        self.window_refresh()
 
     @staticmethod
     def item_index(layout, item):

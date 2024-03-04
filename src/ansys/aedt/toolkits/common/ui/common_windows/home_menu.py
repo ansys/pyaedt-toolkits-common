@@ -20,8 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from PySide6.QtCore import Qt
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QSpacerItem
+
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class HomeMenu(object):
@@ -45,6 +50,11 @@ class HomeMenu(object):
 
         self.design = None
         self.design_combobox = None
+
+        welcome_label = self.ui.load_pages.home_page.findChild(QLabel, "label")
+        # Add welcome message
+        message = general_settings.welcome_message
+        welcome_label.setText(message)
 
     def setup(self):
         # Project row
@@ -78,12 +88,17 @@ class HomeMenu(object):
         spacer = QSpacerItem(0, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
 
-    # def update_project_info(self):
-    #     active_project = self.main_window.home_menu.project_combobox.currentText()
-    #     design_list = self.app.update_design_names(active_project)
-    #     self.main_window.home_menu.design_combobox.clear()
-    #     self.main_window.home_menu.design_combobox.addItems(design_list)
-    #     pass
+        # Add logo to main page depending on the theme, we can change the logo to white or black version
+        if not general_settings.logo:
+            main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-black.svg")
+            if self.ui.themes["theme_name"] == "ansys_dark":
+                main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-white.svg")
+        else:
+            main_window_logo = general_settings.logo
+        main_logo = QSvgWidget(main_window_logo)
+        self.ui.load_pages.logo_layout.addWidget(main_logo, Qt.AlignCenter, Qt.AlignCenter)
+
+        main_logo.setFixedSize(240, 120)
 
     def update_project(self):
         self.project_combobox.blockSignals(True)

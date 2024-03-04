@@ -42,7 +42,7 @@ if debug:
         log_file_name = toolkit_name + "_" + log_file
         temp_dir = os.path.join(tempfile.gettempdir(), log_file_name)
 
-        if not os.path.exists(temp_dir):
+        if not os.path.exists(temp_dir):  # pragma: no cover
             file = open(temp_dir, "w")
             file.close()
 

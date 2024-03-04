@@ -66,7 +66,7 @@ class MainWindowLayout(CommonWindowUtils):
         # Load available images
         self.images_load = LoadImages()
 
-        icon = self._load_icon()
+        icon = self.__load_icon()
         self.app.setWindowIcon(icon)
 
         # Main window init
@@ -117,15 +117,15 @@ class MainWindowLayout(CommonWindowUtils):
     def setup(self):
         """Setup UI for parent widget."""
         setup_parent_ui(self.app)
-        self.setup_main_window()
-        self.setup_central_widget()
-        self.setup_title_menu()
-        self.setup_content_area()
-        self.setup_progress_frame()
-        self.setup_credits_frame()
-        self.setup_left_menu()
-        self.setup_left_column()
-        self.setup_right_column()
+        self.__setup_main_window_layout()
+        self.__setup_central_layout()
+        self.__setup_title_layout()
+        self.__setup_content_layout()
+        self.__setup_progress_layout()
+        self.__setup_credits_layout()
+        self.__setup_left_menu_layout()
+        self.__setup_left_column_layout()
+        self.__setup_right_column_layout()
 
         # Add frames to main window
         if self.main_window:
@@ -146,7 +146,7 @@ class MainWindowLayout(CommonWindowUtils):
             # Import to set the UI
             self.app.setCentralWidget(self.main_window)
 
-    def setup_main_window(self):
+    def __setup_main_window_layout(self):
         """Setup main window."""
         color = self.themes["app_color"]
         self.main_window_layout = QHBoxLayout()
@@ -161,7 +161,7 @@ class MainWindowLayout(CommonWindowUtils):
         )
         self.main_window_layout.addWidget(self.main_window)
 
-    def setup_central_widget(self):
+    def __setup_central_layout(self):
         """Setup central widget."""
         self.central_frame = QFrame(self.main_window)
         self.central_layout = QVBoxLayout()
@@ -177,7 +177,7 @@ class MainWindowLayout(CommonWindowUtils):
         self.central_widget.setStyleSheet(style)
         self.central_layout.addWidget(self.central_widget)
 
-    def setup_title_menu(self):
+    def __setup_title_layout(self):
         self.title_bar_frame = QFrame(self.central_widget)
         self.title_bar_frame.setMinimumHeight(40)
         self.title_bar_frame.setMaximumHeight(40)
@@ -212,7 +212,15 @@ class MainWindowLayout(CommonWindowUtils):
         )
         self.title_bar_layout.addWidget(self.title_bar)
 
-    def setup_progress_frame(self):
+        # Set title bar menu signal
+        self.title_bar.clicked.connect(self.main_clicked)
+
+        title = general_settings.main_title
+        self.title_bar.set_title(title)
+
+        self.title_bar.add_menus(general_settings.add_title_bar_menus)
+
+    def __setup_progress_layout(self):
         """Setup progress frame."""
         self.progress_frame = QFrame(self.central_widget)
 
@@ -247,7 +255,7 @@ class MainWindowLayout(CommonWindowUtils):
         self.update_logger("{} logger".format(general_settings.app_name))
         self.progress_layout.addWidget(self.progress)
 
-    def setup_credits_frame(self):
+    def __setup_credits_layout(self):
         """Setup credits frame."""
         self.credits_frame = QFrame(self.central_widget)
         self.credits_frame.setMinimumHeight(26)
@@ -265,7 +273,7 @@ class MainWindowLayout(CommonWindowUtils):
         )
         self.credits_layout.addWidget(self.credits)
 
-    def setup_left_menu(self):
+    def __setup_left_menu_layout(self):
         """Setup left menu."""
         self.left_menu_frame = QFrame(self.main_window)
         self.left_menu_layout = QHBoxLayout()
@@ -294,7 +302,12 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left menu widget to left menu layout
         self.left_menu_layout.addWidget(self.left_menu)
 
-    def setup_left_column(self):
+        # Set left menu signal
+        self.left_menu.clicked.connect(self.main_clicked)
+
+        self.left_menu.add_menus(general_settings.add_left_menus)
+
+    def __setup_left_column_layout(self):
         """Setup left column."""
         self.left_column_frame = QFrame(self.main_window)
         self.left_column_layout = QVBoxLayout()
@@ -325,7 +338,10 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left column widget to left menu layout
         self.left_column_layout.addWidget(self.left_column)
 
-    def setup_right_column(self):
+        # Set left column signal
+        self.left_column.clicked.connect(self.main_clicked)
+
+    def __setup_right_column_layout(self):
         """Setup right column."""
         self.right_column_frame = QFrame(self.main_window)
         self.right_column_layout = QVBoxLayout()
@@ -355,7 +371,10 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left column widget to left menu layout
         self.right_column_layout.addWidget(self.right_column)
 
-    def setup_content_area(self):
+        # Set right column signal
+        self.right_column.clicked.connect(self.main_clicked)
+
+    def __setup_content_layout(self):
         """Setup content area."""
 
         self.content_frame = QFrame(self.central_widget)
@@ -368,7 +387,7 @@ class MainWindowLayout(CommonWindowUtils):
         self.content_layout.addWidget(self.content_frame)
 
     def add_page(self, page_ui):
-        """Create a new widget using the provided UI code."""
+        """Create a new page to the user interface."""
         new_page = QWidget()
         new_ui = page_ui()
         new_ui.setupUi(new_page)
@@ -378,12 +397,69 @@ class MainWindowLayout(CommonWindowUtils):
         index = self.load_pages.pages.indexOf(new_page)
         return index
 
-    def _load_icon(self):
+    def get_selected_menu(self):
+        if self.title_bar.sender() is not None:
+            return self.title_bar.sender()
+        elif self.left_menu.sender() is not None:
+            return self.left_menu.sender()
+        elif self.left_column.sender() is not None:
+            return self.left_column.sender()
+        elif self.right_column.sender() is not None:
+            return self.right_column.sender()
+
+    def main_clicked(self):
+        selected_menu = self.get_selected_menu()
+
+        is_left_visible = self.is_left_column_visible()
+        is_right_visible = self.is_right_column_visible()
+        is_progress_visible = self.is_progress_visible()
+
+        self.left_menu.select_only_one(selected_menu.objectName())
+
+        if selected_menu.objectName() == "home_menu":
+            selected_menu.set_active(True)
+            self.set_page(self.load_pages.home_page)
+            self.set_left_column_menu(
+                menu=self.left_column.menus.menu_home,
+                title="Home",
+                icon_path=self.images_load.icon_path("icon_home.svg"),
+            )
+
+            if not is_left_visible:
+                self.toggle_left_column()
+
+        elif selected_menu.objectName() == "top_settings" and not is_right_visible:
+            if is_left_visible:
+                self.toggle_left_column()
+            self.toggle_right_column()
+            self.set_right_column_menu(title="Settings")
+
+        elif selected_menu.objectName() == "progress_menu":
+            if is_progress_visible:
+                selected_menu.set_active(False)
+            self.toggle_progress()
+
+        elif selected_menu.objectName() == "close_left_column" or is_right_visible:
+            if self.is_left_column_visible():
+                selected_menu.set_active(False)
+                self.toggle_left_column()
+            elif self.is_right_column_visible:
+                self.toggle_right_column()
+
+    def __load_icon(self):
         icon = QtGui.QIcon()
-        icon.addFile(
-            self.images_load.image_path("logo.png"),
-            QtCore.QSize(),
-            QtGui.QIcon.Normal,
-            QtGui.QIcon.On,
-        )
+        if not general_settings.icon:
+            icon.addFile(
+                self.images_load.image_path("logo.png"),
+                QtCore.QSize(),
+                QtGui.QIcon.Normal,
+                QtGui.QIcon.On,
+            )
+        else:
+            icon.addFile(
+                general_settings.icon,
+                QtCore.QSize(),
+                QtGui.QIcon.Normal,
+                QtGui.QIcon.On,
+            )
         return icon

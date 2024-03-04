@@ -18,13 +18,13 @@ class CreateGeometryThread(QThread):
     def __init__(self, app, selected_project, selected_design):
         super().__init__()
         self.geometry_menu = app
-        self.app = app.app
+        self.main_window = app.main_window
         self.selected_project = selected_project
         self.selected_design = selected_design
 
     def run(self):
 
-        success = self.app.create_geometry_toolkit(
+        success = self.main_window.create_geometry_toolkit(
             self.selected_project, self.selected_design
         )
         self.finished_signal.emit(success)
@@ -35,7 +35,6 @@ class GeometryMenu(object):
         # General properties
         self.main_window = main_window
         self.ui = main_window.ui
-        self.app = self.ui.app
 
         # Add page
         geometry_menu_index = self.ui.add_page(Ui_Geometry)
@@ -61,7 +60,7 @@ class GeometryMenu(object):
 
     def setup(self):
         # Modify theme
-        app_color = self.app.ui.themes["app_color"]
+        app_color = self.main_window.ui.themes["app_color"]
         text_color = app_color["text_active"]
         background = app_color["dark_three"]
 
@@ -97,11 +96,9 @@ class GeometryMenu(object):
             }}
         """
         custom_style = combo_box_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
         self.geometry_combo.setStyleSheet(custom_style)
-
-        # self.geometry_combo.currentIndexChanged.connect(self.handle_geometry_change)
 
         # Multiplier line
         line_style = """
@@ -115,10 +112,9 @@ class GeometryMenu(object):
             }}
         """
         custom_style = line_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
         self.multiplier.setStyleSheet(custom_style)
-        self.multiplier.textChanged.connect(self.on_text_changed)
 
         # Multiplier label button
         multiplier_label_style = """
@@ -129,7 +125,7 @@ class GeometryMenu(object):
                     }}
                     """
         custom_style = multiplier_label_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
         self.multiplier_label.setStyleSheet(custom_style)
 
@@ -142,7 +138,7 @@ class GeometryMenu(object):
                             }}
                             """
         custom_style = select_geometry_label_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
         self.select_geometry_label.setStyleSheet(custom_style)
 
@@ -154,25 +150,19 @@ class GeometryMenu(object):
             color=self.ui.themes["app_color"]["text_description"])
         self.geometry_column_vertical_layout.addWidget(label_widget)
 
-    def handle_geometry_change(self):
-        self.ui.window_refresh()
-
-    def on_text_changed(self):
-        self.ui.window_refresh()
-
     def geometry_button_clicked(self):
-        if not self.app.check_connection():
+        if not self.main_window.check_connection():
             msg = "Backend not running."
             self.ui.update_logger(msg)
             return False
 
-        if self.geometry_thread and self.geometry_thread.isRunning() or self.app.backend_busy():
+        if self.geometry_thread and self.geometry_thread.isRunning() or self.main_window.backend_busy():
             msg = "Toolkit running"
             self.ui.update_logger(msg)
-            self.app.logger.debug(msg)
+            self.main_window.logger.debug(msg)
             return False
 
-        be_properties = self.app.get_properties()
+        be_properties = self.main_window.get_properties()
 
         geometry = self.geometry_combo.currentText()
         multiplier = self.multiplier.text()
@@ -180,12 +170,12 @@ class GeometryMenu(object):
         be_properties["geometry"] = geometry
         be_properties["multiplier"] = multiplier
 
-        self.app.set_properties(be_properties)
+        self.main_window.set_properties(be_properties)
 
         if be_properties.get("active_project"):
             self.ui.update_progress(0)
-            selected_project = self.app.home_menu.project_combobox.currentText()
-            selected_design = self.app.home_menu.design_combobox.currentText()
+            selected_project = self.main_window.home_menu.project_combobox.currentText()
+            selected_design = self.main_window.home_menu.design_combobox.currentText()
 
             # Start a separate thread for the backend call
             self.geometry_thread = CreateGeometryThread(
@@ -205,21 +195,19 @@ class GeometryMenu(object):
 
     def geometry_created_finished(self, success):
         self.ui.update_progress(100)
-        selected_project = self.app.home_menu.project_combobox.currentText()
-        selected_design = self.app.home_menu.design_combobox.currentText()
+        selected_project = self.main_window.home_menu.project_combobox.currentText()
+        selected_design = self.main_window.home_menu.design_combobox.currentText()
 
-        properties = self.app.get_properties()
-        active_project = self.app.get_project_name(properties["active_project"])
+        properties = self.main_window.get_properties()
+        active_project = self.main_window.get_project_name(properties["active_project"])
         active_design = properties["active_design"]
         if active_project != selected_project or active_design != selected_design:
-            self.app.home_menu.update_project()
-            self.app.home_menu.update_design()
+            self.main_window.home_menu.update_project()
+            self.main_window.home_menu.update_design()
 
         if success:
             msg = "Geometry created."
             self.ui.update_logger(msg)
         else:
-            msg = f"Failed backend call: {self.app.url}"
+            msg = f"Failed backend call: {self.main_window.url}"
             self.ui.update_logger(msg)
-
-        self.ui.window_refresh()

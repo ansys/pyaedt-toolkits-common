@@ -32,8 +32,6 @@ class PyWindow(QFrame):
         The size of the border around the window frame. Default is 2.
     border_color : str, optional
         The color of the border around the window frame. Default is "#343b48".
-    enable_shadow : bool, optional
-        Whether to enable the drop shadow effect. Default is True.
 
     """
 
@@ -48,7 +46,6 @@ class PyWindow(QFrame):
         border_radius=10,
         border_size=2,
         border_color="#343b48",
-        enable_shadow=True,
     ):
         super().__init__(parent)
         self.parent = parent
@@ -59,7 +56,6 @@ class PyWindow(QFrame):
         self.border_radius = border_radius
         self.border_size = border_size
         self.border_color = border_color
-        self.enable_shadow = enable_shadow
 
         self.setObjectName("pod_bg_app")
 
@@ -69,10 +65,6 @@ class PyWindow(QFrame):
         self.layout = QHBoxLayout(self)
         self.layout.setContentsMargins(margin, margin, margin, margin)
         self.layout.setSpacing(spacing)
-
-        # Add shadow
-        if enable_shadow:
-            self._addDropShadow()
 
     def set_stylesheet(
         self, bg_color=None, border_radius=None, border_size=None, border_color=None, text_color=None, text_font=None

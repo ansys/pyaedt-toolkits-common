@@ -44,6 +44,8 @@ class UIProperties(BaseModel):
     version: str = "v0.0.1"
     copyright: str = "By: x"
     year: int = 2024
+    logo: str = ""
+    icon: str = ""
     startup_size: List[int] = Field(default_factory=list)
     minimum_size: List[int] = Field(default_factory=list)
     left_menu_size: Dict[str, int] = Field(default_factory=dict)
