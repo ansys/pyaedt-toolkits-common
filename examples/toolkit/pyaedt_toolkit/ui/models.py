@@ -19,18 +19,18 @@ class Properties(FrontendProperties, UIProperties, validate_assignment=True):
     """Store all properties."""
 
 
-backend_properties = {}
+frontend_properties = {}
 if os.path.exists(os.path.join(os.path.dirname(__file__), "frontend_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "frontend_properties.json")) as file_handler:
-        backend_properties = json.load(file_handler)
+        frontend_properties = json.load(file_handler)
 
 toolkit_property = {}
-if backend_properties:
-    for backend_key in backend_properties:
-        if hasattr(general_settings, backend_key):
-            setattr(general_settings, backend_key, backend_properties[backend_key])
+if frontend_properties:
+    for frontend_key in frontend_properties:
+        if hasattr(general_settings, frontend_key):
+            setattr(general_settings, frontend_key, frontend_properties[frontend_key])
         else:
-            toolkit_property[backend_key] = backend_properties[backend_key]
+            toolkit_property[frontend_key] = frontend_properties[frontend_key]
 
 new_common_properties = {}
 for common_key in general_settings:

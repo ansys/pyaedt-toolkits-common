@@ -2,29 +2,28 @@ import os
 import sys
 
 # PySide6 Widgets
+from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QApplication
-from PySide6.QtWidgets import QFrame
-from PySide6.QtWidgets import QSpacerItem
-from PySide6.QtWidgets import QSizePolicy
-from PySide6.QtWidgets import QWidget
 
-# toolkit frontend API
+# Toolkit frontend API
 from actions import Frontend
 
-# Default properties
+# Default user interface properties
 from models import properties
 
-# toolkit windows
+# Windows
+
+# New windows
 from windows.create_geometry.geometry_menu import GeometryMenu
 from windows.plot_design.plot_design_menu import PlotDesignMenu
 
+# Common windows
+from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
-from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
 
 # Import general common frontend modules
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
-from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 
 # Backend URL and port
 url = properties.backend_url
@@ -37,22 +36,18 @@ if properties.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
 
 
-class ApplicationWindow(Frontend):
+class ApplicationWindow(QMainWindow, Frontend):
     def __init__(self):
+        super().__init__()
+
         self.thread = None
         self.properties = properties
 
-        Frontend.__init__(self)
-
         # General Settings
 
-        # Create user interface object
+        # Create main window layout
         self.ui = MainWindowLayout(self)
         self.ui.setup()
-
-        # Setup main
-        self.main_window = MainWindow(self)
-        self.main_window.setup()
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)
@@ -85,7 +80,7 @@ class ApplicationWindow(Frontend):
             if be_properties.get("aedt_version") in installed_versions:
                 self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
-        # toolkit specific wizard starts here
+        # Custom toolkit setup starts here
 
         # Home menu
         self.home_menu = HomeMenu(self)
@@ -101,13 +96,11 @@ class ApplicationWindow(Frontend):
         self.plot_design_menu.setup()
         self.ui.left_menu.clicked.connect(self.plot_design_menu_clicked)
 
-        self.spacer1_index = -1
-        self.spacer2_index = -1
-
+        # Home page as first page
         self.ui.set_page(self.ui.load_pages.home_page)
 
     def geometry_menu_clicked(self):
-        selected_menu = self.main_window.get_selected_menu()
+        selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
 
         if menu_name == "geometry_menu":
@@ -125,11 +118,8 @@ class ApplicationWindow(Frontend):
             if not is_left_visible:
                 self.ui.toggle_left_column()
 
-            self.ui.window_refresh()
-
     def plot_design_menu_clicked(self):
-        selected_menu = self.main_window.get_selected_menu()
-        # self.ui.left_menu.select_only_one(selected_menu.objectName())
+        selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
 
         if menu_name == "plot_design_menu":
@@ -145,8 +135,6 @@ class ApplicationWindow(Frontend):
             is_left_visible = self.ui.is_left_column_visible()
             if not is_left_visible:
                 self.ui.toggle_left_column()
-
-            self.ui.window_refresh()
 
 
 if __name__ == "__main__":

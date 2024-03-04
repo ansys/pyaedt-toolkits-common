@@ -26,13 +26,13 @@ class PlotDesignThread(QThread):
     def __init__(self, app, selected_project, selected_design):
         super().__init__()
         self.plot_design_menu = app
-        self.app = app.app
+        self.main_window = app.main_window
         self.selected_project = selected_project
         self.selected_design = selected_design
         self.model_info = None
 
     def run(self):
-        self.model_info = self.app.get_aedt_model(
+        self.model_info = self.main_window.get_aedt_model(
             self.selected_project, self.selected_design, air_objects=True
         )
 
@@ -44,7 +44,6 @@ class PlotDesignMenu(object):
         # General properties
         self.main_window = main_window
         self.ui = main_window.ui
-        self.app = self.ui.app
         self.temp_folder = tempfile.mkdtemp()
 
         # Add page
@@ -68,12 +67,9 @@ class PlotDesignMenu(object):
         self.plot_design_button = None
         self.get_model_thread = None
 
-        # self.plotter = BackgroundPlotter(show=False)
-        # self.plot_design_grid.addWidget(self.plotter, 0, 0)
-
     def setup(self):
         # Modify theme
-        app_color = self.app.ui.themes["app_color"]
+        app_color = self.main_window.ui.themes["app_color"]
         text_color = app_color["text_active"]
         background = app_color["dark_three"]
 
@@ -86,7 +82,7 @@ class PlotDesignMenu(object):
                                     }}
                                     """
         custom_style = plot_design_label_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.app.properties.font["title_size"]
+            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
         self.plot_design_label.setStyleSheet(custom_style)
 
@@ -97,7 +93,7 @@ class PlotDesignMenu(object):
             height=40,
             width=[200],
             text=["Plot design"],
-            font_size=self.app.properties.font["title_size"]
+            font_size=self.main_window.properties.font["title_size"]
         )
 
         self.plot_design_button_layout = row_returns[0]
@@ -107,23 +103,23 @@ class PlotDesignMenu(object):
 
     def plot_design_button_clicked(self):
 
-        if not self.app.check_connection():
+        if not self.main_window.check_connection():
             msg = "Backend not running."
             self.ui.update_logger(msg)
             return False
 
-        if self.get_model_thread and self.get_model_thread.isRunning() or self.app.backend_busy():
+        if self.get_model_thread and self.get_model_thread.isRunning() or self.main_window.backend_busy():
             msg = "Toolkit running"
             self.ui.update_logger(msg)
-            self.app.logger.debug(msg)
+            self.main_window.logger.debug(msg)
             return False
 
-        be_properties = self.app.get_properties()
+        be_properties = self.main_window.get_properties()
 
         if be_properties.get("active_project"):
             self.ui.update_progress(0)
-            selected_project = self.app.home_menu.project_combobox.currentText()
-            selected_design = self.app.home_menu.design_combobox.currentText()
+            selected_project = self.main_window.home_menu.project_combobox.currentText()
+            selected_design = self.main_window.home_menu.design_combobox.currentText()
             # Start a separate thread for the backend call
             self.get_model_thread = PlotDesignThread(
                 app=self,
@@ -143,7 +139,7 @@ class PlotDesignMenu(object):
     def get_model_finished(self):
         self.ui.update_progress(100)
 
-        self.app.ui.clear_layout(self.plot_design_grid)
+        self.main_window.ui.clear_layout(self.plot_design_grid)
 
         if self.get_model_thread.model_info:
             model_info = self.get_model_thread.model_info
@@ -170,14 +166,14 @@ class PlotDesignMenu(object):
                 )
 
             plotter.view_isometric()
-            plotter.set_background(color=self.app.ui.themes["app_color"]["bg_one"])
+            plotter.set_background(color=self.main_window.ui.themes["app_color"]["bg_one"])
             plotter.add_axes_at_origin(labels_off=True, line_width=5)
-            plotter.show_grid(color=self.app.ui.themes["app_color"]["dark_two"])
+            plotter.show_grid(color=self.main_window.ui.themes["app_color"]["dark_two"])
 
             self.plot_design_grid.addWidget(plotter, 0, 0)
 
             msg = "Model exported."
             self.ui.update_logger(msg)
         else:
-            msg = f"Failed backend call: {self.app.url}"
+            msg = f"Failed backend call: {self.main_window.url}"
             self.ui.update_logger(msg)

@@ -10,6 +10,8 @@
   "version" : "v0.0.1",
   "copyright" : "By: x",
   "year" : 2023,
+  "logo": "",
+  "icon": "",
   "startup_size": [
       1400,
       720
