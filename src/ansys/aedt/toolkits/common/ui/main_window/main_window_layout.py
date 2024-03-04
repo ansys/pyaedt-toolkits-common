@@ -60,6 +60,8 @@ class MainWindowLayout(CommonWindowUtils):
 
         self.app = app
 
+        self.app.setWindowTitle(general_settings.app_name)
+
         # Load available themes
         self.themes = ThemeHandler().items
 
