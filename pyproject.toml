@@ -27,7 +27,7 @@ dependencies = [
     "build==1.1.1",
     "twine==5.0.0",
     "pyaedt==0.8.1",
-    "pyedb==0.4.0",
+    "pyedb==0.5.0",
     "pydantic",
 ]
 
