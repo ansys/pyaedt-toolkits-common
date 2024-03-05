@@ -47,10 +47,10 @@ from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
 class ToolkitThreadStatus(str, Enum):
     """Provides an enumeration of statuses for a toolkit thread."""
 
-    IDLE = "toolkit is idle and ready to accept a new task."
-    BUSY = "toolkit is busy and processing a task."
-    CRASHED = "toolkit has crashed and is not functional."
-    UNKNOWN = "toolkit unknown status."
+    IDLE = "Toolkit is idle and ready to accept a new task."
+    BUSY = "Toolkit is busy and processing a task."
+    CRASHED = "Toolkit has crashed and is not functional."
+    UNKNOWN = "Toolkit status is unknown."
 
 
 class PropertiesUpdate(str, Enum):

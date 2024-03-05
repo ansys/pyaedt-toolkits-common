@@ -30,7 +30,7 @@ from pydantic import Field
 
 
 class CommonProperties(BaseModel):
-    """Store common AEDT properties."""
+    """Stores common AEDT properties."""
 
     aedt_version: str = "2024.1"
     non_graphical: bool = False
@@ -49,7 +49,7 @@ class CommonProperties(BaseModel):
 
 
 class Properties(CommonProperties, validate_assignment=True):
-    """Store all properties."""
+    """Stores all properties."""
 
     def __repr__(self):  # pragma: no cover
         attributes = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())

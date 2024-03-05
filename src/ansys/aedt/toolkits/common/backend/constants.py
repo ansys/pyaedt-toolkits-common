@@ -21,7 +21,7 @@
 # SOFTWARE.
 
 """
-toolkit common constants
+PyAEDT Common Toolkit constants.
 """
 
 

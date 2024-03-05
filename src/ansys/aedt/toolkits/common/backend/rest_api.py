@@ -31,7 +31,7 @@ from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
 
 class BodyErrorMessage(str, Enum):
-    """Body error message."""
+    """Raises the body error message."""
 
     EMPTY = "Body is empty."
     INCORRECT_CONTENT = "Body content is not correct."
