@@ -76,7 +76,7 @@ class ThreadManager(object):
             )
             running_thread.start()
             return True
-        else:
+        else:  # pragma: no cover
             return False
 
     @staticmethod

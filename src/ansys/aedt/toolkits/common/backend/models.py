@@ -51,7 +51,7 @@ class CommonProperties(BaseModel):
 class Properties(CommonProperties, validate_assignment=True):
     """Store all properties."""
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         attributes = ", ".join(f"{key}={value}" for key, value in self.__dict__.items())
         return f"Properties({attributes})"
 

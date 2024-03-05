@@ -34,11 +34,12 @@ from ansys.aedt.toolkits.common.ui.models import general_settings
 MSG_TK_RUNNING = "Please wait, toolkit running"
 
 
-class FrontendGeneric(QtWidgets.QMainWindow):
+class FrontendGeneric:
+    """This class provides a generic frontend for controlling the toolkit."""
+
     def __init__(self):
         logger.info("Frontend initialization...")
 
-        super().__init__()
         self.ui = None
         url = general_settings.backend_url
         port = general_settings.backend_port
@@ -48,13 +49,16 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         # Load toolkit icon
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
 
-    def poll_url(self, url: str, timeout: int = 10):
-        """Perform GET requests on an URL.
+    @staticmethod
+    def poll_url(url: str, timeout: int = 10):
+        """Perform GET requests on URL.
 
         Continuously perform GET requests to the specified URL until a valid response is received.
 
         Parameters
         ----------
+        url : str
+            URL to poll.
         timeout : int, optional
             Time out in seconds. The default is 10 seconds.
 
@@ -71,8 +75,8 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         response_content = None
         response_success = False
         try:
-            while not response_success and count < 10:
-                time.sleep(1)
+            while not response_success and count < timeout:
+                time.sleep(0.1)
                 response = requests.get(url)
                 response_success = response.ok
                 count += 1
@@ -99,6 +103,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return response_success
 
     def backend_busy(self):
+        """
+        Check if the backend is currently busy.
+
+        Returns
+        -------
+        bool
+            ``True`` if the backend is busy, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/status")
             res = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
@@ -108,6 +120,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def installed_versions(self):
+        """
+        Get the installed versions of AEDT.
+
+        Returns
+        -------
+        list or False
+            A list of installed AEDT versions if successful, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/installed_versions")
             if response.ok:
@@ -119,6 +139,14 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def get_properties(self):
+        """
+        Get properties from the backend.
+
+        Returns
+        -------
+        dict or False
+            A dictionary of properties if successful, ``False`` otherwise.
+        """
         try:
             response = requests.get(self.url + "/properties")
             if response.ok:
@@ -130,9 +158,17 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                     logger.debug("Backend properties empty")
                     return False
         except requests.exceptions.RequestException:
-            self.ui.logger.log("Get properties failed")
+            self.ui.update_logger("Get properties failed")
 
     def set_properties(self, data):
+        """
+        Set properties in the backend.
+
+        Parameters
+        ----------
+        data : dict
+            Dictionary of properties to set.
+        """
         try:
             response = requests.put(self.url + "/properties", json=data)
             if response.ok:
@@ -141,10 +177,26 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = "Set properties failed"
             self.log_and_update_progress(msg, log_level="error")
 
-    def find_process_ids(self, version):
+    def find_process_ids(self, version, non_graphical):
+        """
+        Find AEDT sessions based on the selected version and graphical mode.
+
+        Parameters
+        ----------
+        version : str
+            AEDT version.
+        non_graphical : bool
+            Flag indicating graphical or non-graphical mode.
+
+        Returns
+        -------
+        list or False
+            A list of found AEDT sessions if successful, ``False`` otherwise.
+        """
         try:
             be_properties = self.get_properties()
             be_properties["aedt_version"] = version
+            be_properties["non_graphical"] = non_graphical
             self.set_properties(be_properties)
             response = requests.get(self.url + "/aedt_sessions")
             sessions = []
@@ -156,6 +208,17 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             return False
 
     def launch_aedt(self, selected_version, selected_process, non_graphical=False):
+        """Launch AEDT.
+
+        Parameters
+        ----------
+        selected_version : str
+            The selected AEDT version.
+        selected_process : str
+            The selected AEDT process.
+        non_graphical : bool, optional
+            Flag indicating whether to run AEDT in non-graphical mode. The default is False.
+        """
         response = requests.get(self.url + "/status")
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
@@ -163,7 +226,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = MSG_TK_RUNNING
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
-            self.ui.progress.progress = 0
+            self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
             if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
@@ -197,6 +260,13 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             self.log_and_update_progress(msg, log_level="debug", progress=100)
 
     def open_project(self, selected_project):
+        """Open an AEDT project.
+
+        Parameters
+        ----------
+        selected_project : str
+            The path to the selected AEDT project.
+        """
         response = requests.get(self.url + "/status")
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
@@ -204,9 +274,9 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = MSG_TK_RUNNING
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
-            self.ui.progress.progress = 0
+            self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "toolkit not connected to AEDT":
+            if response.ok and response.json() == "toolkit is not connected to AEDT.":
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"
@@ -221,7 +291,62 @@ class FrontendGeneric(QtWidgets.QMainWindow):
             msg = response.json()
             self.log_and_update_progress(msg, log_level="debug", progress=100)
 
+    def get_aedt_model(self, project_selected, design_selected, air_objects=True):
+        """Get AEDT model.
+
+        Parameters
+        ----------
+        project_selected : str
+            Project name.
+        design_selected : str
+            Design name.
+        air_objects : bool, optional
+            Define if air and vacuum objects will be exported.
+
+        Returns
+        -------
+        bool
+            ``True`` when successful, ``False`` when failed.
+        """
+        # Set active project and design
+        be_properties = self.get_properties()
+
+        if project_selected == "No Project" or design_selected == "No Design":
+            logger.error("Wrong project or design")
+            return False
+        else:
+            for project in be_properties["project_list"]:
+                if self.get_project_name(project) == project_selected:
+                    be_properties["active_project"] = project
+                    if project_selected in list(be_properties["design_list"].keys()):
+                        designs = be_properties["design_list"][project_selected]
+                        for design in designs:
+                            if design_selected == design:
+                                be_properties["active_design"] = design
+                                break
+                    break
+
+        self.set_properties(be_properties)
+
+        response = requests.get(self.url + "/get_aedt_model", json={"air_objects": air_objects, "encode": True})
+
+        if response.ok:
+            msg = "Geometry created."
+            logger.info(msg)
+            return response.json()
+        else:
+            msg = f"Failed backend call: {self.url}"
+            logger.error(msg)
+            return False
+
     def get_aedt_data(self):
+        """Get a list of AEDT projects.
+
+        Returns
+        -------
+        list
+            A list of AEDT project names. Returns ["No Project"] if no projects are available.
+        """
         be_properties = self.get_properties()
         project_list = []
         if be_properties["active_project"]:
@@ -245,20 +370,49 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         return os.path.splitext(os.path.basename(project_path))[0]
 
     def update_design_names(self, active_project=None):
+        """Update design names based on the active project.
+
+        Parameters
+        ----------
+        active_project : str, optional
+            The active AEDT project. If not provided, the current active project will be used.
+
+        Returns
+        -------
+        list
+            A list of design names.
+        """
         be_properties = self.get_properties()
         if not active_project:
             if be_properties["active_project"] == "No Project":
                 return ["No Design"]
             active_project = os.path.splitext(os.path.basename(be_properties["active_project"]))[0]
+            if not active_project:
+                be_properties["active_project"] = "No Project"
         else:
             be_properties["active_project"] = active_project
-            self.set_properties(be_properties)
+
         design_list = be_properties["design_list"].get(active_project)
         if not design_list:
             design_list = ["No Design"]
+            be_properties["active_design"] = "No Design"
+        be_properties["design_list"] = design_list
+        self.set_properties(be_properties)
         return design_list
 
     def save_project(self):
+        """Save the current AEDT project.
+
+        Opens a file dialog to select a location to save the AEDT project. The project is saved
+        with a '.aedt' extension.
+
+        Note:
+            This method relies on backend communication to save the project.
+
+        Returns
+        -------
+        None
+        """
         dialog = QtWidgets.QFileDialog()
         dialog.setOption(QtWidgets.QFileDialog.DontUseNativeDialog, True)
         dialog.setFileMode(QtWidgets.QFileDialog.FileMode.AnyFile)
@@ -287,7 +441,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                     self.log_and_update_progress(msg, log_level="error", progress=100)
 
     def release_only(self):
-        """Release desktop."""
+        """Release the AEDT desktop without closing projects."""
         response = requests.get(self.url + "/status")
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
@@ -298,7 +452,7 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 requests.post(self.url + "/close_aedt", json=properties)
 
     def release_and_close(self):
-        """Release and close desktop."""
+        """Release and close the AEDT desktop."""
         response = requests.get(self.url + "/status")
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
@@ -309,9 +463,11 @@ class FrontendGeneric(QtWidgets.QMainWindow):
                 requests.post(self.url + "/close_aedt", json=properties)
 
     def on_cancel_clicked(self):
+        """Handle cancel button click."""
         self.close()
 
     def closeEvent(self, event):
+        """Handle the close event of the application window."""
         close = QtWidgets.QMessageBox.question(
             self, "QUIT", "Confirm quit?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No
         )
@@ -329,6 +485,15 @@ class FrontendGeneric(QtWidgets.QMainWindow):
 
         This method logs the given message at the specified log level, and updates the progress
         bar to the given progress percentage if provided.
+
+        Parameters
+        ----------
+        msg : str
+            The log message.
+        log_level : str, optional
+            The log level (debug, info, warning, error, critical). The default is "debug".
+        progress : int, optional
+            The progress percentage. If provided, it updates the progress bar.
         """
 
         # toolkit logging
@@ -343,8 +508,8 @@ class FrontendGeneric(QtWidgets.QMainWindow):
         log_func(msg)
 
         # UI logging
-        self.ui.logger.log(msg)
+        self.ui.update_logger(msg)
 
         # Update progress bar if needed
         if progress is not None:
-            self.ui.progress.progress = progress
+            self.ui.update_progress(progress)

@@ -2,31 +2,28 @@ import os
 import sys
 
 # PySide6 Widgets
+from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QApplication
-from PySide6.QtWidgets import QFrame
-from PySide6.QtWidgets import QSpacerItem
-from PySide6.QtWidgets import QSizePolicy
-from PySide6.QtWidgets import QWidget
 
-# toolkit PySide6 Widgets
-from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
-
-# toolkit frontend API
+# Toolkit frontend API
 from actions import Frontend
 
-# Default properties
+# Default user interface properties
 from models import properties
 
-# toolkit windows
-from windows.create_geometry.geometry_menu import GeometryMenu
+# Windows
 
+# New windows
+from windows.create_geometry.geometry_menu import GeometryMenu
+from windows.plot_design.plot_design_menu import PlotDesignMenu
+
+# Common windows
+from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
-from ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
 
 # Import general common frontend modules
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
-from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 
 # Backend URL and port
 url = properties.backend_url
@@ -39,22 +36,18 @@ if properties.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
 
 
-class ApplicationWindow(Frontend):
+class ApplicationWindow(QMainWindow, Frontend):
     def __init__(self):
+        super().__init__()
+
         self.thread = None
         self.properties = properties
 
-        Frontend.__init__(self)
-
         # General Settings
 
-        # Create user interface object
+        # Create main window layout
         self.ui = MainWindowLayout(self)
         self.ui.setup()
-
-        # Setup main
-        self.main_window = MainWindow(self)
-        self.main_window.setup()
 
         # Settings menu
         self.settings_menu = SettingsMenu(self)
@@ -66,10 +59,11 @@ class ApplicationWindow(Frontend):
         # Populate settings column
         if not success:
             msg = "Error getting properties from backend. User interface running without backend"
-            self.ui.logger.log(msg)
+            self.ui.update_logger(msg)
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
+            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
             be_properties = self.get_properties()
@@ -86,7 +80,7 @@ class ApplicationWindow(Frontend):
             if be_properties.get("aedt_version") in installed_versions:
                 self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
-        # toolkit specific wizard starts here
+        # Custom toolkit setup starts here
 
         # Home menu
         self.home_menu = HomeMenu(self)
@@ -97,41 +91,50 @@ class ApplicationWindow(Frontend):
         self.geometry_menu.setup()
         self.ui.left_menu.clicked.connect(self.geometry_menu_clicked)
 
-        self.spacer1_index = -1
-        self.spacer2_index = -1
-        self.label_index = -1
+        # Plot design menu
+        self.plot_design_menu = PlotDesignMenu(self)
+        self.plot_design_menu.setup()
+        self.ui.left_menu.clicked.connect(self.plot_design_menu_clicked)
 
+        # Home page as first page
         self.ui.set_page(self.ui.load_pages.home_page)
 
     def geometry_menu_clicked(self):
-        selected_menu = self.main_window.get_selected_menu()
-        self.ui.left_menu.select_only_one(selected_menu.objectName())
+        selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-        if self.label_index != -1 and menu_name != "geometry_menu":
-            self.ui.remove_item(self.ui.left_column.menus.home_vertical_layout, self.label_index)
-            self.label_index = -1
 
         if menu_name == "geometry_menu":
-            # is_left_visible = self.ui.is_left_column_visible()
-            # current_page = self.ui.load_pages.pages.currentIndex()
+            selected_menu.set_active(True)
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
 
-            self.ui.toggle_left_column()
+            is_left_visible = self.ui.is_left_column_visible()
 
             self.ui.set_left_column_menu(
-                menu=self.ui.left_column.menus.menu_home,
+                menu=self.geometry_menu.geometry_column_widget,
                 title="Primitives Builder",
-                icon_path=self.ui.images_load.icon_path("icon_signal.svg"),
+                icon_path=self.ui.images_load.icon_path("icon_plot_3d.svg"),
             )
-            if self.label_index == -1:
 
-                msg = "Press 'Create Geometry' button"
-                label_widget = PyLabel(
-                    text=msg,
-                    font_size=self.ui.app.properties.font["title_size"],
-                    color=self.ui.themes["app_color"]["text_description"])
-                self.ui.left_column.menus.home_vertical_layout.addWidget(label_widget)
-                self.label_index = self.ui.item_index(self.ui.left_column.menus.home_vertical_layout, label_widget)
+            if not is_left_visible:
+                self.ui.toggle_left_column()
+
+    def plot_design_menu_clicked(self):
+        selected_menu = self.ui.get_selected_menu()
+        menu_name = selected_menu.objectName()
+
+        if menu_name == "plot_design_menu":
+            selected_menu.set_active(True)
+            self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
+
+            self.ui.set_left_column_menu(
+                menu=self.plot_design_menu.plot_design_column_widget,
+                title="Plot Design",
+                icon_path=self.ui.images_load.icon_path("icon_plot_2d.svg"),
+            )
+
+            is_left_visible = self.ui.is_left_column_visible()
+            if not is_left_visible:
+                self.ui.toggle_left_column()
 
 
 if __name__ == "__main__":

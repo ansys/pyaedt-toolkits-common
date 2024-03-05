@@ -11,6 +11,42 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_icon.py_icon import PyIcon
 
 
 class PyRightColumn(QWidget):
+    """
+    Custom widget representing a right column with a title, an icon, and a content area.
+
+    Parameters
+    ----------
+    text_title : str
+        The title text for the right column.
+    text_title_size : int
+        The font size of the title text.
+    text_title_color : str
+        The color of the title text.
+    dark_one : str
+        Color representing a dark shade.
+    bg_color : str
+        Background color of the right column.
+    btn_color : str
+        Color of the buttons in the right column.
+    btn_color_hover : str
+        Color of the buttons when hovered.
+    btn_color_pressed : str
+        Color of the buttons when pressed.
+    icon_path : str
+        Path to the icon image file.
+    icon_color : str
+        Color of the icon.
+    icon_color_hover : str
+        Color of the icon when hovered.
+    icon_color_pressed : str
+        Color of the icon when pressed.
+    context_color : str
+        Color representing a context or active state.
+    radius : int
+        Border radius of the right column.
+
+    """
+
     clicked = Signal(object, name="right_column_clicked")
     released = Signal(object, name="right_column_released")
 
@@ -54,7 +90,9 @@ class PyRightColumn(QWidget):
         self.menus.setupUi(self.content_frame)
 
     def setup_ui(self):
-        # BASE LAYOUT
+        """
+        Set up the user interface for the title bar.
+        """
         self.base_layout = QVBoxLayout(self)
         self.base_layout.setContentsMargins(0, 0, 0, 0)
         self.base_layout.setSpacing(0)

@@ -21,13 +21,11 @@
 # SOFTWARE.
 
 from enum import Enum
-import json
 
 from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
@@ -39,7 +37,16 @@ class BodyErrorMessage(str, Enum):
     INCORRECT_CONTENT = "Body content is not correct."
 
 
-toolkit_api = AEDTCommon()
+try:  # pragma: no cover
+    from api import ToolkitBackend
+
+    toolkit_api = ToolkitBackend()
+
+except ImportError:
+    from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
+    toolkit_api = AEDTCommon()
+
 app = Flask(__name__)
 
 
@@ -56,7 +63,8 @@ def get_status():
     status = toolkit_api.get_thread_status()
     if status in [ToolkitThreadStatus.BUSY, ToolkitThreadStatus.IDLE]:
         return jsonify(status.value), 200
-    return jsonify(status.value), 500
+    else:  # pragma: no cover
+        return jsonify(status.value), 500
 
 
 @app.route("/wait_thread", methods=["GET"])
@@ -73,7 +81,7 @@ def wait_thread():
     response = toolkit_api.wait_to_be_idle(timeout=timeout)
     if response:
         return jsonify("Thread is idle, you can proceed"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(f"Timeout ({timeout} seconds) exceeded"), 500
 
 
@@ -108,7 +116,7 @@ def aedt_sessions():
     response = toolkit_api.aedt_sessions()
     if isinstance(response, dict):
         return jsonify(response), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 
@@ -119,8 +127,34 @@ def launch_aedt():
     response = toolkit_api.launch_thread(toolkit_api.launch_aedt)
     if response:
         return jsonify("AEDT properties loaded"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to launch to AEDT"), 500
+
+
+@app.route("/get_aedt_model", methods=["GET"])
+def get_hfss_model_call():
+    logger.info("[GET] /get_aedt_model (Get 3D model in AEDT)")
+
+    body = request.json
+
+    # Default values
+    default_values = {
+        "obj_list": None,
+        "export_path": None,
+        "export_as_single_objects": True,
+        "air_objects": False,
+        "encode": True,
+    }
+
+    # Extract values from the request body
+    params = {key: body.get(key, default_values[key]) for key in default_values}
+
+    response = toolkit_api.export_aedt_model(**params)
+
+    if response:  # pragma: no cover
+        return jsonify(response), 200
+    else:
+        return jsonify("No model exported"), 500
 
 
 @app.route("/open_project", methods=["POST"])
@@ -133,13 +167,13 @@ def open_project():
         logger.error(msg)
         return jsonify(msg), 500
 
-    data = body.decode("utf-8")
-    project_path = json.loads(data)
+    project_path = body.decode("utf-8")
+    # project_path = json.loads(data)
     response = toolkit_api.open_project(project_path)
 
     if response:
         return jsonify("Project opened"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to open project"), 500
 
 
@@ -164,7 +198,7 @@ def close_aedt():
 
     if response:
         return jsonify("AEDT correctly released"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("AEDT is not connected"), 500
 
 
@@ -181,7 +215,7 @@ def connect_design():
     response = toolkit_api.connect_design(body["aedtapp"])
     if response:
         return jsonify("Design connected"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to connect to the design"), 500
 
 
@@ -198,7 +232,7 @@ def save_project():
     response = toolkit_api.save_project(body)
     if response:
         return jsonify("Project saved: {}".format(body)), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 
@@ -208,7 +242,7 @@ def get_design_names():
     response = toolkit_api.get_design_names()
     if isinstance(response, list):
         return jsonify(response), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 

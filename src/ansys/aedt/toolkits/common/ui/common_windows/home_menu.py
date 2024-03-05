@@ -20,8 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+from PySide6.QtCore import Qt
+from PySide6.QtSvgWidgets import QSvgWidget
+from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QSpacerItem
+
+from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class HomeMenu(object):
@@ -46,6 +51,11 @@ class HomeMenu(object):
         self.design = None
         self.design_combobox = None
 
+        welcome_label = self.ui.load_pages.home_page.findChild(QLabel, "label")
+        # Add welcome message
+        message = general_settings.welcome_message
+        welcome_label.setText(message)
+
     def setup(self):
         # Project row
         row_returns = self.ui.add_combobox(
@@ -59,7 +69,7 @@ class HomeMenu(object):
         self.ui.left_column.menus.browse_project_group = row_returns[0]
         self.project = row_returns[1]
         self.project_combobox = row_returns[2]
-        self.project_combobox.currentIndexChanged.connect(lambda: self.update_project_info())
+        self.project_combobox.currentIndexChanged.connect(lambda: self.update_design())
         self.project_combobox.setEnabled(False)
 
         # Design row
@@ -78,9 +88,30 @@ class HomeMenu(object):
         spacer = QSpacerItem(0, 10, QSizePolicy.Minimum, QSizePolicy.Minimum)
         self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
 
-    def update_project_info(self):
-        active_project = self.main_window.home_menu.project_combobox.currentText()
-        design_list = self.app.update_design_names(active_project)
+        # Add logo to main page depending on the theme, we can change the logo to white or black version
+        if not general_settings.logo:
+            main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-black.svg")
+            if self.ui.themes["theme_name"] == "ansys_dark":
+                main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-white.svg")
+        else:
+            main_window_logo = general_settings.logo
+        main_logo = QSvgWidget(main_window_logo)
+        self.ui.load_pages.logo_layout.addWidget(main_logo, Qt.AlignCenter, Qt.AlignCenter)
+
+        main_logo.setFixedSize(240, 120)
+
+    def update_project(self):
+        self.project_combobox.blockSignals(True)
+        project_list = self.app.get_aedt_data()
+        self.main_window.home_menu.project_combobox.setEnabled(True)
+        self.main_window.home_menu.project_combobox.clear()
+        self.main_window.home_menu.project_combobox.addItems(project_list)
+        self.project_combobox.blockSignals(False)
+        return project_list
+
+    def update_design(self):
+        self.project_combobox.blockSignals(True)
+        design_list = self.app.update_design_names()
         self.main_window.home_menu.design_combobox.clear()
         self.main_window.home_menu.design_combobox.addItems(design_list)
-        pass
+        self.project_combobox.blockSignals(False)

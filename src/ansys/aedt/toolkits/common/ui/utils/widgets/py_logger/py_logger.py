@@ -1,4 +1,5 @@
 from PySide6.QtGui import QFont
+from PySide6.QtGui import QTextCursor
 from PySide6.QtWidgets import QTextEdit
 
 
@@ -42,3 +43,7 @@ class PyLogger(QTextEdit):
             message: The string message to log.
         """
         self.append(message)
+
+        cursor = self.textCursor()
+        cursor.movePosition(QTextCursor.End)
+        self.setTextCursor(cursor)

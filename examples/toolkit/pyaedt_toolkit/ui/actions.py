@@ -9,7 +9,7 @@ class Frontend(FrontendGeneric):
     def __init__(self):
         FrontendGeneric.__init__(self)
 
-    def create_geometry_toolkit(self, project_selected=None, design_selected=None, geometry="Box", multiplier=1):
+    def create_geometry_toolkit(self, project_selected=None, design_selected=None):
         # Set active project and design
         be_properties = self.get_properties()
         if project_selected and design_selected:
@@ -32,10 +32,6 @@ class Frontend(FrontendGeneric):
             project_selected = generate_unique_project_name()
             project_selected = self.get_project_name(project_selected)
             be_properties["active_project"] = project_selected
-
-        # Multiplier and geometry
-        be_properties["multiplier"] = float(multiplier)
-        be_properties["geometry"] = geometry
 
         self.set_properties(be_properties)
 

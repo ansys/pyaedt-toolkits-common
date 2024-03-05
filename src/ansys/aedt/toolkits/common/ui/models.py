@@ -44,6 +44,8 @@ class UIProperties(BaseModel):
     version: str = "v0.0.1"
     copyright: str = "By: x"
     year: int = 2024
+    logo: str = ""
+    icon: str = ""
     startup_size: List[int] = Field(default_factory=list)
     minimum_size: List[int] = Field(default_factory=list)
     left_menu_size: Dict[str, int] = Field(default_factory=dict)
@@ -53,7 +55,7 @@ class UIProperties(BaseModel):
     progress_size: Dict[str, int] = Field(default_factory=dict)
     font: Dict[str, Any] = Field(default_factory=dict)
     high_resolution: bool = False
-    theme: str = "ansys.json"
+    theme: str = "ansys_dark.json"
     images: str = ""
     add_left_menus: List[Dict] = Field(default_factory=list)
     add_title_bar_menus: List[Dict] = Field(default_factory=list)

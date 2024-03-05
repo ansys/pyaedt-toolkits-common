@@ -185,6 +185,8 @@ class PyLeftMenuButton(QPushButton):
 
     def icon_paint(self, qp, image, rect, color):
         icon = QPixmap(image)
+        # if icons are not 30x30, they will be scaled
+        icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
         painter.fillRect(icon.rect(), color)

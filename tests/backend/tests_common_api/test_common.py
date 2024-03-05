@@ -34,6 +34,12 @@ class TestCommon:
         api_properties = common.get_properties()
         assert api_properties
 
+    def test_00_get_default_properties(self, common_default):
+        """Get properties."""
+
+        api_properties = common_default.get_properties()
+        assert api_properties
+
     def test_01_set_properties(self, common):
         """Set properties."""
 

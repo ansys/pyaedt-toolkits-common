@@ -18,6 +18,51 @@ _old_size = QSize()
 
 
 class PyTitleBar(QWidget):
+    """
+    Custom title bar for the application window.
+
+    Parameters
+    ----------
+    parent : QWidget
+        The parent widget.
+    app_parent : QWidget
+        The main application window.
+    logo_image : str, optional
+        The path to the logo image file, by default "ansys-primary-logo-white.svg".
+    logo_width : int, optional
+        The width of the logo, by default 10.
+    dark_one : str, optional
+        The color for the dark theme, by default "#1b1e23".
+    bg_color : str, optional
+        The background color, by default "#343b48".
+    div_color : str, optional
+        The color for dividers, by default "#3c4454".
+    btn_bg_color : str, optional
+        The background color for buttons, by default "#343b48".
+    btn_bg_color_hover : str, optional
+        The background color for buttons on hover, by default "#3c4454".
+    btn_bg_color_pressed : str, optional
+        The background color for buttons on pressed state, by default "#2c313c".
+    icon_color : str, optional
+        The default icon color, by default "#c3ccdf".
+    icon_color_hover : str, optional
+        The icon color on hover, by default "#dce1ec".
+    icon_color_pressed : str, optional
+        The icon color on pressed state, by default "#edf0f5".
+    icon_color_active : str, optional
+        The icon color for the active state, by default "#f5f6f9".
+    context_color : str, optional
+        The context color, by default "#6c99f4".
+    text_foreground : str, optional
+        The text color, by default "#8a95aa".
+    radius : int, optional
+        The border radius, by default 8.
+    font_family : str, optional
+        The font family, by default "Segoe UI".
+    title_size : int, optional
+        The font size for the title, by default 10.
+    """
+
     clicked = Signal(object)
     released = Signal(object)
 
@@ -25,7 +70,7 @@ class PyTitleBar(QWidget):
         self,
         parent,
         app_parent,
-        logo_image="ANSS_BIG.D.svg",
+        logo_image="ansys-primary-logo-white.svg",
         logo_width=10,
         dark_one="#1b1e23",
         bg_color="#343b48",
@@ -102,6 +147,19 @@ class PyTitleBar(QWidget):
         self.bg_layout.addLayout(self.custom_buttons_layout)
 
     def add_menus(self, parameters):
+        """
+        Add custom menus to the title bar.
+
+        Parameters
+        ----------
+        parameters : list of dict
+            List of dictionaries, each containing information about a menu button.
+            Each dictionary should have the following keys:
+            - btn_icon: str, the icon file for the button.
+            - btn_id: str, the ID of the button.
+            - btn_tooltip: str, the tooltip text for the button.
+            - is_active: bool, whether the button is initially active or not.
+        """
         if parameters is not None and len(parameters) > 0:
             for parameter in parameters:
                 _btn_icon = self._images_load.icon_path(parameter["btn_icon"])
@@ -133,15 +191,32 @@ class PyTitleBar(QWidget):
                 self.custom_buttons_layout.addWidget(self.menu)
 
     def btn_clicked(self):
+        """
+        Handle the button click event.
+        """
         self.clicked.emit(self.menu)
 
     def btn_released(self):
+        """
+        Handle the button release event.
+        """
         self.released.emit(self.menu)
 
     def set_title(self, title):
+        """
+        Set the title of the application.
+
+        Parameters
+        ----------
+        title : str
+            The title to be set.
+        """
         self.title_label.setText(title)
 
-    def maximize_restore(self, e=None):
+    def maximize_restore(self):
+        """
+        Maximize or restore the application window.
+        """
         global _is_maximized
         global _old_size
 
@@ -167,6 +242,9 @@ class PyTitleBar(QWidget):
             change_ui()
 
     def setup_ui(self):
+        """
+        Set up the user interface for the title bar.
+        """
         self.title_bar_layout = QVBoxLayout(self)
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 

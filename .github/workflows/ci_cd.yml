@@ -73,6 +73,16 @@ jobs:
           pip install .
           pip install .[doc]
 
+      - name: Uninstall conflicting CI packages
+        run: |
+          .venv\Scripts\Activate.ps1
+          pip uninstall vtk pypandoc -y
+
+      - name: Install CI related dependencies
+        run: |
+          .venv\Scripts\Activate.ps1
+          pip install --extra-index-url https://wheels.vtk.org .[ci]
+
       - name: Retrieve common toolkit version
         run: |
           . .venv\Scripts\Activate.ps1
@@ -84,11 +94,11 @@ jobs:
           cd doc
           .\make.bat html
 
-#      - name: Build the documentation (PDF)
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          cd doc
-#          .\make.bat pdf
+      - name: Build the documentation (PDF)
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          cd doc
+          .\make.bat pdf
 
       - name: Upload HTML Documentation artifact
         uses: actions/upload-artifact@v4
@@ -97,12 +107,12 @@ jobs:
           path: doc/_build/html
           retention-days: 1
 
-#      - name: Upload PDF Documentation artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: documentation-pdf
-#          path: doc/_build/latex/*.pdf
-#          retention-days: 7
+      - name: Upload PDF Documentation artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation-pdf
+          path: doc/_build/latex/*.pdf
+          retention-days: 7
 
   smoke-tests:
     name: "Build and Smoke tests"
@@ -186,13 +196,13 @@ jobs:
           path: .cov/total-html
           name: html-total-coverage
 
-      - name: "Upload coverage report to codecov"
-        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
-        uses: codecov/codecov-action@v4
-        with:
-          file: .cov/total.xml
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+#      - name: "Upload coverage report to codecov"
+#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
+#        uses: codecov/codecov-action@v4
+#        with:
+#          file: .cov/total.xml
+#        env:
+#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   tests_linux:
     name: "Linux Tests"

@@ -33,14 +33,69 @@ from ansys_sphinx_theme import get_version_match
 from ansys_sphinx_theme import latex
 from ansys_sphinx_theme import pyansys_logo_black
 from ansys_sphinx_theme import watermark
+from sphinx.util import logging
 
-sys.path.append(str(pathlib.Path(__file__).parent.parent.parent))
+root_path = str(pathlib.Path(__file__).parent.parent.parent)
 
-path = os.path.join(pathlib.Path(__file__).parent.parent.parent, "src")
-print(path)
-sys.path.append(path)
+try:
+    from ansys.aedt.toolkits.common import __version__
+except ImportError:
+    sys.path.append(root_path)
+    src_path = os.path.join(root_path, "src")
+    sys.path.append(src_path)
+    from ansys.aedt.toolkits.common import __version__
 
-from ansys.aedt.toolkits.common import __version__
+logger = logging.getLogger(__name__)
+path = pathlib.Path(os.path.join(root_path, "examples"))
+EXAMPLES_DIRECTORY = path.resolve()
+
+# Sphinx event hooks
+
+
+def check_example_error(app, pagename, templatename, context, doctree):
+    """Log an error if the execution of an example as a notebook triggered an error.
+
+    Since the documentation build might not stop if the execution of a notebook triggered
+    an error, we use a flag to log that an error is spotted in the html page context.
+    """
+    # Check if the HTML contains an error message
+    if pagename.startswith("examples") and not pagename.endswith("/index"):
+        if any(
+            map(
+                lambda msg: msg in context["body"],
+                ["UsageError", "NameError", "DeadKernelError", "NotebookError"],
+            )
+        ):
+            logger.error(f"An error was detected in file {pagename}")
+            app.builder.config.html_context["build_error"] = True
+
+
+def check_build_finished_without_error(app, exception):
+    """Check that no error is detected along the documentation build process."""
+    if app.builder.config.html_context.get("build_error", False):
+        raise Exception("Build failed due to an error in html-page-context")
+
+
+def check_pandoc_installed(app):
+    """Ensure that pandoc is installed"""
+    import pypandoc
+
+    try:
+        pandoc_path = pypandoc.get_pandoc_path()
+        pandoc_dir = os.path.dirname(pandoc_path)
+        if pandoc_dir not in os.environ["PATH"].split(os.pathsep):
+            logger.info("Pandoc directory is not in $PATH.")
+            os.environ["PATH"] += os.pathsep + pandoc_dir
+            logger.info(f"Pandoc directory '{pandoc_dir}' has been added to $PATH")
+    except OSError:
+        logger.error("Pandoc was not found, please add it to your path or install pypandoc-binary")
+
+
+def setup(app):
+    app.connect("builder-inited", check_pandoc_installed)
+    app.connect("html-page-context", check_example_error)
+    app.connect("build-finished", check_build_finished_without_error)
+
 
 print(__version__)
 # Project information
@@ -179,31 +234,6 @@ exclude_patterns = [
     "conf.py",
     "examples/properties_common/models.py",
 ]
-
-# if os.name != "posix":
-#     extensions.append("sphinx_gallery.gen_gallery")
-
-#     sphinx_gallery_conf = {
-#         # # convert rst to md for ipynb
-#         "pypandoc": True,
-#         # path to your examples scripts
-#         "examples_dirs": ["../../examples/"],
-#         # path where to save gallery generated examples
-#         "gallery_dirs": ["examples"],
-#         # Pattern to search for examples files
-#         "filename_pattern": r"\.py",
-#         # Remove the "Download all examples" button from the top level gallery
-#         "download_all_examples": False,
-#         # Sort gallery examples by file name instead of number of lines (default)
-#         "within_subsection_order": FileNameSortKey,
-#         # directory where function granular galleries are stored
-#         "backreferences_dir": None,
-#         # Modules for which function level galleries are created.  In
-#         "doc_module": "ansys-legacy",
-#         "ignore_pattern": "flycheck*",
-#         "thumbnail_size": (350, 350),
-#     }
-
 
 # -- Options for LaTeX output ------------------------------------------------
 

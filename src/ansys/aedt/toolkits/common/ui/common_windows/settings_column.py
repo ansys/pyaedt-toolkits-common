@@ -158,8 +158,10 @@ class SettingsMenu(QObject):
         if self.signal_flag:
             self.aedt_session.clear()
             self.aedt_session.addItem("New Session")
+            non_graphical_pos = self.graphical_mode.position
+            non_graphical = non_graphical_pos == 24.0
             if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
-                sessions = self.app.find_process_ids(self.aedt_version.currentText())
+                sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
                 for pid in sessions:
                     if sessions[pid] == -1:
                         self.aedt_session.addItem("Process {}".format(pid))
@@ -189,17 +191,6 @@ class SettingsMenu(QObject):
         self.aedt_version.setEnabled(False)
         self.aedt_session.setEnabled(False)
 
-    def update_project(self):
-        project_list = self.app.get_aedt_data()
-        self.main_window.home_menu.project_combobox.setEnabled(True)
-        self.main_window.home_menu.project_combobox.clear()
-        self.main_window.home_menu.project_combobox.addItems(project_list)
-
-    def update_design(self):
-        design_list = self.app.update_design_names()
-        self.main_window.home_menu.design_combobox.clear()
-        self.main_window.home_menu.design_combobox.addItems(design_list)
-
     def check_status(self):
         backend_busy = self.app.backend_busy()
         if not backend_busy and self.aedt_thread:
@@ -210,10 +201,10 @@ class SettingsMenu(QObject):
             if file:
                 aedt_file = os.path.normpath(file)
                 self.app.open_project(aedt_file)
-            self.update_project()
-            self.update_design()
-            self.ui.progress.progress = 100
-            self.ui.logger.log("AEDT session connected")
+            self.app.home_menu.update_project()
+            self.app.home_menu.update_design()
+            self.ui.update_progress(100)
+            self.ui.update_logger("AEDT session connected")
 
     def browse_file(self):
         options = QFileDialog.Options()

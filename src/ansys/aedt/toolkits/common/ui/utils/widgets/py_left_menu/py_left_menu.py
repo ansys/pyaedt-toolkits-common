@@ -13,6 +13,53 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_left_menu.py_left_menu_butto
 
 
 class PyLeftMenu(QWidget):
+    """
+    Custom widget representing a left menu with toggle button, top and bottom layouts, and animated toggle behavior.
+
+     Parameters
+     ----------
+     parent: QWidget, optional
+         The parent widget.
+     app_parent: QWidget, optional
+         The parent widget of the application.
+     dark_one: str, optional
+         Color representing a dark shade.
+     dark_three: str, optional
+         Color representing a darker shade.
+     dark_four: str, optional
+         Color representing an even darker shade.
+     bg_one: str, optional
+         Background color of the left menu.
+     icon_color: str, optional
+         Color of the icons in the left menu.
+     icon_color_hover: str, optional
+         Color of the icons when hovered.
+     icon_color_pressed: str, optional
+         Color of the icons when pressed.
+     icon_color_active: str, optional
+         Color of the icons in an active state.
+     context_color: str, optional
+         Color representing a context or active state.
+     text_foreground: str, optional
+         Color of the text in the left menu.
+     text_active: str, optional
+         Color of the text in an active state.
+     radius: int, optional
+         Border radius of the left menu.
+     minimum_width: int, optional
+         Minimum width of the left menu. The default is ``50``.
+     maximum_width: int, optional
+         Maximum width of the left menu. The default is ``240``.
+     icon_path: str, optional
+         Path to the icon image file for the toggle button.
+     icon_path_close: str, optional
+         Path to the icon image file for the toggle button when the menu is closed.
+     toggle_text: str, optional
+         Text for the toggle button.
+     toggle_tooltip: str, optional
+         Tooltip text for the toggle button.
+    """
+
     clicked = Signal(object)
     released = Signal(object)
 
@@ -93,6 +140,14 @@ class PyLeftMenu(QWidget):
         self.bottom_layout.addWidget(self.div_bottom)
 
     def add_menus(self, parameters):
+        """
+        Add menus to the left menu.
+
+        Parameters
+        ----------
+        parameters: list
+            List of dictionaries containing parameters for each menu item.
+        """
         if parameters != None:
             for parameter in parameters:
                 _btn_icon = parameter["btn_icon"]
@@ -131,12 +186,21 @@ class PyLeftMenu(QWidget):
                     self.bottom_layout.addWidget(self.menu)
 
     def btn_clicked(self):
+        """
+        Emit signal when a menu button is clicked.
+        """
         self.clicked.emit(self.menu)
 
     def btn_released(self):
+        """
+        Emit signal when a menu button is released.
+        """
         self.released.emit(self.menu)
 
     def toggle_animation(self):
+        """
+        Toggle animation for hiding/showing the left menu.
+        """
         self.animation = QPropertyAnimation(self._parent, b"minimumWidth")
         self.animation.stop()
         if self.width() == self._minimum_width:
@@ -153,6 +217,14 @@ class PyLeftMenu(QWidget):
         self.animation.start()
 
     def select_only_one(self, widget: str):
+        """
+        Set the active state for a specific menu button and deactivate others.
+
+        Parameters
+        ----------
+        widget : str
+            ID of the menu button to set as active.
+        """
         for btn in self.findChildren(QPushButton):
             if btn.objectName() == widget:
                 btn.set_active(True)
@@ -160,6 +232,14 @@ class PyLeftMenu(QWidget):
                 btn.set_active(False)
 
     def select_only_one_tab(self, widget: str):
+        """
+        Set the active tab state for a specific menu button and deactivate others.
+
+        Parameters
+        ----------
+        widget : str
+            ID of the menu button to set as active tab.
+        """
         for btn in self.findChildren(QPushButton):
             if btn.objectName() == widget:
                 btn.set_active_tab(True)
@@ -167,14 +247,23 @@ class PyLeftMenu(QWidget):
                 btn.set_active_tab(False)
 
     def deselect_all(self):
+        """
+        Deactivate all menu buttons.
+        """
         for btn in self.findChildren(QPushButton):
             btn.set_active(False)
 
     def deselect_all_tab(self):
+        """
+        Deactivate all menu tabs.
+        """
         for btn in self.findChildren(QPushButton):
             btn.set_active_tab(False)
 
     def setup_ui(self):
+        """
+        Set up the user interface for the left menu.
+        """
         self.left_menu_layout = QVBoxLayout(self)
         self.left_menu_layout.setContentsMargins(0, 0, 0, 0)
 

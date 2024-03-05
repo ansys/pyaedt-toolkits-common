@@ -5,12 +5,12 @@
   "debug" : false,
   "app_name": "Example Wizard",
   "main_title": "Amazing Toolkit Wizard",
-  "welcome_message": "Welcome to the future",
+  "welcome_message": "Welcome to the amazing toolkit",
   "version" : "v0.0.1",
   "copyright" : "By: slopez",
   "year" : 2023,
-  "theme" : "ansys.json",
-  "high_resolution": false,
+  "theme" : "ansys_dark.json",
+  "high_resolution": true,
   "add_left_menus" : [
       {
           "btn_icon": "icon_home.svg",
@@ -21,7 +21,7 @@
           "is_active": false
       },
       {
-            "btn_icon": "icon_signal.svg",
+            "btn_icon": "icon_plot_3d.svg",
             "btn_id": "geometry_menu",
             "btn_text": "Primitives Builder",
             "btn_tooltip": "Builder",
@@ -29,7 +29,15 @@
             "is_active": false
       },
       {
-          "btn_icon": "icon_heart.svg",
+            "btn_icon": "icon_plot_2d.svg",
+            "btn_id": "plot_design_menu",
+            "btn_text": "Plot Design",
+            "btn_tooltip": "Design",
+            "show_top": true,
+            "is_active": false
+      },
+      {
+          "btn_icon": "icon_log.svg",
           "btn_id": "progress_menu",
           "btn_text": "Progress",
           "btn_tooltip": "Progress",

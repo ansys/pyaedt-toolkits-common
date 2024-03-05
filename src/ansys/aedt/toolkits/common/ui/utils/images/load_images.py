@@ -28,11 +28,63 @@ from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
 class LoadImages(object):
+    """
+    A utility class for managing image and icon paths in a PySide6 desktop application.
+
+    This class facilitates the retrieval of image and icon paths, allowing the application to access
+    and display graphical assets.
+
+    Parameters
+    ----------
+    path : str, optional
+        The base path to the directory containing images. If not provided, the default path is the directory
+        where the script is located.
+
+    Examples
+    --------
+    >>> image_loader = LoadImages()
+    >>> icon_path = image_loader.icon_path("my_icon.png")
+    >>> image_path = image_loader.image_path("my_image.png")
+
+    """
+
     def __init__(self, path=None):
-        self.images_path = self._init_images_path(path)
+        self.images_path = self.__init_images_path(path)
+
+    def icon_path(self, icon_name):
+        """
+        Get the full path for the specified icon.
+
+        Parameters
+        ----------
+        icon_name : str
+            The name of the icon file.
+
+        Returns
+        -------
+        str
+            The full path to the specified icon.
+        """
+        return self.__build_asset_path("icons", icon_name)
+
+    def image_path(self, file_name):
+        """
+        Get the full path for the specified image file.
+
+        Parameters
+        ----------
+        file_name : str
+            The name of the image file.
+
+        Returns
+        -------
+        str
+            The full path to the specified image file.
+        """
+        return self.__build_asset_path("files", file_name)
 
     @staticmethod
-    def _init_images_path(path):
+    def __init_images_path(path):
         if (not path or not hasattr(general_settings, "images")) and not general_settings.images:
             return pathlib.Path(__file__).resolve().parent
         else:
@@ -46,13 +98,7 @@ class LoadImages(object):
                 raise FileNotFoundError(msg)
             return abs_path
 
-    def icon_path(self, icon_name):
-        return self._build_asset_path("icons", icon_name)
-
-    def image_path(self, file_name):
-        return self._build_asset_path("files", file_name)
-
-    def _build_asset_path(self, folder, filename):
+    def __build_asset_path(self, folder, filename):
         path = os.path.join(self.images_path, folder, filename)
         if not os.path.exists(path):
             logger.error("{} does not exist".format(folder.capitalize()))

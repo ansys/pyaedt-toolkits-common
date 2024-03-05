@@ -62,6 +62,7 @@ def common(logger):
     logger.info("Common API initialization")
 
     properties = Properties()
+    print(properties)
     properties.aedt_version = config["desktop_version"]
     properties.non_graphical = config["non_graphical"]
     properties.use_grpc = config["use_grpc"]
@@ -70,3 +71,13 @@ def common(logger):
     common_api = Common(properties)
 
     yield common_api
+
+
+@pytest.fixture(scope="session")
+def common_default(logger):
+    """Initialize toolkit with common API."""
+    logger.info("Common API initialization with default properties")
+
+    common_api_default = Common()
+
+    yield common_api_default
