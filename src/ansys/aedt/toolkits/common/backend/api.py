@@ -45,7 +45,7 @@ from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
 
 
 class ToolkitThreadStatus(str, Enum):
-    """Status of the toolkit thread."""
+    """Provides an enumeration of statuses for a toolkit thread."""
 
     IDLE = "toolkit is idle and ready to accept a new task."
     BUSY = "toolkit is busy and processing a task."
@@ -54,26 +54,26 @@ class ToolkitThreadStatus(str, Enum):
 
 
 class PropertiesUpdate(str, Enum):
-    """Status of the toolkit thread."""
+    """Provides an enumeration of statuses for updating properties."""
 
     EMPTY = "Body is empty."
-    SUCCESS = "Properties updated successfully."
-    VALIDATION_ERROR = "Error during validation of properties field."
+    SUCCESS = "Properties were updated successfully."
+    VALIDATION_ERROR = "Error occured during validation of properties field."
 
 
 @dataclass
 class ToolkitConnectionStatus:
-    """Status of the toolkit connection."""
+    """Provides an enumeration of statuses for a toolkit connection."""
 
     desktop: Optional[Desktop] = None
 
     def __str__(self):
         if self.desktop:
-            res = f"toolkit is connected to process {self.desktop.aedt_process_id}"
+            res = f"Toolkit is connected to process {self.desktop.aedt_process_id}."
             if self.desktop.port != 0:
                 res += f" on Grpc {self.desktop.port}."
         else:
-            res = "toolkit is not connected to AEDT."
+            res = "Toolkit is not connected to AEDT."
         return res
 
     def is_connected(self):
@@ -81,9 +81,10 @@ class ToolkitConnectionStatus:
 
 
 class Common:
-    """Common API to control the toolkits.
+    """Provides the API for controlling the toolkits.
 
-    It provides basic functions to control AEDT, EDB and properties to share between backend and frontend.
+    This claass provides basic functions to control AEDT, EDB, and properties to
+    share between tne backend and UI.
 
     Parameters
     ----------
@@ -170,7 +171,7 @@ class Common:
         return updated, msg
 
     def launch_thread(self, process) -> ThreadManager:
-        """Launch thread."""
+        """Launch the thread."""
         return self.thread_manager.launch_thread(process)
 
     def get_thread_status(self) -> ToolkitThreadStatus:
@@ -243,8 +244,8 @@ class Common:
         Returns
         -------
         dict
-            Dict of AEDT process IDs (PIDS) {AEDT PID: port}.
-            If the PID corresponds to a COM session, the port is set to -1.
+            Dictionary of AEDT process IDs (PIDS) {AEDT PID: port}.
+            If the PID corresponds to a COM session, the port is set to ``-1``.
 
         Examples
         --------
@@ -266,12 +267,12 @@ class Common:
         return res
 
     def wait_to_be_idle(self, timeout: int = 60) -> bool:
-        """Wait for the thread to be idle and ready to accept new task.
+        """Wait for the thread to be idle and ready to accept a new task.
 
         Parameters
         ----------
         timeout : int, optional
-            Time out in seconds. The default is 60 seconds.
+            Time out in seconds. The default is ``60``.
 
         Examples
         --------
@@ -313,9 +314,10 @@ class Common:
 
 
 class AEDTCommon(Common):
-    """Provides common functions to control AEDT.
+    """Provides common functions for controlling AEDT.
 
-    It provides basic functions to control AEDT and properties to share between backend and frontend.
+    This class provides basic functions for controlling AEDT and properties to share
+    between the backend and UI.
 
     Parameters
     ----------
@@ -368,7 +370,7 @@ class AEDTCommon(Common):
     def launch_aedt(self) -> bool:
         """Launch AEDT.
 
-        This method is launched in a thread if grpc is enabled. AEDT is released once it is opened.
+        This method is launched in a thread if gRPC is enabled. AEDT is released once it is opened.
 
         Returns
         -------
@@ -428,7 +430,7 @@ class AEDTCommon(Common):
 
             self.release_aedt(False, False)
 
-            logger.debug("Desktop released and project properties loaded.")
+            logger.debug("AEDT is released and project properties are loaded.")
 
         return True
 
@@ -450,12 +452,12 @@ class AEDTCommon(Common):
         >>> toolkit_api.release_aedt()
         """
         if self.properties.selected_process == 0:  # pragma: no cover
-            logger.error("Process ID not defined.")
+            logger.error("Process ID is not defined.")
             return False
 
         is_aedt_connected = self.is_aedt_connected()
         if is_aedt_connected[0]:
-            logger.debug("toolkit is connected to AEDT.")
+            logger.debug("Toolkit is connected to AEDT.")
             return True
 
         # Connect to AEDT
@@ -481,10 +483,10 @@ class AEDTCommon(Common):
         self.desktop = pyaedt.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
-            logger.error("toolkit is not connected to AEDT.")
+            logger.error("Roolkit is not connected to AEDT.")
             return False
 
-        logger.debug("toolkit is connected to AEDT.")
+        logger.debug("Toolkit is connected to AEDT.")
         return True
 
     def connect_design(self, app_name: Optional[str] = None):
@@ -559,7 +561,7 @@ class AEDTCommon(Common):
             aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
             active_design = design_name
         else:
-            logger.info("AEDT application not available in PyAEDT. Creating HFSS design.")
+            logger.info("AEDT application is not available in PyAEDT. Creating HFSS design.")
             design_name = pyaedt.generate_unique_name("Hfss")
             active_design = design_name
 
@@ -597,10 +599,10 @@ class AEDTCommon(Common):
                 self.properties.design_list[self.aedtapp.project_name].append(active_design)
             self.properties.active_project = project_name
             self.properties.active_design = active_design
-            logger.info("toolkit is connected to AEDT design.")
+            logger.info("Toolkit is connected to AEDT design.")
             return True
         else:  # pragma: no cover
-            logger.error("toolkit not connected to AEDT design.")
+            logger.error("Toolkit not connected to AEDT design.")
             return False
 
     def release_aedt(self, close_projects=False, close_on_exit=False):
@@ -635,7 +637,7 @@ class AEDTCommon(Common):
                 self.desktop = None
                 self.aedtapp = None
             except:  # pragma: no cover
-                logger.error("Desktop not released.")
+                logger.error("AEDT is not released.")
                 return False
 
         if self.aedtapp:  # pragma: no cover
@@ -643,22 +645,22 @@ class AEDTCommon(Common):
                 released = self.aedtapp.release_desktop(close_projects, close_on_exit)
                 self.aedtapp = None
             except:
-                logger.error("Desktop not released")
+                logger.error("AEDT is not released.")
                 return False
 
         if not released and close_projects and close_on_exit and self.connect_aedt():
             self.desktop.release_desktop(close_projects, close_on_exit)
-        logger.info("Desktop released.")
+        logger.info("AEDT is released.")
         gc.collect()
         return True
 
     def open_project(self, project_name=None):
-        """Open AEDT project.
+        """Open an AEDT project.
 
         Parameters
         ----------
         project_name : str, optional
-            Project path to open.
+            Full path to the project to open.
 
         Returns
         -------
@@ -681,7 +683,7 @@ class AEDTCommon(Common):
             return False
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
-            logger.debug("Project {} opened".format(project_name))
+            logger.debug("Project {} is opened".format(project_name))
             self.__save_project_info()
             self.release_aedt(False, False)
             return True
@@ -690,13 +692,15 @@ class AEDTCommon(Common):
         return False
 
     def save_project(self, project_path=None):
-        """Save project. It uses the properties to get the project path. This method is launched in a thread.
+        """Save the project. 
+        
+        This method uses the properties to get the project path. This method is launched in a thread.
 
         Parameters
         ----------
         project_path : str, optional
             Path of the AEDT file to save.
-            The default value is ``None`` in which case the current file is overwritten.
+            The default value is ``None``, in which case the current file is overwritten.
 
         Returns
         -------
@@ -728,20 +732,20 @@ class AEDTCommon(Common):
             else:
                 self.desktop.save_project()
             self.release_aedt(False, False)
-            logger.debug("Project saved: {}".format(project_path))
+            logger.debug("Project is saved: {}".format(project_path))
             return True
         else:  # pragma: no cover
-            logger.error("Project not saved")
+            logger.error("Project is not saved.")
             return False
 
     @staticmethod
     def get_project_name(project_path) -> str:
-        """Get project name from project path.
+        """Get the project name from the project path.
 
         Returns
         -------
         str
-            Project name
+            Project name.
         """
         return os.path.splitext(os.path.basename(project_path))[0]
 
@@ -789,20 +793,22 @@ class AEDTCommon(Common):
         Parameters
         ----------
         obj_list : list, optional
-            List of objects to export. Export every model object except 3D ones, vacuum and air objects.
+            List of objects to export. Export every model object except 3D, vacuum, and
+            air objects. The default is ``None``.
         export_path : str, optional
-            Full path of the exported obj file.
+            Full path of the exported OBJ file. The default is ``None``.
         export_as_single_objects : bool, optional
-            Define if the model will be exported as single obj or list of objs for each object.
+            Whether to export the model as a single object or as a list of objects
+            for each object. The default is ``True``.
         air_objects : bool, optional
-            Define if air and vacuum objects will be exported.
+            Whether to export air and vacuum objects. The default is ``False``.
         encode : bool, optional
-            Encode file.
+            Whether to encode the file. The default is ``True``.
 
         Returns
         -------
         list or dict
-            Lisf of exported OBJ files or encoded data.
+            List of exported OBJ files or encoded data.
         """
         if not self.aedtapp:
             self.connect_design()
@@ -832,7 +838,7 @@ class AEDTCommon(Common):
         return files
 
     def __get_aedt_version(self):
-        """Get AEDT version and if student version is used."""
+        """Get AEDT version and if the student version is used."""
         if "STUDENT" in self.properties.aedt_version:  # pragma: no cover
             version_text = self.properties.aedt_version.split(" ")
             version = version_text[0]
@@ -843,7 +849,7 @@ class AEDTCommon(Common):
         return version, is_student
 
     def __save_project_info(self):
-        """Save project and design info."""
+        """Save the project and design information."""
         # Save project and design info
         new_properties = {}
         project_list = self.desktop.odesktop.GetProjectList()
@@ -896,9 +902,10 @@ class AEDTCommon(Common):
 
 
 class EDBCommon(Common):
-    """Generic API to control EDB.
+    """Provides the generic API for controllinng EDB.
 
-    It provides basic functions to control EDB and properties to share between backend and frontend.
+    This class provides basic functions to control EDB and properties to share between the
+    backend and UI.
 
     Parameters
     ----------
@@ -920,7 +927,7 @@ class EDBCommon(Common):
         self.edb = None
 
     def load_edb(self, edb_path=None):
-        """Load EDB project.
+        """Load the EDB project.
 
         Parameters
         ----------
@@ -951,14 +958,14 @@ class EDBCommon(Common):
             pyaedt.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
             self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
-            logger.debug("Project {} opened".format(edb_path))
+            logger.debug("Project {} is opened".format(edb_path))
             return True
         else:
             logger.error("Project {} does not exist".format(edb_path))
             return False
 
     def close_edb(self):
-        """Close EDB project.
+        """Close the EDB project.
 
         Returns
         -------
@@ -975,19 +982,19 @@ class EDBCommon(Common):
         if self.edb:
             self.edb.close_edb()
             self.edb = None
-            logger.info("Edb closed")
+            logger.info("EDB is closed.")
             return True
         else:
-            logger.error("Edb not initialized")
+            logger.error("EDB is not initialized.")
             return False
 
     def save_edb(self, edb_path=None):
-        """Save EDB project.
+        """Save the EDB project.
 
         Parameters
         ----------
         edb_path : str, optional
-            Full path to the ``aedb`` folder.
+            Full path to the ``aedb`` folder. The default is ``None``.
 
         Returns
         -------

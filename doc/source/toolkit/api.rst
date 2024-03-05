@@ -1,14 +1,11 @@
 Backend API
 ===========
-The backend API contains three classes: ``Common``, ``AEDTCommon``, ``EDBCommon``, which provides methods for
-controlling the toolkit workflow.
+The ``backend`` API contains three classes, ``Common``, ``AEDTCommon``, and ``EDBCommon``,.
+ which provides methods for controlling the toolkit workflow.
 
-- **Common**: provides methods for controlling the toolkit flow.
-
-- **AEDTCommon**: provides methods for controlling AEDT and it inherits ``Common`` class.
-
-- **EDBCommon**: provides methods for controlling EDB and it inherits ``Common`` class.
-
+- ``Common``: Provides methods for controlling the toolkit flow.
+- ``AEDTCommon``: Provides methods for controlling AEDT. This class inherits the ``Common`` class.
+- ``EDBCommon``: Provides methods for controlling EDB. This class inherits the ``Common`` class.
 
 .. currentmodule:: ansys.aedt.toolkits.common.backend.api
 

@@ -3,18 +3,18 @@
 Toolkit example
 ===============
 
-Explore a hands-on `toolkit example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_.
-
-This example shows how to create a new toolkit using the common library.
+The `examples/toolkit/pyaedt_toolkit <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
+folder contains all files for creating a toolkit using the PyAEDT Common Toolkit.
 
 Example walkthrough
 ~~~~~~~~~~~~~~~~~~~
 
 Follow the steps outlined in the example to gain practical insights into toolkit implementation:
 
-1. **Access the Example**: Navigate to the `toolkit example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_.
+1. **Access the example**: Navigate to the `examples/toolkit/pyaedt_toolkit <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
+   folder.
 
-2. **Understanding the Toolkit Structure**:
+2. **Understand the toolkit structure**:
 
    - Explore the directory and file structure of the example toolkit.
    - Gain insights into best practices for organizing toolkit components.
@@ -22,7 +22,7 @@ Follow the steps outlined in the example to gain practical insights into toolkit
 Toolkit structure
 ~~~~~~~~~~~~~~~~~
 
-For optimal organization and maintainability, toolkits are recommended to adhere to the following structure:
+For optimal organization and maintainability, toolkits should adhere to the following structure:
 
 .. code-block:: text
 
@@ -42,27 +42,29 @@ For optimal organization and maintainability, toolkits are recommended to adhere
    │
    └── run_toolkit.py
 
-Backend and frontend
-~~~~~~~~~~~~~~~~~~~~
+Backend and UI
+~~~~~~~~~~~~~~
 
-As described in the :ref:`architecture <architecture>`, toolkits must have a separation between backend and user interface.
+As described in :ref:`Architecture <architecture>`, toolkits must have a separation between the
+backend and UI.
 
-1. **backend**: Houses backend functionalities, including API and REST API definitions, data processing, and communication with the common library.
+- The ``backend`` directory houses backend functionalities, including API and REST API definitions,
+  data processing, and communication with the common library.
 
-2. **ui**: Focuses on frontend interactions, managing the user interface and connecting with backend functionalities.
+- The ``ui`` folder focuses on frontend interactions, managing the UI and connecting with backend
+  functionalities.
 
 API
 ~~~
 
-The toolkit API controls the workflow, enabling the creation of an automated workflow without a user interface.
-Inherit common methods as shown in the examples:
+The ``toolkit`` API controls the workflow, enabling the creation of an automated workflow without a UI.
 
 .. code:: python
 
     ToolkitBackend(AEDTCommon)
 
-
-You can play with the API in the python console:
+The following code shows how to inherit common methods.
+You can play with the API in the Python console:
 
 .. code:: python
 
@@ -84,11 +86,11 @@ Models and properties
 ~~~~~~~~~~~~~~~~~~~~~
 
 To introduce new properties to the toolkit, define them using models. Properties have a fixed type,
-so they are protected. In models, specify the type. In this example, two new properties, "multiplier" and "geometry,"
-are defined as float and string, respectively.
+so they are protected. In models, specify the type. In this example, two new properties, ``multiplier``
+and ``geometry``, are defined as float and string, respectively.
 
-In `backend_properties.json`, define default values for both common and new properties.
-These properties are correctly loaded by being imported into the toolkit API, as seen here.
+In the ``backend_properties.json`` file, define default values for both common and new properties.
+These properties are correctly loaded by being imported into the toolkit API, as seen here:
 
 .. code:: python
 
@@ -97,17 +99,18 @@ These properties are correctly loaded by being imported into the toolkit API, as
 Run backend
 ~~~~~~~~~~~
 
-This script, conventionally named `rest_api.py` for its role in managing the REST API of the toolkit,
-is referred to as `run_backend.py` in this example. Upon execution, this script launches a server that listens for incoming requests.
+A script, conventionally named  ``rest_api.py`` for its role in managing the REST API of the toolkit,
+is referred to as ``run_backend.py`` in this example. Upon execution, thE script launches a server that
+listens for incoming requests.
 
 Similar to the API, this file inherits the common REST API, containing only the specific REST API functionalities
-required for the toolkit. The following Python code segment imports the REST API application from the common library:
+required for the toolkit. The following Python code imports the REST API application from the common library:
 
 .. code:: python
 
     from ansys.aedt.toolkits.common.backend.rest_api import app
 
-Additionally, it creates an instance of the toolkit API object:
+This code then creates an instance of the toolkit API object:
 
 .. code:: python
 
@@ -116,7 +119,7 @@ Additionally, it creates an instance of the toolkit API object:
 Run frontend
 ~~~~~~~~~~~~
 
-The `run_frontend.py` script serves as the application launcher for the user interface, built using PySide6.
+The ``run_frontend.py`` script serves as the application launcher for the UI, built using PySide6.
 The file concludes with the following code, ensuring proper initialization using PySide6:
 
 .. code:: python
@@ -127,26 +130,28 @@ The file concludes with the following code, ensuring proper initialization using
         window.show()
         sys.exit(app.exec())
 
-The initialization of the `ApplicationWindow` class calls different common pages defined in the
-:ref:`user interface reference <user_interface>`.
+The initialization of the ``ApplicationWindow`` class calls different common pages defined ine
+:ref:`UI reference <user_interface>`.
 
-If additional pages are to be added to the toolkit,
-include them along with any required actions inside the "windows" directory.
+If additional pages are to be added to the toolkit, include them along with any required actions
+inside the ``windows`` directory.
 
-Actions
-~~~~~~~
+Common actions
+~~~~~~~~~~~~~~
 
-Actions define the calls to the REST API, as described in the :ref:`common actions <common_actions>` reference.
+Common actions define the calls to the REST API, as described in :ref:`Actions <common_actions>`.
 
-User interface properties
-~~~~~~~~~~~~~~~~~~~~~~~~~
+UI properties
+~~~~~~~~~~~~~
 
-Similar to the backend, the user interface has its properties.
-The `frontend_properties.json` file enables customization of the user interface theme, addition of new tabs, or modification of the URL and port for backend communication.
+Similar to the backend, the UI has its own properties. The ``frontend_properties.json`` file enables
+customization of the UI theme, addition of new tabs, and modification of the URL and port for backend
+communication.
 
 Run toolkit
 ~~~~~~~~~~~
 
-The `run_toolkit.py` script facilitates the simultaneous execution of both the backend and user interface in two different threads.
-This eliminates the need for users to launch the backend and frontend separately.
-In cases where the backend is running remotely, users should first execute the backend on the remote machine before running this script.
+The ``run_toolkit.py`` script facilitates the simultaneous execution of both the backend and UI in two
+different threads. This eliminates the need for launching the backend and UI separately.
+In cases where the backend is running remotely, execute the backend on the remote machine
+before running this script.
