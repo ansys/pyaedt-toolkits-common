@@ -39,7 +39,7 @@ if properties.high_resolution:
 class ApplicationWindow(QMainWindow, Frontend):
     def __init__(self):
         super().__init__()
-        print("hola")
+
         self.thread = None
         self.properties = properties
 
