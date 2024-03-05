@@ -245,6 +245,8 @@ jobs:
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m aedt_common_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test Common API
         timeout-minutes: 5
@@ -254,6 +256,8 @@ jobs:
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m common_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test EDB API
         timeout-minutes: 5
@@ -263,6 +267,8 @@ jobs:
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test REST API
         timeout-minutes: 5
@@ -272,6 +278,8 @@ jobs:
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
   build-library:
     name: "Build library artifacts"
