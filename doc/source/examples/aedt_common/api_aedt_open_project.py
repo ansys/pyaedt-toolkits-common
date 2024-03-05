@@ -1,12 +1,12 @@
 # # AEDT open project example
 #
-# This example shows how to use the Common AEDT API to
+# This example shows how to use the ``AEDTCommon`` class to
 # launch a new AEDT session in a thread and
 # open an existing AEDT project.
 
 # ## Perform required imports
 #
-# Perform required imports.
+# Perform the required imports.
 
 import sys
 import os
@@ -57,13 +57,13 @@ if not idle:
 
 # ## Open project
 #
-# Open project.
+# Open the project.
 
 open_msg = toolkit.open_project(local_project)
 
 # ## Get toolkit properties
 #
-# Properties contain the project information.
+# Get the toolkit properties, which contain the project information.
 
 new_properties = toolkit.get_properties()
 

@@ -2,10 +2,11 @@
 Utils
 =====
 
-This section encompasses various common widgets, objects, and layout templates designed for versatile application use.
-The following provides an overview of each:
+This section describes the classes for common widgets, objects, and layout templates, which
+are all designed for versatile application use. While a description of each class follows,
+you can click the class name to view detailed API reference information.
 
-**Common Window Utils**
+**``CommonWindowUtils``**
 
    .. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
    .. autosummary::
@@ -13,7 +14,7 @@ The following provides an overview of each:
 
       CommonWindowUtils
 
-**Load Images**
+**``LoadImages``**
 
    .. currentmodule:: ansys.aedt.toolkits.common.ui.utils.images.load_images
    .. autosummary::
@@ -21,7 +22,7 @@ The following provides an overview of each:
 
       LoadImages
 
-**Theme Handler**
+**``ThemeHandler``**
 
    .. currentmodule:: ansys.aedt.toolkits.common.ui.utils.themes.json_themes
    .. autosummary::
@@ -29,19 +30,16 @@ The following provides an overview of each:
 
       ThemeHandler
 
-`Common Window Utils` helps creating custom widgets in the user interface. There are some additional widgets available in this toolkit:
+You use the ``CommonWindowUtils`` class to create custom widgets in the UI. The PyAEDT
+Common Toolkit also provides the additional widgets described in :ref:`widgets`.
 
-.. toctree::
-   :maxdepth: 1
-   :titlesonly:
+In addition to wrapped PySide6 widgets, the PyAEDT Common Toolkit provides these UI
+templates to enhance the overall layout:
 
-   widgets/index
-
-In addition to the wrapped PySide6 widgets available in this toolkit, several user interface templates enhance the overall layout:
-
-- **left column**
-- **right column**
-- **main pages**
+- ``left_column.ui``
+- ``right_column.ui``
+- ``main_pages.ui``
 
 These templates serve as a foundation for creating default layouts. You can explore these templates in the
-`UI templates <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/utils/ui_templates>`_.
+`ui templates <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/utils/ui_templates>`_
+directory of the repository.

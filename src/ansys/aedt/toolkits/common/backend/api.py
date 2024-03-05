@@ -83,8 +83,8 @@ class ToolkitConnectionStatus:
 class Common:
     """Provides the API for controlling the toolkits.
 
-    This claass provides basic functions to control AEDT, EDB, and properties to
-    share between the backend and UI.
+    This class provides basic functions to control AEDT and EDB and the
+    properties to share between the backend and UI.
 
     Parameters
     ----------
@@ -111,7 +111,7 @@ class Common:
         self.logger = logger
 
     def get_properties(self) -> Dict[str, str]:
-        """Get toolkit properties.
+        """Get the toolkit properties.
 
         Returns
         -------
@@ -300,7 +300,7 @@ class Common:
         Parameters
         ----------
         file_path : str
-            File to serialize.
+            Path to the file to serialize.
 
         Returns
         -------
@@ -660,7 +660,7 @@ class AEDTCommon(Common):
         Parameters
         ----------
         project_name : str, optional
-            Full path to the project to open.
+            Full path to the project.
 
         Returns
         -------
@@ -699,8 +699,8 @@ class AEDTCommon(Common):
         Parameters
         ----------
         project_path : str, optional
-            Path of the AEDT file to save.
-            The default value is ``None``, in which case the current file is overwritten.
+            Path of the AEDT project. The default value is ``None``, in which
+            case the current file is overwritten.
 
         Returns
         -------
@@ -750,7 +750,7 @@ class AEDTCommon(Common):
         return os.path.splitext(os.path.basename(project_path))[0]
 
     def get_design_names(self) -> List[str]:
-        """Get design names for a specific project.
+        """Get the design names for a specific project.
 
         The first design name returned is the active design.
 
@@ -788,18 +788,18 @@ class AEDTCommon(Common):
     def export_aedt_model(
         self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
     ):
-        """Export model in OBJ format and then encode the files if the option is enabled.
+        """Export the model in the OBJ format and then encode the file if the ``encode`` parameter is enabled.
 
         Parameters
         ----------
         obj_list : list, optional
-            List of objects to export. Export every model object except 3D, vacuum, and
-            air objects. The default is ``None``.
+            List of objects to export. The default is ``None``, in which case
+            every model object except 3D, vacuum, and air objects are exported.
         export_path : str, optional
             Full path of the exported OBJ file. The default is ``None``.
         export_as_single_objects : bool, optional
-            Whether to export the model as a single object or as a list of objects
-            for each object. The default is ``True``.
+            Whether to export the model as a single object. The default is ``True``.
+            If ``False``, the model is exported as a list of objects for each object.
         air_objects : bool, optional
             Whether to export air and vacuum objects. The default is ``False``.
         encode : bool, optional
@@ -902,7 +902,7 @@ class AEDTCommon(Common):
 
 
 class EDBCommon(Common):
-    """Provides the generic API for controllinng EDB.
+    """Provides the generic API for controlling EDB.
 
     This class provides basic functions to control EDB and properties to share between the
     backend and UI.

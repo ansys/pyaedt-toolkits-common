@@ -3,6 +3,7 @@
 AEDT's
 application
 PyAEDT
+PyAEDT Common Toolkit
 pyaedt
 (?i)API
 toolkits
