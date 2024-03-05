@@ -11,13 +11,13 @@ methods or install only the backend methods.
 
 To install both the backend and UI methods, run this command:
 
-.. code:: python
+.. code:: bash
 
     pip install pyaedt-toolkits-common[all]
 
 If you only need the common API, install only the backend methods with this
 command:
 
-.. code:: python
+.. code:: bash
 
     pip install pyaedt-toolkits-common

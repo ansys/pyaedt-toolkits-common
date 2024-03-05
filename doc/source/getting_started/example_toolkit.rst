@@ -130,7 +130,7 @@ The file concludes with the following code, ensuring proper initialization using
         window.show()
         sys.exit(app.exec())
 
-The initialization of the ``ApplicationWindow`` class calls different common pages defined ine
+The initialization of the ``ApplicationWindow`` class calls different common pages defined in
 :ref:`UI reference <user_interface>`.
 
 If additional pages are to be added to the toolkit, include them along with any required actions

@@ -95,7 +95,7 @@ The `models.py <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/ma
 `properties <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/common_properties.json>`_ in the class properties.
 
 To understand how the backend and UI interact, see the `actions_generic.py <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py>`_
-file in the repostiory. For example, when an event is triggered by the frontend, the
+file in the repository. For example, when an event is triggered by the frontend, the
 `get_properties() <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L143>`_
 method builds the GET HTTP request to send to the backend to retrieve properties from the backend.
 The event of setting up a property calls the `set_properties() <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L165>`_

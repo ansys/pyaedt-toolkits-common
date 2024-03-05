@@ -5,7 +5,7 @@ Getting started
 ===============
 
 This section explains how to install the PyAEDT Common Toolkit.
-It then explains this toolkit's archicture and provides an example
+It then explains this toolkit's architecture and provides an example
 of how to use its common methods to develop a new Ansys
 Electronics Desktop (AEDT) toolkit.
 

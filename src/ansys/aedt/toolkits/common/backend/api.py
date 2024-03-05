@@ -58,7 +58,7 @@ class PropertiesUpdate(str, Enum):
 
     EMPTY = "Body is empty."
     SUCCESS = "Properties were updated successfully."
-    VALIDATION_ERROR = "Error occured during validation of properties field."
+    VALIDATION_ERROR = "Error occurred during validation of properties field."
 
 
 @dataclass
@@ -84,7 +84,7 @@ class Common:
     """Provides the API for controlling the toolkits.
 
     This claass provides basic functions to control AEDT, EDB, and properties to
-    share between tne backend and UI.
+    share between the backend and UI.
 
     Parameters
     ----------
@@ -692,8 +692,8 @@ class AEDTCommon(Common):
         return False
 
     def save_project(self, project_path=None):
-        """Save the project. 
-        
+        """Save the project.
+
         This method uses the properties to get the project path. This method is launched in a thread.
 
         Parameters
