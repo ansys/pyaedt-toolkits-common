@@ -483,7 +483,7 @@ class AEDTCommon(Common):
         self.desktop = pyaedt.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
-            logger.error("Roolkit is not connected to AEDT.")
+            logger.error("Toolkit is not connected to AEDT.")
             return False
 
         logger.debug("Toolkit is connected to AEDT.")
@@ -602,7 +602,7 @@ class AEDTCommon(Common):
             logger.info("Toolkit is connected to AEDT design.")
             return True
         else:  # pragma: no cover
-            logger.error("Toolkit not connected to AEDT design.")
+            logger.error("Toolkit is not connected to AEDT design.")
             return False
 
     def release_aedt(self, close_projects=False, close_on_exit=False):
