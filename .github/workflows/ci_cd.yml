@@ -241,7 +241,7 @@ jobs:
         timeout-minutes: 5
         run: |
           export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT232=/ansys_inc/v241/Linux64
+          export ANSYSEM_ROOT241=/ansys_inc/v241/Linux64
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m aedt_common_api
@@ -252,7 +252,7 @@ jobs:
         timeout-minutes: 5
         run: |
           export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT232=/ansys_inc/v241/Linux64
+          export ANSYSEM_ROOT241=/ansys_inc/v241/Linux64
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m common_api
@@ -263,7 +263,7 @@ jobs:
         timeout-minutes: 5
         run: |
           export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT232=/ansys_inc/v241/Linux64
+          export ANSYSEM_ROOT241=/ansys_inc/v241/Linux64
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api
@@ -274,7 +274,7 @@ jobs:
         timeout-minutes: 5
         run: |
           export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT232=/ansys_inc/v241/Linux64
+          export ANSYSEM_ROOT241=/ansys_inc/v241/Linux64
           export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api
