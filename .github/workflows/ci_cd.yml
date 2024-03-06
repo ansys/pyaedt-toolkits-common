@@ -130,7 +130,7 @@ jobs:
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
-  tests_windows_aedt:
+  tests_windows:
     name: "Windows Tests"
     strategy:
       matrix:
@@ -284,7 +284,7 @@ jobs:
   build-library:
     name: "Build library artifacts"
     runs-on: ubuntu-latest
-    needs: [ doc-build, tests_windows_aedt ]
+    needs: [ doc-build, tests_windows, tests_linux ]
     steps:
       - uses: ansys/actions/build-library@v5
         with:
