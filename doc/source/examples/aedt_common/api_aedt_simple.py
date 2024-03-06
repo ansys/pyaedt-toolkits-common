@@ -1,12 +1,12 @@
 # # AEDT simple example
 #
-# This example shows how to use the Common AEDT API to
+# This example shows how to use the ``AEDTCommon`` class to
 # launch a new AEDT session in a thread,
-# create a HFSS design and create a coaxial.
+# create an HFSS design, and create a coaxial.
 
 # ## Perform required imports
 #
-# Perform required imports.
+# Perform the required imports.
 
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
@@ -25,7 +25,7 @@ properties_from_backend = toolkit.get_properties()
 
 # ## Set properties
 #
-# Set non graphical mode.
+# Set non-graphical mode.
 
 set_properties = {"non_graphical": True}
 flag_set_properties, msg_set_properties = toolkit.set_properties(set_properties)
@@ -53,7 +53,7 @@ toolkit.connect_design("HFSS")
 
 # ## Get toolkit properties
 #
-# Properties contain the project information.
+# Get the toolkit properties, which contain the project information.
 
 new_properties = toolkit.get_properties()
 
@@ -71,7 +71,7 @@ toolkit.release_aedt(False, False)
 
 # ## Export AEDT model
 #
-# Export OBJ files.
+# Export the OBJ files.
 
 files = toolkit.export_aedt_model()
 

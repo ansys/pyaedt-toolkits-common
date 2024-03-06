@@ -1,10 +1,11 @@
 Examples
 ========
-End-to-end examples show how you can use the Common toolkit API.
+End-to-end examples show how to use the three classes in the backend API of the PyAEDT Common Toolkit
+and its REST API.
 
-Common AEDT API
-~~~~~~~~~~~~~~~
-Common AEDT API examples.
+The ``AEDTCommon`` class
+~~~~~~~~~~~~~~~~~~~~~~~~
+These examples show how to use the ``AEDTCommon`` class of the backend API:
 
 .. nbgallery::
 
@@ -12,17 +13,17 @@ Common AEDT API examples.
     aedt_common/api_aedt_open_project.py
     aedt_common/api_aedt_connect_session.py
 
-Common EDB API
-~~~~~~~~~~~~~~
-Common EDB API examples.
+The ``EDBCommon`` class
+~~~~~~~~~~~~~~~~~~~~~~~
+These examples show how to use the ``EDBCommon`` class of the backend API:
 
 .. nbgallery::
 
     edb_common/api_edb.py
 
-Common API
-~~~~~~~~~~
-Common API examples.
+The ``Common`` class
+~~~~~~~~~~~~~~~~~~~~
+These examples show how to use the ``Common`` class of the backend API:
 
 .. nbgallery::
 
@@ -30,4 +31,6 @@ Common API examples.
 
 REST API
 ~~~~~~~~
-Find here a `REST API example <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/backend/rest_api_aedt_example.py>`_.
+For an example of using the REST API for the PyAEDT Common Toolkit, see the
+`rest_api_aedt_example.py <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/backend/rest_api_aedt_example.py>`_
+file in the repository.
