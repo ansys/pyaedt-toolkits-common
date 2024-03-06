@@ -48,6 +48,7 @@ NAME_TO_AEDT_APP = {
     "Q3D": "Q3d",
     "Q3d": "Q3d",
     "RMxprt": "Rmxprt",
+    "TwinBuilder": "Simplorer",
     "Twin Builder": "Simplorer",
     "Simplorer": "Simplorer",
     "Mechanical": "Mechanical",

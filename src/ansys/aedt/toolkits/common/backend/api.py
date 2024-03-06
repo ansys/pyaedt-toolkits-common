@@ -493,7 +493,7 @@ class AEDTCommon(Common):
         """Connect to an application design.
 
         If a design exists, this method uses the active project and design. If a design does not exist,
-        this method creates a design of the specified type. If no application is specified, the default is ``"Hfss"``.
+        this method creates a design of the specified type. If no application is specified, the default is ``"HFSS"``.
 
         Parameters
         ----------
@@ -510,7 +510,7 @@ class AEDTCommon(Common):
             * ``"Q2D"``
             * ``"Q3D"``
             * ``"Rmxprt"``
-            * ``"Twin Builder"``
+            * ``"TwinBuilder"``
             * ``"Mechanical"``
 
         Returns
@@ -796,7 +796,8 @@ class AEDTCommon(Common):
             List of objects to export. The default is ``None``, in which case
             every model object except 3D, vacuum, and air objects are exported.
         export_path : str, optional
-            Full path of the exported OBJ file. The default is ``None``.
+            Full path of the exported OBJ file.
+            The default is ``None``, in which case the file is exported in the working directory.
         export_as_single_objects : bool, optional
             Whether to export the model as a single object. The default is ``True``.
             If ``False``, the model is exported as a list of objects for each object.

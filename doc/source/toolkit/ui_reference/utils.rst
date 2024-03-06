@@ -43,3 +43,8 @@ templates to enhance the overall layout:
 These templates serve as a foundation for creating default layouts. You can explore these templates in the
 `ui templates <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/utils/ui_templates>`_
 directory of the repository.
+
+.. toctree::
+   :hidden:
+
+   widgets/index
