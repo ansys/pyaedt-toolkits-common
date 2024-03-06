@@ -1,15 +1,15 @@
 .. _user_interface:
 
-============
-UI reference
-============
+================
+UI API reference
+================
 
-This library contains a versatile library designed to streamline the process of creating standard desktop applications
-using the `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
-The user interface (UI) API provides a set of pre-built components, utilities, and an API that simplifies
+The PyADT Common Toolkit is designed to streamline the process of creating standard AEDT applications
+using `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
+The UI API provides a set of pre-built components, utilities, and an API that simplifies
 the development of robust and user-friendly applications.
 
-The user interface (UI) API contains three main modules: **Utils**, **Windows**, **Generic actions**:
+The UI API contains three main modules: ``Utils``, ``Windows``, and ``Generic actions``:
 
 .. grid:: 2
 
@@ -25,7 +25,7 @@ The user interface (UI) API contains three main modules: **Utils**, **Windows**,
         :link: ui_reference/windows
         :link-type: doc
 
-        Defaults windows initialization.
+        Default Windows initialization.
 
     .. grid-item-card:: Generic actions :fa:`scroll`
         :padding: 2 2 2 2
@@ -43,13 +43,14 @@ The user interface (UI) API contains three main modules: **Utils**, **Windows**,
    ui_reference/actions
 
 
-The provided user interface has the following structure:
+This image shows the structure of the UI:
 
 .. image:: ../_static/user_interface.png
   :width: 800
-  :alt: User interface
+  :alt: UI structure
 
-The user interface is contained inside the main window. The main window contains some common widgets that are by default
-initialized, such as the credits, title. New pages are added in the content widget.
+The UI is contained inside the main window. The main window contains some common widgets,
+such as the credits and title, that are initialized by default. You use the content widget
+to add new pages.
 
-You can find how to initialize the `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/ui/default_ui_exampley>`_.
+For initialization information, see the `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/ui/default_ui_example>`_.

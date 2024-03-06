@@ -1,11 +1,11 @@
-# # EDB API example
+# # EDB simple example
 #
-# This example shows how to use the Common EDB API to
+# This example shows how to use the ``EDBCommon`` class to
 # open an existing EDB project.
 
 # ## Perform required imports
 #
-# Perform required imports.
+# Perform the required imports.
 
 import sys
 import os
@@ -43,20 +43,20 @@ toolkit = EDBCommon()
 
 # ## Initialize EDB project
 #
-# Open EDB project.
+# Open the EDB project.
 
 load_edb_msg = toolkit.load_edb(edb_path)
 
 # ## Get toolkit properties
 #
-# Properties contain the project information.
+# Get toolkit properties, which contain the project information.
 
 new_properties = toolkit.get_properties()
 edb_project = new_properties["active_project"]
 
 # ## Save project
 #
-# Copy current project in a different file.
+# Copy the current project in a new file.
 
 directory, old_file_name = os.path.split(edb_project)
 new_path = os.path.join(directory, "new_edb.aedb")

@@ -1,12 +1,12 @@
-Common PyAEDT Toolkit documentation |version|
+PyAEDT Common Toolkit documentation |version|
 =============================================
 
 **Useful links**:
 :ref:`Installation <installation>` |
-`Source Repository <https://github.com/ansys-internal/pyaedt-toolkits-common>`_ |
+`Source repository <https://github.com/ansys-internal/pyaedt-toolkits-common>`_ |
 `Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_
 
-This package provides common methods and best practices to create a new Ansys Electronics Desktop (AEDT) toolkit.
+The PyADT Common Toolkit provides common methods and best practices for creating an Ansys Electronics Desktop (AEDT) toolkit.
 
 .. grid:: 2
 
@@ -15,7 +15,8 @@ This package provides common methods and best practices to create a new Ansys El
         :link: getting_started/index
         :link-type: doc
 
-        Learn more about the library and how to install it.
+        Learn how to install the PyADT Common Toolkit, understand its architecture
+        and use this toolkit's common method to developer an example AEDT toolkit.
 
     .. grid-item-card:: Backend API reference :fa:`book-bookmark`
         :padding: 2 2 2 2
@@ -29,14 +30,14 @@ This package provides common methods and best practices to create a new Ansys El
         :link: toolkit/ui
         :link-type: doc
 
-        Understand how to use the user interface API.
+        Understand how to use the UI API.
 
     .. grid-item-card:: Examples :fa:`scroll`
         :padding: 2 2 2 2
         :link: examples/index
         :link-type: doc
 
-        Explore examples that show how to use the Common API.
+        Explore examples that show how to use the Common AEDT API.
 
     .. grid-item-card:: Contribute :fa:`people-group`
         :padding: 2 2 2 2

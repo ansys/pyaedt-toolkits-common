@@ -29,7 +29,7 @@ from ansys.aedt.toolkits.common.backend.models import common_properties
 
 
 class ThreadManager(object):
-    """Class to control toolkit threads.
+    """Controls toolkit threads.
 
     Parameters
     ----------
@@ -87,6 +87,6 @@ class ThreadManager(object):
 
     @classmethod
     def is_toolkit_thread_running(self) -> bool:
-        """Check if the thread associated to the toolkit is running."""
+        """Check if the thread associated with the toolkit is running."""
         running_threads_names = [t.name for t in self.running_threads()]
         return self.toolkit_thread_name in running_threads_names

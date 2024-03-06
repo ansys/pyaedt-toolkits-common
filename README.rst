@@ -23,54 +23,44 @@ PyAEDT Common Toolkit
   :target: https://github.com/psf/black
   :alt: black
 
-The ``pyaedt-toolkits-common`` package provides common methods to create a new Ansys Electronics Desktop (AEDT) toolkit.
+The PyAEDT Common Toolkit provides common methods for creating an Ansys Electronics Desktop (AEDT) toolkit.
 
-A common toolkit library can bring numerous advantages, enhancing efficiency, consistency, and collaboration
-in the creation and development of AEDT toolkits.
+A common toolkit library can bring numerous advantages in the creation and development of toolkits,
+including enhancing efficiency, consistency, and collaboration.
 
-This package has two main parts: backend and user interface.
+The PyAEDT Common Toolkit has two main parts: a backend and a User Interface (UI).
 
-The backend has some common methods to control AEDT session, and in addition,
-it has a REST API based on `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
+- The backend has some common methods for controlling an AEDT session and also a
+  REST API based on `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
 
-The user interface has some common methods to create a desktop application based on `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
-
-You can install both backend and user interface methods from PyPI:
-
-.. code:: python
-
-    pip install pyaedt-toolkits-common[all]
-
-You can install only the backend methods from PyPI, this is useful if you only need the common API:
-
-.. code:: python
-
-    pip install pyaedt-toolkits-common
-
+- The UI consists of some common methods for creating a desktop app based on
+  `Pyside6 <https://doc.qt.io/qtforpython-6/quickstart.html>`_.
 
 Requirements
 ~~~~~~~~~~~~
-In addition to the runtime dependencies listed in the installation information, this toolkit
-requires Ansys Electronics Desktop (AEDT) 2023 R2 or later. The AEDT Student Version is also supported.
+In addition to the runtime dependencies listed in
+`Installation <https://aedt.common.toolkit.docs.pyansys.com/version/dev/getting_started/installation.html>`_,
+the PyAEDT Common Toolkit requires AEDT 2023 R2 or later. This toolkit also supports the AEDT Student
+Version for 2023 R2 or later.
 
 Documentation and issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
 Documentation for the latest stable release is hosted at
-`Common toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/index.html>`_.
+`PyAEDT Common Toolkit documentation <https://aedt.common.toolkit.docs.pyansys.com/version/stable/index.html>`_.
 
 In the upper right corner of the documentation's title bar, there is an option for switching from
 viewing the documentation for the latest stable release to viewing the documentation for the
 development version or previously released versions.
 
-On the `Common toolkit issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
-create issues to submit questions, report bugs, and request new features.
+On the `PyAEDT Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
+create issues to report bugs and request new features. On the `Discussions <https://discuss.ansys.com/>`_
+page on the Ansys Developer portal, you can post questions, share ideas, and get community feedback.
 
 License
 ~~~~~~~
-This toolkit is licensed under the MIT license.
+The PyAEDT Common Toolkit is licensed under the MIT license.
 
-This module makes no commercial claim over Ansys whatsoever.
-The use of the interactive control of this toolkit requires a legally licensed
-local copy of AEDT. For more information about AEDT,
-visit the `AEDT page <https://www.ansys.com/products/electronics>`_
-on the Ansys website.
+This toolkit makes no commercial claim over Ansys whatsoever.
+The use of this toolkit requires a legally licensed copy of AEDT.
+For more information, see the `Ansys Electronics <https://www.ansys.com/products/electronics>`_
+page on the Ansys website.

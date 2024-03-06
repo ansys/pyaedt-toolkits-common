@@ -1,14 +1,13 @@
-Backend API
-===========
-The backend API contains three classes: ``Common``, ``AEDTCommon``, ``EDBCommon``, which provides methods for
-controlling the toolkit workflow.
+Backend API reference
+=====================
+The backend API contains three classes, `AEDTCommon``, ``EDBCommon``, and ``Common``, 
+which provide methods for controlling the toolkit workflow:
 
-- **Common**: provides methods for controlling the toolkit flow.
+- ``AEDTCommon``: Provides methods for controlling AEDT. This class inherits the ``Common`` class.
+- ``EDBCommon``: Provides methods for controlling EDB. This class inherits the ``Common`` class.
+- ``Common``: Provides methods for controlling the toolkit flow.
 
-- **AEDTCommon**: provides methods for controlling AEDT and it inherits ``Common`` class.
-
-- **EDBCommon**: provides methods for controlling EDB and it inherits ``Common`` class.
-
+In the following descriptions, you can click the class name to view detailed API information.
 
 .. currentmodule:: ansys.aedt.toolkits.common.backend.api
 
@@ -33,7 +32,7 @@ This code shows how to use the ``AEDTCommon`` class:
     # Get the default properties
     properties_from_backend = toolkit.get_properties()
 
-    # Set properties, useful to set more than one property
+    # Set properties, which is useful for setting more than one property
     new_properties = {"use_grpc": True, "debug": False}
     flag1, msg1 = toolkit.set_properties(new_properties)
 
@@ -43,13 +42,13 @@ This code shows how to use the ``AEDTCommon`` class:
     # Get AEDT installed versions
     versions = toolkit.installed_aedt_version()
 
-    # Launch AEDT. This is launched in a thread.
+    # Launch AEDT in a thread
     msg3 = toolkit.launch_thread(toolkit.launch_aedt)
 
     # Wait until thread is finished
     toolkit.wait_to_be_idle()
 
-    # Get new properties. Now the properties should contain the project information.
+    # Get new properties, which should now contain project information
     new_properties4 = toolkit.get_properties()
 
     # Connect to the design

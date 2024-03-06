@@ -3,6 +3,7 @@
 AEDT's
 application
 PyAEDT
+PyAEDT Common Toolkit
 pyaedt
 (?i)API
 toolkits
@@ -41,4 +42,5 @@ PyLineEdit
 PyLogger
 ApplicationWindow
 walkthrough
+toolkit's
 
