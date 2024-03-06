@@ -100,7 +100,7 @@ Run backend
 ~~~~~~~~~~~
 
 A script, conventionally named  ``rest_api.py`` for its role in managing the REST API of the toolkit,
-is referred to as ``run_backend.py`` in this example. Upon execution, thE script launches a server that
+is referred to as ``run_backend.py`` in this example. Upon execution, the script launches a server that
 listens for incoming requests.
 
 Similar to the API, this file inherits the common REST API, containing only the specific REST API functionalities
