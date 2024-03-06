@@ -28,7 +28,7 @@ The PyAEDT Common Toolkit provides common methods for creating an Ansys Electron
 A common toolkit library can bring numerous advantages in the creation and development of toolkits,
 including enhancing efficiency, consistency, and collaboration.
 
-The PyAEDT Common Toolkit has two main parts: a backend and a user interface (UI).
+The PyAEDT Common Toolkit has two main parts: a backend and a User Interface (UI).
 
 - The backend has some common methods for controlling an AEDT session and also a
   REST API based on `Flask <https://flask.palletsprojects.com/en/2.3.x/>`_.
