@@ -46,6 +46,7 @@ jobs:
   doc-build:
     name: "Build documentation"
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    needs: [ doc-style ]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
