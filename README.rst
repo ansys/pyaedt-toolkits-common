@@ -41,7 +41,7 @@ Requirements
 In addition to the runtime dependencies listed in
 `Installation <https://aedt.common.toolkit.docs.pyansys.com/version/dev/getting_started/installation.html>`_,
 the PyAEDT Common Toolkit requires AEDT 2023 R2 or later. This toolkit also supports the AEDT Student
-Version for 2023 R or later.
+Version for 2023 R2 or later.
 
 Documentation and issues
 ~~~~~~~~~~~~~~~~~~~~~~~~
