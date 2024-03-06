@@ -22,7 +22,7 @@ def _default_theme_setup(path: Path) -> Path:
         The full path to the default theme file.
     """
     logger.error(f'"settings.json" not found! Loaded default.')
-    return path / "ansys.json"
+    return path / "ansys_dark.json"
 
 
 class ThemeHandler:

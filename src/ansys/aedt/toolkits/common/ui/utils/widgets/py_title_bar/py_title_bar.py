@@ -28,7 +28,7 @@ class PyTitleBar(QWidget):
     app_parent : QWidget
         The main application window.
     logo_image : str, optional
-        The path to the logo image file, by default "ANSS_BIG.D.svg".
+        The path to the logo image file, by default "ansys-primary-logo-white.svg".
     logo_width : int, optional
         The width of the logo, by default 10.
     dark_one : str, optional
@@ -70,7 +70,7 @@ class PyTitleBar(QWidget):
         self,
         parent,
         app_parent,
-        logo_image="ANSS_BIG.D.svg",
+        logo_image="ansys-primary-logo-white.svg",
         logo_width=10,
         dark_one="#1b1e23",
         bg_color="#343b48",

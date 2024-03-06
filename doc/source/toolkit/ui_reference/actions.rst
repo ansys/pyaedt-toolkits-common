@@ -1,8 +1,10 @@
+.. _common_actions:
+
 =======
 Actions
 =======
 
-This class provides a generic frontend for controlling the toolkit. A backend must be running previously.
+The ``FrontendGeneric`` class provides a generic UI for controlling the toolkit. A backend must be running previously.
 
 .. currentmodule:: ansys.aedt.toolkits.common.ui.actions_generic
 

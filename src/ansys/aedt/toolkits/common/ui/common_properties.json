@@ -10,6 +10,8 @@
   "version" : "v0.0.1",
   "copyright" : "By: x",
   "year" : 2023,
+  "logo": "",
+  "icon": "",
   "startup_size": [
       1400,
       720
@@ -41,7 +43,7 @@
       "text_size" : 9
   },
   "high_resolution": false,
-  "theme" : "ansys.json",
+  "theme" : "ansys_dark.json",
   "images" : "",
   "add_left_menus" : [
         {
@@ -53,7 +55,7 @@
             "is_active": false
         },
         {
-            "btn_icon": "icon_heart.svg",
+            "btn_icon": "icon_log.svg",
             "btn_id": "progress_menu",
             "btn_text": "Progress",
             "btn_tooltip": "Progress",

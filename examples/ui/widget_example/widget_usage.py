@@ -3,6 +3,8 @@ import sys
 
 from PySide6.QtCore import *
 from PySide6.QtWidgets import *
+from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QApplication
 
 from ansys.aedt.toolkits.common.ui.utils.widgets import *
 
@@ -10,14 +12,13 @@ from ansys.aedt.toolkits.common.ui.utils.widgets import *
 class ApplicationWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-
         self.py_window = PyWindow(self, margin=5, spacing=30)
         self.py_window.setFixedSize(400, 400)
 
         # Instantiate the widgets
         self.progress_bar = PyProgress(progress=0, progress_color="#FFB71B", background_color="#313131", width=10)
 
-        self.icon_but = PyIconButton("icon_signal.svg", tooltip_text="Example", is_active=True)
+        self.icon_but = PyIconButton("connect_gold.svg", tooltip_text="Example", is_active=True)
 
         # Set window layout
 
@@ -29,7 +30,7 @@ class ApplicationWindow(QMainWindow):
         column_group1.setLayout(layout1)
 
         # Instantiate the widgets for the right column
-        self.icon = PyIcon("icon_signal.svg", "#FF0000")
+        self.icon = PyIcon("icon_menu.svg", "#FF0000")
         self.label = PyLabel("hola", font_size=15)
         self.divider = PyDiv(color="#FF0000", height=50, width=1)
         self.my_edit = PyLineEdit(place_holder_text="here your text")
@@ -74,7 +75,7 @@ class ApplicationWindow(QMainWindow):
         title_layout = QVBoxLayout()
         title_layout.addWidget(self.title)
 
-        self.left_menu = PyLeftMenu(parent=self, app_parent=self, icon_path="icon_signal.svg")
+        self.left_menu = PyLeftMenu(parent=self, app_parent=self, icon_path="icon_log.svg")
         self.left_menu.setMinimumWidth(150)
 
         # Create a GroupBox for the PyWindow widget

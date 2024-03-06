@@ -3,6 +3,7 @@
 AEDT's
 application
 PyAEDT
+PyAEDT Common Toolkit
 pyaedt
 (?i)API
 toolkits
@@ -39,4 +40,7 @@ PyTitleBar
 PyIconButton
 PyLineEdit
 PyLogger
+ApplicationWindow
+walkthrough
+toolkit's
 

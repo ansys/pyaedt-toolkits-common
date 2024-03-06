@@ -3,13 +3,21 @@
 Installation
 ============
 
-If you want to use this library for a toolkit or workflow, you can install the backend standalone or
-install backend and user interface common methods.
+The PyAEDT Common Toolkit can be installed like any other open source package
+and then added as a dependency to a new toolkit project.
 
-You can install both backend and user interface methods from PyPI::
+From PyPI, you can either install both the backend and user interface (UI)
+methods or install only the backend methods.
 
-    pip -m install git+https://github.com/ansys-internal/pyaedt-toolkits-common.git[all]
+To install both the backend and UI methods, run this command:
 
-You can install only the backend methods from PyPI, this is useful if you only need the common API::
+.. code:: bash
 
-    pip -m install git+https://github.com/ansys-internal/pyaedt-toolkits-common.git
+    pip install pyaedt-toolkits-common[all]
+
+If you only need the common API, install only the backend methods with this
+command:
+
+.. code:: bash
+
+    pip install pyaedt-toolkits-common

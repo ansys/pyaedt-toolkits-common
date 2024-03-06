@@ -25,7 +25,6 @@ import time
 from typing import Optional
 
 from PySide6 import QtWidgets
-from PySide6.QtWidgets import QMainWindow
 import requests
 
 from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
@@ -35,13 +34,12 @@ from ansys.aedt.toolkits.common.ui.models import general_settings
 MSG_TK_RUNNING = "Please wait, toolkit running"
 
 
-class FrontendGeneric(QMainWindow):
+class FrontendGeneric:
     """This class provides a generic frontend for controlling the toolkit."""
 
     def __init__(self):
         logger.info("Frontend initialization...")
 
-        super().__init__()
         self.ui = None
         url = general_settings.backend_url
         port = general_settings.backend_port
@@ -78,7 +76,7 @@ class FrontendGeneric(QMainWindow):
         response_success = False
         try:
             while not response_success and count < timeout:
-                time.sleep(1)
+                time.sleep(0.1)
                 response = requests.get(url)
                 response_success = response.ok
                 count += 1

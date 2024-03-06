@@ -6,7 +6,7 @@
 
 # ## Perform required imports
 #
-# Perform required imports.
+# Perform the required imports.
 
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
@@ -21,13 +21,13 @@ toolkit = AEDTCommon()
 
 # ## Get toolkit properties
 #
-# Get the toolkit properties.
+# Get the toolkit properties, which contain the project information.
 
 properties_from_backend = toolkit.get_properties()
 
 # ## Initialize AEDT
 #
-# Initialize AEDT using PyAEDT and release it.
+# Initialize AEDT using PyAEDT and then release it.
 pyaedt.settings.enable_logger = False
 app = pyaedt.Desktop(specified_version=properties_from_backend["aedt_version"],
                      non_graphical=properties_from_backend["non_graphical"])
@@ -48,7 +48,7 @@ else:
 
 # ## Set properties
 #
-# AEDT session selection.
+# Specify the AEDT session selection.
 
 new_properties = {"selected_process": selected_process, "use_grpc": use_grpc}
 flag, msg = toolkit.set_properties(new_properties)
@@ -76,7 +76,7 @@ toolkit.connect_design("HFSS")
 
 # ## Get toolkit properties
 #
-# Properties contain the project information.
+# Get the toolkit properties, which contain the project information.
 
 new_properties = toolkit.get_properties()
 

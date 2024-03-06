@@ -31,13 +31,13 @@ from ansys.aedt.toolkits.common.backend.logger_handler import logger
 
 
 class BodyErrorMessage(str, Enum):
-    """Body error message."""
+    """Raises the body error message."""
 
     EMPTY = "Body is empty."
     INCORRECT_CONTENT = "Body content is not correct."
 
 
-try:
+try:  # pragma: no cover
     from api import ToolkitBackend
 
     toolkit_api = ToolkitBackend()
@@ -63,7 +63,8 @@ def get_status():
     status = toolkit_api.get_thread_status()
     if status in [ToolkitThreadStatus.BUSY, ToolkitThreadStatus.IDLE]:
         return jsonify(status.value), 200
-    return jsonify(status.value), 500
+    else:  # pragma: no cover
+        return jsonify(status.value), 500
 
 
 @app.route("/wait_thread", methods=["GET"])
@@ -80,7 +81,7 @@ def wait_thread():
     response = toolkit_api.wait_to_be_idle(timeout=timeout)
     if response:
         return jsonify("Thread is idle, you can proceed"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(f"Timeout ({timeout} seconds) exceeded"), 500
 
 
@@ -115,7 +116,7 @@ def aedt_sessions():
     response = toolkit_api.aedt_sessions()
     if isinstance(response, dict):
         return jsonify(response), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 
@@ -126,7 +127,7 @@ def launch_aedt():
     response = toolkit_api.launch_thread(toolkit_api.launch_aedt)
     if response:
         return jsonify("AEDT properties loaded"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to launch to AEDT"), 500
 
 
@@ -150,10 +151,10 @@ def get_hfss_model_call():
 
     response = toolkit_api.export_aedt_model(**params)
 
-    if response:
+    if response:  # pragma: no cover
         return jsonify(response), 200
     else:
-        return jsonify("Antenna not created"), 500
+        return jsonify("No model exported"), 500
 
 
 @app.route("/open_project", methods=["POST"])
@@ -172,7 +173,7 @@ def open_project():
 
     if response:
         return jsonify("Project opened"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to open project"), 500
 
 
@@ -197,7 +198,7 @@ def close_aedt():
 
     if response:
         return jsonify("AEDT correctly released"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("AEDT is not connected"), 500
 
 
@@ -214,7 +215,7 @@ def connect_design():
     response = toolkit_api.connect_design(body["aedtapp"])
     if response:
         return jsonify("Design connected"), 200
-    else:
+    else:  # pragma: no cover
         return jsonify("Fail to connect to the design"), 500
 
 
@@ -231,7 +232,7 @@ def save_project():
     response = toolkit_api.save_project(body)
     if response:
         return jsonify("Project saved: {}".format(body)), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 
@@ -241,7 +242,7 @@ def get_design_names():
     response = toolkit_api.get_design_names()
     if isinstance(response, list):
         return jsonify(response), 200
-    else:
+    else:  # pragma: no cover
         return jsonify(response), 500
 
 

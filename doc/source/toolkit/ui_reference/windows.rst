@@ -2,13 +2,14 @@
 Windows
 =======
 
-The window layout template is defined in the following directory:
-`Main window layout <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/main_window>`_.
+The Windows layout template is in the
+`main_window <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/main_window>`_
+directory in the repository.
 
-The following directory contains the setup of the **main window**, **home menu** and **settings column**.
-`Common window setup <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/common_windows>`_
+The `Common_windows <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui/common_windows>`_
+directory contains the files for setting up the **main window**, **home menu**, and **settings column**.
 
-The following script shows how you can use the previous files to initialize the application.
+The following script shows how to use the previous files to initialize the application.
 
 .. code:: python
 
@@ -32,15 +33,15 @@ The following script shows how you can use the previous files to initialize the 
 
             FrontendGeneric.__init__(self)
 
-            # Create user interface object
+            # Create UI object
             self.ui = MainWindowLayout(self)
             self.ui.setup()
 
-            # Setup main
+            # Set up main window
             self.main_window = MainWindow(self)
             self.main_window.setup()
 
-            # Settings menu
+            # Set up settings menu
             self.settings_menu = SettingsMenu(self)
             self.settings_menu.setup()
 

@@ -78,6 +78,7 @@ class PyIcon(QWidget):
         color = icon_color if icon_color else self._icon_color
 
         icon = QPixmap(icon_path)
+        icon = icon.scaled(30, 30, Qt.KeepAspectRatio, Qt.SmoothTransformation)
         painter = QPainter(icon)
         painter.setCompositionMode(QPainter.CompositionMode_SourceIn)
         painter.fillRect(icon.rect(), color)

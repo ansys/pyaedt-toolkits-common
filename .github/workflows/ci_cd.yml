@@ -130,8 +130,8 @@ jobs:
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
 
-  tests_windows_aedt:
-    name: "Windows Tests AEDT"
+  tests_windows:
+    name: "Windows Tests"
     strategy:
       matrix:
         python-version: [ '3.10' ]
@@ -204,10 +204,87 @@ jobs:
 #        env:
 #          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
+  tests_linux:
+    name: "Linux Tests"
+    strategy:
+      matrix:
+        python-version: [ '3.10' ]
+      fail-fast: false
+    runs-on: [self-hosted, pyaedt, toolkits, Linux]
+    needs: [ smoke-tests ]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Create Python venv
+        run: |
+          python -m venv .venv_linux
+          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
+          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+
+      - name: Install packages for testing
+        run: |
+          source .venv_linux/bin/activate
+          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip -U
+          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org wheel setuptools -U
+          python -c "import sys; print(sys.executable)"
+          python -m pip install --upgrade pip
+          pip install --upgrade build wheel
+          pip install .[tests]
+          pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
+
+      - name: Test AEDT Common API
+        timeout-minutes: 5
+        run: |
+          export ANS_NODEPCHECK=1
+          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
+          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m aedt_common_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
+
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          export ANS_NODEPCHECK=1
+          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
+          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m common_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
+
+      - name: Test EDB API
+        timeout-minutes: 5
+        run: |
+          export ANS_NODEPCHECK=1
+          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
+          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m edb_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
+
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          export ANS_NODEPCHECK=1
+          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
+          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m rest_api
+        env:
+          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
+
   build-library:
     name: "Build library artifacts"
     runs-on: ubuntu-latest
-    needs: [ doc-build, tests_windows_aedt ]
+    needs: [ doc-build, tests_windows, tests_linux ]
     steps:
       - uses: ansys/actions/build-library@v5
         with:
