@@ -4,7 +4,7 @@ Architecture
 ============
 
 The AEDT Common Toolkit provides a common API for creating new AEDT toolkits.
-thereby standardizing their implementations.
+Thereby standardizing their implementations.
 
 The API provides methods for connecting to an existing AEDT session, opening an existing
 AEDT project, and initializing a new AEDT session, which are basic capabilities required
