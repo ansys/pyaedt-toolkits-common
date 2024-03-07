@@ -6,7 +6,7 @@ class Styles(object):
         color: {_color};
         border-radius: {_radius};
         background-color: {_bg_color};
-        selection-background-color: red;
+        selection-background-color: {_bg_color};
     }}
     QComboBox:editable {{
         background: black;
@@ -30,7 +30,7 @@ class Styles(object):
         subcontrol-origin: padding;
         subcontrol-position: top right;
         width: 15px;
-        color: red;
+        color: {_color};
         border-left-width: 1px;
         border-left-color: grey;
         border-left-style: solid; /* just a single line */
@@ -55,8 +55,8 @@ class Styles(object):
         height: 2em;
     }}
     QComboBox::item:selected {{
-        color: red;
-        background-color: red;
+        color: {_bg_color_pressed};
+        background-color: transparent;
     }}
     QComboBox::indicator {{
         color: transparent;

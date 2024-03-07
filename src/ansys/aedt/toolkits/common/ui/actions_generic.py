@@ -119,6 +119,30 @@ class FrontendGeneric:
             logger.error("Get backend status failed")
             return False
 
+    def wait_thread(self, timeout: int = 10):
+        """
+        Wait thread until backend is idle.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time out in seconds. The default is 10 seconds.
+
+        Returns
+        -------
+        bool
+            ``True`` when the backend is idle, ``False`` otherwise.
+        """
+        try:
+            response = requests.get(self.url + "/wait_thread", json=timeout)
+            if response.ok:
+                return True
+            else:
+                return False
+        except requests.exceptions.RequestException:
+            logger.error("Wait thread failed.")
+            return False
+
     def installed_versions(self):
         """
         Get the installed versions of AEDT.
@@ -228,7 +252,7 @@ class FrontendGeneric:
         elif res_idle:
             self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "toolkit is not connected to AEDT.":
+            if response.ok and response.json() == "Toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
                 if be_properties["selected_process"] == 0:
                     be_properties["aedt_version"] = selected_version
@@ -276,7 +300,7 @@ class FrontendGeneric:
         elif res_idle:
             self.ui.update_progress(0)
             response = requests.get(self.url + "/health")
-            if response.ok and response.json() == "toolkit is not connected to AEDT.":
+            if response.ok and response.json() == "Toolkit is not connected to AEDT.":
                 response = requests.post(self.url + "/open_project", data=selected_project)
                 if response.status_code == 200:
                     msg = "Project opened"
