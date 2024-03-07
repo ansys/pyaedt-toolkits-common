@@ -190,9 +190,6 @@ class SettingsMenu(QObject):
         # Connect the AedtLauncher's finished signal to a slot
         self.aedt_thread.finished_signal.connect(self.handle_aedt_thread_finished)
 
-        # Submit the AedtLauncher instance to the thread pool
-        # QThreadPool.globalInstance().start(self.aedt_thread)
-
         self.aedt_thread.start()
 
         self.connect_aedt.setEnabled(False)

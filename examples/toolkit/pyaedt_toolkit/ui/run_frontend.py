@@ -69,7 +69,7 @@ class ApplicationWindow(QMainWindow, Frontend):
             be_properties = self.get_properties()
             # Get AEDT installed versions
             installed_versions = self.installed_versions()
-            # self.settings_menu.signal_flag = False
+
             self.settings_menu.aedt_session.clear()
             self.settings_menu.aedt_session.addItem("New Session")
             if installed_versions:
@@ -78,7 +78,7 @@ class ApplicationWindow(QMainWindow, Frontend):
                     self.settings_menu.aedt_version.addItem(ver)
             else:
                 self.settings_menu.aedt_version.addItem("AEDT not installed")
-            # self.settings_menu.signal_flag = True
+
             if be_properties.get("aedt_version") in installed_versions:
                 self.settings_menu.aedt_version.setCurrentText(be_properties.get("aedt_version"))
 
