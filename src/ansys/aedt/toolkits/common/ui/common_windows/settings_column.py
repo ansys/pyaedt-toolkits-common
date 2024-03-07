@@ -24,8 +24,24 @@ import os
 
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import Signal
 from PySide6.QtWidgets import QFileDialog
+
+
+class AedtLauncherThread(QThread):
+    finished_signal = Signal(bool)
+
+    def __init__(self, app, version, session, non_graphical):
+        super().__init__()
+        self.app = app
+        self.version = version
+        self.session = session
+        self.non_graphical = non_graphical
+
+    def run(self):
+        self.app.launch_aedt(self.version, self.session, self.non_graphical)
+        aedt_launched = self.app.wait_thread(120)
+        self.finished_signal.emit(aedt_launched)
 
 
 class SettingsMenu(QObject):
@@ -53,11 +69,6 @@ class SettingsMenu(QObject):
         self.signal_flag = True
 
         self.aedt_thread = None
-
-        self.check_status_timer = QTimer(self)
-        self.check_status_timer.timeout.connect(self.check_status)
-        self.check_status_timer.start(200)
-        self.check_status_timer.stop()
 
     def setup(self):
         # Version row
@@ -174,37 +185,33 @@ class SettingsMenu(QObject):
         non_graphical_pos = self.graphical_mode.position
         non_graphical = non_graphical_pos == 24.0
 
-        self.check_status_timer.stop()
+        self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
 
-        self.aedt_thread = QThread()
+        # Connect the AedtLauncher's finished signal to a slot
+        self.aedt_thread.finished_signal.connect(self.handle_aedt_thread_finished)
 
-        self.aedt_thread.started.connect(
-            lambda: self.app.launch_aedt(selected_version, selected_session, non_graphical)
-        )
+        # Submit the AedtLauncher instance to the thread pool
+        # QThreadPool.globalInstance().start(self.aedt_thread)
 
-        self.check_status_timer.start()
-
-        # Start the new thread
         self.aedt_thread.start()
 
         self.connect_aedt.setEnabled(False)
         self.aedt_version.setEnabled(False)
         self.aedt_session.setEnabled(False)
 
-    def check_status(self):
-        backend_busy = self.app.backend_busy()
-        if not backend_busy and self.aedt_thread:
-            self.aedt_thread.terminate()
-            self.aedt_thread = None
-            self.check_status_timer.stop()
+    def handle_aedt_thread_finished(self, aedt_launched):
+        # This method will be called when the thread finishes
+        if aedt_launched:
             file = self.file.text()
             if file:
                 aedt_file = os.path.normpath(file)
                 self.app.open_project(aedt_file)
             self.app.home_menu.update_project()
             self.app.home_menu.update_design()
-            self.ui.update_progress(100)
             self.ui.update_logger("AEDT session connected")
+        else:
+            self.ui.update_logger("AEDT not launched")
+        self.ui.update_progress(100)
 
     def browse_file(self):
         options = QFileDialog.Options()
