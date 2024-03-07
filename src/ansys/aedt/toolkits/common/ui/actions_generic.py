@@ -119,6 +119,30 @@ class FrontendGeneric:
             logger.error("Get backend status failed")
             return False
 
+    def wait_thread(self, timeout: int = 10):
+        """
+        Wait thread until backend is idle.
+
+        Parameters
+        ----------
+        timeout : int, optional
+            Time out in seconds. The default is 10 seconds.
+
+        Returns
+        -------
+        bool
+            ``True`` when the backend is idle, ``False`` otherwise.
+        """
+        try:
+            response = requests.get(self.url + "/wait_thread", json=timeout)
+            if response.ok:
+                return True
+            else:
+                return False
+        except requests.exceptions.RequestException:
+            logger.error("Wait thread failed.")
+            return False
+
     def installed_versions(self):
         """
         Get the installed versions of AEDT.
