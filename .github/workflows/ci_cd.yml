@@ -46,6 +46,7 @@ jobs:
   doc-build:
     name: "Build documentation"
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    needs: [ doc-style ]
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
@@ -212,6 +213,9 @@ jobs:
       fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Linux]
     needs: [ smoke-tests ]
+    env:
+      ANSYSEM_ROOT241: '/ansys_inc/AnsysEM/v241/Linux64'
+      ANS_NODEPCHECK: '1'
     steps:
       - uses: actions/checkout@v4
 
@@ -223,8 +227,6 @@ jobs:
       - name: Create Python venv
         run: |
           python -m venv .venv_linux
-          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
-          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
 
       - name: Install packages for testing
         run: |
@@ -240,46 +242,30 @@ jobs:
       - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
-          export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
-          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m aedt_common_api
-        env:
-          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test Common API
         timeout-minutes: 5
         run: |
-          export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
-          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m common_api
-        env:
-          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test EDB API
         timeout-minutes: 5
         run: |
-          export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
-          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api
-        env:
-          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
       - name: Test REST API
         timeout-minutes: 5
         run: |
-          export ANS_NODEPCHECK=1
-          export ANSYSEM_ROOT241=/ansys_inc/AnsysEM/v241/Linux64
-          export LD_LIBRARY_PATH=$ANSYSEM_ROOT241/common/mono/Linux64/lib64:$ANSYSEM_ROOT241/Delcross:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api
-        env:
-          ANSYSLMD_LICENSE_FILE: 1055@${{ secrets.LICENSE_SERVER }}
 
   build-library:
     name: "Build library artifacts"
@@ -297,20 +283,12 @@ jobs:
     needs: build-library
     runs-on: ubuntu-latest
     steps:
-
-      - name: "Release to the private PyPI"
-        uses: ansys/actions/release-pypi-private@v5
+      - name: "Release to the public PyPI repository"
+        uses: ansys/actions/release-pypi-public@v5
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           twine-username: "__token__"
-          twine-token: ${{ secrets.PYANSYS_PYPI_PRIVATE_PAT }}
-
-      #      - name: "Release to the public PyPI repository"
-      #        uses: ansys/actions/release-pypi-public@v4
-      #        with:
-      #          library-name: ${{ env.LIBRARY_NAME }}
-      #          twine-username: "__token__"
-      #          twine-token: ${{ secrets.PYPI_TOKEN }}
+          twine-token: ${{ secrets.PYPI_TOKEN }}
 
       - name: "Release to GitHub"
         uses: ansys/actions/release-github@v5

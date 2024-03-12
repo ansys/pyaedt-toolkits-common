@@ -15,14 +15,14 @@ development mode, run these commands:
 
 .. code::
 
-    git clone https://github.com/ansys-internal/pyaedt-toolkits-common.git
+    git clone https://github.com/ansys/pyaedt-toolkits-common.git
     cd pyaedt-toolkits-common
     python -m pip install --upgrade pip
     pip install -e .[all]
 
 Post issues
 -----------
-Use the `PyAEDT Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page
+Use the `PyAEDT Common Toolkit Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page
 to create issues to report bugs and request new features.
 
 View documentation

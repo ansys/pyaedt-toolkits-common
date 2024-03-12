@@ -10,8 +10,8 @@ PyAEDT Common Toolkit
 .. |PythonVersion| image:: https://img.shields.io/badge/python-3.10+-blue.svg
    :target: https://www.python.org/downloads/
 
-.. |GH-CI| image:: https://github.com/ansys-internal/pyaedt-toolkits-common/actions/workflows/ci_cd.yml/badge.svg
-   :target: https://github.com/ansys-internal/pyaedt-toolkits-common/actions/workflows/ci_cd.yml
+.. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml/badge.svg
+   :target: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml
 
 .. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
    :target: https://opensource.org/licenses/MIT
@@ -52,7 +52,7 @@ In the upper right corner of the documentation's title bar, there is an option f
 viewing the documentation for the latest stable release to viewing the documentation for the
 development version or previously released versions.
 
-On the `PyAEDT Common Toolkit Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_ page, you can
+On the `PyAEDT Common Toolkit Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_ page, you can
 create issues to report bugs and request new features. On the `Discussions <https://discuss.ansys.com/>`_
 page on the Ansys Developer portal, you can post questions, share ideas, and get community feedback.
 

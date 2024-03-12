@@ -1,10 +1,10 @@
-PyAEDT Common Toolkit documentation |version|
+PyAEDT common toolkit documentation |version|
 =============================================
 
 **Useful links**:
 :ref:`Installation <installation>` |
-`Source repository <https://github.com/ansys-internal/pyaedt-toolkits-common>`_ |
-`Issues <https://github.com/ansys-internal/pyaedt-toolkits-common/issues>`_
+`Source repository <https://github.com/ansys/pyaedt-toolkits-common>`_ |
+`Issues <https://github.com/ansys/pyaedt-toolkits-common/issues>`_
 
 The PyADT Common Toolkit provides common methods and best practices for creating an Ansys Electronics Desktop (AEDT) toolkit.
 

@@ -3,7 +3,7 @@
 Toolkit example
 ===============
 
-The `examples/toolkit/pyaedt_toolkit <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
+The `examples/toolkit/pyaedt_toolkit <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
 folder contains all files for creating a toolkit using the PyAEDT Common Toolkit.
 
 Example walkthrough
@@ -11,7 +11,7 @@ Example walkthrough
 
 Follow the steps outlined in the example to gain practical insights into toolkit implementation:
 
-1. **Access the example**: Navigate to the `examples/toolkit/pyaedt_toolkit <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
+1. **Access the example**: Navigate to the `examples/toolkit/pyaedt_toolkit <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit/pyaedt_toolkit>`_
    folder.
 
 2. **Understand the toolkit structure**:
