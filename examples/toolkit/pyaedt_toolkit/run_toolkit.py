@@ -13,6 +13,8 @@ from ui.models import properties
 
 import backend
 
+from ansys.aedt.toolkits.common.backend.rest_api import logger
+
 # Define global variables or constants
 BACKEND_FILE = os.path.join(backend.__path__[0], "run_backend.py")
 FRONTEND_FILE = os.path.join(ui.__path__[0], "run_frontend.py")
@@ -100,10 +102,12 @@ def clean_python_processes():
 
 
 def check_backend_communication():
-    response = requests.get(URL_CALL + "/health")
-    if response.ok:
-        return True
-    return False
+    try:
+        response = requests.get(URL_CALL + "/health")
+        return response.ok
+    except requests.exceptions.RequestException:
+        logger.error("Failed to check backend communication.")
+        return False
 
 
 def process_desktop_properties():
@@ -128,7 +132,12 @@ def process_desktop_properties():
             "aedt_version": desktop_version,
             "use_grpc": grpc,
         }
-        requests.put(URL_CALL + "/properties", json=properties)
+        try:
+            response = requests.put(URL_CALL + "/properties", json=properties)
+            if not response.ok:
+                logger.error("Properties update failed")
+        except requests.exceptions.RequestException:
+            logger.error("Properties update failed")
 
 
 # Main Execution
