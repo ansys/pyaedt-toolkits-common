@@ -32,5 +32,5 @@ These examples show how to use the ``Common`` class of the backend API:
 REST API
 ~~~~~~~~
 For an example of using the REST API for the PyAEDT Common Toolkit, see the
-`rest_api_aedt_example.py <https://github.com/ansys-internal/pyaedt-toolkits-common/blob/main/examples/backend/rest_api_aedt_example.py>`_
+`rest_api_aedt_example.py <https://github.com/ansys/pyaedt-toolkits-common/blob/main/examples/backend/rest_api_aedt_example.py>`_
 file in the repository.

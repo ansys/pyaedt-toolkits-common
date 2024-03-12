@@ -125,7 +125,7 @@ html_theme_options = {
         "version_match": switcher_version,
     },
     "check_switcher": False,
-    "github_url": "https://github.com/ansys-internal/pyaedt-toolkits-common.git",
+    "github_url": "https://github.com/ansys/pyaedt-toolkits-common.git",
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "collapse_navigation": True,
@@ -136,7 +136,7 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "Support",
-            "url": "https://github.com/ansys-internal/pyaedt-toolkits-common/issues",
+            "url": "https://github.com/ansys/pyaedt-toolkits-common/issues",
             "icon": "fa fa-comment fa-fw",
         },
     ],
