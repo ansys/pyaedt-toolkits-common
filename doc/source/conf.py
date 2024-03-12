@@ -139,6 +139,11 @@ html_theme_options = {
             "url": "https://github.com/ansys/pyaedt-toolkits-common/issues",
             "icon": "fa fa-comment fa-fw",
         },
+        {
+            "name": "Download documentation in PDF",
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",  # noqa: E501
+            "icon": "fa fa-file-pdf fa-fw",
+        },
     ],
     "navigation_with_keys": False,
 }
