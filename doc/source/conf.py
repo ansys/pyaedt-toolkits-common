@@ -115,7 +115,7 @@ html_short_title = html_title = "ansys-aedt-toolkits-common"
 # specify the location of your GitHub repo
 html_context = {
     "github_user": "ansys",
-    "github_repo": "common-pyaedt-toolkit",
+    "github_repo": "pyaedt-toolkits-common",
     "github_version": "main",
     "doc_path": "doc/source",
 }
@@ -125,7 +125,8 @@ html_theme_options = {
         "version_match": switcher_version,
     },
     "check_switcher": False,
-    "github_url": "https://github.com/ansys-internal/pyaedt-toolkits-common.git",
+    "github_url": "https://github.com/ansys/pyaedt-toolkits-common.git",
+    "navigation_with_keys": False,
     "show_prev_next": False,
     "show_breadcrumbs": True,
     "collapse_navigation": True,
@@ -136,11 +137,21 @@ html_theme_options = {
     "icon_links": [
         {
             "name": "Support",
-            "url": "https://github.com/ansys-internal/pyaedt-toolkits-common/issues",
+            "url": "https://github.com/ansys/pyaedt-toolkits-common/issues",
             "icon": "fa fa-comment fa-fw",
         },
+        {
+            "name": "Download documentation in PDF",
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",  # noqa: E501
+            "icon": "fa fa-file-pdf fa-fw",
+        },
     ],
-    "navigation_with_keys": False,
+    "use_meilisearch": {
+        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
+        "index_uids": {
+            f"pyaedt-toolkits-common-v{get_version_match(__version__).replace('.', '-')}": "AEDT TOOLKITS COMMON API",
+        },
+    },
 }
 
 # Sphinx extensions

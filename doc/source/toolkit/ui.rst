@@ -53,4 +53,4 @@ The UI is contained inside the main window. The main window contains some common
 such as the credits and title, that are initialized by default. You use the content widget
 to add new pages.
 
-For initialization information, see the `UI example <https://github.com/ansys-internal/pyaedt-toolkits-common/tree/main/examples/ui/default_ui_example>`_.
+For initialization information, see the `UI example <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/ui/default_ui_example>`_.
