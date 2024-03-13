@@ -20,7 +20,7 @@ class Properties(FrontendProperties, UIProperties, validate_assignment=True):
 
 
 frontend_properties = {}
-if os.path.exists(os.path.join(os.path.dirname(__file__), "frontend_properties.json")):
+if os.path.isfile(os.path.join(os.path.dirname(__file__), "frontend_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "frontend_properties.json")) as file_handler:
         frontend_properties = json.load(file_handler)
 
