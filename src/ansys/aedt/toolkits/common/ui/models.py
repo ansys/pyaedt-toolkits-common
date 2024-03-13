@@ -66,7 +66,7 @@ class Properties(UIProperties, validate_assignment=True):
 
 
 common_kwargs = {}
-if os.path.expanduser(os.path.join(os.path.dirname(__file__), "common_properties.json")):
+if os.path.isfile(os.path.join(os.path.dirname(__file__), "common_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "common_properties.json")) as file_handler:
         common_kwargs = json.load(file_handler)
 
