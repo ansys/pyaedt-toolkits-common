@@ -20,7 +20,6 @@ class ExampleProperties(BaseModel):
 
 class BackendProperties(BaseModel):
     """Store toolkit properties."""
-
     example: ExampleProperties
 
 class Properties(BackendProperties, CommonProperties, validate_assignment=True):

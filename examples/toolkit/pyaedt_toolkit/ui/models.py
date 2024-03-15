@@ -14,10 +14,14 @@ from ansys.aedt.toolkits.common.ui.models import UIProperties
 from ansys.aedt.toolkits.common.ui.models import general_settings
 
 
+class ExampleProperties(BaseModel):
+    """Store toolkit properties."""
+    primitives_created: List[str] = Field(default_factory=list)
+
+
 class FrontendProperties(BaseModel):
     """Store toolkit properties."""
-
-    primitives_created: List[str] = Field(default_factory=list)
+    example: ExampleProperties
 
 
 class Properties(FrontendProperties, UIProperties, validate_assignment=True):
