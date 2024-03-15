@@ -168,8 +168,8 @@ class GeometryMenu(object):
         geometry = self.geometry_combo.currentText()
         multiplier = self.multiplier.text()
 
-        be_properties["geometry"] = geometry
-        be_properties["multiplier"] = multiplier
+        be_properties["example"]["geometry"] = geometry
+        be_properties["example"]["multiplier"] = multiplier
 
         self.main_window.set_properties(be_properties)
 

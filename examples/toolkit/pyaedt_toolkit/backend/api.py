@@ -49,8 +49,8 @@ class ToolkitBackend(AEDTCommon):
         self.connect_design()
 
         if self.aedtapp:
-            multiplier = self.properties.multiplier
-            geometry = self.properties.geometry
+            multiplier = self.properties.example.multiplier
+            geometry = self.properties.example.geometry
             self.multiplier = multiplier
             prim = None
             if geometry == "Box":
