@@ -152,8 +152,9 @@ class GeometryMenu(object):
         self.geometry_column_vertical_layout.addWidget(label_widget)
 
     def geometry_button_clicked(self):
-        if not self.main_window.check_connection():
-            msg = "Backend not running."
+        if (not self.main_window.settings_menu.aedt_thread or
+                not self.main_window.settings_menu.aedt_thread.aedt_launched):
+            msg = "AEDT not launched."
             self.ui.update_logger(msg)
             return False
 

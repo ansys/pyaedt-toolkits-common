@@ -37,11 +37,12 @@ class AedtLauncherThread(QThread):
         self.version = version
         self.session = session
         self.non_graphical = non_graphical
+        self.aedt_launched = False
 
     def run(self):
         self.app.launch_aedt(self.version, self.session, self.non_graphical)
-        aedt_launched = self.app.wait_thread(120)
-        self.finished_signal.emit(aedt_launched)
+        self.aedt_launched = self.app.wait_thread(120)
+        self.finished_signal.emit(self.aedt_launched)
 
 
 class SettingsMenu(QObject):
