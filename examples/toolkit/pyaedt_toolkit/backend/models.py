@@ -22,6 +22,7 @@ class BackendProperties(BaseModel):
     """Store toolkit properties."""
     example: ExampleProperties
 
+
 class Properties(BackendProperties, CommonProperties, validate_assignment=True):
     """Store all properties."""
 
@@ -30,7 +31,6 @@ backend_properties = {}
 if os.path.isfile(os.path.join(os.path.dirname(__file__), "backend_properties.toml")):
     with open(os.path.join(os.path.dirname(__file__), "backend_properties.toml"), mode="rb") as file_handler:
         backend_properties = tomllib.load(file_handler)
-
 
 toolkit_property = {}
 if backend_properties:
