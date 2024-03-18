@@ -28,6 +28,7 @@ dependencies = [
     "twine==5.0.0",
     "pyaedt==0.8.2",
     "pydantic",
+    "tomli; python_version < '3.12'",
 ]
 
 [project.optional-dependencies]
