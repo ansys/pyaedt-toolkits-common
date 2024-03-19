@@ -26,6 +26,10 @@ from ansys.aedt.toolkits.common.ui.common_windows.settings_column import Setting
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 
 # Backend URL and port
+if len(sys.argv) == 3:
+    properties.backend_url = sys.argv[1]
+    properties.backend_port = int(sys.argv[2])
+
 url = properties.backend_url
 port = properties.backend_port
 
