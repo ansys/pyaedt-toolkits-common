@@ -50,13 +50,13 @@ The repository for the PyAEDT Common Toolkit is structured as follows:
    │       ├── backend
    │       │   ├── api.py
    │       │   ├── rest_api.py
-   │       │   ├── common_properties.json
+   │       │   ├── common_properties.toml
    │       │   └── models.py
    │       ├── ui
    │       │   ├── common_windows
    │       │   ├── main_window
    │       │   └── utils
-   │       │   └── common_properties.json
+   │       │   └── common_properties.toml
    │       │   └── models.py
    ├── tests
    │   └── backend
@@ -75,13 +75,13 @@ The repository for the PyAEDT Common Toolkit is structured as follows:
 
     - ``rest_api.py``: Defines Flask entrypoints.
     - ``api.py``: Defines the toolkit API.
-    - ``common_properties.json``: Defines common backend properties.
+    - ``common_properties.toml``: Defines common backend properties.
     - ``models.py``: Defines the class for storing backend properties.
 
   - `ui <https://github.com/ansys/pyaedt-toolkits-common/tree/main/src/ansys/aedt/toolkits/common/ui>`_: UI part of
     the toolkit. Key files include:
 
-    - ``common_properties.json``: Defines common UI properties.
+    - ``common_properties.toml``: Defines common UI properties.
     - ``models.py``: Defines the class for storing UI properties.
 
 - `tests <https://github.com/ansys/pyaedt-toolkits-common/tree/main/tests>`_: Folder containing the backend
@@ -92,7 +92,7 @@ Models and properties
 
 The `models.py <https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/models.py>`_
 file stores the backend properties that are shared between the backend and UI.
-Properties are loaded by loading the content of the `properties <https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/common_properties.json>`_ in the class properties.
+Properties are loaded by loading the content of the `properties <https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/backend/common_properties.toml>`_ in the class properties.
 
 To understand how the backend and UI interact, see the `actions_generic.py <https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py>`_
 file in the repository. For example, when an event is triggered by the frontend, the

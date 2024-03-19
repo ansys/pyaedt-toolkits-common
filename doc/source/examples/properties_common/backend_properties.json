@@ -1,6 +1,0 @@
-{
-  "non_graphical" : false,
-  "log_file" : "example_backend.log",
-  "invented_property" : [10],
-  "test" : "hola"
-}
