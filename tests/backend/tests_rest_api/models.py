@@ -38,7 +38,7 @@ class Properties(BackendProperties, CommonProperties, validate_assignment=True):
 
 
 backend_properties = {}
-if os.path.expanduser(os.path.join(os.path.dirname(__file__), "backend_properties.json")):
+if os.path.isfile(os.path.join(os.path.dirname(__file__), "backend_properties.json")):
     with open(os.path.join(os.path.dirname(__file__), "backend_properties.json")) as file_handler:
         backend_properties = json.load(file_handler)
 
