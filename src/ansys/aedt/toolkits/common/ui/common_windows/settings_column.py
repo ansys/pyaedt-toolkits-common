@@ -164,7 +164,11 @@ class SettingsMenu(QObject):
         # Disable launch AEDT
         self.connect_aedt.setEnabled(False)
 
-        self.connect_aedt.clicked.connect(self.launch_aedt)
+        backend_properties = self.app.get_properties()
+        if backend_properties.get("active_project") and backend_properties.get("active_design"):
+            self.connect_aedt_directly()
+        else:
+            self.connect_aedt.clicked.connect(self.launch_aedt)
 
     def process_id(self):
         if self.signal_flag:
@@ -179,6 +183,16 @@ class SettingsMenu(QObject):
                         self.aedt_session.addItem("Process {}".format(pid))
                     else:
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+
+    def connect_aedt_directly(
+        self,
+    ):
+        self.connect_aedt.setEnabled(False)
+        self.aedt_version.setEnabled(False)
+        self.aedt_session.setEnabled(False)
+        self.aedt_thread = True
+        self.connect_aedt.setEnabled(False)
+        self.ui.update_logger("AEDT session connected")
 
     def launch_aedt(self):
         selected_session = self.aedt_session.currentText()

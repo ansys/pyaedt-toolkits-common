@@ -105,6 +105,7 @@ def wait_for_server(server="localhost", port=5001, timeout=10.0):
 
 
 def run_command(*command, is_linux):
+    """Run command in subprocess."""
     create_no_window = 0x08000000 if not is_linux else 0
     process = subprocess.Popen(
         command,
@@ -117,6 +118,7 @@ def run_command(*command, is_linux):
 
 
 def server_actions(command, name, is_linux):
+    """Run command as a separate thread."""
     thread = threading.Thread(target=run_command, args=command, kwargs={"is_linux": is_linux}, name=name)
     thread.daemon = True
     thread.start()
@@ -124,6 +126,7 @@ def server_actions(command, name, is_linux):
 
 
 def clean_python_processes(url, port):
+    """Clean up Python processes."""
     for conn in psutil.net_connections():
         (ip_tmp, port_tmp) = conn.laddr
         pid = conn.pid
@@ -137,6 +140,7 @@ def clean_python_processes(url, port):
 
 
 def check_backend_communication(url_call):
+    """Check backend communication."""
     try:
         response = requests.get(url_call + "/health")
         return response.ok
@@ -146,18 +150,15 @@ def check_backend_communication(url_call):
 
 
 def process_desktop_properties(is_linux, url_call):
+    """Process desktop properties."""
     desktop_pid = None
     desktop_version = None
-    grpc = False
+    grpc = True
     is_student = False
-    if "PYAEDT_SCRIPT_VERSION" in os.environ and (
-        "PYAEDT_SCRIPT_PROCESS_ID" in os.environ or "PYAEDT_SCRIPT_PORT" in os.environ
-    ):
+    if "PYAEDT_SCRIPT_VERSION" in os.environ and "PYAEDT_SCRIPT_PORT" in os.environ:
         desktop_version = os.environ["PYAEDT_SCRIPT_VERSION"]
-        desktop_pid = os.environ[
-            "PYAEDT_SCRIPT_PORT" if desktop_version > "2023.2" or is_linux else "PYAEDT_SCRIPT_PROCESS_ID"
-        ]
-        grpc = desktop_version > "2023.2" or IS_LINUXis_linux
+        desktop_pid = os.environ["PYAEDT_SCRIPT_PORT"]
+        grpc = desktop_version > "2023.2" or is_linux
         if "PYAEDT_STUDENT_VERSION" in os.environ:
             is_student = os.environ["PYAEDT_STUDENT_VERSION"]
         if is_student:
@@ -171,10 +172,14 @@ def process_desktop_properties(is_linux, url_call):
             "selected_process": int(desktop_pid),
             "aedt_version": desktop_version,
             "use_grpc": grpc,
+            "non_graphical": False,
         }
         try:
             response = requests.put(url_call + "/properties", json=new_properties)
             if not response.ok:
-                logger.error("Properties update failed")
+                return
+            print("Connect to AEDT session.")
+            requests.post(url_call + "/launch_aedt")
+            requests.post(url_call + "/wait_thread")
         except requests.exceptions.RequestException:
             logger.error("Properties update failed")
