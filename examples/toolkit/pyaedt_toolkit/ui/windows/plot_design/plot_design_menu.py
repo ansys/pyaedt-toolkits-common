@@ -104,7 +104,8 @@ class PlotDesignMenu(object):
     def plot_design_button_clicked(self):
 
         if (not self.main_window.settings_menu.aedt_thread or
-                not self.main_window.settings_menu.aedt_thread.aedt_launched):
+                (hasattr(self.main_window.settings_menu.aedt_thread, 'aedt_launched') and
+                 not self.main_window.settings_menu.aedt_thread.aedt_launched)):
             msg = "AEDT not launched."
             self.ui.update_logger(msg)
             return False
