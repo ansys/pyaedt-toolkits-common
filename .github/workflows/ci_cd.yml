@@ -206,13 +206,13 @@ jobs:
           path: .cov/total-html
           name: html-total-coverage
 
-#      - name: "Upload coverage report to codecov"
-#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
-#        uses: codecov/codecov-action@v4
-#        with:
-#          file: .cov/total.xml
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+      - name: "Upload coverage report to codecov"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
+        uses: codecov/codecov-action@v4
+        with:
+          file: .cov/total.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   tests_linux:
     name: "Linux Tests"
