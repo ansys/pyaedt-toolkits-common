@@ -170,7 +170,6 @@ class Common:
             if hasattr(properties, key):
                 logger.debug(f"Updating '{key}' with value {value}")
                 setattr(properties, key, value)
-                break
 
             properties_public_props = (name for name in properties.__dir__() if not name.startswith("_"))
             for attr_name in properties_public_props:
