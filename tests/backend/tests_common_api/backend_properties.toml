@@ -1,0 +1,9 @@
+new_main_property = ""
+
+[defaults]
+toolkit_name = "antenna"
+log_file = "backend.log"
+debug = true
+
+[section]
+new_main_property_in_section = ""

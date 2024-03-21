@@ -155,10 +155,10 @@ class Common:
             return False, msg
 
         try:
-            self._update_properties(self.properties, data)
+            is_updated = self._update_properties(self.properties, data)
             msg = PropertiesUpdate.SUCCESS.value
             logger.debug(msg)
-            return True, msg
+            return is_updated, msg
         except ValidationError:
             msg = PropertiesUpdate.VALIDATION_ERROR.value
             logger.error(msg)
@@ -166,17 +166,22 @@ class Common:
 
     def _update_properties(self, properties: Any, data: Dict[str, Any]):
         """Helper function to update properties recursively."""
+        is_updated = False
         for key, value in data.items():
+            is_updated = False
             if hasattr(properties, key):
                 logger.debug(f"Updating '{key}' with value {value}")
                 setattr(properties, key, value)
-
-            properties_public_props = (name for name in properties.__dir__() if not name.startswith("_"))
-            for attr_name in properties_public_props:
-                attr = getattr(properties, attr_name)
-                if hasattr(attr, "__dict__"):  # Check if the attribute is an object
-                    self._update_properties(attr, data)
-                    break
+                is_updated = True
+            if not is_updated:
+                if hasattr(properties, "model_fields"):
+                    for attr_name in properties.model_fields:
+                        attr = getattr(properties, attr_name)
+                        if hasattr(attr, "__dict__"):
+                            is_updated = self._update_properties(attr, data)
+                            if is_updated:
+                                break
+        return is_updated
 
     def launch_thread(self, process) -> ThreadManager:
         """Launch the thread."""

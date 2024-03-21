@@ -50,18 +50,23 @@ class TestCommon:
         new_properties = {
             "use_grpc": True,
             "is_toolkit_busy": False,
+            "new_main_property": "hola",
+            "new_main_property_in_section": "adios",
         }
         is_updated, _ = common.set_properties(new_properties)
         assert is_updated
         assert common.properties.use_grpc == new_properties["use_grpc"]
+        assert (common.properties.test.section.new_main_property_in_section ==
+                new_properties["new_main_property_in_section"])
+        assert common.properties.test.new_main_property == new_properties["new_main_property"]
 
         common.properties.use_grpc = False
         api_properties = common.get_properties()
         assert not api_properties["use_grpc"]
 
         new_properties = {
-            "use_grpc": 10,
             "is_toolkit_busy": False,
+            "new_main_property": 20,
         }
         is_updated, _ = common.set_properties(new_properties)
         assert not is_updated
