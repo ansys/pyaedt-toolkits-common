@@ -20,8 +20,14 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import json
 import os
+import sys
+
+if sys.version_info >= (3, 11):  # pragma: no cover
+    import tomllib
+else:
+    import tomli as tomllib
+
 from typing import Any
 from typing import Dict
 from typing import List
@@ -66,8 +72,8 @@ class Properties(UIProperties, validate_assignment=True):
 
 
 common_kwargs = {}
-if os.path.expanduser(os.path.join(os.path.dirname(__file__), "common_properties.json")):
-    with open(os.path.join(os.path.dirname(__file__), "common_properties.json")) as file_handler:
-        common_kwargs = json.load(file_handler)
+if os.path.isfile(os.path.join(os.path.dirname(__file__), "common_properties.toml")):
+    with open(os.path.join(os.path.dirname(__file__), "common_properties.toml"), mode="rb") as file_handler:
+        common_kwargs = tomllib.load(file_handler)
 
 general_settings = Properties(**common_kwargs)

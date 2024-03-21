@@ -5,7 +5,13 @@ from ansys.aedt.toolkits.common.backend.rest_api import logger
 
 from api import ToolkitBackend
 
+import sys
+
 toolkit_api = ToolkitBackend()
+
+if len(sys.argv) == 3:
+    toolkit_api.properties.url = sys.argv[1]
+    toolkit_api.properties.port = int(sys.argv[2])
 
 
 @app.route("/create_geometry", methods=["POST"])

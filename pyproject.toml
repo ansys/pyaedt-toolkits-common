@@ -8,7 +8,7 @@ name = "ansys-aedt-toolkits-common"
 dynamic = ["version"]
 description = "User interface example repository to create your toolkit."
 readme = "README.rst"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = {file = "LICENSE"}
 authors = [
     {name = "ANSYS, Inc.", email = "pyansys.support@ansys.com"},
@@ -26,13 +26,14 @@ classifiers = [
 dependencies = [
     "build==1.1.1",
     "twine==5.0.0",
-    "pyaedt==0.8.2",
+    "pyaedt>=0.8.0,<0.9",
     "pydantic",
+    "tomli; python_version < '3.12'",
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]==0.8.2",
+    "pyaedt[all]>=0.8.0,<0.9",
     "flask",
     "PySide6-Essentials",
     "pyqtgraph",
@@ -40,32 +41,29 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pytest==8.1.1",
-    "pytest-cov==4.1.0",
+    "pytest>=7.4.0,<8.2",
+    "pytest-cov>=4.0.0,<4.2",
     "flask",
 ]
 doc = [
-    "pyaedt[all]==0.8.2",
+    "pyaedt[all]>=0.8.0,<0.9",
+    "recommonmark>=0.7.0,<0.8",
     "PySide6-Essentials",
-    "ansys-sphinx-theme==0.14.0",
-    "numpydoc==1.6.0",
-    "recommonmark==0.7.1",
-    "sphinx==7.2.6",
-    "sphinx-copybutton==0.5.2",
-    "enum-tools[sphinx]==0.11.0",
-    "sphinx-autoapi==3.0.0",
-    "sphinx-autobuild==2024.2.4",
-    "sphinx-autodoc-typehints==2.0.0",
-    "sphinx-notfound-page==1.0.0",
-    "nbsphinx==0.9.3",
+    "ansys-sphinx-theme>=0.10.0,<0.15",
+    "numpydoc>=1.5.0,<1.7",
+    "Sphinx>=7.1.0,<7.3",
+    "sphinx-copybutton>=0.5.0,<0.6",
+    "sphinx-autobuild==2021.3.14; python_version == '3.8'",
+    "sphinx-autobuild==2024.2.4; python_version > '3.8'",
+    "nbsphinx>=0.9.0,<0.10",
     "sphinx_design",
     "jupytext",
-    "ipython==8.22.2",
-    "jupyterlab==4.1.4",
-    "pypandoc"
+    "ipython>=8.13.0<8.23",
+    "jupyterlab>=4.0.0,<4.3",
+    "pypandoc>=1.10.0,<1.14",
 ]
 ci = [
-    "pypandoc-binary==1.13",
+    "pypandoc-binary>=1.10.0,<1.14",
     "vtk-osmesa==9.2.20230527.dev0",
 ]
 

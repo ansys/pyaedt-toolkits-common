@@ -1,0 +1,14 @@
+aedt_version= "2024.1"
+non_graphical= true
+active_project= ""
+active_design= ""
+project_list= []
+design_list= {}
+selected_process= 0
+use_grpc= true
+is_toolkit_busy= false
+url= "127.0.0.1"
+port= 5001
+debug= true
+toolkit_name= "common"
+log_file= "common_backend.log"

@@ -152,8 +152,10 @@ class GeometryMenu(object):
         self.geometry_column_vertical_layout.addWidget(label_widget)
 
     def geometry_button_clicked(self):
-        if not self.main_window.check_connection():
-            msg = "Backend not running."
+        if (not self.main_window.settings_menu.aedt_thread or
+                (hasattr(self.main_window.settings_menu.aedt_thread, 'aedt_launched') and
+                 not self.main_window.settings_menu.aedt_thread.aedt_launched)):
+            msg = "AEDT not launched."
             self.ui.update_logger(msg)
             return False
 
@@ -168,8 +170,8 @@ class GeometryMenu(object):
         geometry = self.geometry_combo.currentText()
         multiplier = self.multiplier.text()
 
-        be_properties["geometry"] = geometry
-        be_properties["multiplier"] = multiplier
+        be_properties["example"]["geometry"] = geometry
+        be_properties["example"]["multiplier"] = multiplier
 
         self.main_window.set_properties(be_properties)
 

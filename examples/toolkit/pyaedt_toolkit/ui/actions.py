@@ -37,7 +37,7 @@ class Frontend(FrontendGeneric):
 
         response = requests.post(self.url + "/create_geometry")
 
-        self.properties.primitives_created.append(response.text)
+        self.properties.example.primitives_created.append(response.text)
 
         if response.ok:
             msg = "Geometry created."

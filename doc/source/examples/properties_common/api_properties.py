@@ -7,7 +7,7 @@
 #
 # Before importing the common module, you can add new properties.
 # First create a file that contains the new properties type, [Models](models.py).
-# Then add a [JSON file](backend_properties.json) that sets the needed default values.
+# Then add a [TOML file](backend_properties.toml) that sets the needed default values.
 # Finally, import the properties.
 
 from models import properties

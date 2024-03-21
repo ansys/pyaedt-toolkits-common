@@ -149,26 +149,39 @@ class Common:
         >>> toolkit_api.set_properties({"property1": "value1", "property2": value2})
         """
         logger.info("Updating internal properties.")
-        key = ""
-        value = ""
-        if data:
-            try:
-                for key, value in data.items():
-                    logger.debug(f"Updating '{key}' with value {value}")
-                    setattr(self.properties, key, value)
-                msg = PropertiesUpdate.SUCCESS.value
-                updated = True
-                logger.debug(msg)
-            except ValidationError:
-                msg = PropertiesUpdate.VALIDATION_ERROR.value
-                updated = False
-                logger.error(msg)
-                logger.error(f"key {key} with value {value}")
-        else:
+        if not data:
             msg = PropertiesUpdate.EMPTY.value
-            updated = False
             logger.debug(msg)
-        return updated, msg
+            return False, msg
+
+        try:
+            is_updated = self._update_properties(self.properties, data)
+            msg = PropertiesUpdate.SUCCESS.value
+            logger.debug(msg)
+            return is_updated, msg
+        except ValidationError:
+            msg = PropertiesUpdate.VALIDATION_ERROR.value
+            logger.error(msg)
+            return False, msg
+
+    def _update_properties(self, properties: Any, data: Dict[str, Any]):
+        """Helper function to update properties recursively."""
+        is_updated = False
+        for key, value in data.items():
+            is_updated = False
+            if hasattr(properties, key):
+                logger.debug(f"Updating '{key}' with value {value}")
+                setattr(properties, key, value)
+                is_updated = True
+            if not is_updated:
+                if hasattr(properties, "model_fields"):
+                    for attr_name in properties.model_fields:
+                        attr = getattr(properties, attr_name)
+                        if hasattr(attr, "__dict__"):
+                            is_updated = self._update_properties(attr, data)
+                            if is_updated:
+                                break
+        return is_updated
 
     def launch_thread(self, process) -> ThreadManager:
         """Launch the thread."""

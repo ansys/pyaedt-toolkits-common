@@ -20,17 +20,40 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-import json
 import os
+import sys
 
-from pydantic import BaseModel
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
+from typing import Any
+from typing import Dict
+from typing import List
 
 from ansys.aedt.toolkits.common.backend.models import CommonProperties
 from ansys.aedt.toolkits.common.backend.models import common_properties
+from pydantic import BaseModel
+
+
+class Section(BaseModel, validate_assignment=True):
+    """Store section properties."""
+
+    new_main_property_in_section: str = ""
+
+
+class TestProperties(BaseModel, validate_assignment=True):
+    """Store antenna properties."""
+
+    new_main_property: str = ""
+    section: Section = Section()
 
 
 class BackendProperties(BaseModel):
     """Store toolkit properties."""
+
+    test: TestProperties
 
 
 class Properties(BackendProperties, CommonProperties, validate_assignment=True):
@@ -38,15 +61,17 @@ class Properties(BackendProperties, CommonProperties, validate_assignment=True):
 
 
 backend_properties = {}
-if os.path.expanduser(os.path.join(os.path.dirname(__file__), "backend_properties.json")):
-    with open(os.path.join(os.path.dirname(__file__), "backend_properties.json")) as file_handler:
-        backend_properties = json.load(file_handler)
+if os.path.isfile(os.path.join(os.path.dirname(__file__), "backend_properties.toml")):
+    with open(os.path.join(os.path.dirname(__file__), "backend_properties.toml"), mode="rb") as file_handler:
+        backend_properties = tomllib.load(file_handler)
 
 toolkit_property = {}
 if backend_properties:
     for backend_key in backend_properties:
-        if hasattr(common_properties, backend_key):
-            setattr(common_properties, backend_key, backend_properties[backend_key])
+        if backend_key == "defaults":
+            for toolkit_key in backend_properties["defaults"]:
+                if hasattr(common_properties, toolkit_key):
+                    setattr(common_properties, toolkit_key, backend_properties["defaults"][toolkit_key])
         else:
             toolkit_property[backend_key] = backend_properties[backend_key]
 
@@ -54,4 +79,4 @@ new_common_properties = {}
 for common_key in common_properties:
     new_common_properties[common_key[0]] = common_key[1]
 
-properties = Properties(**toolkit_property, **new_common_properties)
+properties = Properties(test=TestProperties(**toolkit_property), **new_common_properties)
