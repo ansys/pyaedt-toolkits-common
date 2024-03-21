@@ -23,7 +23,7 @@
 import os
 import sys
 
-if sys.version_info >= (3, 11):
+if sys.version_info >= (3, 11):  # pragma: no cover
     import tomllib
 else:
     import tomli as tomllib
