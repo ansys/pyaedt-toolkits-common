@@ -44,7 +44,7 @@ You can enable the API log file in the backend_properties.json.
 import pytest
 
 from ansys.aedt.toolkits.common.backend.api import Common
-from ansys.aedt.toolkits.common.backend.models import Properties
+from tests.backend.tests_common_api.models import properties
 from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
 
 # Setup config
@@ -61,8 +61,6 @@ def common(logger):
     """Initialize toolkit with common API."""
     logger.info("Common API initialization")
 
-    properties = Properties()
-    print(properties)
     properties.aedt_version = config["desktop_version"]
     properties.non_graphical = config["non_graphical"]
     properties.use_grpc = config["use_grpc"]
