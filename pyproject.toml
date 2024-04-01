@@ -42,7 +42,7 @@ all = [
 ]
 tests = [
     "pytest>=7.4.0,<8.2",
-    "pytest-cov>=4.0.0,<4.2",
+    "pytest-cov>=4.0.0,<5.1",
     "flask",
 ]
 doc = [
