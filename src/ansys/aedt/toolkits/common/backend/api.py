@@ -566,6 +566,7 @@ class AEDTCommon(Common):
             if design_name in self.properties.design_list[project_name]:
                 self.aedtapp = self.desktop[[project_name, design_name]]
                 if not self.aedtapp:  # pragma: no cover
+                    self.release_aedt(False, False)
                     logger.error("Wrong active project and design.")
                     return False
                 active_design = self.aedtapp.design_name
@@ -694,6 +695,8 @@ class AEDTCommon(Common):
             self.release_aedt()
         if not self.connect_aedt():  # pragma: no cover
             return False
+        if not project_name and self.properties.active_project and os.path.exists(self.properties.active_project):
+            project_name = os.path.abspath(self.properties.active_project)
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} is opened".format(project_name))
