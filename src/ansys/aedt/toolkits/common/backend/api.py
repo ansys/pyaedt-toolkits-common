@@ -707,7 +707,7 @@ class AEDTCommon(Common):
         self.release_aedt(False, False)
         return False
 
-    def save_project(self, project_path=None):
+    def save_project(self, project_path=None, release_aedt=True):
         """Save the project.
 
         This method uses the properties to get the project path. This method is launched in a thread.
@@ -717,6 +717,8 @@ class AEDTCommon(Common):
         project_path : str, optional
             Path of the AEDT project. The default value is ``None``, in which
             case the current file is overwritten.
+        release_aedt : bool, optional
+            Release PyAEDT object. The default value is ``True``.
 
         Returns
         -------
@@ -747,7 +749,9 @@ class AEDTCommon(Common):
                     del self.properties.design_list[old_project_name]
             else:
                 self.desktop.save_project()
-            self.release_aedt(False, False)
+            self.__save_project_info()
+            if release_aedt:
+                self.release_aedt(False, False)
             logger.debug("Project is saved: {}".format(project_path))
             return True
         else:  # pragma: no cover
