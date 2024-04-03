@@ -42,7 +42,7 @@ You can enable the API log file in the backend_properties.json.
 """
 
 import pytest
-
+from pyaedt import generate_unique_project_name
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.models import Properties
 from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG, PROJECT_NAME
@@ -57,7 +57,7 @@ setup_aedt_settings(config)
 
 
 @pytest.fixture(scope="session")
-def aedt_common(logger):
+def aedt_common(logger, common_temp_dir):
     """Initialize toolkit with common API."""
     logger.info("AEDTCommon API initialization")
 
@@ -70,6 +70,12 @@ def aedt_common(logger):
     aedt_common = AEDTCommon(properties)
     aedt_common.launch_thread(aedt_common.launch_aedt)
     is_aedt_launched = aedt_common.wait_to_be_idle()
+
+    aedt_common.active_project = generate_unique_project_name(common_temp_dir, project_name="Test_Common")
+    aedt_common.connect_aedt()
+    aedt_common.desktop.odesktop.NewProject(aedt_common.active_project)
+    aedt_common.save_project()
+    aedt_common.release_aedt(False, False)
 
     if is_aedt_launched:
         yield aedt_common
