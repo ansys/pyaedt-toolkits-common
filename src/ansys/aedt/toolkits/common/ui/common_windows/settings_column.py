@@ -164,11 +164,14 @@ class SettingsMenu(QObject):
         # Disable launch AEDT
         self.connect_aedt.setEnabled(False)
 
-        backend_properties = self.app.get_properties()
-        if backend_properties.get("active_project") and backend_properties.get("active_design"):
-            self.connect_aedt_directly()
-        else:
-            self.connect_aedt.clicked.connect(self.launch_aedt)
+        # Check backend connection
+        success = self.app.check_connection()
+        if success:
+            backend_properties = self.app.get_properties()
+            if backend_properties.get("active_project") and backend_properties.get("active_design"):
+                self.connect_aedt_directly()
+            else:
+                self.connect_aedt.clicked.connect(self.launch_aedt)
 
     def process_id(self):
         if self.signal_flag:
