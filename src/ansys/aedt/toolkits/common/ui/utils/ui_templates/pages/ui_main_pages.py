@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_pages.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.0
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,6 +23,12 @@ class Ui_MainPages(object):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
         MainPages.resize(1053, 600)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(20)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(MainPages.sizePolicy().hasHeightForWidth())
+        MainPages.setSizePolicy(sizePolicy)
+        MainPages.setMaximumSize(QSize(16777212, 16777215))
         self.main_pages_layout = QVBoxLayout(MainPages)
         self.main_pages_layout.setSpacing(0)
         self.main_pages_layout.setObjectName(u"main_pages_layout")
@@ -61,7 +67,22 @@ class Ui_MainPages(object):
 
         self.label = QLabel(self.welcome_base)
         self.label.setObjectName(u"label")
+        self.label.setEnabled(True)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
+        self.label.setSizePolicy(sizePolicy1)
+        self.label.setMinimumSize(QSize(300, 0))
+        self.label.setMaximumSize(QSize(16777215, 16777215))
+        self.label.setSizeIncrement(QSize(0, 0))
+        self.label.setBaseSize(QSize(0, 0))
+        self.label.setContextMenuPolicy(Qt.NoContextMenu)
+        self.label.setLayoutDirection(Qt.LeftToRight)
+        self.label.setScaledContents(False)
         self.label.setAlignment(Qt.AlignCenter)
+        self.label.setWordWrap(True)
+        self.label.setMargin(0)
 
         self.center_page_layout.addWidget(self.label)
 
@@ -97,6 +118,6 @@ class Ui_MainPages(object):
 
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome to the toolkit", None))
+        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome to the Toolkit bla bla bla bla bla bladfdfdddddddddddddddd", None))
     # retranslateUi
 
