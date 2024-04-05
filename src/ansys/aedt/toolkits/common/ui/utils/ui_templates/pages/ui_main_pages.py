@@ -118,6 +118,6 @@ class Ui_MainPages(object):
 
     def retranslateUi(self, MainPages):
         MainPages.setWindowTitle(QCoreApplication.translate("MainPages", u"Form", None))
-        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome to the Toolkit bla bla bla bla bla bladfdfdddddddddddddddd", None))
+        self.label.setText(QCoreApplication.translate("MainPages", u"Welcome to the Toolkit", None))
     # retranslateUi
 
