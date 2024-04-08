@@ -3,7 +3,7 @@
 ################################################################################
 ## Form generated from reading UI file 'main_pages.ui'
 ##
-## Created by: Qt User Interface Compiler version 6.6.2
+## Created by: Qt User Interface Compiler version 6.6.1
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
@@ -23,7 +23,7 @@ class Ui_MainPages(object):
         if not MainPages.objectName():
             MainPages.setObjectName(u"MainPages")
         MainPages.resize(1053, 600)
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(20)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(MainPages.sizePolicy().hasHeightForWidth())
@@ -47,7 +47,7 @@ class Ui_MainPages(object):
         self.welcome_base.setSizeConstraint(QLayout.SetDefaultConstraint)
         self.logo = QFrame(self.home_page)
         self.logo.setObjectName(u"logo")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy1.setHorizontalStretch(0)
         sizePolicy1.setVerticalStretch(0)
         sizePolicy1.setHeightForWidth(self.logo.sizePolicy().hasHeightForWidth())
@@ -64,12 +64,12 @@ class Ui_MainPages(object):
 
         self.label = QLabel(self.home_page)
         self.label.setObjectName(u"label")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Maximum, QSizePolicy.Policy.Preferred)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Preferred, QSizePolicy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
         sizePolicy2.setVerticalStretch(0)
         sizePolicy2.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy2)
-        self.label.setMinimumSize(QSize(1000, 0))
+        self.label.setMinimumSize(QSize(500, 0))
         self.label.setMaximumSize(QSize(1000, 16777215))
         self.label.setLayoutDirection(Qt.LeftToRight)
         self.label.setAlignment(Qt.AlignCenter)
