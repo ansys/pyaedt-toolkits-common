@@ -566,6 +566,7 @@ class AEDTCommon(Common):
             if design_name in self.properties.design_list[project_name]:
                 self.aedtapp = self.desktop[[project_name, design_name]]
                 if not self.aedtapp:  # pragma: no cover
+                    self.release_aedt(False, False)
                     logger.error("Wrong active project and design.")
                     return False
                 active_design = self.aedtapp.design_name
@@ -694,6 +695,8 @@ class AEDTCommon(Common):
             self.release_aedt()
         if not self.connect_aedt():  # pragma: no cover
             return False
+        if not project_name and self.properties.active_project and os.path.exists(self.properties.active_project):
+            project_name = os.path.abspath(self.properties.active_project)
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} is opened".format(project_name))
@@ -704,7 +707,7 @@ class AEDTCommon(Common):
         self.release_aedt(False, False)
         return False
 
-    def save_project(self, project_path=None):
+    def save_project(self, project_path=None, release_aedt=True):
         """Save the project.
 
         This method uses the properties to get the project path. This method is launched in a thread.
@@ -714,6 +717,8 @@ class AEDTCommon(Common):
         project_path : str, optional
             Path of the AEDT project. The default value is ``None``, in which
             case the current file is overwritten.
+        release_aedt : bool, optional
+            Release PyAEDT object. The default value is ``True``.
 
         Returns
         -------
@@ -744,7 +749,9 @@ class AEDTCommon(Common):
                     del self.properties.design_list[old_project_name]
             else:
                 self.desktop.save_project()
-            self.release_aedt(False, False)
+            self.__save_project_info()
+            if release_aedt:
+                self.release_aedt(False, False)
             logger.debug("Project is saved: {}".format(project_path))
             return True
         else:  # pragma: no cover
