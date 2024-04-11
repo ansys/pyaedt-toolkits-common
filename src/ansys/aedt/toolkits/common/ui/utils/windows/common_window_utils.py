@@ -68,6 +68,7 @@ class CommonWindowUtils(object):
             The page widget to be displayed as the current page.
         """
         self.load_pages.pages.setCurrentWidget(page)
+        self.window_refresh()
 
     def get_left_menu(self, object_name):
         """
