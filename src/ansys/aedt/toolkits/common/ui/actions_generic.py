@@ -315,7 +315,16 @@ class FrontendGeneric:
             msg = response.json()
             self.log_and_update_progress(msg, log_level="debug", progress=100)
 
-    def get_aedt_model(self, project_selected, design_selected, air_objects=True):
+    def get_aedt_model(
+        self,
+        project_selected,
+        design_selected,
+        air_objects=True,
+        encode=True,
+        obj_list=None,
+        export_path=None,
+        export_as_single_objects=True,
+    ):
         """Get AEDT model.
 
         Parameters
@@ -326,6 +335,17 @@ class FrontendGeneric:
             Design name.
         air_objects : bool, optional
             Define if air and vacuum objects will be exported.
+        encode : bool, optional
+            Whether to encode the file. The default is ``True``.
+        obj_list : list, optional
+            List of objects to export. The default is ``None``, in which case
+            every model object except 3D, vacuum, and air objects are exported.
+        export_path : str, optional
+            Full path of the exported OBJ file.
+            The default is ``None``, in which case the file is exported in the working directory.
+        export_as_single_objects : bool, optional
+            Whether to export the model as a single object. The default is ``True``.
+            If ``False``, the model is exported as a list of objects for each object.
 
         Returns
         -------
@@ -352,7 +372,16 @@ class FrontendGeneric:
 
         self.set_properties(be_properties)
 
-        response = requests.get(self.url + "/get_aedt_model", json={"air_objects": air_objects, "encode": True})
+        response = requests.get(
+            self.url + "/get_aedt_model",
+            json={
+                "air_objects": air_objects,
+                "encode": encode,
+                "obj_list": obj_list,
+                "export_path": export_path,
+                "export_as_single_objects": export_as_single_objects,
+            },
+        )
 
         if response.ok:
             msg = "Geometry created."
