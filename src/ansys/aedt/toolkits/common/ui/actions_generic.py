@@ -441,7 +441,8 @@ class FrontendGeneric:
                 return ["No Design"]
             active_project = os.path.splitext(os.path.basename(be_properties["active_project"]))[0]
             if not active_project:
-                be_properties["active_project"] = "No Project"
+                active_project = "No Project"
+                be_properties["active_project"] = active_project
         else:
             be_properties["active_project"] = active_project
 
