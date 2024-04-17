@@ -24,7 +24,7 @@ This code shows how to use the ``AEDTCommon`` class:
 
     # Import API
     from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-    from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
+    from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
     # Object with generic methods to control the toolkits
     toolkit = AEDTCommon(properties)
