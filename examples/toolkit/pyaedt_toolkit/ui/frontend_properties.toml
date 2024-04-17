@@ -9,7 +9,7 @@ welcome_message= "Welcome to the amazing toolkit"
 version= "v0.0.1"
 copyright= "By: slopez"
 year= 2023
-theme= "ansys_dark.json"
+theme= "ansys_light.json"
 high_resolution= false
 
 [[defaults.add_left_menus]]

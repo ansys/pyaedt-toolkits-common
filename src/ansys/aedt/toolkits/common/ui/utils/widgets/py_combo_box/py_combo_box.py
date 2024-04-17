@@ -17,14 +17,14 @@ class PyComboBox(QComboBox):
         List of options in combo box.
     radius : int, optional
         Radius of combo box corners. The default is ``5``.
-    color : str, optional
-        Color of text. The default is ``"#000000"``.
     bg_color : str, optional
-        Background color of the combo box in normal state. The default is ``"#FFFFFF"``.
+        Background color of the combo box. The default is ``"#FFFFFF"``.
     bg_color_hover : str, optional
         Background color when mouse hovers over the combo box. The default is ``"#FFFFFF"``.
-    bg_color_pressed : str, optional
-        Background color when combo box is pressed. The default is ``"#FFFFFF"``.
+    text_color : str, optional
+        Text color in the combo box. The default is ``"#000000"``.
+    font_size : int
+        The font size of the text on the button.
 
     Examples
     --------
@@ -45,23 +45,19 @@ class PyComboBox(QComboBox):
     """
 
     def __init__(
-        self,
-        text_list,
-        radius=5,
-        color="#000000",
-        bg_color="#FFFFFF",
-        bg_color_hover="#FFFFFF",
-        bg_color_pressed="#FFFFFF",
+        self, text_list, radius=5, bg_color="#FFFFFF", bg_color_hover="#FFFFFF", text_color="#000000", font_size=12
     ):
         super().__init__()
-        self.addItems(text_list)
+
         self.setCursor(Qt.PointingHandCursor)
 
         custom_style = Styles.bg_style.format(
-            _color=color,
-            _radius=radius,
+            _border_radius=radius,
+            _text_color=text_color,
             _bg_color=bg_color,
             _bg_color_hover=bg_color_hover,
-            _bg_color_pressed=bg_color_pressed,
+            _font_size=font_size,
         )
         self.setStyleSheet(custom_style)
+
+        self.addItems(text_list)

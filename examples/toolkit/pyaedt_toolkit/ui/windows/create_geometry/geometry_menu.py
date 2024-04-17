@@ -62,8 +62,9 @@ class GeometryMenu(object):
     def setup(self):
         # Modify theme
         app_color = self.main_window.ui.themes["app_color"]
-        text_color = app_color["text_active"]
-        background = app_color["dark_three"]
+
+        text_foreground = app_color["text_foreground"]
+        combo_color = app_color["combo_color"]
 
         # Common UI API
         geometry_button_layout = self.geometry_menu_widget.findChild(QVBoxLayout, "button_layout")
@@ -97,7 +98,7 @@ class GeometryMenu(object):
             }}
         """
         custom_style = combo_box_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
+            _color=text_foreground, _bg_color=combo_color, _font_size=self.main_window.properties.font["title_size"]
         )
         self.geometry_combo.setStyleSheet(custom_style)
 
@@ -113,7 +114,7 @@ class GeometryMenu(object):
             }}
         """
         custom_style = line_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
+            _color=text_foreground, _bg_color=combo_color, _font_size=self.main_window.properties.font["title_size"]
         )
         self.multiplier.setStyleSheet(custom_style)
 
@@ -126,7 +127,7 @@ class GeometryMenu(object):
                     }}
                     """
         custom_style = multiplier_label_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
+            _color=text_foreground, _bg_color=combo_color, _font_size=self.main_window.properties.font["title_size"]
         )
         self.multiplier_label.setStyleSheet(custom_style)
 
@@ -139,7 +140,7 @@ class GeometryMenu(object):
                             }}
                             """
         custom_style = select_geometry_label_style.format(
-            _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
+            _color=text_foreground, _bg_color=combo_color, _font_size=self.main_window.properties.font["title_size"]
         )
         self.select_geometry_label.setStyleSheet(custom_style)
 
