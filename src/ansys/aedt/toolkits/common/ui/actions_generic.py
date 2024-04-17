@@ -27,9 +27,9 @@ from typing import Optional
 from PySide6 import QtWidgets
 import requests
 
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.models import general_settings
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 MSG_TK_RUNNING = "Please wait, toolkit running"
 
