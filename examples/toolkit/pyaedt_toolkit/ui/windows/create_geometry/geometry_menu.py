@@ -64,7 +64,7 @@ class GeometryMenu(object):
         app_color = self.main_window.ui.themes["app_color"]
 
         text_foreground = app_color["text_foreground"]
-        combo_color = app_color["combo_color"]
+        combo_color = app_color["dark_three"]
 
         # Common UI API
         geometry_button_layout = self.geometry_menu_widget.findChild(QVBoxLayout, "button_layout")
@@ -145,7 +145,7 @@ class GeometryMenu(object):
         self.select_geometry_label.setStyleSheet(custom_style)
 
         # Set Column
-        msg = "Press 'Create Geometry' button"
+        msg = "Press Create Geometry"
         label_widget = PyLabel(
             text=msg,
             font_size=self.ui.app.properties.font["title_size"],
