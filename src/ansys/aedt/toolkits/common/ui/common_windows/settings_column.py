@@ -199,6 +199,7 @@ class SettingsMenu(QObject):
         self.aedt_session.setEnabled(False)
         self.aedt_thread = True
         self.connect_aedt.setEnabled(False)
+        self.ui.title_bar.menu.setEnabled(False)
         self.ui.update_logger("AEDT session connected")
 
     def launch_aedt(self):
@@ -217,6 +218,9 @@ class SettingsMenu(QObject):
         self.connect_aedt.setEnabled(False)
         self.aedt_version.setEnabled(False)
         self.aedt_session.setEnabled(False)
+
+        self.ui.toggle_right_column()
+        self.ui.title_bar.menu.setEnabled(False)
 
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes

@@ -287,6 +287,7 @@ class _ToolTip(QLabel):
         self.setObjectName("label_tooltip")
         self.setStyleSheet(style)
         self.setMinimumHeight(34)
+        self.setMinimumWidth(50)
         self.setParent(parent)
         self.setText(tooltip)
         self.adjustSize()
