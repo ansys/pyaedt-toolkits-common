@@ -22,6 +22,7 @@
 
 """Utils module"""
 
+from enum import Enum
 import os
 import random
 import socket
@@ -183,3 +184,20 @@ def process_desktop_properties(is_linux, url_call):
             requests.post(url_call + "/wait_thread")
         except requests.exceptions.RequestException:
             logger.error("Properties update failed")
+
+
+class ToolkitThreadStatus(str, Enum):
+    """Provides an enumeration of statuses for a toolkit thread."""
+
+    IDLE = "Toolkit is idle and ready to accept a new task."
+    BUSY = "Toolkit is busy and processing a task."
+    CRASHED = "Toolkit has crashed and is not functional."
+    UNKNOWN = "Toolkit status is unknown."
+
+
+class PropertiesUpdate(str, Enum):
+    """Provides an enumeration of statuses for updating properties."""
+
+    EMPTY = "Body is empty."
+    SUCCESS = "Properties were updated successfully."
+    VALIDATION_ERROR = "Error occurred during validation of properties field."

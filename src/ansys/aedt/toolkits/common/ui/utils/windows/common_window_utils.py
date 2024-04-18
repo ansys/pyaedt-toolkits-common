@@ -190,9 +190,8 @@ class CommonWindowUtils(object):
 
         app_color = self.themes["app_color"]
         text_foreground = app_color["text_foreground"]
-        dark_one = app_color["dark_one"]
-        dark_two = app_color["dark_two"]
-        bg_three = app_color["bg_three"]
+        combo_color = app_color["combo_color"]
+        combo_hover = app_color["combo_hover"]
 
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
@@ -205,10 +204,10 @@ class CommonWindowUtils(object):
         combobox_widget = PyComboBox(
             text_list=combobox_list,
             radius=8,
-            color=dark_one,
-            bg_color=dark_two,
-            bg_color_hover=bg_three,
-            bg_color_pressed=bg_three,
+            bg_color=combo_color,
+            bg_color_hover=combo_hover,
+            text_color=text_foreground,
+            font_size=font_size,
         )
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
