@@ -219,9 +219,6 @@ class SettingsMenu(QObject):
         self.aedt_version.setEnabled(False)
         self.aedt_session.setEnabled(False)
 
-        self.ui.toggle_right_column()
-        self.ui.title_bar.menu.setEnabled(False)
-
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes
         if aedt_launched:
@@ -231,6 +228,9 @@ class SettingsMenu(QObject):
                 self.app.open_project(aedt_file)
             self.app.home_menu.update_project()
             self.app.home_menu.update_design()
+            if self.ui.is_right_column_visible():
+                self.ui.toggle_right_column()
+            self.ui.title_bar.menu.setEnabled(False)
             self.ui.update_logger("AEDT session connected")
         else:
             self.ui.update_logger("AEDT not launched")
