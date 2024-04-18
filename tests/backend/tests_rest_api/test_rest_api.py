@@ -24,7 +24,7 @@ import json
 import os
 import pytest
 
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 pytestmark = [pytest.mark.rest_api]
 

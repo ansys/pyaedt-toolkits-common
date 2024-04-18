@@ -27,9 +27,9 @@ from typing import Optional
 from PySide6 import QtWidgets
 import requests
 
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.models import general_settings
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 MSG_TK_RUNNING = "Please wait, toolkit running"
 
@@ -196,7 +196,9 @@ class FrontendGeneric:
         try:
             response = requests.put(self.url + "/properties", json=data)
             if response.ok:
-                response.json()
+                return response.json()
+            else:
+                return False
         except requests.exceptions.RequestException:
             msg = "Set properties failed"
             self.log_and_update_progress(msg, log_level="error")
@@ -441,7 +443,8 @@ class FrontendGeneric:
                 return ["No Design"]
             active_project = os.path.splitext(os.path.basename(be_properties["active_project"]))[0]
             if not active_project:
-                be_properties["active_project"] = "No Project"
+                active_project = "No Project"
+                be_properties["active_project"] = active_project
         else:
             be_properties["active_project"] = active_project
 

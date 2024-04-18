@@ -26,8 +26,8 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 
 class BodyErrorMessage(str, Enum):

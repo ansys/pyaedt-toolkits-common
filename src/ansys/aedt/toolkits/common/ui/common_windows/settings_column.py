@@ -72,13 +72,15 @@ class SettingsMenu(QObject):
         self.aedt_thread = None
 
     def setup(self):
+        font_size = self.main_window.properties.font["title_size"]
         # Version row
         row_returns = self.ui.add_combobox(
             self.ui.right_column.menus.settings_vertical_layout,
             height=40,
-            width=[75, 135],
+            width=[100, 135],
             label="AEDT Version",
             combobox_list=[],
+            font_size=font_size,
         )
 
         self.ui.right_column.menus.browse_aedt_version = row_returns[0]
@@ -98,9 +100,10 @@ class SettingsMenu(QObject):
         row_returns = self.ui.add_combobox(
             self.ui.right_column.menus.settings_vertical_layout,
             height=40,
-            width=[75, 135],
+            width=[100, 135],
             label="AEDT Session",
             combobox_list=[],
+            font_size=font_size,
         )
 
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
@@ -114,9 +117,9 @@ class SettingsMenu(QObject):
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
             height=40,
-            width=[100, 50, 100],
+            width=[100, 50, 150],
             label=["Graphical", "Non-graphical"],
-            font_size=12,
+            font_size=font_size,
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
@@ -134,7 +137,7 @@ class SettingsMenu(QObject):
             self.ui.right_column.menus.settings_vertical_layout,
             icon=self.ui.images_load.icon_path("icon_folder_open.svg"),
             height=40,
-            width=[40, 160],
+            width=[40, 250],
             text="Browse...",
         )
 
@@ -153,9 +156,10 @@ class SettingsMenu(QObject):
         row_returns = self.ui.add_n_buttons(
             self.ui.right_column.menus.settings_vertical_layout,
             num_buttons=1,
-            height=40,
+            height=80,
             width=[200],
             text=["Connect to AEDT"],
+            font_size=font_size,
         )
 
         self.ui.right_column.menus.connect_aedt_layout = row_returns[0]
