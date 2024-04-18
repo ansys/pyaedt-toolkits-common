@@ -196,7 +196,9 @@ class FrontendGeneric:
         try:
             response = requests.put(self.url + "/properties", json=data)
             if response.ok:
-                response.json()
+                return response.json()
+            else:
+                return False
         except requests.exceptions.RequestException:
             msg = "Set properties failed"
             self.log_and_update_progress(msg, log_level="error")
