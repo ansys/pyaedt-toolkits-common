@@ -22,7 +22,6 @@
 
 import base64
 from dataclasses import dataclass
-from enum import Enum
 import gc
 import os
 import time
@@ -42,23 +41,8 @@ from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 from ansys.aedt.toolkits.common.backend.models import common_properties
 from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
-
-
-class ToolkitThreadStatus(str, Enum):
-    """Provides an enumeration of statuses for a toolkit thread."""
-
-    IDLE = "Toolkit is idle and ready to accept a new task."
-    BUSY = "Toolkit is busy and processing a task."
-    CRASHED = "Toolkit has crashed and is not functional."
-    UNKNOWN = "Toolkit status is unknown."
-
-
-class PropertiesUpdate(str, Enum):
-    """Provides an enumeration of statuses for updating properties."""
-
-    EMPTY = "Body is empty."
-    SUCCESS = "Properties were updated successfully."
-    VALIDATION_ERROR = "Error occurred during validation of properties field."
+from ansys.aedt.toolkits.common.utils import PropertiesUpdate
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 
 @dataclass

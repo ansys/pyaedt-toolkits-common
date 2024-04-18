@@ -15,6 +15,8 @@
         "context_color" : "#ff79c6",
         "context_hover" : "#FF84D7",
         "context_pressed" : "#FF90DD",
+        "combo_color" : "#1a1a1a",
+        "combo_hover" : "#555555",
         "text_title" : "#dce1ec",
         "text_foreground" : "#f8f8f2",
         "text_description" : "#979EC7",
