@@ -22,7 +22,6 @@
 
 import base64
 from dataclasses import dataclass
-from enum import Enum
 import gc
 import os
 import time
@@ -42,23 +41,8 @@ from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
 from ansys.aedt.toolkits.common.backend.models import common_properties
 from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
-
-
-class ToolkitThreadStatus(str, Enum):
-    """Provides an enumeration of statuses for a toolkit thread."""
-
-    IDLE = "Toolkit is idle and ready to accept a new task."
-    BUSY = "Toolkit is busy and processing a task."
-    CRASHED = "Toolkit has crashed and is not functional."
-    UNKNOWN = "Toolkit status is unknown."
-
-
-class PropertiesUpdate(str, Enum):
-    """Provides an enumeration of statuses for updating properties."""
-
-    EMPTY = "Body is empty."
-    SUCCESS = "Properties were updated successfully."
-    VALIDATION_ERROR = "Error occurred during validation of properties field."
+from ansys.aedt.toolkits.common.utils import PropertiesUpdate
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 
 @dataclass
@@ -566,6 +550,7 @@ class AEDTCommon(Common):
             if design_name in self.properties.design_list[project_name]:
                 self.aedtapp = self.desktop[[project_name, design_name]]
                 if not self.aedtapp:  # pragma: no cover
+                    self.release_aedt(False, False)
                     logger.error("Wrong active project and design.")
                     return False
                 active_design = self.aedtapp.design_name
@@ -694,6 +679,8 @@ class AEDTCommon(Common):
             self.release_aedt()
         if not self.connect_aedt():  # pragma: no cover
             return False
+        if not project_name and self.properties.active_project and os.path.exists(self.properties.active_project):
+            project_name = os.path.abspath(self.properties.active_project)
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} is opened".format(project_name))
@@ -704,7 +691,7 @@ class AEDTCommon(Common):
         self.release_aedt(False, False)
         return False
 
-    def save_project(self, project_path=None):
+    def save_project(self, project_path=None, release_aedt=True):
         """Save the project.
 
         This method uses the properties to get the project path. This method is launched in a thread.
@@ -714,6 +701,8 @@ class AEDTCommon(Common):
         project_path : str, optional
             Path of the AEDT project. The default value is ``None``, in which
             case the current file is overwritten.
+        release_aedt : bool, optional
+            Release PyAEDT object. The default value is ``True``.
 
         Returns
         -------
@@ -744,7 +733,9 @@ class AEDTCommon(Common):
                     del self.properties.design_list[old_project_name]
             else:
                 self.desktop.save_project()
-            self.release_aedt(False, False)
+            self.__save_project_info()
+            if release_aedt:
+                self.release_aedt(False, False)
             logger.debug("Project is saved: {}".format(project_path))
             return True
         else:  # pragma: no cover

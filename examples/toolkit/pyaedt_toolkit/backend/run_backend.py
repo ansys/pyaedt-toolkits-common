@@ -1,11 +1,12 @@
-from ansys.aedt.toolkits.common.backend.multithreading_server import MultithreadingServer
-from ansys.aedt.toolkits.common.backend.rest_api import app
-from ansys.aedt.toolkits.common.backend.rest_api import jsonify
-from ansys.aedt.toolkits.common.backend.rest_api import logger
+import sys
 
 from api import ToolkitBackend
 
-import sys
+from ansys.aedt.toolkits.common.backend.multithreading_server import MultithreadingServer
+from ansys.aedt.toolkits.common.backend.rest_api import app
+from ansys.aedt.toolkits.common.backend.rest_api import jsonify
+
+from ansys.aedt.toolkits.common.backend.rest_api import logger
 
 toolkit_api = ToolkitBackend()
 

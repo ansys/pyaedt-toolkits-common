@@ -26,8 +26,8 @@ from flask import Flask
 from flask import jsonify
 from flask import request
 
-from ansys.aedt.toolkits.common.backend.api import ToolkitThreadStatus
 from ansys.aedt.toolkits.common.backend.logger_handler import logger
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 
 class BodyErrorMessage(str, Enum):
@@ -132,7 +132,7 @@ def launch_aedt():
 
 
 @app.route("/get_aedt_model", methods=["GET"])
-def get_hfss_model_call():
+def get_aedt_model():
     logger.info("[GET] /get_aedt_model (Get 3D model in AEDT)")
 
     body = request.json

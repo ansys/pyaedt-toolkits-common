@@ -100,10 +100,13 @@ class HomeMenu(object):
 
         main_logo.setFixedSize(240, 120)
 
-        backend_properties = self.app.get_properties()
-        if backend_properties.get("active_project") and backend_properties.get("active_design"):
-            self.update_project()
-            self.update_design()
+        # Check backend connection
+        success = self.app.check_connection()
+        if success:
+            backend_properties = self.app.get_properties()
+            if backend_properties.get("active_project") and backend_properties.get("active_design"):
+                self.update_project()
+                self.update_design()
 
     def update_project(self):
         self.project_combobox.blockSignals(True)
