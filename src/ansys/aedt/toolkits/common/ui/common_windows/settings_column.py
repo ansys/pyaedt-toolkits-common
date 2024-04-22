@@ -172,7 +172,7 @@ class SettingsMenu(QObject):
         success = self.app.check_connection()
         if success:
             backend_properties = self.app.get_properties()
-            if backend_properties.get("selected_process"):
+            if backend_properties.get("selected_process") != 0:
                 self.connect_aedt_directly()
             else:
                 self.connect_aedt.clicked.connect(self.launch_aedt)
