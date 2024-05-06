@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+import os
+
 from PySide6 import QtCore
 from PySide6 import QtGui
 from PySide6.QtWidgets import QFrame
@@ -43,6 +45,9 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWi
 
 # Widgets
 from ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils import CommonWindowUtils
+
+if os.environ.get("AEDT_TOOLKIT_THEME", False):
+    general_settings.theme = os.environ["AEDT_TOOLKIT_THEME"]
 
 
 def setup_parent_ui(parent):
