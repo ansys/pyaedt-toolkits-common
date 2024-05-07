@@ -63,10 +63,6 @@ doc = [
     "jupyterlab>=4.0.0,<4.3",
     "pypandoc>=1.10.0,<1.14",
 ]
-ci = [
-    "pypandoc-binary>=1.10.0,<1.14",
-    "vtk-osmesa==9.2.20230527.dev0",
-]
 
 [tool.flit.module]
 name = "ansys.aedt.toolkits.common"
