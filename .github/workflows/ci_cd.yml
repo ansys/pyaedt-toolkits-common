@@ -87,7 +87,7 @@ jobs:
         run: |
           .venv\Scripts\Activate.ps1
           pip install --extra-index-url https://wheels.vtk.org vtk-osmesa==9.2.20230527.dev0
-          pip install pypandoc-binary>=1.10.0,<1.14
+          pip install "pypandoc-binary>=1.10.0,<1.14"
 
       - name: Retrieve common toolkit version
         run: |
