@@ -41,7 +41,7 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.8.0,<0.9",
+    "pyaedt[all]>=0.8.0,<0.10",
     "flask",
     "pytest>=7.4.0,<8.3",
     "pytest-cov>=4.0.0,<5.1",
