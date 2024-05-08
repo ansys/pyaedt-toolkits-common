@@ -26,14 +26,14 @@ classifiers = [
 dependencies = [
     "build==1.2.1",
     "twine==5.0.0",
-    "pyaedt>=0.8.0,<0.9",
+    "pyaedt>=0.8.0,<0.10",
     "pydantic",
     "tomli; python_version < '3.12'",
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]>=0.8.0,<0.9",
+    "pyaedt[all]>=0.8.0,<0.10",
     "flask",
     "PySide6-Essentials",
     "pyqtgraph",
@@ -41,13 +41,13 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.8.0,<0.9",
+    "pyaedt[all]>=0.8.0,<0.10",
     "flask",
     "pytest>=7.4.0,<8.3",
     "pytest-cov>=4.0.0,<5.1",
 ]
 doc = [
-    "pyaedt[all]>=0.8.0,<0.9",
+    "pyaedt[all]>=0.8.0,<0.10",
     "recommonmark>=0.7.0,<0.8",
     "PySide6-Essentials",
     "ansys-sphinx-theme>=0.10.0,<0.16",
@@ -62,10 +62,6 @@ doc = [
     "ipython>=8.13.0,<8.25",
     "jupyterlab>=4.0.0,<4.3",
     "pypandoc>=1.10.0,<1.14",
-]
-ci = [
-    "pypandoc-binary>=1.10.0,<1.14",
-    "vtk-osmesa==9.2.20230527.dev0",
 ]
 
 [tool.flit.module]
