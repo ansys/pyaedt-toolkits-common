@@ -162,7 +162,7 @@ def process_desktop_properties(is_linux, url_call):
         grpc = desktop_version > "2023.2" or is_linux
         if "PYAEDT_STUDENT_VERSION" in os.environ:
             is_student = os.environ["PYAEDT_STUDENT_VERSION"]
-        if is_student:
+        if is_student == "True":
             desktop_version += " STUDENT"
 
     elif len(sys.argv) == 3:
