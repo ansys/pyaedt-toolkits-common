@@ -35,7 +35,7 @@ import psutil
 import requests
 
 
-def download_file(url, local_filename):
+def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
@@ -126,7 +126,7 @@ def server_actions(command, name, is_linux):
     return thread
 
 
-def clean_python_processes(url, port):
+def clean_python_processes(url, port):  # pragma: no cover
     """Clean up Python processes."""
     for conn in psutil.net_connections():
         (ip_tmp, port_tmp) = conn.laddr
@@ -140,7 +140,7 @@ def clean_python_processes(url, port):
                 print(f"Process {process.pid} on {ip}:{port_tmp} was already killed")
 
 
-def check_backend_communication(url_call):
+def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     try:
         response = requests.get(url_call + "/health")
@@ -150,7 +150,7 @@ def check_backend_communication(url_call):
         return False
 
 
-def process_desktop_properties(is_linux, url_call):
+def process_desktop_properties(is_linux, url_call):  # pragma: no cover
     """Process desktop properties."""
     desktop_pid = None
     desktop_version = None

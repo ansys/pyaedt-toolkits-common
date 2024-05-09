@@ -195,6 +195,13 @@ jobs:
 
           pytest -v -m rest_api --cov --cov-append
 
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m utils --cov --cov-append
+
       - name: "Combine coverage files"
         run: |
           .\.venv\Scripts\Activate.ps1
@@ -277,6 +284,13 @@ jobs:
           export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api
+
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT241 }}/common/mono/Linux64/lib64:${{ env.ANSYSEM_ROOT241 }}/Delcross:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m utils
 
   build-library:
     name: "Build library artifacts"
