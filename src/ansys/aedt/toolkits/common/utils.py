@@ -146,7 +146,7 @@ def check_backend_communication(url_call):
         response = requests.get(url_call + "/health")
         return response.ok
     except requests.exceptions.RequestException:
-        logger.error("Failed to check backend communication.")
+        print("Failed to check backend communication.")
         return False
 
 
@@ -183,7 +183,7 @@ def process_desktop_properties(is_linux, url_call):
             requests.post(url_call + "/launch_aedt")
             requests.post(url_call + "/wait_thread")
         except requests.exceptions.RequestException:
-            logger.error("Properties update failed")
+            raise Exception("Properties update failed.")
 
 
 class ToolkitThreadStatus(str, Enum):
