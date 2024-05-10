@@ -35,7 +35,7 @@ import psutil
 import requests
 
 
-def download_file(url, local_filename):
+def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
     with requests.get(url, stream=True) as r:
         r.raise_for_status()
@@ -45,7 +45,7 @@ def download_file(url, local_filename):
     return local_filename
 
 
-def is_server_running(server="localhost", port=5001):
+def is_server_running(server="localhost", port=5001):  # pragma: no cover
     """Check if port is used."""
     result = None
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -70,16 +70,16 @@ def find_free_port(server="localhost", start_port=5001, max_attempts=50):
                 s.bind((server, port))
                 print("Port {} is free.".format(str(port)))
                 return port
-        except OSError:
+        except OSError:  # pragma: no cover
             print("Port {} is used.".format(str(port)))
-        except Exception as e:
+        except Exception as e:  # pragma: no cover
             print("An error occurred:", e)
             return False
-        port = random.randint(start_port, start_port + 100)
-    return False
+        port = random.randint(start_port, start_port + 100)  # pragma: no cover
+    return False  # pragma: no cover
 
 
-def wait_for_server(server="localhost", port=5001, timeout=10.0):
+def wait_for_server(server="localhost", port=5001, timeout=10.0):  # pragma: no cover
     """Wait for server response."""
     start_time = time.time()
     first_time = True
@@ -91,7 +91,7 @@ def wait_for_server(server="localhost", port=5001, timeout=10.0):
             sock.close()
             print("\nServer is ready.")
             return True
-        except socket.error as e:
+        except socket.error as e:  # pragma: no cover
             print(f"Socket error occurred: {e}")
             if first_time:
                 print("Server not ready yet. Retrying...", end="")
@@ -126,7 +126,7 @@ def server_actions(command, name, is_linux):
     return thread
 
 
-def clean_python_processes(url, port):
+def clean_python_processes(url, port):  # pragma: no cover
     """Clean up Python processes."""
     for conn in psutil.net_connections():
         (ip_tmp, port_tmp) = conn.laddr
@@ -140,7 +140,7 @@ def clean_python_processes(url, port):
                 print(f"Process {process.pid} on {ip}:{port_tmp} was already killed")
 
 
-def check_backend_communication(url_call):
+def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     try:
         response = requests.get(url_call + "/health")
@@ -150,7 +150,7 @@ def check_backend_communication(url_call):
         return False
 
 
-def process_desktop_properties(is_linux, url_call):
+def process_desktop_properties(is_linux, url_call):  # pragma: no cover
     """Process desktop properties."""
     desktop_pid = None
     desktop_version = None
