@@ -75,7 +75,7 @@ def find_free_port(server="localhost", start_port=5001, max_attempts=50):
         except Exception as e:  # pragma: no cover
             print("An error occurred:", e)
             return False
-        port = random.randint(start_port, start_port + 100)
+        port = random.randint(start_port, start_port + 100)  # pragma: no cover
     return False  # pragma: no cover
 
 

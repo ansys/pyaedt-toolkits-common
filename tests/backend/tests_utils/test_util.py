@@ -74,6 +74,7 @@ def test_wait_for_server(mock_socket):
 
 
 def test_find_free_port():
+    """Test find_free_port function."""
     assert isinstance(find_free_port(server='localhost', start_port=5001), int)
 
     assert isinstance(find_free_port(), int)
