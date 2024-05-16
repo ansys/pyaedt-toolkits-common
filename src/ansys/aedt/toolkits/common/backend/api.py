@@ -679,7 +679,9 @@ class AEDTCommon(Common):
             self.release_aedt()
         if not self.connect_aedt():  # pragma: no cover
             return False
-        if not project_name and self.properties.active_project and os.path.exists(self.properties.active_project):
+        if (
+            not project_name and self.properties.active_project and os.path.exists(self.properties.active_project)
+        ):  # pragma: no cover
             project_name = os.path.abspath(self.properties.active_project)
         if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
