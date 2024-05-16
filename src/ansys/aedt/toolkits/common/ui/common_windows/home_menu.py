@@ -104,7 +104,11 @@ class HomeMenu(object):
         success = self.app.check_connection()
         if success:
             backend_properties = self.app.get_properties()
-            if backend_properties.get("active_project") and backend_properties.get("active_design"):
+            if (
+                backend_properties.get("active_project")
+                and backend_properties.get("active_design")
+                or backend_properties.get("selected_process") != 0
+            ):
                 self.update_project()
                 self.update_design()
 
@@ -119,7 +123,7 @@ class HomeMenu(object):
 
     def update_design(self):
         self.project_combobox.blockSignals(True)
-        design_list = self.app.update_design_names()
+        design_list = self.app.update_design_names(self.main_window.home_menu.project_combobox.currentText())
         self.main_window.home_menu.design_combobox.clear()
         self.main_window.home_menu.design_combobox.addItems(design_list)
         self.project_combobox.blockSignals(False)
