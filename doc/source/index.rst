@@ -1,4 +1,4 @@
-PyAEDT common toolkit documentation |version|
+PyAEDT Common Toolkit documentation |version|
 =============================================
 
 **Useful links**:
