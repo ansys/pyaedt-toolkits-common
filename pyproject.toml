@@ -25,7 +25,7 @@ classifiers = [
 ]
 dependencies = [
     "build==1.2.1",
-    "twine==5.0.0",
+    "twine==5.1.0",
     "pyaedt>=0.8.0,<0.10",
     "pydantic",
     "tomli; python_version < '3.12'",
@@ -59,7 +59,7 @@ doc = [
     "nbsphinx>=0.9.0,<0.10",
     "sphinx_design",
     "jupytext",
-    "ipython>=8.13.0,<8.25",
+    "ipython>=8.13.0,<8.26",
     "jupyterlab>=4.0.0,<4.3",
     "pypandoc>=1.10.0,<1.14",
 ]

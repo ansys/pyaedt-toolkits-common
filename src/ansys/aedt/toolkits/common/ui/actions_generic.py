@@ -452,7 +452,8 @@ class FrontendGeneric:
         if not design_list:
             design_list = ["No Design"]
             be_properties["active_design"] = "No Design"
-        be_properties["design_list"] = {active_project: design_list}
+        else:
+            be_properties["active_design"] = design_list[0]
         self.set_properties(be_properties)
         return design_list
 
