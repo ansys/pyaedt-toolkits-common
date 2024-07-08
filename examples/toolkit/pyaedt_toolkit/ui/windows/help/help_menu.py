@@ -103,7 +103,7 @@ class HelpMenu(object):
             text=["Issue tracker"],
             font_size=self.main_window.properties.font["title_size"]
         )
-        print(row_returns)
+
         self.plot_design_button_layout = row_returns[0]
         self.issue_tracker_button = row_returns[1]
         self.plot_design_button_layout.addWidget(self.issue_tracker_button)
