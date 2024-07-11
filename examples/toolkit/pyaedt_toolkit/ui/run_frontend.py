@@ -154,10 +154,10 @@ class ApplicationWindow(QMainWindow, Frontend):
 
         if menu_name == "help_menu":
             selected_menu.set_active(True)
-            self.ui.set_page(self.help_menu.help_menu_widget)
+            self.ui.set_page(self.help_menu.plot_design_menu_widget)
 
             self.ui.set_left_column_menu(
-                menu=self.help_menu.help_column_widget,
+                menu=self.help_menu.plot_design_column_widget,
                 title="Help",
                 icon_path=self.ui.images_load.icon_path("help.svg"),
             )

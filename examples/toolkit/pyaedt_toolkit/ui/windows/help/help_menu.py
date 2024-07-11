@@ -2,8 +2,8 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QGridLayout
 from PySide6.QtWidgets import QWidget
-from windows.help.help_column import Ui_LeftColumn
-from windows.help.help_page import Ui_Help
+from windows.plot_design.plot_design_column import Ui_LeftColumn
+from windows.plot_design.plot_design_page import Ui_Plot_Design
 
 import tempfile
 from ansys.aedt.toolkits.common import __version__
@@ -27,24 +27,24 @@ class HelpMenu(object):
         self.temp_folder = tempfile.mkdtemp()
 
         # Add page
-        help_menu_index = self.ui.add_page(Ui_Help)
-        self.ui.load_pages.pages.setCurrentIndex(help_menu_index)
-        self.help_menu_widget = self.ui.load_pages.pages.currentWidget()
+        plot_design_menu_index = self.ui.add_page(Ui_Plot_Design)
+        self.ui.load_pages.pages.setCurrentIndex(plot_design_menu_index)
+        self.plot_design_menu_widget = self.ui.load_pages.pages.currentWidget()
 
         # Add left column
         new_column_widget = QWidget()
         new_ui = Ui_LeftColumn()
         new_ui.setupUi(new_column_widget)
         self.ui.left_column.menus.menus.addWidget(new_column_widget)
-        self.help_column_widget = new_column_widget
-        self.help_column_vertical_layout = new_ui.help_vertical_layout
+        self.plot_design_column_widget = new_column_widget
+        self.plot_design_column_vertical_layout = new_ui.plot_design_vertical_layout
 
         # Specific properties
-        self.help_label = self.help_menu_widget.findChild(QLabel, "help_label")
-        self.help_grid = self.help_menu_widget.findChild(QGridLayout, "help_grid")
+        self.plot_design_label = self.plot_design_menu_widget.findChild(QLabel, "plot_design_label")
+        self.plot_design_grid = self.plot_design_menu_widget.findChild(QGridLayout, "plot_design_grid")
 
-        self.help_button_layout = None
-        self.help_button = None
+        self.plot_design_button_layout = None
+        self.plot_design_button = None
         self.online_documentation_button = None
         self.issue_tracker_button = None
 
@@ -55,58 +55,58 @@ class HelpMenu(object):
         background = app_color["dark_three"]
 
         # Label button
-        help_label_style = """
+        plot_design_label_style = """
         QLabel {{
         color: {_color};
         font-size: {_font_size}pt;
         font-weight: bold;
         }}
         """
-        custom_style = help_label_style.format(
+        custom_style = plot_design_label_style.format(
             _color=text_color, _bg_color=background, _font_size=self.main_window.properties.font["title_size"]
         )
-        self.help_label.setStyleSheet(custom_style)
+        self.plot_design_label.setStyleSheet(custom_style)
 
         # Set column
 
         # About button
         row_returns = self.ui.add_n_buttons(
-            self.help_column_vertical_layout, num_buttons=1,
+            self.plot_design_column_vertical_layout, num_buttons=1,
             height=40,
             width=[200],
             text=["About"],
             font_size=self.main_window.properties.font["title_size"]
         )
-        self.help_button_layout = row_returns[0]
-        self.help_button = row_returns[1]
-        self.help_button_layout.addWidget(self.help_button)
-        self.help_button.clicked.connect(self.about_button_clicked)
+        self.plot_design_button_layout = row_returns[0]
+        self.plot_design_button = row_returns[1]
+        self.plot_design_button_layout.addWidget(self.plot_design_button)
+        self.plot_design_button.clicked.connect(self.about_button_clicked)
 
         # Documentation button
         row_returns = self.ui.add_n_buttons(
-            self.help_column_vertical_layout, num_buttons=1,
+            self.plot_design_column_vertical_layout, num_buttons=1,
             height=40,
             width=[200],
             text=["Documentation website"],
             font_size=self.main_window.properties.font["title_size"]
         )
-        self.help_button_layout = row_returns[0]
+        self.plot_design_button_layout = row_returns[0]
         self.online_documentation_button = row_returns[1]
-        self.help_button_layout.addWidget(self.online_documentation_button)
+        self.plot_design_button_layout.addWidget(self.online_documentation_button)
         self.online_documentation_button.clicked.connect(self.visit_website)
 
         # Issue tracker button
         row_returns = self.ui.add_n_buttons(
-            self.help_column_vertical_layout, num_buttons=1,
+            self.plot_design_column_vertical_layout, num_buttons=1,
             height=40,
             width=[200],
             text=["Issue tracker"],
             font_size=self.main_window.properties.font["title_size"]
         )
         print(row_returns)
-        self.help_button_layout = row_returns[0]
+        self.plot_design_button_layout = row_returns[0]
         self.issue_tracker_button = row_returns[1]
-        self.help_button_layout.addWidget(self.issue_tracker_button)
+        self.plot_design_button_layout.addWidget(self.issue_tracker_button)
         self.issue_tracker_button.clicked.connect(self.report_issue)
 
     def about_button_clicked(self):
