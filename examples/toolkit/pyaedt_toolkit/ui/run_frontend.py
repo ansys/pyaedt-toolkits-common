@@ -104,8 +104,8 @@ class ApplicationWindow(QMainWindow, Frontend):
         self.ui.left_menu.clicked.connect(self.plot_design_menu_clicked)
 
         # Help menu
-        self.plot_design_menu = HelpMenu(self)
-        self.plot_design_menu.setup()
+        self.help_menu = HelpMenu(self)
+        self.help_menu.setup()
         self.ui.left_menu.clicked.connect(self.help_menu_clicked)
 
         # Home page as first page
@@ -154,10 +154,10 @@ class ApplicationWindow(QMainWindow, Frontend):
 
         if menu_name == "help_menu":
             selected_menu.set_active(True)
-            self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
+            self.ui.set_page(self.help_menu.plot_design_menu_widget)
 
             self.ui.set_left_column_menu(
-                menu=self.plot_design_menu.plot_design_column_widget,
+                menu=self.help_menu.plot_design_column_widget,
                 title="Help",
                 icon_path=self.ui.images_load.icon_path("help.svg"),
             )
