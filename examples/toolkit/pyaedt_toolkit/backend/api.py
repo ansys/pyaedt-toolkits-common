@@ -70,7 +70,7 @@ class ToolkitBackend(AEDTCommon):
 
         Returns
         -------
-        :class:`pyaedt.modeler.object3d.Object3d`
+        :class:`ansys.aedt.core.modeler.object3d.Object3d`
             3D object.
 
         Examples
@@ -102,7 +102,7 @@ class ToolkitBackend(AEDTCommon):
 
         Returns
         -------
-        :class:`pyaedt.modeler.object3d.Object3d`
+        :class:`ansys.aedt.core.modeler.object3d.Object3d`
             3D object.
 
         Examples

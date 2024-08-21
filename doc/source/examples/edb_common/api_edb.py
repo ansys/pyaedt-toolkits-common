@@ -7,11 +7,10 @@
 #
 # Perform the required imports.
 
-import sys
 import os
 import shutil
 
-from pyaedt import generate_unique_folder_name
+from ansys.aedt.core import generate_unique_folder_name
 
 from ansys.aedt.toolkits.common.utils import download_file
 from ansys.aedt.toolkits.common.backend.api import EDBCommon
