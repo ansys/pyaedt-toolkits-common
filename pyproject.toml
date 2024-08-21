@@ -26,7 +26,7 @@ classifiers = [
 dependencies = [
     "build==1.2.1",
     "twine==5.1.1",
-    "pyaedt>=0.8.0,<0.10",
+    "pyaedt>=0.8.0,<0.11",
     "pydantic",
     "tomli; python_version < '3.12'",
 ]
