@@ -823,7 +823,7 @@ class AEDTCommon(Common):
         if self.aedtapp:
             self.aedtapp.save_project()
             files = self.aedtapp.post.export_model_obj(
-                obj_list=obj_list,
+                assignment=obj_list,
                 export_path=export_path,
                 export_as_single_objects=export_as_single_objects,
                 air_objects=air_objects,

@@ -89,8 +89,8 @@ class ToolkitBackend(AEDTCommon):
         pos_z = props[0][2]
 
         box = self.aedtapp.modeler.create_box(
-            position=[pos_x, pos_y, pos_z],
-            dimensions_list=[1 * self.multiplier, 1 * self.multiplier, 1 * self.multiplier],
+            origin=[pos_x, pos_y, pos_z],
+            sizes=[1 * self.multiplier, 1 * self.multiplier, 1 * self.multiplier],
         )
 
         box.color = (props[1][0], props[1][1], props[1][2])
@@ -122,7 +122,7 @@ class ToolkitBackend(AEDTCommon):
         pos_z = props[0][2]
 
         sp = self.aedtapp.modeler.create_sphere(
-            position=[pos_x, pos_y, pos_z],
+            origin=[pos_x, pos_y, pos_z],
             radius=1 * self.multiplier,
         )
 
