@@ -32,7 +32,7 @@ The default configuration can be changed by placing a file called local_config.j
 An example of the contents of local_config.json:
 
 {
-  "desktop_version": "2024.1",
+  "desktop_version": "2024.2",
   "non_graphical": false,
   "use_grpc": true
 }
@@ -42,7 +42,7 @@ You can enable the API log file in the backend_properties.json.
 """
 
 import pytest
-from pyaedt import generate_unique_project_name
+from ansys.aedt.core import generate_unique_project_name
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.models import Properties
 from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG, PROJECT_NAME

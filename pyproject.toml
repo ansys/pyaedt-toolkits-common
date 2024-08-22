@@ -33,7 +33,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]>=0.8.0,<0.10",
+    "pyaedt[all]>=0.8.0,<0.11",
     "flask",
     "PySide6-Essentials",
     "pyqtgraph",
@@ -41,17 +41,17 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.8.0,<0.10",
+    "pyaedt[all]>=0.8.0,<0.11",
     "flask",
-    "pytest>=7.4.0,<8.3",
+    "pytest>=7.4.0,<8.4",
     "pytest-cov>=4.0.0,<5.1",
 ]
 doc = [
-    "pyaedt[all]>=0.8.0,<0.10",
+    "pyaedt[all]>=0.8.0,<0.11",
     "recommonmark>=0.7.0,<0.8",
     "PySide6-Essentials",
     "ansys-sphinx-theme>=0.10.0,<0.17",
-    "numpydoc>=1.5.0,<1.8",
+    "numpydoc>=1.5.0,<1.9",
     "Sphinx>=7.1.0,<7.4",
     "sphinx-copybutton>=0.5.0,<0.6",
     "sphinx-autobuild==2021.3.14; python_version == '3.8'",
