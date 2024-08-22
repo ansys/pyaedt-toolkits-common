@@ -10,7 +10,7 @@
 
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
-import pyaedt
+import ansys.aedt.core
 
 
 # ## Initialize toolkit
@@ -28,8 +28,8 @@ properties_from_backend = toolkit.get_properties()
 # ## Initialize AEDT
 #
 # Initialize AEDT using PyAEDT and then release it.
-pyaedt.settings.enable_logger = False
-app = pyaedt.Desktop(specified_version=properties_from_backend["aedt_version"],
+ansys.aedt.core.settings.enable_logger = False
+app = ansys.aedt.core.Desktop(specified_version=properties_from_backend["aedt_version"],
                      non_graphical=properties_from_backend["non_graphical"])
 app.release_desktop(close_projects=False, close_on_exit=False)
 
