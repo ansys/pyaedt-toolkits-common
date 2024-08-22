@@ -26,4 +26,4 @@ pyaedt-toolkits.
 ansys.aedt.toolkits.common
 """
 
-__version__ = "0.6.dev0"
+__version__ = "0.7.dev0"
