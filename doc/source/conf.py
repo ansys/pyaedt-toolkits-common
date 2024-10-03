@@ -31,7 +31,6 @@ from ansys_sphinx_theme import ansys_logo_white
 from ansys_sphinx_theme import ansys_logo_white_cropped
 from ansys_sphinx_theme import get_version_match
 from ansys_sphinx_theme import latex
-from ansys_sphinx_theme import pyansys_logo_black
 from ansys_sphinx_theme import watermark
 from sphinx.util import logging
 
@@ -108,7 +107,6 @@ switcher_version = get_version_match(__version__)
 print(copyright)
 
 # Select desired logo, theme, and declare the html title
-html_logo = pyansys_logo_black
 html_theme = "ansys_sphinx_theme"
 html_short_title = html_title = "ansys-aedt-toolkits-common"
 
@@ -120,6 +118,7 @@ html_context = {
     "doc_path": "doc/source",
 }
 html_theme_options = {
+    "logo": "pyansys",
     "switcher": {
         "json_url": f"https://{cname}/versions.json",
         "version_match": switcher_version,
