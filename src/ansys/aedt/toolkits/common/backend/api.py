@@ -34,6 +34,7 @@ from typing import Tuple
 import ansys.aedt.core
 from ansys.aedt.core import Desktop
 from ansys.aedt.core.generic.general_methods import active_sessions
+from ansys.aedt.core.misc import list_installed_ansysem
 
 if ansys.aedt.core.__version__ <= "0.11.0":
     from ansys.aedt.core.misc import list_installed_ansysem
@@ -43,6 +44,7 @@ else:
     from ansys.aedt.core.generic.aedt_versions import aedt_versions
 
     list_installed_aedt = aedt_versions.list_installed_ansysem
+
 
 from pydantic import ValidationError
 
@@ -89,7 +91,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2024.1"}
+    >>> new_properties = {"aedt_version": "2024.2"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -222,7 +224,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2023.2", "2024.1"]
+        ["2023.2", "2024.1", "2024.2"]
         """
 
         # Detect existing AEDT installation
@@ -393,8 +395,8 @@ class AEDTCommon(Common):
         connected, msg = self.is_aedt_connected()
         if not connected:
             logger.debug("Launching AEDT.")
-            pyaedt.settings.use_grpc_api = self.properties.use_grpc
-            pyaedt.settings.enable_logger = self.properties.debug
+            ansys.aedt.core.settings.use_grpc_api = self.properties.use_grpc
+            ansys.aedt.core.settings.enable_logger = self.properties.debug
 
             version, is_student = self.__get_aedt_version()
 
@@ -414,7 +416,7 @@ class AEDTCommon(Common):
             else:  # pragma: no cover
                 desktop_args["new_desktop_session"] = False
                 desktop_args["aedt_process_id"] = self.properties.selected_process
-            self.desktop = pyaedt.Desktop(**desktop_args)
+            self.desktop = ansys.aedt.core.Desktop(**desktop_args)
 
             if not self.desktop:  # pragma: no cover
                 logger.error("AEDT not launched.")
@@ -467,8 +469,8 @@ class AEDTCommon(Common):
             return True
 
         # Connect to AEDT
-        pyaedt.settings.use_grpc_api = self.properties.use_grpc
-        pyaedt.settings.enable_logger = self.properties.debug
+        ansys.aedt.core.settings.use_grpc_api = self.properties.use_grpc
+        ansys.aedt.core.settings.enable_logger = self.properties.debug
         logger.debug("Connecting AEDT.")
 
         version, is_student = self.__get_aedt_version()
@@ -486,7 +488,7 @@ class AEDTCommon(Common):
 
         gc.collect()
 
-        self.desktop = pyaedt.Desktop(**desktop_args)
+        self.desktop = ansys.aedt.core.Desktop(**desktop_args)
 
         if not self.desktop:  # pragma: no cover
             logger.error("Toolkit is not connected to AEDT.")
@@ -545,14 +547,14 @@ class AEDTCommon(Common):
         if self.properties.active_design:
             design_name = self.properties.active_design
 
-        pyaedt.settings.use_grpc_api = self.properties.use_grpc
-        pyaedt.settings.enable_logger = self.properties.debug
+        ansys.aedt.core.settings.use_grpc_api = self.properties.use_grpc
+        ansys.aedt.core.settings.enable_logger = self.properties.debug
 
         if not app_name:
             app_name = "HFSS"
 
         # Select app
-        aedt_app = pyaedt.Hfss
+        aedt_app = ansys.aedt.core.Hfss
         if design_name != "No Design":
             project_name = self.get_project_name(project_name)
             active_design = design_name
@@ -564,12 +566,12 @@ class AEDTCommon(Common):
                     return False
                 active_design = self.aedtapp.design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
-            design_name = pyaedt.generate_unique_name(app_name)
-            aedt_app = getattr(pyaedt, NAME_TO_AEDT_APP[app_name])
+            design_name = ansys.aedt.core.generate_unique_name(app_name)
+            aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
             active_design = design_name
         else:
             logger.info("AEDT application is not available in PyAEDT. Creating HFSS design.")
-            design_name = pyaedt.generate_unique_name("Hfss")
+            design_name = ansys.aedt.core.generate_unique_name("Hfss")
             active_design = design_name
 
         if not self.aedtapp and aedt_app:
@@ -832,14 +834,14 @@ class AEDTCommon(Common):
         if self.aedtapp:
             self.aedtapp.save_project()
             files = self.aedtapp.post.export_model_obj(
-                obj_list=obj_list,
+                assignment=obj_list,
                 export_path=export_path,
                 export_as_single_objects=export_as_single_objects,
                 air_objects=air_objects,
             )
             self.release_aedt(False, False)
             # Plot exported files using the following code
-            # from pyaedt.generic.plot import ModelPlotter
+            # from ansys.aedt.core.generic.plot import ModelPlotter
             # model = ModelPlotter()
             # for file in files:
             #     model.add_object(file[0], file[1], file[2])
@@ -970,10 +972,10 @@ class EDBCommon(Common):
 
         if os.path.exists(edb_path):
             aedt_version = self.properties.aedt_version
-            pyaedt.settings.enable_logger = self.properties.debug
-            pyaedt.settings.enable_debug_edb_logger = self.properties.debug
+            ansys.aedt.core.settings.enable_logger = self.properties.debug
+            ansys.aedt.core.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
-            self.edb = pyaedt.Edb(edbversion=aedt_version, edbpath=edb_path)
+            self.edb = ansys.aedt.core.Edb(edbversion=aedt_version, edbpath=edb_path)
             logger.debug("Project {} is opened".format(edb_path))
             return True
         else:
