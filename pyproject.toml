@@ -61,7 +61,7 @@ doc = [
     "jupytext",
     "ipython>=8.13.0,<8.28",
     "jupyterlab>=4.0.0,<4.3",
-    "pypandoc>=1.10.0,<1.14",
+    "pypandoc>=1.10.0,<1.15",
 ]
 
 [tool.flit.module]
