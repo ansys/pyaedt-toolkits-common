@@ -35,6 +35,17 @@ import ansys.aedt.core
 from ansys.aedt.core import Desktop
 from ansys.aedt.core.generic.general_methods import active_sessions
 from ansys.aedt.core.misc import list_installed_ansysem
+
+if ansys.aedt.core.__version__ <= "0.11.0":
+    from ansys.aedt.core.misc import list_installed_ansysem
+
+    list_installed_aedt = list_installed_ansysem()
+else:
+    from ansys.aedt.core.generic.aedt_versions import aedt_versions
+
+    list_installed_aedt = aedt_versions.list_installed_ansysem
+
+
 from pydantic import ValidationError
 
 from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
@@ -219,7 +230,7 @@ class Common:
         # Detect existing AEDT installation
         installed_versions = []
 
-        for ver in list_installed_ansysem():
+        for ver in list_installed_aedt:
             if "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
                 # Handle the special case
                 installed_versions.append(
