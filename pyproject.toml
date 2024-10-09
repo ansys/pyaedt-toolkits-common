@@ -24,7 +24,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "build==1.2.2",
+    "build==1.2.2.post1",
     "twine==5.1.1",
     "pyaedt>=0.8.0,<0.11",
     "pydantic",
@@ -59,9 +59,9 @@ doc = [
     "nbsphinx>=0.9.0,<0.10",
     "sphinx_design",
     "jupytext",
-    "ipython>=8.13.0,<8.28",
+    "ipython>=8.13.0,<8.29",
     "jupyterlab>=4.0.0,<4.3",
-    "pypandoc>=1.10.0,<1.14",
+    "pypandoc>=1.10.0,<1.15",
 ]
 
 [tool.flit.module]
