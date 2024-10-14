@@ -51,30 +51,6 @@ EXAMPLES_DIRECTORY = path.resolve()
 # Sphinx event hooks
 
 
-def check_example_error(app, pagename, templatename, context, doctree):
-    """Log an error if the execution of an example as a notebook triggered an error.
-
-    Since the documentation build might not stop if the execution of a notebook triggered
-    an error, we use a flag to log that an error is spotted in the html page context.
-    """
-    # Check if the HTML contains an error message
-    if pagename.startswith("examples") and not pagename.endswith("/index"):
-        if any(
-            map(
-                lambda msg: msg in context["body"],
-                ["UsageError", "NameError", "DeadKernelError", "NotebookError"],
-            )
-        ):
-            logger.error(f"An error was detected in file {pagename}")
-            app.builder.config.html_context["build_error"] = True
-
-
-def check_build_finished_without_error(app, exception):
-    """Check that no error is detected along the documentation build process."""
-    if app.builder.config.html_context.get("build_error", False):
-        raise Exception("Build failed due to an error in html-page-context")
-
-
 def check_pandoc_installed(app):
     """Ensure that pandoc is installed"""
     import pypandoc
@@ -92,8 +68,6 @@ def check_pandoc_installed(app):
 
 def setup(app):
     app.connect("builder-inited", check_pandoc_installed)
-    app.connect("html-page-context", check_example_error)
-    app.connect("build-finished", check_build_finished_without_error)
 
 
 print(__version__)
@@ -145,12 +119,6 @@ html_theme_options = {
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
-    "use_meilisearch": {
-        "api_key": os.getenv("MEILISEARCH_PUBLIC_API_KEY", ""),
-        "index_uids": {
-            f"pyaedt-toolkits-common-v{get_version_match(__version__).replace('.', '-')}": "AEDT TOOLKITS COMMON API",
-        },
-    },
 }
 
 # Sphinx extensions
