@@ -164,6 +164,13 @@ numpydoc_validation_checks = {
     # type, unless multiple values are being returned"
 }
 
+# Removing check on repo lines of code as using line numbers as anchor is not working
+linkcheck_ignore = [
+    "https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/"
+    "actions_generic.py#L165",
+    "https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/"
+    "actions_generic.py#L143",
+]
 
 # static path
 html_static_path = ["_static"]
