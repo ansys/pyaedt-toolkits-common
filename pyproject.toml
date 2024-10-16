@@ -35,7 +35,7 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.10.0,<0.12",
     "flask",
-    "pyside6==6.7.3",
+    "pyside6==6.8.0.1",
     "pyqtgraph",
     "qdarkstyle",
     "pyvistaqt",
@@ -49,7 +49,7 @@ tests = [
 doc = [
     "pyaedt[all]>=0.10.0,<0.12",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.7.3",
+    "pyside6==6.8.0.1",
     "ansys-sphinx-theme>=0.10.0,<1.2",
     "numpydoc>=1.5.0,<1.9",
     "Sphinx>=7.1.0,<8.2",
