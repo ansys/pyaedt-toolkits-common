@@ -34,7 +34,6 @@ from typing import Tuple
 import ansys.aedt.core
 from ansys.aedt.core import Desktop
 from ansys.aedt.core.generic.general_methods import active_sessions
-from ansys.aedt.core.misc import list_installed_ansysem
 
 if ansys.aedt.core.__version__ <= "0.11.0":
     from ansys.aedt.core.misc import list_installed_ansysem
