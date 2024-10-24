@@ -92,7 +92,7 @@ class SettingsMenu(QObject):
         self.aedt_version.currentTextChanged.connect(lambda: self.process_id())
 
         # Add line
-        self.ui.add_vertical_line(
+        self.line1 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
         )
 
@@ -111,7 +111,7 @@ class SettingsMenu(QObject):
         self.aedt_session = row_returns[2]
 
         # Add line
-        self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
+        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
 
         # Non-graphical
         row_returns = self.ui.add_toggle(
@@ -128,7 +128,7 @@ class SettingsMenu(QObject):
         self.non_graphical_label = row_returns[3]
 
         # Add line
-        self.ui.add_vertical_line(
+        self.line3 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
         )
 
@@ -148,7 +148,7 @@ class SettingsMenu(QObject):
         self.browse.clicked.connect(lambda: self.browse_file())
 
         # Add line
-        self.ui.add_vertical_line(
+        self.line4 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
         )
 
@@ -249,3 +249,37 @@ class SettingsMenu(QObject):
         )
         if file != "":
             self.file.setText(file)
+
+    def hide_widgets(self):
+        self.aedt_session.setVisible(False)
+        self.aedt_session_label.setVisible(False)
+        self.aedt_version.setVisible(False)
+        self.aedt_version_label.setVisible(False)
+        self.browse.setVisible(False)
+        self.connect_aedt.setVisible(False)
+        self.file.setVisible(False)
+        self.graphical_label.setVisible(False)
+        self.non_graphical_label.setVisible(False)
+        self.graphical_mode.setVisible(False)
+
+        self.line1.setVisible(False)
+        self.line2.setVisible(False)
+        self.line3.setVisible(False)
+        self.line4.setVisible(False)
+
+    def show_widgets(self):
+        self.aedt_session.setVisible(True)
+        self.aedt_session_label.setVisible(True)
+        self.aedt_version.setVisible(True)
+        self.aedt_version_label.setVisible(True)
+        self.browse.setVisible(True)
+        self.connect_aedt.setVisible(True)
+        self.file.setVisible(True)
+        self.graphical_label.setVisible(True)
+        self.non_graphical_label.setVisible(True)
+        self.graphical_mode.setVisible(True)
+
+        self.line1.setVisible(True)
+        self.line2.setVisible(True)
+        self.line3.setVisible(True)
+        self.line4.setVisible(True)
