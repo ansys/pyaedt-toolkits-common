@@ -71,6 +71,11 @@ class SettingsMenu(QObject):
 
         self.aedt_thread = None
 
+        self.line1 = None
+        self.line2 = None
+        self.line3 = None
+        self.line4 = None
+
     def setup(self):
         font_size = self.main_window.properties.font["title_size"]
         # Version row
