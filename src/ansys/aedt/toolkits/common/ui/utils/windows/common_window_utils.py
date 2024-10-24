@@ -407,7 +407,7 @@ class CommonWindowUtils(object):
         spacer = QSpacerItem(bot_spacer[0], bot_spacer[1], QSizePolicy.Minimum, QSizePolicy.Minimum)
         layout.addItem(spacer)
 
-        return True
+        return line
 
     def toggle_left_column(self):
         """
