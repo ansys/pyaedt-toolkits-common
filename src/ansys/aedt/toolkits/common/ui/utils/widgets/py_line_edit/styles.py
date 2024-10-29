@@ -9,6 +9,7 @@ class Styles(object):
     selection-color: {_selection_color};
     selection-background-color: {_context_color};
     color: {_color};
+    font-size: {_font_size}pt;
     }}
     QLineEdit:focus {{
     border: {_border_size}px solid {_context_color};
