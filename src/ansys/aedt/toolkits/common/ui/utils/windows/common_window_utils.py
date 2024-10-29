@@ -215,6 +215,61 @@ class CommonWindowUtils(object):
 
         return [layout_row, label_widget, combobox_widget]
 
+    def add_textbox(self, layout, height=40, width=None, label="label1", initial_text=None, font_size=12):
+        """
+        Adds a label and textbox to a layout.
+
+        Parameters
+        ----------
+        layout: QLayout
+            The layout object to which the label and combobox will be added.
+        height: int, optional
+            The height of the label and combobox widgets. Default is 40.
+        width: list, optional
+            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
+        label: str, optional
+            The text to be displayed on the label widget. Default is '"label1"'.
+        initial_text: str, optional
+            Text to be displayed in the textbox.
+        font_size: int, optional
+            The font size of the label widget. Default is 12.
+
+        Returns
+        -------
+        list
+            A list containing the layout row object, label object, and combobox object.
+        """
+        initial_text = initial_text or " "
+        width = width or [100, 100]
+
+        app_color = self.themes["app_color"]
+        text_foreground = app_color["text_foreground"]
+        bg_color = app_color["combo_color"]
+
+        layout_row = QHBoxLayout()
+        layout.addLayout(layout_row)
+
+        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
+        label_widget.setMinimumHeight(height)
+        label_widget.setFixedWidth(width[0])
+        layout_row.addWidget(label_widget)
+
+        linebox_widget = PyLineEdit(
+            text=initial_text,
+            radius=8,
+            bg_color=bg_color,
+            color=text_foreground,
+            selection_color=app_color["white"],
+            bg_color_active=app_color["dark_three"],
+            context_color=app_color["context_color"],
+            font_size=font_size,
+        )
+        linebox_widget.setMinimumHeight(height)
+        linebox_widget.setFixedWidth(width[1])
+        layout_row.addWidget(linebox_widget)
+
+        return [layout_row, label_widget, linebox_widget]
+
     def add_toggle(self, layout, height=40, width=None, label=None, font_size=12):
         """
         Add a label and a toggle button to a specified layout.
