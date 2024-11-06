@@ -8,6 +8,7 @@
 #
 # Perform the required imports.
 
+import os
 import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 import ansys.aedt.core
@@ -85,7 +86,10 @@ new_properties = toolkit.get_properties()
 # Create a waveguide in the design.
 
 wg = toolkit.aedtapp.modeler.create_waveguide([0, 0, 0], 1)
-toolkit.aedtapp.plot()
+model = toolkit.aedtapp.plot(show=False)
+model.show_grid = False
+model.plot(os.path.join(toolkit.aedtapp.working_directory, "Image.jpg"))
+
 
 # ## Save and release AEDT
 #
