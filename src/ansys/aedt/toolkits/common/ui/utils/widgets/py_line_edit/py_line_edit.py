@@ -27,7 +27,8 @@ class PyLineEdit(QLineEdit):
         The background color of the line edit when active. Default is "#222" (darker gray).
     context_color : str, optional
         The color representing a context or active state. Default is "#00ABE8" (blue).
-
+    font_size : int, optional
+        The font size of the text on the button.
     """
 
     def __init__(
@@ -41,6 +42,7 @@ class PyLineEdit(QLineEdit):
         bg_color="#333",
         bg_color_active="#222",
         context_color="#00ABE8",
+        font_size=12,
     ):
         super().__init__()
 
@@ -49,9 +51,13 @@ class PyLineEdit(QLineEdit):
         if place_holder_text:
             self.setPlaceholderText(place_holder_text)
 
-        self.set_stylesheet(radius, border_size, color, selection_color, bg_color, bg_color_active, context_color)
+        self.set_stylesheet(
+            radius, border_size, color, selection_color, bg_color, bg_color_active, context_color, font_size
+        )
 
-    def set_stylesheet(self, radius, border_size, color, selection_color, bg_color, bg_color_active, context_color):
+    def set_stylesheet(
+        self, radius, border_size, color, selection_color, bg_color, bg_color_active, context_color, font_size
+    ):
         """
         Set the stylesheet for the PyLineEdit.
 
@@ -71,6 +77,8 @@ class PyLineEdit(QLineEdit):
             Background color when the line edit is active.
         context_color : str
             Color representing a context or active state.
+        font_size : int
+            The font size of the text on the button.
 
         """
         style_format = Styles.style.format(
@@ -81,5 +89,6 @@ class PyLineEdit(QLineEdit):
             _bg_color=bg_color,
             _bg_color_active=bg_color_active,
             _context_color=context_color,
+            _font_size=font_size,
         )
         self.setStyleSheet(style_format)
