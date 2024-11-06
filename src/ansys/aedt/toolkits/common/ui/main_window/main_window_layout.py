@@ -436,6 +436,7 @@ class MainWindowLayout(CommonWindowUtils):
                 self.toggle_left_column()
 
         elif selected_menu.objectName() == "top_settings" and not is_right_visible:
+            self.app.settings_menu.show_widgets()
             if is_left_visible:
                 self.toggle_left_column()
             self.toggle_right_column()
