@@ -60,7 +60,7 @@ doc = [
     "sphinx_design",
     "jupytext",
     "ipython>=8.13.0,<8.29",
-    "jupyterlab>=4.0.0,<4.3",
+    "jupyterlab>=4.0.0,<4.4",
     "pypandoc>=1.10.0,<1.15",
 ]
 
