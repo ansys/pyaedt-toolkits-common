@@ -23,7 +23,7 @@ class PyComboBox(QComboBox):
         Background color when mouse hovers over the combo box. The default is ``"#FFFFFF"``.
     text_color : str, optional
         Text color in the combo box. The default is ``"#000000"``.
-    font_size : int
+    font_size : int, optional
         The font size of the text on the button.
 
     Examples

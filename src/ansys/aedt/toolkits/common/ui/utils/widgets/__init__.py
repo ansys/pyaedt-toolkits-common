@@ -35,6 +35,7 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_progress.py_progress import 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_push_button.py_push_button import PyPushButton
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_right_column.py_right_column import PyRightColumn
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_slider.py_slider import PySlider
+from ansys.aedt.toolkits.common.ui.utils.widgets.py_tab.py_tab import PyTab
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_title_bar.py_title_bar import PyTitleBar
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_toggle.py_toggle import PyToggle
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWindow
