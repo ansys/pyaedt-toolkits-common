@@ -29,6 +29,8 @@ dependencies = [
     "pyaedt>=0.10.0,<0.12",
     "pydantic",
     "tomli; python_version < '3.12'",
+    # FIXME: Remove the following once https://github.com/python-attrs/attrs/issues/1386 is closed
+    "attrs!=24.3.0",
 ]
 
 [project.optional-dependencies]
