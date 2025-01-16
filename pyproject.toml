@@ -33,7 +33,7 @@ dependencies = [
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "flask",
     "pyside6==6.7.3",
     "pyqtgraph",
@@ -41,13 +41,13 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "flask",
     "pytest>=7.4.0,<8.4",
     "pytest-cov>=4.0.0,<6.1",
 ]
 doc = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "recommonmark>=0.7.0,<0.8",
     "pyside6==6.7.3",
     "ansys-sphinx-theme>=0.10.0,<1.3",
