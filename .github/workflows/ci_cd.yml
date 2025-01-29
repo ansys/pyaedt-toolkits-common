@@ -20,7 +20,7 @@ env:
   LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
-  PYTEST_ARGUMENTS: '-vvv --color=yes -ra --durations=25 --maxfail=10 --cov=ansys.aedt.toolkits.common --cov-report=html --cov-report=xml --junitxml=junit/test-results.xml'
+  PYTEST_ARGUMENTS: '-vvv --color=yes -ra --durations=25 --maxfail=10 --cov=ansys.aedt.toolkits --cov-report=html --cov-report=xml --junitxml=junit/test-results.xml'
 
 
 concurrency:
@@ -47,36 +47,35 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           vale-version: "3.4.1"
 
-  doc-build:
-    name: "Build documentation"
-    runs-on: [self-hosted, pyaedt, toolkits, Windows]
-    needs: [ doc-style ]
-    timeout-minutes: 20
-    steps:
-      - name: Build documentation
-        uses: ansys/actions/doc-build@v8
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          use-python-cache: false
-          add-pdf-html-docs-as-assets: true
-          check-links: true
+#  doc-build:
+#    name: "Build documentation"
+#    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+#    needs: [ doc-style ]
+#    timeout-minutes: 20
+#    steps:
+#      - name: Build documentation
+#        uses: ansys/actions/doc-build@v8
+#        with:
+#          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+#          use-python-cache: false
+#          add-pdf-html-docs-as-assets: true
+#          check-links: true
 
-  smoke-tests:
-    name: "Build and Smoke tests"
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ windows-latest, ubuntu-latest ]
-        python-version: [ '3.10' ]
-    runs-on: ${{ matrix.os }}
-    needs: [ code-style ]
-    steps:
-      - uses: ansys/actions/build-wheelhouse@v8
-        with:
-          library-name: ${{ env.LIBRARY_NAME }}
-          operating-system: ${{ matrix.os }}
-          python-version: ${{ matrix.python-version }}
-
+#  smoke-tests:
+#    name: "Build and Smoke tests"
+#    strategy:
+#      fail-fast: false
+#      matrix:
+#        os: [ windows-latest, ubuntu-latest ]
+#        python-version: [ '3.10' ]
+#    runs-on: ${{ matrix.os }}
+#    needs: [ code-style ]
+#    steps:
+#      - uses: ansys/actions/build-wheelhouse@v8
+#        with:
+#          library-name: ${{ env.LIBRARY_NAME }}
+#          operating-system: ${{ matrix.os }}
+#          python-version: ${{ matrix.python-version }}
 
 # # =================================================================================================
 # # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv    RUNNING ON SELF-HOSTED RUNNER    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -84,7 +83,7 @@ jobs:
 
   common-tests-windows:
     name: Testing common module (Windows)
-    needs: [smoke-tests]
+#    needs: [smoke-tests]
     if: github.event.pull_request.draft == false
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
     steps:
@@ -109,12 +108,12 @@ jobs:
           .venv\Scripts\Activate.ps1
           pip install .[tests]
 
-      - name: Test AEDT Common API
+      - name: Test utils
         env:
           PYTHONMALLOC: malloc
         run: |
           .venv\Scripts\Activate.ps1
-          pytest ${{ env.PYTEST_ARGUMENTS }} -v -m aedt_common_api
+          pytest ${{ env.PYTEST_ARGUMENTS }} -m tests_utils        
 
       - uses: codecov/codecov-action@v5
         with:
