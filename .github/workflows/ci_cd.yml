@@ -76,6 +76,7 @@ jobs:
 #          library-name: ${{ env.LIBRARY_NAME }}
 #          operating-system: ${{ matrix.os }}
 #          python-version: ${{ matrix.python-version }}
+#          python-version: ${{ matrix.python-version }}
 
 # # =================================================================================================
 # # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv    RUNNING ON SELF-HOSTED RUNNER    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -278,15 +279,15 @@ jobs:
 #          source .venv_linux/bin/activate
 #          pytest -v -m utils
 
-  build-library:
-    name: "Build library artifacts"
-    runs-on: ubuntu-latest
-    needs: [ doc-build, common-tests-windows ]
-    steps:
-      - uses: ansys/actions/build-library@v8
-        with:
-          library-name: ${{ env.LIBRARY_NAME }}
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+#  build-library:
+#    name: "Build library artifacts"
+#    runs-on: ubuntu-latest
+#    needs: [ doc-build, common-tests-windows ]
+#    steps:
+#      - uses: ansys/actions/build-library@v8
+#        with:
+#          library-name: ${{ env.LIBRARY_NAME }}
+#          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
   release:
     name: "Release"
