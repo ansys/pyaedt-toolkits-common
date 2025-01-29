@@ -78,30 +78,54 @@ jobs:
           python-version: ${{ matrix.python-version }}
 
 
-  utils-tests:
-    name: Running utils tests
-    needs: [ smoke-tests ]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Run integration tests
-        uses: ansys/actions/tests-pytest@v8
-        with:
-          pytest-postargs: 'tests/backend/tests_utils'
-          pytest-extra-args: ${{ env.PYTEST_ARGUMENTS }}
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          optional-dependencies-name: util-tests
+# # =================================================================================================
+# # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv    RUNNING ON SELF-HOSTED RUNNER    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+# # =================================================================================================
 
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v5
+  common-tests-windows:
+    name: Testing common module (Windows)
+    needs: [smoke-tests]
+    if: github.event.pull_request.draft == false
+    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    steps:
+      - name: Install Git and checkout project
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
-          name: codecov-utils-tests
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: Create virtual environment
+        run: |
+          python -m venv .venv
+          .venv\Scripts\Activate.ps1
+          python -m pip install pip -U
+          python -m pip install wheel setuptools -U
+          python -c "import sys; print(sys.executable)"
+
+      - name: Install pyaedt and tests dependencies
+        run: |
+          .venv\Scripts\Activate.ps1
+          pip install .[tests]
+
+      - name: Test AEDT Common API
+        env:
+          PYTHONMALLOC: malloc
+        run: |
+          .venv\Scripts\Activate.ps1
+          pytest ${{ env.PYTEST_ARGUMENTS }} -v -m aedt_common_api
+
+      - uses: codecov/codecov-action@v5
+        with:
+          name: codecov-common-tests-windows
           files: ./coverage.xml
-          flags: linux_integration
+          flags: windows_common_api
 
       - name: Upload pytest test results
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-integration
+          name: pytest-common-windows
           path: junit/test-results.xml
         if: ${{ always() }}
 
