@@ -152,7 +152,7 @@ jobs:
         if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
         uses: codecov/codecov-action@v5
         with:
-          file: .cov/total.xml
+          files: .cov/total.xml
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
