@@ -22,7 +22,7 @@
 
 import pytest
 
-# pytestmark = [pytest.mark.utils]
+pytestmark = [pytest.mark.utils]
 
 import threading
 from unittest.mock import patch, MagicMock
