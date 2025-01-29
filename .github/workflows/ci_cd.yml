@@ -20,8 +20,6 @@ env:
   LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
-  PYTEST_ARGUMENTS: '-vvv --color=yes -ra --durations=25 --maxfail=10 --cov=ansys.aedt.toolkits --cov-report=html --cov-report=xml --junitxml=junit/test-results.xml'
-
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -47,292 +45,240 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           vale-version: "3.4.1"
 
-#  doc-build:
-#    name: "Build documentation"
-#    runs-on: [self-hosted, pyaedt, toolkits, Windows]
-#    needs: [ doc-style ]
-#    timeout-minutes: 20
-#    steps:
-#      - name: Build documentation
-#        uses: ansys/actions/doc-build@v8
-#        with:
-#          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-#          use-python-cache: false
-#          add-pdf-html-docs-as-assets: true
-#          check-links: true
-
-#  smoke-tests:
-#    name: "Build and Smoke tests"
-#    strategy:
-#      fail-fast: false
-#      matrix:
-#        os: [ windows-latest, ubuntu-latest ]
-#        python-version: [ '3.10' ]
-#    runs-on: ${{ matrix.os }}
-#    needs: [ code-style ]
-#    steps:
-#      - uses: ansys/actions/build-wheelhouse@v8
-#        with:
-#          library-name: ${{ env.LIBRARY_NAME }}
-#          operating-system: ${{ matrix.os }}
-#          python-version: ${{ matrix.python-version }}
-#          python-version: ${{ matrix.python-version }}
-
-# # =================================================================================================
-# # vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv    RUNNING ON SELF-HOSTED RUNNER    vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-# # =================================================================================================
-
-  common-tests-windows:
-    name: Testing common module (Windows)
-#    needs: [smoke-tests]
-    if: github.event.pull_request.draft == false
+  doc-build:
+    name: "Build documentation"
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    needs: [ doc-style ]
+    timeout-minutes: 20
     steps:
-      - name: Install Git and checkout project
-        uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - name: Build documentation
+        uses: ansys/actions/doc-build@v8
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+          add-pdf-html-docs-as-assets: true
+          check-links: true
 
-      - name: Create virtual environment
+  smoke-tests:
+    name: "Build and Smoke tests"
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ windows-latest, ubuntu-latest ]
+        python-version: [ '3.10' ]
+    runs-on: ${{ matrix.os }}
+    needs: [ code-style ]
+    steps:
+      - uses: ansys/actions/build-wheelhouse@v8
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          operating-system: ${{ matrix.os }}
+          python-version: ${{ matrix.python-version }}
+
+  tests_windows:
+    name: "Windows Tests"
+    strategy:
+      matrix:
+        python-version: [ '3.10' ]
+      fail-fast: false
+    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    needs: [smoke-tests]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Create Python venv
         run: |
           python -m venv .venv
-          .venv\Scripts\Activate.ps1
-          python -m pip install pip -U
-          python -m pip install wheel setuptools -U
-          python -c "import sys; print(sys.executable)"
+          .\.venv\Scripts\Activate.ps1
 
-      - name: Install pyaedt and tests dependencies
+      - name: Install packages for testing
         run: |
-          .venv\Scripts\Activate.ps1
+          .\.venv\Scripts\Activate.ps1
+          python -m pip install --upgrade pip
+          pip install --upgrade build wheel
           pip install .[tests]
 
-      - name: Test utils
-        env:
-          PYTHONMALLOC: malloc
+      - name: Test AEDT Common API
+        timeout-minutes: 5
         run: |
-          .venv\Scripts\Activate.ps1
-          pytest ${{ env.PYTEST_ARGUMENTS }} -m tests_utils        
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m aedt_common_api --cov
 
-      - uses: codecov/codecov-action@v5
-        with:
-          name: codecov-common-tests-windows
-          files: ./coverage.xml
-          flags: windows_common_api
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m common_api --cov --cov-append
 
-      - name: Upload pytest test results
+      - name: Test EDB API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m edb_api --cov --cov-append
+
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m rest_api --cov --cov-append
+
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m utils --cov --cov-append
+
+      - name: "Combine coverage files"
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m coverage html -d .cov\total-html
+          python -m coverage xml -o .cov\total.xml
+
+      - name: "Upload coverage results"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
         uses: actions/upload-artifact@v4
         with:
-          name: pytest-common-windows
-          path: junit/test-results.xml
-        if: ${{ always() }}
+          path: .cov/total-html
+          name: html-total-coverage
 
-#  tests_windows:
-#    name: "Windows Tests"
-#    strategy:
-#      matrix:
-#        python-version: [ '3.10' ]
-#      fail-fast: false
-#    runs-on: [self-hosted, pyaedt, toolkits, Windows]
-#    needs: [smoke-tests]
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Set up Python
-#        uses: actions/setup-python@v5
-#        with:
-#          python-version: ${{ matrix.python-version }}
-#
-#      - name: Create Python venv
-#        run: |
-#          python -m venv .venv
-#          .\.venv\Scripts\Activate.ps1
-#
-#      - name: Install packages for testing
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          python -m pip install --upgrade pip
-#          pip install --upgrade build wheel
-#          pip install .[tests]
-#
-#      - name: Test AEDT Common API
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          pytest ${{ env.PYTEST_ARGUMENTS }} -v -m aedt_common_api
-#
-#      - name: Test Common API
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          pytest -v -m common_api --cov --cov-append
-#
-#      - name: Test EDB API
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          pytest -v -m edb_api --cov --cov-append
-#
-#      - name: Test REST API
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#
-#          pytest -v -m rest_api --cov --cov-append
-#
-#      - name: Test utils
-#        timeout-minutes: 5
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#
-#          pytest -v -m utils --cov --cov-append
-#
-#      - name: "Combine coverage files"
-#        run: |
-#          .\.venv\Scripts\Activate.ps1
-#          python -m coverage html -d .cov\total-html
-#          python -m coverage xml -o .cov\total.xml
-#
-#      - name: "Upload coverage results"
-#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
-#        uses: actions/upload-artifact@v4
-#        with:
-#          path: .cov/total-html
-#          name: html-total-coverage
-#
-#      - name: "Upload coverage report to codecov"
-#        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
-#        uses: codecov/codecov-action@v5
-#        with:
-#          file: .cov/total.xml
-#        env:
-#          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-#
-#  tests_linux:
-#    name: "Linux Tests"
-#    strategy:
-#      matrix:
-#        python-version: [ '3.10' ]
-#      fail-fast: false
-#    runs-on: [self-hosted, pyaedt, toolkits, Linux]
-#    needs: [ smoke-tests ]
-#    env:
-#      ANSYSEM_ROOT242: '/opt/AnsysEM/v242/Linux64'
-#      ANS_NODEPCHECK: '1'
-#    steps:
-#      - uses: actions/checkout@v4
-#
-#      - name: Set up Python
-#        uses: actions/setup-python@v5
-#        with:
-#          python-version: ${{ matrix.python-version }}
-#
-#      - name: Create Python venv
-#        run: |
-#          python -m venv .venv_linux
-#
-#      - name: Install packages for testing
-#        run: |
-#          source .venv_linux/bin/activate
-#          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip -U
-#          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org wheel setuptools -U
-#          python -c "import sys; print(sys.executable)"
-#          python -m pip install --upgrade pip
-#          pip install --upgrade build wheel
-#          pip install .[tests]
-#          pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
-#
-#      - name: Test AEDT Common API
-#        timeout-minutes: 5
-#        run: |
-#          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
-#          source .venv_linux/bin/activate
-#          pytest -v -m aedt_common_api
-#
-#      - name: Test Common API
-#        timeout-minutes: 5
-#        run: |
-#          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
-#          source .venv_linux/bin/activate
-#          pytest -v -m common_api
-#
-#      - name: Test EDB API
-#        timeout-minutes: 5
-#        run: |
-#          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
-#          source .venv_linux/bin/activate
-#          pytest -v -m edb_api
-#
-#      - name: Test REST API
-#        timeout-minutes: 5
-#        run: |
-#          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
-#          source .venv_linux/bin/activate
-#          pytest -v -m rest_api
-#
-#      - name: Test utils
-#        timeout-minutes: 5
-#        run: |
-#          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
-#          source .venv_linux/bin/activate
-#          pytest -v -m utils
+      - name: "Upload coverage report to codecov"
+        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION }}
+        uses: codecov/codecov-action@v5
+        with:
+          file: .cov/total.xml
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
-#  build-library:
-#    name: "Build library artifacts"
-#    runs-on: ubuntu-latest
-#    needs: [ doc-build, common-tests-windows ]
-#    steps:
-#      - uses: ansys/actions/build-library@v8
-#        with:
-#          library-name: ${{ env.LIBRARY_NAME }}
-#          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+  tests_linux:
+    name: "Linux Tests"
+    strategy:
+      matrix:
+        python-version: [ '3.10' ]
+      fail-fast: false
+    runs-on: [self-hosted, pyaedt, toolkits, Linux]
+    needs: [ smoke-tests ]
+    env:
+      ANSYSEM_ROOT242: '/opt/AnsysEM/v242/Linux64'
+      ANS_NODEPCHECK: '1'
+    steps:
+      - uses: actions/checkout@v4
 
-#  release:
-#    name: "Release"
-#    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-#    needs: build-library
-#    runs-on: ubuntu-latest
-#    # Specifying a GitHub environment is optional, but strongly encouraged
-#    environment: release
-#    permissions:
-#      id-token: write
-#      contents: write
-#    steps:
-#      - name: "Release to the public PyPI repository"
-#        uses: ansys/actions/release-pypi-public@v8
-#        with:
-#          library-name: ${{ env.LIBRARY_NAME }}
-#          use-trusted-publisher: true
-#
-#      - name: "Release to GitHub"
-#        uses: ansys/actions/release-github@v8
-#        with:
-#          library-name: ${{ env.LIBRARY_NAME }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-#  doc-deploy-dev:
-#    name: "Deploy development documentation"
-#    runs-on: ubuntu-latest
-#    needs: build-library
-#    if: github.event_name == 'push'
-#    steps:
-#      - uses: ansys/actions/doc-deploy-dev@v8
-#        with:
-#          cname: ${{ env.DOCUMENTATION_CNAME }}
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-#          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+      - name: Create Python venv
+        run: |
+          python -m venv .venv_linux
 
-#  doc-deploy-stable:
-#    name: "Deploy stable documentation"
-#    runs-on: ubuntu-latest
-#    needs: release
-#    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
-#    steps:
-#      - uses: ansys/actions/doc-deploy-stable@v8
-#        with:
-#          cname: ${{ env.DOCUMENTATION_CNAME }}
-#          token: ${{ secrets.GITHUB_TOKEN }}
-#          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
-#          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+      - name: Install packages for testing
+        run: |
+          source .venv_linux/bin/activate
+          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip -U
+          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org wheel setuptools -U
+          python -c "import sys; print(sys.executable)"
+          python -m pip install --upgrade pip
+          pip install --upgrade build wheel
+          pip install .[tests]
+          pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
+
+      - name: Test AEDT Common API
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m aedt_common_api
+
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m common_api
+
+      - name: Test EDB API
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m edb_api
+
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m rest_api
+
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          source .venv_linux/bin/activate
+          pytest -v -m utils
+
+  build-library:
+    name: "Build library artifacts"
+    runs-on: ubuntu-latest
+    needs: [ doc-build, tests_windows, tests_linux ]
+    steps:
+      - uses: ansys/actions/build-library@v8
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+  release:
+    name: "Release"
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    needs: build-library
+    runs-on: ubuntu-latest
+    # Specifying a GitHub environment is optional, but strongly encouraged
+    environment: release
+    permissions:
+      id-token: write
+      contents: write
+    steps:
+      - name: "Release to the public PyPI repository"
+        uses: ansys/actions/release-pypi-public@v8
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+          use-trusted-publisher: true
+
+      - name: "Release to GitHub"
+        uses: ansys/actions/release-github@v8
+        with:
+          library-name: ${{ env.LIBRARY_NAME }}
+
+  doc-deploy-dev:
+    name: "Deploy development documentation"
+    runs-on: ubuntu-latest
+    needs: build-library
+    if: github.event_name == 'push'
+    steps:
+      - uses: ansys/actions/doc-deploy-dev@v8
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+
+  doc-deploy-stable:
+    name: "Deploy stable documentation"
+    runs-on: ubuntu-latest
+    needs: release
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags')
+    steps:
+      - uses: ansys/actions/doc-deploy-stable@v8
+        with:
+          cname: ${{ env.DOCUMENTATION_CNAME }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+          bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
