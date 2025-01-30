@@ -90,7 +90,7 @@ src_paths = ["doc", "src", "tests"]
 source = ["ansys.aedt.toolkits.common"]
 omit = [
     # Omit UI testing
-    "src/ansys/aedt/toolkits/common/backend/*,
+    "src/ansys/aedt/toolkits/common/ui/*,
 ]
 
 [tool.coverage.report]
