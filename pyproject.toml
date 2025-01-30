@@ -87,7 +87,11 @@ default_section = "THIRDPARTY"
 src_paths = ["doc", "src", "tests"]
 
 [tool.coverage.run]
-source = ["ansys.aedt"]
+source = ["ansys.aedt.toolkits.common"]
+omit = [
+    # Omit UI testing
+    "src/ansys/aedt/toolkits/common/ui/*",
+]
 
 [tool.coverage.report]
 show_missing = true
