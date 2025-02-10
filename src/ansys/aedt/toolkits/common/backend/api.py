@@ -558,6 +558,8 @@ class AEDTCommon(Common):
             project_name = self.get_project_name(project_name)
             active_design = design_name
             if design_name in self.properties.design_list[project_name]:
+                if not self.desktop.odesktop.GetActiveProject():  # pragma: no cover
+                    self.desktop.odesktop.SetActiveProject(project_name)
                 self.aedtapp = self.desktop[[project_name, design_name]]
                 if not self.aedtapp:  # pragma: no cover
                     self.release_aedt(False, False)
