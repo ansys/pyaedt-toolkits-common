@@ -25,32 +25,33 @@ classifiers = [
 ]
 dependencies = [
     "build==1.2.2.post1",
-    "twine==5.1.1",
-    "pyaedt>=0.10.0,<0.12",
-    "pydantic",
+    "twine==6.1.0",
+    "pyaedt>=0.12.0,<0.14",
+    "pydantic>=2.0,<2.11",
     "tomli; python_version < '3.12'",
+    "attrs<24.3.0"
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "flask",
-    "pyside6==6.7.3",
+    "pyside6==6.8.2.1",
     "pyqtgraph",
     "qdarkstyle",
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "flask",
     "pytest>=7.4.0,<8.4",
     "pytest-cov>=4.0.0,<6.1",
 ]
 doc = [
-    "pyaedt[all]>=0.10.0,<0.12",
+    "pyaedt[all]>=0.12.0,<0.14",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.7.3",
-    "ansys-sphinx-theme>=0.10.0,<1.3",
+    "pyside6==6.8.2.1",
+    "ansys-sphinx-theme>=0.10.0,<1.4",
     "numpydoc>=1.5.0,<1.9",
     "Sphinx>=7.1.0,<8.2",
     "sphinx-copybutton>=0.5.0,<0.6",
@@ -59,9 +60,9 @@ doc = [
     "nbsphinx>=0.9.0,<0.10",
     "sphinx_design",
     "jupytext",
-    "ipython>=8.13.0,<8.30",
+    "ipython>=8.13.0,<8.33",
     "jupyterlab>=4.0.0,<4.4",
-    "pypandoc>=1.10.0,<1.15",
+    "pypandoc>=1.10.0,<1.16",
 ]
 
 [tool.flit.module]
@@ -86,7 +87,11 @@ default_section = "THIRDPARTY"
 src_paths = ["doc", "src", "tests"]
 
 [tool.coverage.run]
-source = ["ansys.aedt"]
+source = ["ansys.aedt.toolkits.common"]
+omit = [
+    # Omit UI testing
+    "src/ansys/aedt/toolkits/common/ui/*",
+]
 
 [tool.coverage.report]
 show_missing = true
