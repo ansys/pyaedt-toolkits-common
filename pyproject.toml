@@ -26,15 +26,15 @@ classifiers = [
 dependencies = [
     "build==1.2.2.post1",
     "twine==6.1.0",
-    "pyaedt>=0.12.0,<0.14",
+    "pyaedt>=0.13.0,<0.16",
     "pydantic>=2.0,<2.11",
     "tomli; python_version < '3.12'",
-    "attrs<24.3.0"
+    "attrs<25.2.0"
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]>=0.12.0,<0.14",
+    "pyaedt[all]>=0.13.0,<0.16",
     "flask",
     "pyside6==6.8.2.1",
     "pyqtgraph",
@@ -42,13 +42,13 @@ all = [
     "pyvistaqt",
 ]
 tests = [
-    "pyaedt[all]>=0.12.0,<0.14",
+    "pyaedt[all]>=0.13.0,<0.16",
     "flask",
     "pytest>=7.4.0,<8.4",
     "pytest-cov>=4.0.0,<6.1",
 ]
 doc = [
-    "pyaedt[all]>=0.12.0,<0.14",
+    "pyaedt[all]>=0.13.0,<0.16",
     "recommonmark>=0.7.0,<0.8",
     "pyside6==6.8.2.1",
     "ansys-sphinx-theme>=0.10.0,<1.4",
