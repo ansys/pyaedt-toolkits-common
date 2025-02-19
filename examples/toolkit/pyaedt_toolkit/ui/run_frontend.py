@@ -113,6 +113,7 @@ class ApplicationWindow(QMainWindow, Frontend):
         # Close column
         self.ui.title_bar.clicked.connect(self.close_menu_clicked)
         self.ui.left_menu.clicked.connect(self.progress_menu_clicked)
+        self.ui.left_column.clicked.connect(self.close_menu_clicked)
 
         # Home page as first page
         self.ui.set_page(self.ui.load_pages.home_page)
@@ -152,7 +153,7 @@ class ApplicationWindow(QMainWindow, Frontend):
     def progress_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-        if menu == "progress_menu":
+        if menu_name == "progress_menu":
             is_progress_visible = self.ui.is_progress_visible()
             if is_progress_visible:
                 selected_menu.set_active(False)
@@ -160,10 +161,11 @@ class ApplicationWindow(QMainWindow, Frontend):
 
     def close_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
-        if self.ui.is_left_column_visible():
+        menu_name = selected_menu.objectName()
+        if menu_name != "top_settings" and self.ui.is_left_column_visible():
             selected_menu.set_active(False)
             self.ui.toggle_left_column()
-        elif self.ui.is_right_column_visible:
+        if menu_name == "top_settings" == self.ui.is_right_column_visible:
             self.ui.toggle_right_column()
 
     def geometry_menu_clicked(self):
