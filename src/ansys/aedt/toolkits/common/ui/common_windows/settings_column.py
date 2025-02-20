@@ -186,8 +186,7 @@ class SettingsMenu(QObject):
         if self.signal_flag:
             self.aedt_session.clear()
             self.aedt_session.addItem("New Session")
-            non_graphical_pos = self.graphical_mode.position
-            non_graphical = non_graphical_pos == 24.0
+            non_graphical = self.graphical_mode.isChecked()
             if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
                 sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
                 for pid in sessions:
@@ -210,8 +209,7 @@ class SettingsMenu(QObject):
     def launch_aedt(self):
         selected_session = self.aedt_session.currentText()
         selected_version = self.aedt_version.currentText()
-        non_graphical_pos = self.graphical_mode.position
-        non_graphical = non_graphical_pos == 24.0
+        non_graphical = self.graphical_mode.isChecked()
 
         self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
 
