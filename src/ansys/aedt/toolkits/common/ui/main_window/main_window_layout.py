@@ -219,9 +219,6 @@ class MainWindowLayout(CommonWindowUtils):
         )
         self.title_bar_layout.addWidget(self.title_bar)
 
-        # Set title bar menu signal
-        # self.title_bar.clicked.connect(self.main_clicked)
-
         title = general_settings.main_title
         self.title_bar.set_title(title)
 
@@ -309,9 +306,6 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left menu widget to left menu layout
         self.left_menu_layout.addWidget(self.left_menu)
 
-        # Set left menu signal
-        # self.left_menu.clicked.connect(self.main_clicked)
-
         self.left_menu.add_menus(general_settings.add_left_menus)
 
     def __setup_left_column_layout(self):
@@ -345,9 +339,6 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left column widget to left menu layout
         self.left_column_layout.addWidget(self.left_column)
 
-        # Set left column signal
-        # self.left_column.clicked.connect(self.main_clicked)
-
     def __setup_right_column_layout(self):
         """Setup right column."""
         self.right_column_frame = QFrame(self.main_window)
@@ -377,9 +368,6 @@ class MainWindowLayout(CommonWindowUtils):
 
         # Add left column widget to left menu layout
         self.right_column_layout.addWidget(self.right_column)
-
-        # Set right column signal
-        # self.right_column.clicked.connect(self.main_clicked)
 
     def __setup_content_layout(self):
         """Setup content area."""
@@ -413,46 +401,6 @@ class MainWindowLayout(CommonWindowUtils):
             return self.left_column.sender()
         elif self.right_column.sender() is not None:
             return self.right_column.sender()
-
-    # def main_clicked(self):
-    #     selected_menu = self.get_selected_menu()
-    #
-    #     is_left_visible = self.is_left_column_visible()
-    #     is_right_visible = self.is_right_column_visible()
-    #     is_progress_visible = self.is_progress_visible()
-    #
-    #     self.left_menu.select_only_one(selected_menu.objectName())
-    #
-    #     if selected_menu.objectName() == "home_menu":
-    #         selected_menu.set_active(True)
-    #         self.set_page(self.load_pages.home_page)
-    #         self.set_left_column_menu(
-    #             menu=self.left_column.menus.menu_home,
-    #             title="Home",
-    #             icon_path=self.images_load.icon_path("icon_home.svg"),
-    #         )
-    #
-    #         if not is_left_visible:
-    #             self.toggle_left_column()
-    #
-    #     elif selected_menu.objectName() == "top_settings" and not is_right_visible:
-    #         self.app.settings_menu.show_widgets()
-    #         if is_left_visible:
-    #             self.toggle_left_column()
-    #         self.toggle_right_column()
-    #         self.set_right_column_menu(title="Settings")
-    #
-    #     elif selected_menu.objectName() == "progress_menu":
-    #         if is_progress_visible:
-    #             selected_menu.set_active(False)
-    #         self.toggle_progress()
-    #
-    #     elif selected_menu.objectName() == "close_left_column" or is_right_visible:
-    #         if self.is_left_column_visible():
-    #             selected_menu.set_active(False)
-    #             self.toggle_left_column()
-    #         elif self.is_right_column_visible:
-    #             self.toggle_right_column()
 
     def __load_icon(self):
         icon = QtGui.QIcon()

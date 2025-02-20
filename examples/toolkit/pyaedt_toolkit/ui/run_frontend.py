@@ -62,7 +62,7 @@ class ApplicationWindow(QMainWindow, Frontend):
         # Settings menu
         self.settings_menu = SettingsMenu(self)
         self.settings_menu.setup()
-        self.ui.right_column.clicked.connect(self.settings_menu_clicked)
+        self.ui.title_bar.clicked.connect(self.settings_menu_clicked)
 
         # Check backend connection
         success = self.check_connection()
@@ -121,7 +121,7 @@ class ApplicationWindow(QMainWindow, Frontend):
     def home_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
         if menu_name == "home_menu":
             selected_menu.set_active(True)
             self.ui.set_page(self.ui.load_pages.home_page)
@@ -147,12 +147,14 @@ class ApplicationWindow(QMainWindow, Frontend):
             self.ui.app.settings_menu.show_widgets()
             if is_left_visible:
                 self.ui.toggle_left_column()
+                self.ui.left_menu.deselect_all()
             self.ui.toggle_right_column()
             self.ui.set_right_column_menu(title="Settings")
 
     def progress_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
         if menu_name == "progress_menu":
             is_progress_visible = self.ui.is_progress_visible()
             if is_progress_visible:
@@ -165,13 +167,14 @@ class ApplicationWindow(QMainWindow, Frontend):
         if menu_name != "top_settings" and self.ui.is_left_column_visible():
             selected_menu.set_active(False)
             self.ui.toggle_left_column()
-        if menu_name == "top_settings" == self.ui.is_right_column_visible:
+            self.ui.left_menu.deselect_all()
+        if menu_name == "top_settings" and self.ui.is_right_column_visible():
             self.ui.toggle_right_column()
 
     def geometry_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
         if menu_name == "geometry_menu":
             selected_menu.set_active(True)
             self.ui.set_page(self.geometry_menu.geometry_menu_widget)
@@ -190,7 +193,7 @@ class ApplicationWindow(QMainWindow, Frontend):
     def plot_design_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
         if menu_name == "plot_design_menu":
             selected_menu.set_active(True)
             self.ui.set_page(self.plot_design_menu.plot_design_menu_widget)
@@ -208,7 +211,7 @@ class ApplicationWindow(QMainWindow, Frontend):
     def help_menu_clicked(self):
         selected_menu = self.ui.get_selected_menu()
         menu_name = selected_menu.objectName()
-
+        self.ui.left_menu.select_only_one(selected_menu.objectName())
         if menu_name == "help_menu":
             selected_menu.set_active(True)
             self.ui.set_page(self.help_menu.plot_design_menu_widget)
