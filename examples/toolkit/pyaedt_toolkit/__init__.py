@@ -24,4 +24,4 @@
 pyaedt-toolkits.
 """
 
-__version__ = "0.3.dev0"
+__version__ = "0.9.dev0"
