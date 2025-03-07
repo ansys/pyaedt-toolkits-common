@@ -45,6 +45,7 @@ else:
     list_installed_aedt = aedt_versions.list_installed_ansysem
 
 
+from ansys.aedt.core import generate_unique_project_name
 from pydantic import ValidationError
 
 from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
@@ -695,7 +696,16 @@ class AEDTCommon(Common):
             not project_name and self.properties.active_project and os.path.exists(self.properties.active_project)
         ):  # pragma: no cover
             project_name = os.path.abspath(self.properties.active_project)
-        if not os.path.exists(project_name + ".lock") and self.desktop and project_name:
+        if ".aedtz" in project_name:
+            name = generate_unique_project_name()
+            path = os.path.dirname(project_name)
+            self.desktop.odesktop.RestoreProjectArchive(project_name, os.path.join(path, name), True, True)
+            time.sleep(0.5)
+            logger.debug("Project {} is opened".format(project_name))
+            self.__save_project_info()
+            self.release_aedt(False, False)
+            return True
+        elif not os.path.exists(project_name + ".lock") and self.desktop and project_name:
             self.desktop.odesktop.OpenProject(project_name)
             logger.debug("Project {} is opened".format(project_name))
             self.__save_project_info()
