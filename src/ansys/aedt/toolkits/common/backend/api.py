@@ -91,7 +91,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2024.2"}
+    >>> new_properties = {"aedt_version": "2025.1"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -224,7 +224,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2023.2", "2024.1", "2024.2"]
+        ["2024.2", "2025.1"]
         """
 
         # Detect existing AEDT installation
