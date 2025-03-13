@@ -36,7 +36,6 @@ DEFAULT_CONFIG = {
     "debug": False
 }
 LOCAL_CFG_FILE = "local_config.json"
-PROJECT_NAME = "Test"
 
 
 def read_local_config() -> dict:

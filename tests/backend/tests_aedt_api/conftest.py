@@ -45,7 +45,7 @@ import pytest
 from ansys.aedt.core import generate_unique_project_name
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.models import Properties
-from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG, PROJECT_NAME
+from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
 
 # Setup config
 config = DEFAULT_CONFIG.copy()
@@ -74,6 +74,8 @@ def aedt_common(logger, common_temp_dir):
     aedt_common.active_project = generate_unique_project_name(common_temp_dir, project_name="Test_Common")
     properties.active_project = aedt_common.active_project
     aedt_common.connect_design("HFSS")
+    aedt_common.aedtapp.odesktop.CloseProject("Test_Common")
+    aedt_common.release_aedt(True, False)
 
     if is_aedt_launched:
         yield aedt_common
