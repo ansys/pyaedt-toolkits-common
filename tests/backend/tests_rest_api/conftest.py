@@ -32,7 +32,7 @@ The default configuration can be changed by placing a file called local_config.j
 An example of the contents of local_config.json:
 
 {
-  "desktop_version": "2024.2",
+  "desktop_version": "2025.1",
   "non_graphical": false,
   "use_grpc": true
 }
@@ -44,7 +44,7 @@ You can enable the API log file in the backend_properties.json.
 import os
 import pytest
 
-from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG, PROJECT_NAME
+from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
 from ansys.aedt.toolkits.common.backend.rest_api import app
 
 # Setup config
@@ -73,9 +73,14 @@ def client(logger, common_temp_dir):
         client.post("/launch_aedt")
         timeout = 60
         client.get("/wait_thread", json=timeout)
-        aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
-        response = client.post("/open_project", data=aedt_file)
-        assert response.status_code == 200
+
+        aedt_file = os.path.join(common_temp_dir, "input_data", f"Test_REST_API.aedt")
+        properties = {
+            "active_project": aedt_file
+        }
+        client.put("/properties", json=properties)
+
+        client.post("/connect_design", json={"aedtapp": "Icepak"})
 
         yield client
 
