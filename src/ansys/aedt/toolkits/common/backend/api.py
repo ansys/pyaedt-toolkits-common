@@ -40,7 +40,7 @@ if ansys.aedt.core.__version__ <= "0.11.0":
 
     list_installed_aedt = list_installed_ansysem()
 else:
-    from ansys.aedt.core.generic.aedt_versions import aedt_versions
+    from ansys.aedt.core.internal.aedt_versions import aedt_versions
 
     list_installed_aedt = aedt_versions.list_installed_ansysem
 
