@@ -32,7 +32,7 @@ The default configuration can be changed by placing a file called local_config.j
 An example of the contents of local_config.json:
 
 {
-  "desktop_version": "2024.2",
+  "desktop_version": "2025.1",
   "non_graphical": false,
   "use_grpc": true
 }
@@ -45,7 +45,7 @@ import pytest
 from ansys.aedt.core import generate_unique_project_name
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 from ansys.aedt.toolkits.common.backend.models import Properties
-from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG, PROJECT_NAME
+from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
 
 # Setup config
 config = DEFAULT_CONFIG.copy()
@@ -72,10 +72,10 @@ def aedt_common(logger, common_temp_dir):
     is_aedt_launched = aedt_common.wait_to_be_idle()
 
     aedt_common.active_project = generate_unique_project_name(common_temp_dir, project_name="Test_Common")
-    aedt_common.connect_aedt()
-    aedt_common.desktop.odesktop.NewProject(aedt_common.active_project)
-    aedt_common.save_project()
-    aedt_common.release_aedt(False, False)
+    properties.active_project = aedt_common.active_project
+    aedt_common.connect_design("HFSS")
+    aedt_common.aedtapp.odesktop.CloseProject("Test_Common")
+    aedt_common.release_aedt(True, False)
 
     if is_aedt_launched:
         yield aedt_common

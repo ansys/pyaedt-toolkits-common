@@ -40,7 +40,7 @@ if ansys.aedt.core.__version__ <= "0.11.0":
 
     list_installed_aedt = list_installed_ansysem()
 else:
-    from ansys.aedt.core.generic.aedt_versions import aedt_versions
+    from ansys.aedt.core.internal.aedt_versions import aedt_versions
 
     list_installed_aedt = aedt_versions.list_installed_ansysem
 
@@ -91,7 +91,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2024.2"}
+    >>> new_properties = {"aedt_version": "2025.1"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -224,7 +224,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2023.2", "2024.1", "2024.2"]
+        ["2024.2", "2025.1"]
         """
 
         # Detect existing AEDT installation
@@ -757,6 +757,13 @@ class AEDTCommon(Common):
                     del self.properties.design_list[old_project_name]
             else:
                 self.desktop.save_project()
+
+            # In non-graphical mode sometimes the active project and design does not set correctly
+            if self.properties.active_project:
+                oproject = self.desktop.active_project(self.get_project_name(self.properties.active_project))
+                if self.properties.active_design:
+                    self.desktop.active_design(oproject, self.properties.active_design)
+
             self.__save_project_info()
             if release_aedt:
                 self.release_aedt(False, False)

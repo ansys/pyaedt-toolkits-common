@@ -1,4 +1,4 @@
-from ansys.aedt.core.generic.general_methods import generate_unique_project_name
+from ansys.aedt.core.generic.file_utils import generate_unique_project_name
 import requests
 
 from ansys.aedt.toolkits.common.ui.actions_generic import FrontendGeneric

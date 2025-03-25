@@ -23,8 +23,6 @@
 import os
 import pytest
 
-from tests.backend.conftest import PROJECT_NAME
-
 pytestmark = [pytest.mark.aedt_common_api]
 
 
@@ -36,9 +34,14 @@ class TestAEDTCommon:
 
         assert aedt_common.connect_aedt()
         assert aedt_common.connect_aedt()
-        assert aedt_common.release_aedt()
 
-    def test_01_connect_design(self, aedt_common):
+    def test_01_open_project(self, aedt_common):
+        """Open AEDT project."""
+
+        assert aedt_common.open_project(aedt_common.properties.active_project)
+        assert not aedt_common.open_project(aedt_common.properties.active_project)
+
+    def test_02_connect_design(self, aedt_common):
         """Connect design."""
 
         assert aedt_common.connect_design()
@@ -49,13 +52,6 @@ class TestAEDTCommon:
 
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
-
-    def test_02_open_project(self, aedt_common, common_temp_dir):
-        """Open AEDT project."""
-
-        aedt_file = os.path.join(common_temp_dir, "input_data", f"{PROJECT_NAME}.aedt")
-        aedt_common.open_project(aedt_file)
-        assert not aedt_common.open_project(aedt_file)
 
     def test_03_save_project(self, aedt_common, common_temp_dir):
         """Save AEDT project."""
