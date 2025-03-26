@@ -178,9 +178,9 @@ class Common:
                                 break
         return is_updated
 
-    def launch_thread(self, process) -> ThreadManager:
+    def launch_thread(self, process, *args) -> ThreadManager:
         """Launch the thread."""
-        return self.thread_manager.launch_thread(process)
+        return self.thread_manager.launch_thread(process, *args)
 
     def get_thread_status(self) -> ToolkitThreadStatus:
         """Get the toolkit thread status.
