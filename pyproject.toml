@@ -27,7 +27,7 @@ dependencies = [
     "build==1.2.2.post1",
     "twine==6.1.0",
     "pyaedt>=0.15.2",
-    "pydantic>=2.0,<2.11",
+    "pydantic>=2.0,<2.12",
     "tomli; python_version < '3.12'",
     "attrs<25.2.0"
 ]
