@@ -892,11 +892,11 @@ class AEDTCommon(Common):
 
         if project_list:
             new_properties["project_list"] = []
-            active_project = self.desktop.odesktop.GetActiveProject()
+            active_project = self.desktop.active_project()
             if not active_project:  # pragma: no cover
-                active_project = self.desktop.odesktop.SetActiveProject(project_list[0])
+                return False
             active_project_name = active_project.GetName()
-            active_design = active_project.GetActiveDesign()
+            active_design = self.desktop.active_design(active_project)
 
             # Save active design info
             if active_design:
