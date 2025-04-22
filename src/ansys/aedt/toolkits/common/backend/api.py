@@ -894,7 +894,6 @@ class AEDTCommon(Common):
             new_properties["project_list"] = []
             active_project = self.desktop.active_project()
             if not active_project:  # pragma: no cover
-
                 return False
             active_project_name = active_project.GetName()
             active_design = self.desktop.active_design(active_project)
