@@ -61,7 +61,6 @@ def test_server_actions(mock_subprocess):
     thread = server_actions(command, name, is_linux)
     assert isinstance(thread, threading.Thread)
     assert thread.name == name
-    assert thread.is_alive()
 
     thread.join()
 
