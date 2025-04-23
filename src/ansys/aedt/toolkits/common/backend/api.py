@@ -411,13 +411,13 @@ class AEDTCommon(Common):
 
             # AEDT with COM
             if self.properties.selected_process == 0:
-                desktop_args["new_desktop_session"] = True
+                desktop_args["new_desktop"] = True
             # AEDT with gRPC
             elif self.properties.use_grpc:  # pragma: no cover
-                desktop_args["new_desktop_session"] = False
+                desktop_args["new_desktop"] = False
                 desktop_args["port"] = self.properties.selected_process
             else:  # pragma: no cover
-                desktop_args["new_desktop_session"] = False
+                desktop_args["new_desktop"] = False
                 desktop_args["aedt_process_id"] = self.properties.selected_process
             self.desktop = ansys.aedt.core.Desktop(**desktop_args)
 
@@ -479,10 +479,10 @@ class AEDTCommon(Common):
         version, is_student = self.__get_aedt_version()
 
         desktop_args = {
-            "specified_version": version,
+            "version": version,
             "non_graphical": self.properties.non_graphical,
             "student_version": is_student,
-            "new_desktop_session": False,
+            "new_desktop": False,
         }
         if self.properties.use_grpc:
             desktop_args["port"] = self.properties.selected_process
@@ -590,7 +590,7 @@ class AEDTCommon(Common):
                 "version": version,
                 "port": self.properties.selected_process,
                 "non_graphical": self.properties.non_graphical,
-                "desktop_session": False,
+                "new_desktop": False,
                 "project": project_name,
                 "design": active_design,
                 "student_version": is_student,
