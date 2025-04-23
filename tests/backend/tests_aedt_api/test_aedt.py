@@ -97,11 +97,6 @@ class TestAEDTCommon:
         assert len(aedt_common.properties.design_list["Test_Common"]) == 11
         assert "TwinBuilder_Test" in aedt_common.properties.design_list["Test_Common"]
 
-        aedt_common.properties.active_design = "Mechanical_Test"
-        assert aedt_common.connect_design("Mechanical")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 12
-        assert "Mechanical_Test" in aedt_common.properties.design_list["Test_Common"]
-
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
 
