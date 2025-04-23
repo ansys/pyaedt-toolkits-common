@@ -127,7 +127,8 @@ class TestAEDTCommon:
     def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
         """Get aedt model."""
 
-        aedt_common.connect_design("HFSS")
+        aedt_common.properties.active_design = "Maxwell3D_Test"
+        aedt_common.connect_design("Maxwell3D")
         assert aedt_common.aedtapp.modeler.create_box([0, 0, 0], [10, 20, 30])
         assert aedt_common.release_aedt()
         encoded_files = aedt_common.export_aedt_model(air_objects=True, encode=True, export_path=common_temp_dir)
