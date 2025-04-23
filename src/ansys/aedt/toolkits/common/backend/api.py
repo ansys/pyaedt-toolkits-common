@@ -587,12 +587,12 @@ class AEDTCommon(Common):
             version, is_student = self.__get_aedt_version()
 
             aedt_app_args = {
-                "specified_version": version,
+                "version": version,
                 "port": self.properties.selected_process,
                 "non_graphical": self.properties.non_graphical,
-                "new_desktop_session": False,
-                "projectname": project_name,
-                "designname": active_design,
+                "desktop_session": False,
+                "project": project_name,
+                "design": active_design,
                 "student_version": is_student,
             }
             if self.properties.use_grpc:
