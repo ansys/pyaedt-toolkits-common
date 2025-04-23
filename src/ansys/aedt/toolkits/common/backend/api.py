@@ -567,6 +567,9 @@ class AEDTCommon(Common):
                     logger.error("Wrong active project and design.")
                     return False
                 active_design = self.aedtapp.design_name
+            elif app_name in list(NAME_TO_AEDT_APP.keys()):
+                aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
+                active_design = design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
             design_name = ansys.aedt.core.generate_unique_name(app_name)
             aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
@@ -901,9 +904,9 @@ class AEDTCommon(Common):
             # Save active design info
             if active_design:
                 active_design_name = active_design.GetName()
-                active_design_name = (
-                    active_design_name if ";" not in active_design_name else active_design_name.split(";")[1]
-                )
+                design_type = active_design.GetDesignType()
+                active_design_name = self.__design_name(active_design_name, design_type)
+
                 new_properties["active_design"] = active_design_name
 
             elif active_project.GetChildNames():  # pragma: no cover
@@ -931,10 +934,21 @@ class AEDTCommon(Common):
 
                 if design_list:
                     for design_name in design_list:
+                        try:
+                            design_type = oproject.GetChildObject(design_name).GetDesignType()
+                        except Exception:
+                            design_type = "Exception"
+                        design_name = self.__design_name(design_name, design_type)
                         new_properties["design_list"][project_name].append(design_name)
 
         if new_properties:
             self.set_properties(new_properties)
+
+    @staticmethod
+    def __design_name(name, solution_type):
+        if solution_type in ["HFSS 3D Layout Design", "Circuit Design", "Maxwell Circuit", "Twin Builder", "Exception"]:
+            name = name if ";" not in name else name.split(";")[1]
+        return name
 
 
 class EDBCommon(Common):
