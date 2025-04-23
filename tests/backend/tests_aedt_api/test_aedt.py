@@ -117,7 +117,7 @@ class TestAEDTCommon:
         active_project_name = aedt_common.get_project_name(aedt_common.properties.active_project)
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]
         design_names = aedt_common.get_design_names()
-        assert len(design_names) == 11
+        assert len(design_names) == 12
 
     def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
         """Get aedt model."""
