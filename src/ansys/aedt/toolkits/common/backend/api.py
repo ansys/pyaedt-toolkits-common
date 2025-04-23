@@ -31,6 +31,16 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
+from pydantic import ValidationError
+
+from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
+from ansys.aedt.toolkits.common.backend.logger_handler import logger
+from ansys.aedt.toolkits.common.backend.models import common_properties
+from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
+from ansys.aedt.toolkits.common.utils import PropertiesUpdate
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
+
+# isort: off
 import ansys.aedt.core
 from ansys.aedt.core import Desktop
 from ansys.aedt.core.generic.general_methods import active_sessions
@@ -44,16 +54,9 @@ else:
 
     list_installed_aedt = aedt_versions.list_installed_ansysem
 
-
 from ansys.aedt.core import generate_unique_project_name
-from pydantic import ValidationError
 
-from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
-from ansys.aedt.toolkits.common.backend.logger_handler import logger
-from ansys.aedt.toolkits.common.backend.models import common_properties
-from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
-from ansys.aedt.toolkits.common.utils import PropertiesUpdate
-from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
+# isort: on
 
 
 @dataclass
