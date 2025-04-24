@@ -72,30 +72,25 @@ class TestAEDTCommon:
         assert len(aedt_common.properties.design_list["Test_Common"]) == 6
         assert "Maxwell2D_Test" in aedt_common.properties.design_list["Test_Common"]
 
-        aedt_common.properties.active_design = "Maxwell_Circuit_Test"
-        assert aedt_common.connect_design("Maxwell Circuit")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 7
-        assert "Maxwell_Circuit_Test" in aedt_common.properties.design_list["Test_Common"]
-
         aedt_common.properties.active_design = "Q2D_Test"
         assert aedt_common.connect_design("Q2D")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 8
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 7
         assert "Q2D_Test" in aedt_common.properties.design_list["Test_Common"]
 
         aedt_common.properties.active_design = "Q3D_Test"
         assert aedt_common.connect_design("Q3D")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 9
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 8
         assert "Q3D_Test" in aedt_common.properties.design_list["Test_Common"]
 
         aedt_common.properties.active_design = "RMxprt_Test"
         assert aedt_common.connect_design("RMxprt")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 10
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 9
         assert "RMxprt_Test" in aedt_common.properties.design_list["Test_Common"]
 
-        aedt_common.properties.active_design = "TwinBuilder_Test"
-        assert aedt_common.connect_design("TwinBuilder")
-        assert len(aedt_common.properties.design_list["Test_Common"]) == 11
-        assert "TwinBuilder_Test" in aedt_common.properties.design_list["Test_Common"]
+        aedt_common.properties.active_design = "Mechanical_Test"
+        assert aedt_common.connect_design("Mechanical")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 10
+        assert "Mechanical_Test" in aedt_common.properties.design_list["Test_Common"]
 
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
@@ -117,10 +112,7 @@ class TestAEDTCommon:
         active_project_name = aedt_common.get_project_name(aedt_common.properties.active_project)
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]
         design_names = aedt_common.get_design_names()
-        if os.name == "nt":
-            assert len(design_names) == 12
-        else:
-            assert len(design_names) == 11
+        assert len(design_names) == 11
 
     def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
         """Get aedt model."""
