@@ -210,7 +210,6 @@ class SettingsMenu(QObject):
         selected_session = self.aedt_session.currentText()
         selected_version = self.aedt_version.currentText()
         non_graphical = self.graphical_mode.isChecked()
-
         self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
 
         # Connect the AedtLauncher's finished signal to a slot

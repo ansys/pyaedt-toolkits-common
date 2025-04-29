@@ -82,7 +82,6 @@ class HomeMenu(object):
             label="Design",
             combobox_list=["No Design"],
             font_size=font_size,
-
         )
 
         self.ui.left_column.menus.browse_design_group = row_returns[0]

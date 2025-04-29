@@ -269,7 +269,6 @@ class FrontendGeneric:
                             be_properties["use_grpc"] = False
                             be_properties["selected_process"] = int(text_splitted[1])
                     self.set_properties(be_properties)
-
                 response = requests.post(self.url + "/launch_aedt")
 
                 if response.status_code == 200:
