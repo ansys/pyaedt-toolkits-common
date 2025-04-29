@@ -67,6 +67,7 @@ class UIProperties(BaseModel):
     add_title_bar_menus: List[Dict] = Field(default_factory=list)
     block_settings_after_load: bool = True
 
+
 class Properties(UIProperties, validate_assignment=True):
     """Store all properties."""
 
