@@ -77,7 +77,7 @@ class SettingsMenu(QObject):
         self.line4 = None
 
     def setup(self):
-        font_size = self.main_window.properties.font["title_size"]
+        font_size = self.main_window.properties.font["combo_size"]
         # Version row
         row_returns = self.ui.add_combobox(
             self.ui.right_column.menus.settings_vertical_layout,
@@ -218,9 +218,10 @@ class SettingsMenu(QObject):
 
         self.aedt_thread.start()
 
-        self.connect_aedt.setEnabled(False)
+        if self.main_window.properties.block_settings_after_load:
+            self.connect_aedt.setEnabled(False)
+            self.aedt_session.setEnabled(False)
         self.aedt_version.setEnabled(False)
-        self.aedt_session.setEnabled(False)
 
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes
@@ -233,7 +234,8 @@ class SettingsMenu(QObject):
             self.app.home_menu.update_design()
             if self.ui.is_right_column_visible():
                 self.ui.toggle_right_column()
-            self.ui.title_bar.menu.setEnabled(False)
+            if self.main_window.properties.block_settings_after_load:
+                self.ui.title_bar.menu.setEnabled(False)
             self.ui.update_logger("AEDT session connected")
         else:
             self.ui.update_logger("AEDT not launched")
