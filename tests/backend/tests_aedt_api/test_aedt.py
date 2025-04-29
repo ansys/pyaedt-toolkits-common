@@ -47,8 +47,50 @@ class TestAEDTCommon:
         assert aedt_common.connect_design()
         assert aedt_common.connect_design()
 
-        aedt_common.properties.active_design = "No Design"
+        aedt_common.properties.active_design = "Maxwell3D_Test"
         assert aedt_common.connect_design("Maxwell3D")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 2
+        assert "Maxwell3D_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Layout_Test"
+        assert aedt_common.connect_design("HFSS 3D Layout Design")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 3
+        assert "Layout_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Icepak_Test"
+        assert aedt_common.connect_design("Icepak")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 4
+        assert "Icepak_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Circuit_Test"
+        assert aedt_common.connect_design("Circuit Design")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 5
+        assert "Circuit_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Maxwell2D_Test"
+        assert aedt_common.connect_design("Maxwell 2D")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 6
+        assert "Maxwell2D_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Q2D_Test"
+        assert aedt_common.connect_design("Q2D")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 7
+        assert "Q2D_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Q3D_Test"
+        assert aedt_common.connect_design("Q3D")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 8
+        assert "Q3D_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "RMxprt_Test"
+        assert aedt_common.connect_design("RMxprt")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 9
+        assert "RMxprt_Test" in aedt_common.properties.design_list["Test_Common"]
+
+        aedt_common.properties.active_design = "Mechanical_Test"
+        assert aedt_common.connect_design("Mechanical")
+        assert len(aedt_common.properties.design_list["Test_Common"]) == 10
+        assert "Mechanical_Test" in aedt_common.properties.design_list["Test_Common"]
 
         aedt_common.properties.active_design = "No Design"
         assert aedt_common.connect_design("Tesla")
@@ -70,12 +112,13 @@ class TestAEDTCommon:
         active_project_name = aedt_common.get_project_name(aedt_common.properties.active_project)
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]
         design_names = aedt_common.get_design_names()
-        assert len(design_names) == 3
+        assert len(design_names) == 11
 
     def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
         """Get aedt model."""
 
-        aedt_common.connect_design()
+        aedt_common.properties.active_design = "Maxwell3D_Test"
+        aedt_common.connect_design("Maxwell3D")
         assert aedt_common.aedtapp.modeler.create_box([0, 0, 0], [10, 20, 30])
         assert aedt_common.release_aedt()
         encoded_files = aedt_common.export_aedt_model(air_objects=True, encode=True, export_path=common_temp_dir)

@@ -544,15 +544,28 @@ class CommonWindowUtils(object):
         self.group.addAnimation(right_box)
         self.group.start()
 
-    def toggle_progress(self):
+    def toggle_progress(self, mode=0):
         """
-        Toggles the progress row.
+        Toggles the visibility of the progress row.
+
+        Parameters
+        ----------
+        mode : int, optional
+            The mode of the toggle operation. Default is 0.
+            - 0: Toggles the progress row between open and closed states.
+            - 1: Opens the progress row.
+            - 2: Closes the progress row.
         """
         minimum_progress = general_settings.progress_size["minimum"]
         maximum_progress = general_settings.progress_size["maximum"]
-        progress_box_height = self.progress_frame.height()
-        progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
-        self.progress_frame.setMaximumHeight(progress_width)
+        if mode == 0:
+            progress_box_height = self.progress_frame.height()
+            progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
+            self.progress_frame.setMaximumHeight(progress_width)
+        elif mode == 1:
+            self.progress_frame.setMaximumHeight(maximum_progress)
+        else:
+            self.progress_frame.setMaximumHeight(minimum_progress)
 
     def clear_layout(self, layout):
         """Clear all layout."""
