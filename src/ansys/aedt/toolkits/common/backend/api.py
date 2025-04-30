@@ -108,6 +108,20 @@ class Common:
             self.thread_manager = ThreadManager()
         self.logger = logger
 
+    def handle_export_failure(func):
+        """Error handler."""
+
+        def wrapper(self, *args, **kwargs):
+            try:
+                return func(self, *args, **kwargs)
+            except Exception as e:
+                # Ensure self has the release_aedt method
+                if hasattr(self, "release_aedt") and callable(self.release_aedt):
+                    self.release_aedt()
+                raise e
+
+        return wrapper
+
     def get_properties(self) -> Dict[str, str]:
         """Get the toolkit properties.
 
@@ -826,6 +840,7 @@ class AEDTCommon(Common):
 
         return design_list
 
+    @handle_export_failure
     def export_aedt_model(
         self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
     ):
@@ -890,6 +905,7 @@ class AEDTCommon(Common):
             is_student = False
         return version, is_student
 
+    @handle_export_failure
     def __save_project_info(self):
         """Save the project and design information."""
         # Save project and design info
