@@ -256,7 +256,7 @@ class FrontendGeneric:
             response = requests.get(self.url + "/health")
             if response.ok and response.json() == "Toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
-                if be_properties["selected_process"] == 0:
+                if be_properties["selected_process"] == 0 or not self.properties.block_settings_after_load:
                     be_properties["aedt_version"] = selected_version
                     be_properties["non_graphical"] = non_graphical
                     if selected_process != "New Session":
@@ -269,7 +269,6 @@ class FrontendGeneric:
                             be_properties["use_grpc"] = False
                             be_properties["selected_process"] = int(text_splitted[1])
                     self.set_properties(be_properties)
-
                 response = requests.post(self.url + "/launch_aedt")
 
                 if response.status_code == 200:
