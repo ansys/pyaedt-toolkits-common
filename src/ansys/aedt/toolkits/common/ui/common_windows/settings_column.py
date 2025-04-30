@@ -77,7 +77,7 @@ class SettingsMenu(QObject):
         self.line4 = None
 
     def setup(self):
-        font_size = self.main_window.properties.font["title_size"]
+        font_size = self.main_window.properties.font["combo_size"]
         # Version row
         row_returns = self.ui.add_combobox(
             self.ui.right_column.menus.settings_vertical_layout,
@@ -95,7 +95,6 @@ class SettingsMenu(QObject):
         self.aedt_version = row_returns[2]
 
         self.aedt_version.currentTextChanged.connect(lambda: self.process_id())
-
         # Add line
         self.line1 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
@@ -114,6 +113,7 @@ class SettingsMenu(QObject):
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
         self.aedt_session_label = row_returns[1]
         self.aedt_session = row_returns[2]
+        self.aedt_session.showPopup = self.update_process_id
 
         # Add line
         self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
@@ -195,6 +195,34 @@ class SettingsMenu(QObject):
                     else:
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
 
+    def update_process_id(self):
+        from PySide6.QtWidgets import QComboBox
+
+        non_graphical = self.graphical_mode.isChecked()
+        item_count = self.aedt_session.count()
+
+        # Retrieve all items as a list
+        aedt_sessions_items = [self.aedt_session.itemText(i) for i in range(item_count)]
+        if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
+            sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
+            for session in aedt_sessions_items:
+                try:
+                    session_id = int(session.split(" ")[-1])
+                    if session_id not in sessions and session_id not in sessions.values():
+                        self.aedt_session.removeItem(aedt_sessions_items.index(session))
+                except ValueError:
+                    pass
+            for pid in sessions:
+                if sessions[pid] == -1:
+                    if "Process {}".format(pid) not in aedt_sessions_items:
+                        self.aedt_session.addItem("Process {}".format(pid))
+                elif "Grpc on port {}".format(sessions[pid]) not in aedt_sessions_items:
+                    if "Process {}".format(pid) in aedt_sessions_items:
+                        index = aedt_sessions_items.index("Process {}".format(pid))
+                        self.aedt_session.removeItem(index)
+                    self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+        QComboBox.showPopup(self.aedt_session)
+
     def connect_aedt_directly(
         self,
     ):
@@ -210,7 +238,6 @@ class SettingsMenu(QObject):
         selected_session = self.aedt_session.currentText()
         selected_version = self.aedt_version.currentText()
         non_graphical = self.graphical_mode.isChecked()
-
         self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
 
         # Connect the AedtLauncher's finished signal to a slot
@@ -218,9 +245,10 @@ class SettingsMenu(QObject):
 
         self.aedt_thread.start()
 
-        self.connect_aedt.setEnabled(False)
+        if self.main_window.properties.block_settings_after_load:
+            self.connect_aedt.setEnabled(False)
+            self.aedt_session.setEnabled(False)
         self.aedt_version.setEnabled(False)
-        self.aedt_session.setEnabled(False)
 
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes
@@ -233,7 +261,8 @@ class SettingsMenu(QObject):
             self.app.home_menu.update_design()
             if self.ui.is_right_column_visible():
                 self.ui.toggle_right_column()
-            self.ui.title_bar.menu.setEnabled(False)
+            if self.main_window.properties.block_settings_after_load:
+                self.ui.title_bar.menu.setEnabled(False)
             self.ui.update_logger("AEDT session connected")
         else:
             self.ui.update_logger("AEDT not launched")
