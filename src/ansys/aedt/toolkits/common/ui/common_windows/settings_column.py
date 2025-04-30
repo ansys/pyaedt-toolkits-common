@@ -205,6 +205,13 @@ class SettingsMenu(QObject):
         aedt_sessions_items = [self.aedt_session.itemText(i) for i in range(item_count)]
         if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
             sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
+            for session in aedt_sessions_items:
+                try:
+                    session_id = int(session.split(" ")[-1])
+                    if session_id not in sessions and session_id not in sessions.values():
+                        self.aedt_session.removeItem(aedt_sessions_items.index(session))
+                except ValueError:
+                    pass
             for pid in sessions:
                 if sessions[pid] == -1:
                     if "Process {}".format(pid) not in aedt_sessions_items:
