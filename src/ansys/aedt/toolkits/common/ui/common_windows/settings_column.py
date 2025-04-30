@@ -95,7 +95,6 @@ class SettingsMenu(QObject):
         self.aedt_version = row_returns[2]
 
         self.aedt_version.currentTextChanged.connect(lambda: self.process_id())
-
         # Add line
         self.line1 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
@@ -114,6 +113,7 @@ class SettingsMenu(QObject):
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
         self.aedt_session_label = row_returns[1]
         self.aedt_session = row_returns[2]
+        self.aedt_session.showPopup = self.update_process_id
 
         # Add line
         self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
@@ -194,6 +194,27 @@ class SettingsMenu(QObject):
                         self.aedt_session.addItem("Process {}".format(pid))
                     else:
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+
+    def update_process_id(self):
+        from PySide6.QtWidgets import QComboBox
+
+        non_graphical = self.graphical_mode.isChecked()
+        item_count = self.aedt_session.count()
+
+        # Retrieve all items as a list
+        aedt_sessions_items = [self.aedt_session.itemText(i) for i in range(item_count)]
+        if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
+            sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
+            for pid in sessions:
+                if sessions[pid] == -1:
+                    if "Process {}".format(pid) not in aedt_sessions_items:
+                        self.aedt_session.addItem("Process {}".format(pid))
+                elif "Grpc on port {}".format(sessions[pid]) not in aedt_sessions_items:
+                    if "Process {}".format(pid) in aedt_sessions_items:
+                        index = aedt_sessions_items.index("Process {}".format(pid))
+                        self.aedt_session.removeItem(index)
+                    self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+        QComboBox.showPopup(self.aedt_session)
 
     def connect_aedt_directly(
         self,
