@@ -108,20 +108,6 @@ class Common:
             self.thread_manager = ThreadManager()
         self.logger = logger
 
-    def handle_export_failure(func):
-        """Error handler."""
-
-        def wrapper(self, *args, **kwargs):
-            try:
-                return func(self, *args, **kwargs)
-            except Exception as e:
-                # Ensure self has the release_aedt method
-                if hasattr(self, "release_aedt") and callable(self.release_aedt):
-                    self.release_aedt()
-                raise e
-
-        return wrapper
-
     def get_properties(self) -> Dict[str, str]:
         """Get the toolkit properties.
 
@@ -366,6 +352,20 @@ class AEDTCommon(Common):
         super().__init__(self.properties)
         self.desktop = None
         self.aedtapp = None
+
+    def handle_export_failure(func):
+        """Error handler."""
+
+        def wrapper(self, *args, **kwargs):
+            try:
+                return func(self, *args, **kwargs)
+            except Exception as e:
+                # Ensure self has the release_aedt method
+                if hasattr(self, "release_aedt") and callable(self.release_aedt):
+                    self.release_aedt()
+                raise e
+
+        return wrapper
 
     def is_aedt_connected(self) -> Tuple[bool, str]:
         """Check if AEDT is connected.
