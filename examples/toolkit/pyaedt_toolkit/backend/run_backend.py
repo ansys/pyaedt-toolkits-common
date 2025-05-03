@@ -15,7 +15,7 @@ if len(sys.argv) == 3:
     toolkit_api.properties.port = int(sys.argv[2])
 
 
-@app.route("/create_geometry", methods=["POST"])
+@app.route("/create_geometry", methods=["GET","POST"])
 def create_geometry():
     logger.info("[POST] /create_geometry (create a box or sphere in HFSS).")
 
