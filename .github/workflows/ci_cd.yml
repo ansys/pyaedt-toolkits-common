@@ -141,10 +141,6 @@ jobs:
 
   tests_windows:
     name: "Windows Tests"
-    strategy:
-      matrix:
-        python-version: ['3.12']
-      fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
     needs: [smoke-tests]
     steps:
@@ -220,10 +216,6 @@ jobs:
 
   tests_linux:
     name: "Linux Tests"
-    strategy:
-      matrix:
-        python-version: ['3.12']
-      fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Linux]
     needs: [ smoke-tests ]
     env:
