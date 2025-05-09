@@ -5,11 +5,13 @@ import sys
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QApplication
 
-# Toolkit frontend API
-from actions import Frontend
-
+# isort: off
 # Default user interface properties
 from models import properties
+# isort: on
+
+# Toolkit frontend API
+from actions import Frontend
 
 # Windows
 

@@ -2,7 +2,7 @@
 toolkit_name= "example"
 backend_url= "127.0.0.1"
 backend_port= 5001
-debug= false
+debug= true
 app_name= "Example Wizard"
 main_title= "Amazing Toolkit Wizard"
 welcome_message= "Welcome to the amazing toolkit"
