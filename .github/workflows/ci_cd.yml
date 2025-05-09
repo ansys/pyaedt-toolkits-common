@@ -14,7 +14,7 @@ on:
         default: 'warning'
 
 env:
-  MAIN_PYTHON_VERSION: '3.10'
+  MAIN_PYTHON_VERSION: '3.12'
   DOCUMENTATION_CNAME: 'aedt.common.toolkit.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-aedt-toolkits-common'
   LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
@@ -65,7 +65,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ windows-latest, ubuntu-latest ]
-        python-version: [ '3.10' ]
+        python-version: ['3.10', '3.11', '3.12', '3.13']
     runs-on: ${{ matrix.os }}
     needs: [ code-style ]
     steps:
@@ -80,7 +80,7 @@ jobs:
     name: "Windows Tests"
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: ${{ env.MAIN_PYTHON_VERSION }}
       fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
     needs: [smoke-tests]
@@ -159,7 +159,7 @@ jobs:
     name: "Linux Tests"
     strategy:
       matrix:
-        python-version: [ '3.10' ]
+        python-version: ${{ env.MAIN_PYTHON_VERSION }}
       fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Linux]
     needs: [ smoke-tests ]
