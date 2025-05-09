@@ -1,6 +1,6 @@
 Backend API reference
 =====================
-The backend API contains three classes, `AEDTCommon``, ``EDBCommon``, and ``Common``, 
+The backend API contains three classes, `AEDTCommon``, ``EDBCommon``, and ``Common``,
 which provide methods for controlling the toolkit workflow:
 
 - ``AEDTCommon``: Provides methods for controlling AEDT. This class inherits the ``Common`` class.
