@@ -54,6 +54,7 @@ The PyADT Common Toolkit provides common methods and best practices for creating
    toolkit/ui
    examples/index
    contributing
+   changelog
 
 What is this library?
 ---------------------
