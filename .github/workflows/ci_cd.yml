@@ -149,7 +149,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: Create Python venv
         run: |
@@ -202,7 +202,6 @@ jobs:
           python -m coverage xml -o .cov\total.xml
 
       - name: "Upload coverage results"
-        if: ${{ matrix.python-version == env.MAIN_PYTHON_VERSION  }}
         uses: actions/upload-artifact@v4
         with:
           path: .cov/total-html
@@ -227,7 +226,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
       - name: Create Python venv
         run: |
