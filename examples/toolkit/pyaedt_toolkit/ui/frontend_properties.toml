@@ -6,9 +6,8 @@ debug= false
 app_name= "Example Wizard"
 main_title= "Amazing Toolkit Wizard"
 welcome_message= "Welcome to the amazing toolkit"
-version= "example_toolkit_version"
 copyright= "By: slopez"
-year= 2023
+year= 2024
 theme= "ansys_dark.json"
 high_resolution= false
 

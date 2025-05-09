@@ -40,6 +40,8 @@ os.environ["QT_FONT_DPI"] = "96"
 if properties.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
 
+properties.version = "example_toolkit_version"
+
 
 class ApplicationWindow(QMainWindow, Frontend):
     def __init__(self):

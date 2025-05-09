@@ -31,7 +31,6 @@ from PySide6.QtWidgets import QSizePolicy
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 
-from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.ui.utils.images.load_images import LoadImages
 from ansys.aedt.toolkits.common.ui.utils.themes.json_themes import ThemeHandler
 from ansys.aedt.toolkits.common.ui.utils.ui_templates.pages.ui_main_pages import Ui_MainPages
@@ -47,26 +46,21 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWi
 # Widgets
 from ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils import CommonWindowUtils
 
-if os.environ.get("AEDT_TOOLKIT_THEME", False):
-    general_settings.theme = os.environ["AEDT_TOOLKIT_THEME"]
-
-
-def setup_parent_ui(parent):
-    """Setup UI for parent."""
-    parent.setObjectName("MainWindow")
-    parent.resize(*general_settings.startup_size)
-    parent.setMinimumSize(*general_settings.minimum_size)
-
 
 class MainWindowLayout(CommonWindowUtils):
     """Class representing the main window of the application."""
 
     def __init__(self, app):
+        self.properties = app.properties
+
+        if os.environ.get("AEDT_TOOLKIT_THEME", False):
+            self.properties.theme = os.environ["AEDT_TOOLKIT_THEME"]
+
         CommonWindowUtils.__init__(self)
 
         self.app = app
 
-        self.app.setWindowTitle(general_settings.app_name)
+        self.app.setWindowTitle(self.properties.app_name)
 
         # Load available themes
         self.themes = ThemeHandler().items
@@ -122,9 +116,15 @@ class MainWindowLayout(CommonWindowUtils):
         self.right_column_layout = None
         self.right_column = None
 
+    def setup_parent_ui(self):
+        """Setup UI for parent."""
+        self.app.setObjectName("MainWindow")
+        self.app.resize(*self.properties.startup_size)
+        self.app.setMinimumSize(*self.properties.minimum_size)
+
     def setup(self):
         """Setup UI for parent widget."""
-        setup_parent_ui(self.app)
+        self.setup_parent_ui()
         self.__setup_main_window_layout()
         self.__setup_central_layout()
         self.__setup_title_layout()
@@ -180,7 +180,7 @@ class MainWindowLayout(CommonWindowUtils):
         self.central_widget = QWidget(self.main_window)
         style = f"""
         color: {self.themes["app_color"]["text_foreground"]};
-        font: {general_settings.font["text_size"]}pt "{general_settings.font["family"]}";
+        font: {self.properties.font["text_size"]}pt "{self.properties.font["family"]}";
         """
         self.central_widget.setStyleSheet(style)
         self.central_layout.addWidget(self.central_widget)
@@ -215,21 +215,21 @@ class MainWindowLayout(CommonWindowUtils):
             dark_one=self.themes["app_color"]["dark_one"],
             text_foreground=self.themes["app_color"]["text_foreground"],
             radius=8,
-            font_family=general_settings.font["family"],
-            title_size=general_settings.font["title_size"],
+            font_family=self.properties.font["family"],
+            title_size=self.properties.font["title_size"],
         )
         self.title_bar_layout.addWidget(self.title_bar)
 
-        title = general_settings.main_title
+        title = self.properties.main_title
         self.title_bar.set_title(title)
 
-        self.title_bar.add_menus(general_settings.add_title_bar_menus)
+        self.title_bar.add_menus(self.properties.add_title_bar_menus)
 
     def __setup_progress_layout(self):
         """Setup progress frame."""
         self.progress_frame = QFrame(self.central_widget)
 
-        progress_menu_minimum = general_settings.progress_size["minimum"]
+        progress_menu_minimum = self.properties.progress_size["minimum"]
 
         self.progress_layout = QHBoxLayout()
         self.progress_frame.setLayout(self.progress_layout)
@@ -243,21 +243,21 @@ class MainWindowLayout(CommonWindowUtils):
             progress_color=self.themes["app_color"]["icon_color"],
             background_color=self.themes["app_color"]["bg_one"],
             text_color=self.themes["app_color"]["text_active"],
-            font_size=general_settings.font["title_size"],
-            font_family=general_settings.font["family"],
+            font_size=self.properties.font["title_size"],
+            font_family=self.properties.font["family"],
             width=10,
         )
 
         self.logger = PyLogger(
             text_color=self.themes["app_color"]["text_active"],
             background_color=self.themes["app_color"]["bg_two"],
-            height=general_settings.progress_size["maximum"],
-            font_size=general_settings.font["title_size"],
-            font_family=general_settings.font["family"],
+            height=self.properties.progress_size["maximum"],
+            font_size=self.properties.font["title_size"],
+            font_family=self.properties.font["family"],
         )
 
         self.progress_layout.addWidget(self.logger)
-        self.update_logger("{} logger".format(general_settings.app_name))
+        self.update_logger("{} logger".format(self.properties.app_name))
         self.progress_layout.addWidget(self.progress)
 
     def __setup_credits_layout(self):
@@ -270,10 +270,10 @@ class MainWindowLayout(CommonWindowUtils):
         self.credits_layout.setContentsMargins(0, 0, 0, 0)
         self.credits = PyCredits(
             bg=self.themes["app_color"]["bg_two"],
-            text=general_settings.copyright,
-            version=general_settings.version,
-            font_family=general_settings.font["family"],
-            text_size=general_settings.font["text_size"],
+            text=self.properties.copyright,
+            version=self.properties.version,
+            font_family=self.properties.font["family"],
+            text_size=self.properties.font["text_size"],
             text_description_color=self.themes["app_color"]["text_description"],
         )
         self.credits_layout.addWidget(self.credits)
@@ -283,8 +283,8 @@ class MainWindowLayout(CommonWindowUtils):
         self.left_menu_frame = QFrame(self.main_window)
         self.left_menu_layout = QHBoxLayout()
         self.left_menu_frame.setLayout(self.left_menu_layout)
-        left_menu_margin = general_settings.left_menu_content_margins
-        left_menu_minimum = general_settings.left_menu_size["minimum"]
+        left_menu_margin = self.properties.left_menu_content_margins
+        left_menu_minimum = self.properties.left_menu_size["minimum"]
         self.left_menu_frame.setMaximumSize(left_menu_minimum + (left_menu_margin * 2), 17280)
         self.left_menu_frame.setMinimumSize(left_menu_minimum + (left_menu_margin * 2), 0)
         self.left_menu_layout.setContentsMargins(left_menu_margin, left_menu_margin, left_menu_margin, left_menu_margin)
@@ -307,22 +307,22 @@ class MainWindowLayout(CommonWindowUtils):
         # Add left menu widget to left menu layout
         self.left_menu_layout.addWidget(self.left_menu)
 
-        self.left_menu.add_menus(general_settings.add_left_menus)
+        self.left_menu.add_menus(self.properties.add_left_menus)
 
     def __setup_left_column_layout(self):
         """Setup left column."""
         self.left_column_frame = QFrame(self.main_window)
         self.left_column_layout = QVBoxLayout()
         self.left_column_frame.setLayout(self.left_column_layout)
-        self.left_column_frame.setMaximumWidth(general_settings.left_column_size["minimum"])
-        self.left_column_frame.setMinimumWidth(general_settings.left_column_size["minimum"])
+        self.left_column_frame.setMaximumWidth(self.properties.left_column_size["minimum"])
+        self.left_column_frame.setMinimumWidth(self.properties.left_column_size["minimum"])
         self.left_column_frame.setStyleSheet(f"background: {self.themes['app_color']['bg_two']}")
         self.left_column_layout.setContentsMargins(0, 0, 0, 0)
 
         # Left column widget
         self.left_column = PyLeftColumn(
             text_title="Settings Left Frame",
-            text_title_size=general_settings.font["title_size"],
+            text_title_size=self.properties.font["title_size"],
             text_title_color=self.themes["app_color"]["text_foreground"],
             icon_path=self.images_load.icon_path("icon_settings.svg"),
             dark_one=self.themes["app_color"]["dark_one"],
@@ -345,15 +345,15 @@ class MainWindowLayout(CommonWindowUtils):
         self.right_column_frame = QFrame(self.main_window)
         self.right_column_layout = QVBoxLayout()
         self.right_column_frame.setLayout(self.right_column_layout)
-        self.right_column_frame.setMaximumWidth(general_settings.right_column_size["minimum"])
-        self.right_column_frame.setMinimumWidth(general_settings.right_column_size["minimum"])
+        self.right_column_frame.setMaximumWidth(self.properties.right_column_size["minimum"])
+        self.right_column_frame.setMinimumWidth(self.properties.right_column_size["minimum"])
         self.right_column_frame.setStyleSheet(f"background: {self.themes['app_color']['bg_two']}")
         self.right_column_layout.setContentsMargins(0, 0, 0, 0)
 
         # Left column widget
         self.right_column = PyRightColumn(
             text_title="Settings Right Frame",
-            text_title_size=general_settings.font["title_size"],
+            text_title_size=self.properties.font["title_size"],
             text_title_color=self.themes["app_color"]["text_foreground"],
             icon_path=self.images_load.icon_path("icon_settings.svg"),
             dark_one=self.themes["app_color"]["dark_one"],
@@ -405,7 +405,7 @@ class MainWindowLayout(CommonWindowUtils):
 
     def __load_icon(self):
         icon = QtGui.QIcon()
-        if not general_settings.icon:
+        if not self.properties.icon:
             icon.addFile(
                 self.images_load.image_path("logo.png"),
                 QtCore.QSize(),
@@ -414,7 +414,7 @@ class MainWindowLayout(CommonWindowUtils):
             )
         else:
             icon.addFile(
-                general_settings.icon,
+                self.properties.icon,
                 QtCore.QSize(),
                 QtGui.QIcon.Normal,
                 QtGui.QIcon.On,
