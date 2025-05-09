@@ -143,7 +143,7 @@ jobs:
     name: "Windows Tests"
     strategy:
       matrix:
-        python-version: ${{ env.MAIN_PYTHON_VERSION }}
+        python-version: ['3.12']
       fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Windows]
     needs: [smoke-tests]
@@ -222,7 +222,7 @@ jobs:
     name: "Linux Tests"
     strategy:
       matrix:
-        python-version: ${{ env.MAIN_PYTHON_VERSION }}
+        python-version: ['3.12']
       fail-fast: false
     runs-on: [self-hosted, pyaedt, toolkits, Linux]
     needs: [ smoke-tests ]
