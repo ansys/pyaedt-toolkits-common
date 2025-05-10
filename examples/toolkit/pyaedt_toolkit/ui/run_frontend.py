@@ -5,11 +5,13 @@ import sys
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QApplication
 
-# Toolkit frontend API
-from actions import Frontend
-
+# isort: off
 # Default user interface properties
 from models import properties
+# isort: on
+
+# Toolkit frontend API
+from actions import Frontend
 
 # Windows
 
@@ -39,6 +41,8 @@ os.environ["QT_FONT_DPI"] = "96"
 
 if properties.high_resolution:
     os.environ["QT_SCALE_FACTOR"] = "2"
+
+properties.version = "example_toolkit_version"
 
 
 class ApplicationWindow(QMainWindow, Frontend):
