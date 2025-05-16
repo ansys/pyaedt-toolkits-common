@@ -240,6 +240,11 @@ class PyLeftMenu(QWidget):
         self.animation.setEasingCurve(QEasingCurve.InOutCubic)
         self.animation.start()
 
+    def setVisible_for_one(self, widget: str, visible: bool):
+        btn = self.findChild(QPushButton, widget)
+        if btn:
+            btn.setVisible(visible)
+
     def select_only_one(self, widget: str):
         """
         Set the active state for a specific menu button and deactivate others.
