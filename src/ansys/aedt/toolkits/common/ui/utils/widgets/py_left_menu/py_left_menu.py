@@ -240,7 +240,23 @@ class PyLeftMenu(QWidget):
         self.animation.setEasingCurve(QEasingCurve.InOutCubic)
         self.animation.start()
 
-    def setVisible_for_one(self, widget: str, visible: bool):
+    def set_visible_button(self, widget: str, visible: bool):
+        """
+        Sets the visibility of a QPushButton widget within the UI.
+
+        This method searches for a QPushButton widget by its object name and
+        sets its visibility based on the provided `visible` parameter.
+
+        Args:
+            widget (str): The object name of the QPushButton to modify.
+            visible (bool): A boolean indicating whether the button should
+                            be visible (`True`) or hidden (`False`).
+
+        Notes:
+            - If the specified widget is not found, the method does nothing.
+            - Ensure that the `widget` parameter matches the object name
+              of the QPushButton in the UI.
+        """
         btn = self.findChild(QPushButton, widget)
         if btn:
             btn.setVisible(visible)
