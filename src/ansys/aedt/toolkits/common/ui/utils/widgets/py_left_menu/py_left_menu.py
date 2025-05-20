@@ -250,7 +250,7 @@ class PyLeftMenu(QWidget):
         ----------
         widget : str
             The object name of the QPushButton to modify.
-        visible : bool
+        visible : bool, optional
             A boolean indicating whether the button should be visible. The default is `False`.
         """
         btn = self.findChild(QPushButton, widget)
