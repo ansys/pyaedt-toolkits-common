@@ -25,6 +25,8 @@
         "pink": "#cf1a70",
         "green": "#86ff86",
         "red": "#cf1a70",
-        "yellow": "#ffd53d"
+        "yellow": "#ffd53d",
+        "label_on": "#e570a4",
+        "label_off": "#c70662"
     }
 }
