@@ -122,7 +122,7 @@ class SettingsMenu(QObject):
         # Non-graphical
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
-            height=40,
+            height=30,
             width=[50, 100, 80],
             label=["Graphical", "Non-graphical"],
             font_size=font_size,
