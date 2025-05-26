@@ -271,7 +271,20 @@ class CommonWindowUtils(object):
 
         return [layout_row, label_widget, linebox_widget]
 
-    def add_toggle(self, layout, height=40, width=None, label=None, font_size=12):
+    def add_toggle(
+        self,
+        layout,
+        height=40,
+        width=None,
+        label=None,
+        font_size=12,
+        bg_color=None,
+        circle_color=None,
+        active_color=None,
+        text_color_on=None,
+        text_color_off=None,
+        show_on_off=False,
+    ):
         """
         Add a label and a toggle button to a specified layout.
 
@@ -280,13 +293,25 @@ class CommonWindowUtils(object):
         layout: QLayout
             Layout object to add the label and toggle button to.
         height: int, optional
-            Height of the label and toggle. Default is 40.
+            Height of the label and toggle. The default value is ``40``.
         width: list, optional
-            Width of the label and toggle. Default is [50, 100, 50] if None.
+            Width of the label and toggle. The default is [50, 100, 50] if ``None``.
         label: list of str, optional
-            Label text. Default is ['label1', 'label2'] if None.
+            Label text. The default value is ``['label1', 'label2']``.
         font_size: int, optional
-            Font size for the label text. Default is 12.
+            Font size for the label text. The default value is ``12``.
+        bg_color : str, optional
+            Background color of the toggle switch. The default is ``label_off``.
+        circle_color : str, optional
+            Color of the circle in the toggle switch. The default is ``icon_color``.
+        active_color : str, optional
+            Color of the toggle switch when active. The default is ``label_on``.
+        text_color_on : str, optional
+            Color of the on toggle text. The default is ``text_foreground``.
+        text_color_off : str, optional
+            Color of the off toggle text. The default is ``text_foreground``.
+        show_on_off: bool, optional
+            Show on and off text in the toggle. The default value is ``False``.
 
         Returns
         -------
@@ -297,6 +322,17 @@ class CommonWindowUtils(object):
         label = label or ["label1", "label2"]
         width = width or [50, 100, 50]
 
+        if not bg_color:
+            bg_color = self.themes["app_color"]["label_off"]
+        if not circle_color:
+            circle_color = self.themes["app_color"]["icon_color"]
+        if not active_color:
+            active_color = self.themes["app_color"]["label_on"]
+        if not text_color_on:
+            text_color_on = self.themes["app_color"]["text_foreground"]
+        if not text_color_off:
+            text_color_off = self.themes["app_color"]["text_foreground"]
+
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
@@ -306,7 +342,16 @@ class CommonWindowUtils(object):
         spacer1 = QSpacerItem(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
         layout_row.addItem(spacer1)
 
-        toggle = self._create_toggle(width[1], height)
+        toggle = self._create_toggle(
+            width[1],
+            height,
+            bg_color=bg_color,
+            circle_color=circle_color,
+            active_color=active_color,
+            show_on_off=show_on_off,
+            text_color_on=text_color_on,
+            text_color_off=text_color_off,
+        )
         layout_row.addWidget(toggle)
 
         spacer2 = QSpacerItem(15, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
@@ -314,6 +359,9 @@ class CommonWindowUtils(object):
 
         label2 = self._create_label(label[1], font_size, height, width[2])
         layout_row.addWidget(label2)
+
+        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
 
         return layout_row, label1, toggle, label2
 
@@ -648,18 +696,45 @@ class CommonWindowUtils(object):
         animation.setEasingCurve(QEasingCurve.InOutQuart)
         return animation
 
-    def _create_toggle(self, width, height):
+    def _create_toggle(
+        self,
+        width,
+        height,
+        bg_color=None,
+        circle_color=None,
+        active_color=None,
+        text_color_on=None,
+        text_color_off=None,
+        show_on_off=False,
+    ):
+
+        if not bg_color:
+            bg_color = self.themes["app_color"]["label_off"]
+        if not circle_color:
+            circle_color = self.themes["app_color"]["icon_color"]
+        if not active_color:
+            active_color = self.themes["app_color"]["label_off"]
+        if not text_color_on:
+            text_color_on = self.themes["app_color"]["text_foreground"]
+        if not text_color_off:
+            text_color_off = self.themes["app_color"]["text_foreground"]
+
         toggle = PyToggle(
             width=width,
-            bg_color=self.themes["app_color"]["dark_one"],
-            circle_color=self.themes["app_color"]["icon_color"],
-            active_color=self.themes["app_color"]["dark_one"],
+            bg_color=bg_color,
+            circle_color=circle_color,
+            active_color=active_color,
+            text_color_on=text_color_on,
+            text_color_off=text_color_off,
+            show_on_off=show_on_off,
         )
         toggle.setMaximumHeight(height)
         return toggle
 
-    def _create_label(self, text, font_size, height, width):
-        label = PyLabel(text=text, font_size=font_size, color=self.themes["app_color"]["text_foreground"])
+    def _create_label(self, text, font_size, height, width, color=None):
+        if color is None:
+            color = self.themes["app_color"]["text_foreground"]
+        label = PyLabel(text=text, font_size=font_size, color=color)
         label.setMinimumHeight(height)
         label.setAlignment(Qt.AlignLeft)
         label.setFixedWidth(width)
