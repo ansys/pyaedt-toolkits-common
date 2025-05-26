@@ -52,7 +52,7 @@ class SettingsMenu(QObject):
         self.main_window = main_window
         self.ui = main_window.ui
         self.app = self.ui.app
-
+        self.app_color = self.main_window.ui.themes["app_color"]
         self.aedt_version_label = None
         self.aedt_version = None
 
@@ -123,9 +123,11 @@ class SettingsMenu(QObject):
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
             height=40,
-            width=[100, 50, 150],
+            width=[50, 100, 80],
             label=["Graphical", "Non-graphical"],
             font_size=font_size,
+            bg_color=self.app_color["label_off"],
+            active_color=self.app_color["label_on"],
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
