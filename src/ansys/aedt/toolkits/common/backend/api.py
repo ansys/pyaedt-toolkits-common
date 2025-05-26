@@ -570,13 +570,17 @@ class AEDTCommon(Common):
 
         if not app_name:
             app_name = "HFSS"
+        elif app_name not in NAME_TO_AEDT_APP.keys():
+            raise KeyError("Application name '{}' not found.".format(app_name))
 
         # Select app
-        aedt_app = ansys.aedt.core.Hfss
+        aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
+
         if design_name != "No Design":
             project_name = self.get_project_name(project_name)
             active_design = design_name
             if design_name in self.properties.design_list[project_name]:
+                # PyAEDT object with specified design
                 if not self.desktop.odesktop.GetActiveProject():  # pragma: no cover
                     self.desktop.odesktop.SetActiveProject(project_name)
                 self.aedtapp = self.desktop[[project_name, design_name]]
@@ -586,9 +590,10 @@ class AEDTCommon(Common):
                     return False
                 active_design = self.aedtapp.design_name
             elif app_name in list(NAME_TO_AEDT_APP.keys()):
-                aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
+                # Create new design with specified name
                 active_design = design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
+            # No design name specified but application specified
             design_name = ansys.aedt.core.generate_unique_name(app_name)
             aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
             active_design = design_name
