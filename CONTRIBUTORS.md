@@ -13,3 +13,4 @@
 * [Massimo Capodiferro](https://github.com/maxcapodi78)
 * [Maxime Rey](https://github.com/MaxJPRey)
 * [Sébastien Morais](https://github.com/SMoraisAnsys)
+* [Tadahiro Negishi](https://github.com/tadanegishi)
