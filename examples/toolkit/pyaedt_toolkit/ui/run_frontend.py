@@ -24,6 +24,7 @@ from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import HelpMenu
 from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
+from ansys.aedt.toolkits.common.ui.utils.resolution import set_pyside_resolution
 
 # Import general common frontend modules
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
@@ -39,9 +40,7 @@ port = properties.backend_port
 os.environ["QT_API"] = "pyside6"
 os.environ["QT_FONT_DPI"] = "96"
 
-if properties.high_resolution:
-    os.environ["QT_SCALE_FACTOR"] = "2"
-
+set_pyside_resolution(properties, use_tkinter=True)
 properties.version = "example_toolkit_version"
 
 
