@@ -26,6 +26,7 @@ import os
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QFileDialog
 
 
@@ -87,6 +88,7 @@ class SettingsMenu(QObject):
             label="AEDT Version",
             combobox_list=[],
             font_size=font_size,
+            align=False,
         )
 
         self.ui.right_column.menus.browse_aedt_version = row_returns[0]
@@ -109,6 +111,7 @@ class SettingsMenu(QObject):
             label="AEDT Session",
             combobox_list=[],
             font_size=font_size,
+            align=False,
         )
 
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
@@ -128,6 +131,7 @@ class SettingsMenu(QObject):
             font_size=font_size,
             bg_color=self.app_color["label_off"],
             active_color=self.app_color["label_on"],
+            align=False,
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
@@ -199,8 +203,11 @@ class SettingsMenu(QObject):
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
 
     def update_process_id(self):
-        from PySide6.QtWidgets import QComboBox
-
+        success = self.app.check_connection()
+        if not success:
+            msg = "Error getting properties from backend. User interface running without backend"
+            self.ui.update_logger(msg)
+            return
         non_graphical = self.graphical_mode.isChecked()
         item_count = self.aedt_session.count()
 

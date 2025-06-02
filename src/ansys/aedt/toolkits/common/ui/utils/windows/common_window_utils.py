@@ -162,7 +162,7 @@ class CommonWindowUtils(object):
         """
         return self.title_bar_frame.findChild(QPushButton, object_name)
 
-    def add_combobox(self, layout, height=40, width=None, label="label1", combobox_list=None, font_size=12):
+    def add_combobox(self, layout, height=40, width=None, label="label1", combobox_list=None, font_size=12, align=True):
         """
         Adds a label and combobox to a layout.
 
@@ -180,6 +180,8 @@ class CommonWindowUtils(object):
             A list of items to be displayed in the combobox. If not provided, a default list of ['1', '2'] will be used.
         font_size: int, optional
             The font size of the label widget. Default is 12.
+        align: bool, optional
+            Align the label and combobox widgets horizontally. Default is True.
 
         Returns
         -------
@@ -213,13 +215,14 @@ class CommonWindowUtils(object):
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
         layout_row.addWidget(combobox_widget)
-
         label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
-        layout_row.setAlignment(Qt.AlignVCenter)
+
+        if align:
+            layout_row.setAlignment(Qt.AlignVCenter)
 
         return [layout_row, label_widget, combobox_widget]
 
-    def add_textbox(self, layout, height=40, width=None, label="label1", initial_text=None, font_size=12):
+    def add_textbox(self, layout, height=40, width=None, label="label1", initial_text=None, font_size=12, align=True):
         """
         Adds a label and textbox to a layout.
 
@@ -228,15 +231,17 @@ class CommonWindowUtils(object):
         layout: QLayout
             The layout object to which the label and combobox will be added.
         height: int, optional
-            The height of the label and combobox widgets. Default is 40.
+            The height of the label and combobox widgets. The default is `40`.
         width: list, optional
-            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
+            The width of the label and combobox widgets. If not provided, a default width of `[100, 100]` will be used.
         label: str, optional
-            The text to be displayed on the label widget. Default is '"label1"'.
+            The text to be displayed on the label widget. The default is '"label1"'.
         initial_text: str, optional
             Text to be displayed in the textbox.
         font_size: int, optional
-            The font size of the label widget. Default is 12.
+            The font size of the label widget. The default is `12`.
+        align: bool, optional
+            Align the label and combobox widgets horizontally. The default is `True`.
 
         Returns
         -------
@@ -271,7 +276,9 @@ class CommonWindowUtils(object):
         layout_row.addWidget(linebox_widget)
 
         label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
-        layout_row.setAlignment(Qt.AlignVCenter)
+
+        if align:
+            layout_row.setAlignment(Qt.AlignVCenter)
 
         return [layout_row, label_widget, linebox_widget]
 
@@ -288,6 +295,7 @@ class CommonWindowUtils(object):
         text_color_on=None,
         text_color_off=None,
         show_on_off=False,
+        align=True,
     ):
         """
         Add a label and a toggle button to a specified layout.
@@ -316,6 +324,8 @@ class CommonWindowUtils(object):
             Color of the off toggle text. The default is ``text_foreground``.
         show_on_off: bool, optional
             Show on and off text in the toggle. The default value is ``False``.
+        align: bool, optional
+            Align the label and combobox widgets horizontally. Default is True.
 
         Returns
         -------
@@ -360,8 +370,8 @@ class CommonWindowUtils(object):
 
         label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
-
-        layout_row.setAlignment(Qt.AlignVCenter)
+        if align:
+            layout_row.setAlignment(Qt.AlignVCenter)
 
         return layout_row, label1, toggle, label2
 
@@ -482,6 +492,7 @@ class CommonWindowUtils(object):
             layout_row_obj.addWidget(button_obj)
             button_obj.setFixedWidth(width[idx])
             all_objects.append(button_obj)
+            layout_row_obj.setAlignment(Qt.AlignCenter)
 
         return all_objects
 
