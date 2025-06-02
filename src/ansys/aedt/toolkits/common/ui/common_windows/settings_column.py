@@ -123,7 +123,7 @@ class SettingsMenu(QObject):
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
             height=30,
-            width=[50, 100, 80],
+            width=[100, 135, 100],
             label=["Graphical", "Non-graphical"],
             font_size=font_size,
             bg_color=self.app_color["label_off"],

@@ -197,9 +197,9 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(
+            text=label, font_size=font_size, height=height, width=width[0], color=text_foreground
+        )
         layout_row.addWidget(label_widget)
 
         combobox_widget = PyComboBox(
@@ -213,6 +213,9 @@ class CommonWindowUtils(object):
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
         layout_row.addWidget(combobox_widget)
+
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        layout_row.setAlignment(Qt.AlignVCenter)
 
         return [layout_row, label_widget, combobox_widget]
 
@@ -250,9 +253,7 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(label, font_size, height, width[0])
         layout_row.addWidget(label_widget)
 
         linebox_widget = PyLineEdit(
@@ -268,6 +269,9 @@ class CommonWindowUtils(object):
         linebox_widget.setMinimumHeight(height)
         linebox_widget.setFixedWidth(width[1])
         layout_row.addWidget(linebox_widget)
+
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        layout_row.setAlignment(Qt.AlignVCenter)
 
         return [layout_row, label_widget, linebox_widget]
 
@@ -339,9 +343,6 @@ class CommonWindowUtils(object):
         label1 = self._create_label(label[0], font_size, height, width[0])
         layout_row.addWidget(label1)
 
-        spacer1 = QSpacerItem(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer1)
-
         toggle = self._create_toggle(
             width[1],
             height,
@@ -354,14 +355,13 @@ class CommonWindowUtils(object):
         )
         layout_row.addWidget(toggle)
 
-        spacer2 = QSpacerItem(15, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer2)
-
         label2 = self._create_label(label[1], font_size, height, width[2])
         layout_row.addWidget(label2)
 
         label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
+
+        layout_row.setAlignment(Qt.AlignVCenter)
 
         return layout_row, label1, toggle, label2
 
@@ -482,6 +482,7 @@ class CommonWindowUtils(object):
             layout_row_obj.addWidget(button_obj)
             button_obj.setFixedWidth(width[idx])
             all_objects.append(button_obj)
+
         return all_objects
 
     def add_vertical_line(self, layout, top_spacer=None, bot_spacer=None):
