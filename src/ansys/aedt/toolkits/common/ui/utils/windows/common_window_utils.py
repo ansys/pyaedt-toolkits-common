@@ -197,9 +197,11 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(
+            text=label, font_size=font_size, height=height, width=width[0], color=text_foreground
+        )
+        # Label aligned to the left
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         combobox_widget = PyComboBox(
@@ -212,7 +214,9 @@ class CommonWindowUtils(object):
         )
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(combobox_widget)
+
+        # Box aligned to the right
+        layout_row.addWidget(combobox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, combobox_widget]
 
@@ -225,15 +229,15 @@ class CommonWindowUtils(object):
         layout: QLayout
             The layout object to which the label and combobox will be added.
         height: int, optional
-            The height of the label and combobox widgets. Default is 40.
+            The height of the label and combobox widgets. The default is `40`.
         width: list, optional
-            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
+            The width of the label and combobox widgets. If not provided, a default width of `[100, 100]` will be used.
         label: str, optional
-            The text to be displayed on the label widget. Default is '"label1"'.
+            The text to be displayed on the label widget. The default is '"label1"'.
         initial_text: str, optional
             Text to be displayed in the textbox.
         font_size: int, optional
-            The font size of the label widget. Default is 12.
+            The font size of the label widget. The default is `12`.
 
         Returns
         -------
@@ -250,9 +254,8 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(label, font_size, height, width[0])
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         linebox_widget = PyLineEdit(
@@ -267,7 +270,7 @@ class CommonWindowUtils(object):
         )
         linebox_widget.setMinimumHeight(height)
         linebox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(linebox_widget)
+        layout_row.addWidget(linebox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, linebox_widget]
 
@@ -333,14 +336,19 @@ class CommonWindowUtils(object):
         if not text_color_off:
             text_color_off = self.themes["app_color"]["text_foreground"]
 
-        layout_row = QHBoxLayout()
-        layout.addLayout(layout_row)
+        main_row = QHBoxLayout()
+        layout.addLayout(main_row)
 
+        # Left container
+        left_container = QHBoxLayout()
         label1 = self._create_label(label[0], font_size, height, width[0])
-        layout_row.addWidget(label1)
+        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        left_container.addWidget(label1)
+        left_container.addStretch()
+        main_row.addLayout(left_container)
 
-        spacer1 = QSpacerItem(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer1)
+        # Central contained
+        toggle_container = QHBoxLayout()
 
         toggle = self._create_toggle(
             width[1],
@@ -352,18 +360,29 @@ class CommonWindowUtils(object):
             text_color_on=text_color_on,
             text_color_off=text_color_off,
         )
-        layout_row.addWidget(toggle)
 
-        spacer2 = QSpacerItem(15, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer2)
+        if width[2] != 0:
+            # If label2, toggle centered
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter)
+            toggle_container.addStretch()
 
-        label2 = self._create_label(label[1], font_size, height, width[2])
-        layout_row.addWidget(label2)
+            # Right container
+            right_container = QHBoxLayout()
+            right_container.addStretch()
+            label2 = self._create_label(label[1], font_size, height, width[2])
+            label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
+            right_container.addWidget(label2)
+            main_row.addLayout(toggle_container)
+            main_row.addLayout(right_container)
+        else:
+            # If no label2, toggle in the right
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter | Qt.AlignRight)
+            label2 = None
+            main_row.addLayout(toggle_container)
 
-        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
-        label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
-
-        return layout_row, label1, toggle, label2
+        return main_row, label1, toggle, label2
 
     def add_icon_button(self, layout, icon, height=40, width=None, text="lineedit"):
         """
@@ -482,6 +501,8 @@ class CommonWindowUtils(object):
             layout_row_obj.addWidget(button_obj)
             button_obj.setFixedWidth(width[idx])
             all_objects.append(button_obj)
+            layout_row_obj.setAlignment(Qt.AlignCenter)
+
         return all_objects
 
     def add_vertical_line(self, layout, top_spacer=None, bot_spacer=None):
