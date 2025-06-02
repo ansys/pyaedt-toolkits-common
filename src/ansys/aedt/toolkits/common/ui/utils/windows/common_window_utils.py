@@ -344,7 +344,7 @@ class CommonWindowUtils(object):
         label1 = self._create_label(label[0], font_size, height, width[0])
         label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         left_container.addWidget(label1)
-        left_container.addStretch()  # para empujar hacia la izquierda
+        left_container.addStretch()
         main_row.addLayout(left_container)
 
         # Central contained

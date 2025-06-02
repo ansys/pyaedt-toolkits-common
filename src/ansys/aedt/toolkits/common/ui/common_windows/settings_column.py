@@ -118,7 +118,7 @@ class SettingsMenu(QObject):
         self.aedt_session.showPopup = self.update_process_id
 
         # Add line
-        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
+        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 10])
 
         # Non-graphical
         row_returns = self.ui.add_toggle(
