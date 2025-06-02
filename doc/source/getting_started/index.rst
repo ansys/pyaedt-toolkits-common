@@ -17,8 +17,8 @@ Electronics Desktop (AEDT) toolkit.
         :link-type: doc
 
         Learn how to install the PyAEDT Common Toolkit.
-        
-        
+
+
     .. grid-item-card:: Architecture :fa:`person-running`
         :padding: 2 2 2 2
         :link: architecture

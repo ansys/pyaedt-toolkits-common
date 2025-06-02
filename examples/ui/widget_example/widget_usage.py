@@ -57,7 +57,10 @@ class ApplicationWindow(QMainWindow):
             bg_color_pressed="#ddd",
             font_size=10,
         )
-        self.toggle = PyToggle(50, "#777", "#DDD", "#00BCFF", QEasingCurve.OutBounce)
+        self.toggle = PyToggle(50,
+                               "#777",
+                               "#DDD",
+                               "#00BCFF")
 
         # Create a GroupBox for column 3
         column_group3 = QGroupBox()

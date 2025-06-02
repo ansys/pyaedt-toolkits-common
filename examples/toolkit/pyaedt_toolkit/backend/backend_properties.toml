@@ -1,6 +1,6 @@
 [defaults]
 toolkit_name = "example"
-log_file = "example_backend.log"
+log_file = "backend.log"
 debug = false
 
 [example]

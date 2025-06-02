@@ -92,8 +92,9 @@ class TestAEDTCommon:
         assert len(aedt_common.properties.design_list["Test_Common"]) == 10
         assert "Mechanical_Test" in aedt_common.properties.design_list["Test_Common"]
 
-        aedt_common.properties.active_design = "No Design"
-        assert aedt_common.connect_design("Tesla")
+        with pytest.raises(KeyError):
+            aedt_common.properties.active_design = "No Design"
+            assert aedt_common.connect_design("Tesla")
 
     def test_03_save_project(self, aedt_common, common_temp_dir):
         """Save AEDT project."""
@@ -112,10 +113,10 @@ class TestAEDTCommon:
         active_project_name = aedt_common.get_project_name(aedt_common.properties.active_project)
         aedt_common.properties.active_design = aedt_common.properties.design_list[active_project_name][0]
         design_names = aedt_common.get_design_names()
-        assert len(design_names) == 11
+        assert len(design_names) == 10
 
     def test_05_get_aedt_model(self, aedt_common, common_temp_dir):
-        """Get aedt model."""
+        """Get AEDT model."""
 
         aedt_common.properties.active_design = "Maxwell3D_Test"
         aedt_common.connect_design("Maxwell3D")

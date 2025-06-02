@@ -2,13 +2,12 @@
 toolkit_name= "example"
 backend_url= "127.0.0.1"
 backend_port= 5001
-debug= false
+debug= true
 app_name= "Example Wizard"
 main_title= "Amazing Toolkit Wizard"
 welcome_message= "Welcome to the amazing toolkit"
-version= "v0.0.1"
 copyright= "By: slopez"
-year= 2023
+year= 2024
 theme= "ansys_dark.json"
 high_resolution= false
 
