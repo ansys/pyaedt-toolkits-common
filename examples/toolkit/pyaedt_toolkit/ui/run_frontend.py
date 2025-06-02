@@ -40,7 +40,7 @@ port = properties.backend_port
 os.environ["QT_API"] = "pyside6"
 os.environ["QT_FONT_DPI"] = "96"
 
-set_pyside_resolution(properties, use_tkinter=True)
+set_pyside_resolution(properties, use_tkinter=False)
 properties.version = "example_toolkit_version"
 
 

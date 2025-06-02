@@ -26,6 +26,7 @@ import os
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Signal
+from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QFileDialog
 
 
@@ -117,13 +118,13 @@ class SettingsMenu(QObject):
         self.aedt_session.showPopup = self.update_process_id
 
         # Add line
-        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
+        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 10])
 
         # Non-graphical
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
             height=30,
-            width=[50, 100, 80],
+            width=[100, 135, 100],
             label=["Graphical", "Non-graphical"],
             font_size=font_size,
             bg_color=self.app_color["label_off"],
@@ -199,8 +200,11 @@ class SettingsMenu(QObject):
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
 
     def update_process_id(self):
-        from PySide6.QtWidgets import QComboBox
-
+        success = self.app.check_connection()
+        if not success:
+            msg = "Error getting properties from backend. User interface running without backend"
+            self.ui.update_logger(msg)
+            return
         non_graphical = self.graphical_mode.isChecked()
         item_count = self.aedt_session.count()
 
