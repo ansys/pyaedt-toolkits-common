@@ -162,7 +162,7 @@ class CommonWindowUtils(object):
         """
         return self.title_bar_frame.findChild(QPushButton, object_name)
 
-    def add_combobox(self, layout, height=40, width=None, label="label1", combobox_list=None, font_size=12, align=True):
+    def add_combobox(self, layout, height=40, width=None, label="label1", combobox_list=None, font_size=12):
         """
         Adds a label and combobox to a layout.
 
@@ -180,8 +180,6 @@ class CommonWindowUtils(object):
             A list of items to be displayed in the combobox. If not provided, a default list of ['1', '2'] will be used.
         font_size: int, optional
             The font size of the label widget. Default is 12.
-        align: bool, optional
-            Align the label and combobox widgets horizontally. Default is True.
 
         Returns
         -------
@@ -202,6 +200,8 @@ class CommonWindowUtils(object):
         label_widget = self._create_label(
             text=label, font_size=font_size, height=height, width=width[0], color=text_foreground
         )
+        # Label aligned to the left
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         combobox_widget = PyComboBox(
@@ -214,15 +214,13 @@ class CommonWindowUtils(object):
         )
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(combobox_widget)
-        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
 
-        if align:
-            layout_row.setAlignment(Qt.AlignVCenter)
+        # Box aligned to the right
+        layout_row.addWidget(combobox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, combobox_widget]
 
-    def add_textbox(self, layout, height=40, width=None, label="label1", initial_text=None, font_size=12, align=True):
+    def add_textbox(self, layout, height=40, width=None, label="label1", initial_text=None, font_size=12):
         """
         Adds a label and textbox to a layout.
 
@@ -240,8 +238,6 @@ class CommonWindowUtils(object):
             Text to be displayed in the textbox.
         font_size: int, optional
             The font size of the label widget. The default is `12`.
-        align: bool, optional
-            Align the label and combobox widgets horizontally. The default is `True`.
 
         Returns
         -------
@@ -259,6 +255,7 @@ class CommonWindowUtils(object):
         layout.addLayout(layout_row)
 
         label_widget = self._create_label(label, font_size, height, width[0])
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         linebox_widget = PyLineEdit(
@@ -273,12 +270,7 @@ class CommonWindowUtils(object):
         )
         linebox_widget.setMinimumHeight(height)
         linebox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(linebox_widget)
-
-        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
-
-        if align:
-            layout_row.setAlignment(Qt.AlignVCenter)
+        layout_row.addWidget(linebox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, linebox_widget]
 
@@ -295,7 +287,6 @@ class CommonWindowUtils(object):
         text_color_on=None,
         text_color_off=None,
         show_on_off=False,
-        align=True,
     ):
         """
         Add a label and a toggle button to a specified layout.
@@ -324,8 +315,6 @@ class CommonWindowUtils(object):
             Color of the off toggle text. The default is ``text_foreground``.
         show_on_off: bool, optional
             Show on and off text in the toggle. The default value is ``False``.
-        align: bool, optional
-            Align the label and combobox widgets horizontally. Default is True.
 
         Returns
         -------
@@ -347,11 +336,19 @@ class CommonWindowUtils(object):
         if not text_color_off:
             text_color_off = self.themes["app_color"]["text_foreground"]
 
-        layout_row = QHBoxLayout()
-        layout.addLayout(layout_row)
+        main_row = QHBoxLayout()
+        layout.addLayout(main_row)
 
+        # Left container
+        left_container = QHBoxLayout()
         label1 = self._create_label(label[0], font_size, height, width[0])
-        layout_row.addWidget(label1)
+        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        left_container.addWidget(label1)
+        left_container.addStretch()  # para empujar hacia la izquierda
+        main_row.addLayout(left_container)
+
+        # Central contained
+        toggle_container = QHBoxLayout()
 
         toggle = self._create_toggle(
             width[1],
@@ -363,17 +360,29 @@ class CommonWindowUtils(object):
             text_color_on=text_color_on,
             text_color_off=text_color_off,
         )
-        layout_row.addWidget(toggle)
 
-        label2 = self._create_label(label[1], font_size, height, width[2])
-        layout_row.addWidget(label2)
+        if width[2] != 0:
+            # If label2, toggle centered
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter)
+            toggle_container.addStretch()
 
-        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
-        label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
-        if align:
-            layout_row.setAlignment(Qt.AlignVCenter)
+            # Right container
+            right_container = QHBoxLayout()
+            right_container.addStretch()
+            label2 = self._create_label(label[1], font_size, height, width[2])
+            label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
+            right_container.addWidget(label2)
+            main_row.addLayout(toggle_container)
+            main_row.addLayout(right_container)
+        else:
+            # If no label2, toggle in the right
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter | Qt.AlignRight)
+            label2 = None
+            main_row.addLayout(toggle_container)
 
-        return layout_row, label1, toggle, label2
+        return main_row, label1, toggle, label2
 
     def add_icon_button(self, layout, icon, height=40, width=None, text="lineedit"):
         """

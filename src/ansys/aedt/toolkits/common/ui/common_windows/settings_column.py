@@ -88,7 +88,6 @@ class SettingsMenu(QObject):
             label="AEDT Version",
             combobox_list=[],
             font_size=font_size,
-            align=False,
         )
 
         self.ui.right_column.menus.browse_aedt_version = row_returns[0]
@@ -111,7 +110,6 @@ class SettingsMenu(QObject):
             label="AEDT Session",
             combobox_list=[],
             font_size=font_size,
-            align=False,
         )
 
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
@@ -131,7 +129,6 @@ class SettingsMenu(QObject):
             font_size=font_size,
             bg_color=self.app_color["label_off"],
             active_color=self.app_color["label_on"],
-            align=False,
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
