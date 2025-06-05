@@ -8,7 +8,7 @@ Packaging ensures that your toolkit is portable, easy to deploy and runs consist
 
 How to distribute - Windows
 ---------------------------
-The aim is to package our toolkit into a Windows installer (.exe) using NSIS (Nullsoft Scriptable Install System).
+The aim is to package the toolkit into a Windows installer (.exe) using NSIS (Nullsoft Scriptable Install System).
 
 Pre-requisites and setup
 ^^^^^^^^^^^^^^^^^^^^^^^^
