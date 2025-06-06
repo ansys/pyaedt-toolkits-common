@@ -18,6 +18,7 @@ Chocolatey lets you install tools like NSIS easily. For example, you can install
 - Running the following command
 
 .. code:: powershell
+
     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 
 Visit the `Chocolatey website <https://chocolatey.org/install>`_ for more information on the installation process.
@@ -28,6 +29,7 @@ Usually the NSIS is located at ``C:\Program Files (x86)\NSIS``.
 3. Install NSIS using chocolatey
 
 .. code:: powershell
+
     choco install nsis -y
 
 4. Install PyInstaller
@@ -40,12 +42,14 @@ An example can be found in `Antenna Wizard TOML file <https://github.com/ansys/p
 Open the toolkit project in your IDE of choice, activate your virtual environment and run the following command:
 
 .. code::
+
     pip install .[freeze]
 
 5. Extract the toolkit version
 This step requires you to have the `extract_version.py <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/installer/extract_version.py>`_ python script.
 
 .. code::
+
     python installer/extract_version.py
 
 6. Create the standalone executable
@@ -54,6 +58,7 @@ This file plays a key role in how your toolkit is turned into a standalone execu
 It defines the instructions PyInstaller uses to package your toolkit into a single executable file.
 
 .. code::
+
     pyinstaller frozen.spec
 
 7. Create a standalone installer program
@@ -63,7 +68,7 @@ where to install them, shortcuts to create, etc., and it compiles this script in
 In simple terms ``setup.nsi`` contains instructions and by running:
 
 .. code::
+
     makensis setup.nsi
+
 NSIS turns these instructions into a standalone installer program.
-
-
