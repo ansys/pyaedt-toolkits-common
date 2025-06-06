@@ -52,7 +52,7 @@ It defines the instructions PyInstaller uses to package your toolkit into a sing
 
 7. Create a standalone installer program
 This step requires you to have a `setup.nsi` file. An example of such file can be found `here <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/setup.nsi>`_.
-The ``setup.nsi`` file is the NSIS script (a plain text file) that describes how to build the installer, i.e. what files to include,
+The ``setup.nsi`` file is the NSIS script (a plain text file) that describes how to build the installer, that is what files to include,
 where to install them, shortcuts to create, etc., and it compiles this script into a Windows installer executable.
 In simple terms ``setup.nsi`` contains instructions and by running:
 .. code::
