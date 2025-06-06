@@ -45,7 +45,7 @@ Open the toolkit project in your IDE of choice, activate your virtual environmen
 5. Extract the toolkit version
 This step requires you to have the `extract_version.py <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/installer/extract_version.py>`_ python script.
 
-..code::
+.. code::
     python installer/extract_version.py
 
 6. Create the standalone executable
@@ -53,7 +53,7 @@ This step requires you to have a `frozen.spec` file. An example of such file can
 This file plays a key role in how your toolkit is turned into a standalone executable.
 It defines the instructions PyInstaller uses to package your toolkit into a single executable file.
 
-..code::
+.. code::
     pyinstaller frozen.spec
 
 7. Create a standalone installer program
