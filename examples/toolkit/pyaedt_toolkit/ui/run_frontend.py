@@ -35,7 +35,7 @@ from ansys.aedt.toolkits.common.ui.utils.resolution import set_pyside_resolution
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
 
 # Backend URL and port
-if len(sys.argv) == 3 and "PYTEST_CURRENT_TEST" not in os.environ:
+if len(sys.argv) == 3:
     properties.backend_url = sys.argv[1]
     properties.backend_port = int(sys.argv[2])
 

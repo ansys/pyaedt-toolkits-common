@@ -24,7 +24,6 @@ class CreateGeometryThread(QThread):
         self.selected_design = selected_design
 
     def run(self):
-
         success = self.main_window.create_geometry_toolkit(
             self.selected_project, self.selected_design
         )
@@ -175,7 +174,6 @@ class GeometryMenu(object):
         be_properties["example"]["multiplier"] = multiplier
 
         self.main_window.set_properties(be_properties)
-
         if be_properties.get("active_project"):
             self.ui.update_progress(0)
             selected_project = self.main_window.home_menu.project_combobox.currentText()
@@ -213,5 +211,5 @@ class GeometryMenu(object):
             msg = "Geometry created."
             self.ui.update_logger(msg)
         else:
-            msg = f"Failed backend call: {self.main_window.url}"
+            msg = f"Failed backend call: {self.main_window.url}/create_geometry"
             self.ui.update_logger(msg)

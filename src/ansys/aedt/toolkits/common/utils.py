@@ -121,10 +121,7 @@ def run_command(*command, is_linux):
 
 def server_actions(command, name, is_linux):
     """Run command as a separate thread."""
-    kwargs = {"is_linux": is_linux}
-    if "PYTEST_CURRENT_TEST" in os.environ:
-        kwargs["PYTEST_CURRENT_TEST"] = os.environ["PYTEST_CURRENT_TEST"]
-    thread = threading.Thread(target=run_command, args=command, kwargs=kwargs, name=name)
+    thread = threading.Thread(target=run_command, args=command, kwargs={"is_linux": is_linux}, name=name)
     thread.daemon = True
     thread.start()
     return thread
