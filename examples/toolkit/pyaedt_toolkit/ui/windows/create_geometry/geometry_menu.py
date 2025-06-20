@@ -6,8 +6,8 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 
-from windows.create_geometry.geometry_page import Ui_Geometry
-from windows.create_geometry.geometry_column import Ui_LeftColumn
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_page import Ui_Geometry
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_column import Ui_LeftColumn
 
 # toolkit PySide6 Widgets
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
