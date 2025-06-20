@@ -1,6 +1,5 @@
 from unittest.mock import patch
 
-import pytest
 from examples.toolkit.pyaedt_toolkit.ui.run_frontend import ApplicationWindow
 from PySide6.QtWidgets import QApplication
 from PySide6.QtCore import Qt, QTimer, QUrl
