@@ -9,19 +9,7 @@ from PySide6.QtGui import QDesktopServices
 
 from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import ABOUT_TEXT, DOCUMENTATION_URL, ISSUE_TRACKER_URL
 
-MOCK_PROPERTIES = {"version": "0.1", "active_project": "Dummy project", "project_list": ["Dummy project"], "design_list": {"Dummy project": "Dummy design"}}
-
-@pytest.fixture
-def patched_window_methods():
-    with patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.check_connection", return_value=True), \
-         patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.get_properties", return_value=MOCK_PROPERTIES), \
-         patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.installed_versions", return_value=["25.1"]), \
-         patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.SettingsMenu.process_id", return_value=12345), \
-         patch("ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.set_properties", return_value=None):
-        yield
-
-
-def test_windows_about_button(patched_window_methods, qtbot):
+def test_windows_about_button(qtbot):
     """Test the About button in the help menu."""
 
     def check_and_close_msg_box():
@@ -42,7 +30,7 @@ def test_windows_about_button(patched_window_methods, qtbot):
     qtbot.mouseClick(windows.help_menu.help_button, Qt.LeftButton)
 
 @patch.object(QDesktopServices, 'openUrl')
-def test_windows_documentation_online_button(mock_open_url, patched_window_methods, qtbot):
+def test_windows_documentation_online_button(mock_open_url, qtbot):
     """Test the online documentation button in the help menu."""
     EXPECTED_ARGUMENT = QUrl(DOCUMENTATION_URL)
     windows = ApplicationWindow()    
@@ -53,7 +41,7 @@ def test_windows_documentation_online_button(mock_open_url, patched_window_metho
 
 
 @patch.object(QDesktopServices, 'openUrl')
-def test_windows_issue_tracker_button(mock_open_url, patched_window_methods, qtbot):
+def test_windows_issue_tracker_button(mock_open_url, qtbot):
     """Test the issue tracker button in the help menu."""
     EXPECTED_ARGUMENT = QUrl(ISSUE_TRACKER_URL)
     windows = ApplicationWindow()    
