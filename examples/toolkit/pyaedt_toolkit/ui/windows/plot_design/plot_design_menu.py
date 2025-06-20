@@ -10,8 +10,8 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QGridLayout
 from PySide6.QtWidgets import QWidget
-from windows.plot_design.plot_design_column import Ui_LeftColumn
-from windows.plot_design.plot_design_page import Ui_Plot_Design
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_page import Ui_Plot_Design
 
 import tempfile
 from pyvistaqt import BackgroundPlotter

@@ -196,6 +196,13 @@ jobs:
 
           pytest -v -m utils --cov --cov-append
 
+      - name: Test UI
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m ui --cov --cov-append
+
       - name: "Combine coverage files"
         run: |
           .\.venv\Scripts\Activate.ps1

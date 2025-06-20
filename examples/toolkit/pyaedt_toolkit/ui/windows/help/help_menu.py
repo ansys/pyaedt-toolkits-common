@@ -2,8 +2,8 @@ from PySide6 import QtCore, QtGui, QtWidgets
 from PySide6.QtWidgets import QLabel
 from PySide6.QtWidgets import QGridLayout
 from PySide6.QtWidgets import QWidget
-from windows.plot_design.plot_design_column import Ui_LeftColumn
-from windows.plot_design.plot_design_page import Ui_Plot_Design
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_page import Ui_Plot_Design
 
 import tempfile
 from ansys.aedt.toolkits.common import __version__
@@ -45,7 +45,7 @@ class HelpMenu(object):
         self.plot_design_grid = self.plot_design_menu_widget.findChild(QGridLayout, "plot_design_grid")
 
         self.plot_design_button_layout = None
-        self.plot_design_button = None
+        self.help_button = None
         self.online_documentation_button = None
         self.issue_tracker_button = None
 
@@ -79,9 +79,9 @@ class HelpMenu(object):
             font_size=self.main_window.properties.font["title_size"]
         )
         self.plot_design_button_layout = row_returns[0]
-        self.plot_design_button = row_returns[1]
-        self.plot_design_button_layout.addWidget(self.plot_design_button)
-        self.plot_design_button.clicked.connect(self.about_button_clicked)
+        self.help_button = row_returns[1]
+        self.plot_design_button_layout.addWidget(self.help_button)
+        self.help_button.clicked.connect(self.about_button_clicked)
 
         # Documentation button
         row_returns = self.ui.add_n_buttons(
