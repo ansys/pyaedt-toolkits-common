@@ -45,7 +45,7 @@ tests = [
     "pyaedt[all]>=0.15.2",
     "flask",
     "pytest>=7.4.0,<8.5",
-    "pytest-cov>=4.0.0,<6.2",
+    "pytest-cov>=4.0.0,<6.3",
 ]
 doc = [
     "pyaedt[all]>=0.15.2",
