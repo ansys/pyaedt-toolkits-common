@@ -8,19 +8,14 @@ from PySide6.QtWidgets import QApplication
 # isort: off
 # Default user interface properties
 from examples.toolkit.pyaedt_toolkit.ui.models import properties
-# from models import properties
 # isort: on
 
 # Toolkit frontend API
 from examples.toolkit.pyaedt_toolkit.ui.actions import Frontend
-# from actions import Frontend
 
 # Windows
 
 # New windows
-# from windows.create_geometry.geometry_menu import GeometryMenu
-# from windows.plot_design.plot_design_menu import PlotDesignMenu
-# from windows.help.help_menu import HelpMenu
 from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_menu import GeometryMenu
 from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_menu import PlotDesignMenu
 from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import HelpMenu
