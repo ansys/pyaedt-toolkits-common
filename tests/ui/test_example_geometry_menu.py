@@ -16,6 +16,7 @@ def test_windows_default_values(qtbot):
     assert combo.currentText() == "Box"
     assert multiplier.text() == "1"
 
+
 @patch("requests.post")
 @patch.object(PyLogger, "log")
 def test_windows_create_geometry_with_default_values(mock_log, mock_post, qtbot):

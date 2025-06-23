@@ -8,6 +8,7 @@ from PySide6.QtGui import QDesktopServices
 
 from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import ABOUT_TEXT, DOCUMENTATION_URL, ISSUE_TRACKER_URL
 
+
 def test_windows_about_button(qtbot):
     """Test the About button in the help menu."""
 
@@ -27,6 +28,7 @@ def test_windows_about_button(qtbot):
 
     windows = ApplicationWindow()    
     qtbot.mouseClick(windows.help_menu.help_button, Qt.LeftButton)
+
 
 @patch.object(QDesktopServices, 'openUrl')
 def test_windows_documentation_online_button(mock_open_url, qtbot):
