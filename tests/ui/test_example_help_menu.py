@@ -33,7 +33,7 @@ from PySide6.QtGui import QDesktopServices
 from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import ABOUT_TEXT, DOCUMENTATION_URL, ISSUE_TRACKER_URL
 
 
-def test_windows_about_button(qtbot):
+def test_windows_about_button(patched_window_methods, qtbot):
     """Test the About button in the help menu."""
 
     def check_and_close_msg_box():
@@ -55,7 +55,7 @@ def test_windows_about_button(qtbot):
 
 
 @patch.object(QDesktopServices, 'openUrl')
-def test_windows_documentation_online_button(mock_open_url, qtbot):
+def test_windows_documentation_online_button(mock_open_url, patched_window_methods, qtbot):
     """Test the online documentation button in the help menu."""
     EXPECTED_ARGUMENT = QUrl(DOCUMENTATION_URL)
     windows = ApplicationWindow()    
@@ -66,7 +66,7 @@ def test_windows_documentation_online_button(mock_open_url, qtbot):
 
 
 @patch.object(QDesktopServices, 'openUrl')
-def test_windows_issue_tracker_button(mock_open_url, qtbot):
+def test_windows_issue_tracker_button(mock_open_url, patched_window_methods, qtbot):
     """Test the issue tracker button in the help menu."""
     EXPECTED_ARGUMENT = QUrl(ISSUE_TRACKER_URL)
     windows = ApplicationWindow()    

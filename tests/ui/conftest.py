@@ -26,8 +26,13 @@ from unittest.mock import patch
 
 import pytest
 
-MOCK_PROPERTIES = {"version": "0.1", "active_project": "Dummy project", "project_list": ["Dummy project"],
-                   "design_list": {"Dummy project": "Dummy design"}}
+MOCK_PROPERTIES = {
+    "version": "0.1",
+    "active_project": "Dummy project",
+    "project_list": ["Dummy project"],
+    "design_list": {"Dummy project": "Dummy design"},
+    "example": {},
+}
 
 
 @pytest.fixture

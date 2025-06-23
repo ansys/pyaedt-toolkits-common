@@ -31,7 +31,7 @@ from PySide6.QtCore import Qt
 DEFAULT_URL = "http://127.0.0.1:5001"
 
 
-def test_windows_default_values(qtbot):
+def test_windows_default_values(patched_window_methods, qtbot):
     """Test the default values of the geometry menu in the application window."""
     windows = ApplicationWindow()    
     combo = windows.geometry_menu.geometry_combo
@@ -43,7 +43,7 @@ def test_windows_default_values(qtbot):
 
 @patch("requests.post")
 @patch.object(PyLogger, "log")
-def test_windows_create_geometry_with_default_values(mock_log, mock_post, qtbot):
+def test_windows_create_geometry_with_default_values(mock_log, mock_post, patched_window_methods, qtbot):
     """Test the creation of geometry with default values in the geometry menu."""
     windows = ApplicationWindow()
 
