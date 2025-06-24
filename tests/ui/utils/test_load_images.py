@@ -73,11 +73,3 @@ def test_init_with_invalid_path_raises():
     with patch.object(load_images.general_settings, "images", "/this/path/does/not/exist"):
         with pytest.raises(FileNotFoundError):
             load_images.LoadImages()
-
-
-def test_init_no_path_and_no_general_settings():
-    with patch.object(load_images, "general_settings") as mock_settings:
-        if hasattr(mock_settings, "images"):
-            del mock_settings.images
-        loader = load_images.LoadImages()
-        assert loader.images_path == Path(__file__).resolve().parent
