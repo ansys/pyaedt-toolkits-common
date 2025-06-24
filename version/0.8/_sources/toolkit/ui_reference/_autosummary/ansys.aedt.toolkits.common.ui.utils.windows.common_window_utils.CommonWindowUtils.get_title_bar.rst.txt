@@ -1,0 +1,6 @@
+get\_title\_bar
+===============
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.get_title_bar
