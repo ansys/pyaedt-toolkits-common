@@ -210,8 +210,8 @@ jobs:
       - name: "Upload coverage results"
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          path: .cov/total-html
-          name: html-total-coverage
+          path: .cov/total-html-windows
+          name: html-total-coverage-windows
 
       - uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
         with:
@@ -284,6 +284,24 @@ jobs:
           source .venv_linux/bin/activate
           pytest -v -m utils
 
+      - name: Test UI
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m ui --cov --cov-append
+
+      - name: "Upload coverage results"
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          path: .cov/total-html-linux
+          name: html-total-coverage-linux
+
+      - uses: codecov/codecov-action@18283e04ce6e62d37312384ff67231eb8fd56d24 # v5.4.3
+        with:
+          name: codecov-tests-linux
+          files: .cov/total.xml
+          flags: linux_tests
 
   build-library:
     name: "Build library artifacts"
