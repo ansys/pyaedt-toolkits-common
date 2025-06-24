@@ -1,4 +1,6 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2021 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -20,31 +22,29 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""
-Common conftest
-"""
-import os
-from pathlib import Path
-import shutil
-from typing import List
+from unittest.mock import patch
 
 import pytest
 
-UI_TESTS_PREFIX = "tests/ui"
+MOCK_PROPERTIES = {
+    "version": "0.1",
+    "active_project": "Dummy project",
+    "project_list": ["Dummy project"],
+    "design_list": {"Dummy project": "Dummy design"},
+    "example": {},
+}
 
 
-@pytest.fixture(scope="session")
-def common_temp_dir(tmp_path_factory):
-    tmp_dir = tmp_path_factory.mktemp("test_common_toolkit_workflows", numbered=True)
-    src_folder = os.path.join(Path(__file__).parent, "input_data")
-    shutil.copytree(src_folder, os.path.join(tmp_dir, "input_data"))
-
-    yield tmp_dir
-
-
-def pytest_collection_modifyitems(config: pytest.Config, items: List[pytest.Item]):
-    """Hook used to apply marker on tests."""
-    for item in items:
-        # Mark unit, integration and system tests
-        if item.nodeid.startswith(UI_TESTS_PREFIX):
-            item.add_marker(pytest.mark.ui)
+@pytest.fixture
+def patched_window_methods():
+    with (patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.check_connection",
+                return_value=True),
+          patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.get_properties",
+                return_value=MOCK_PROPERTIES),
+          patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.installed_versions",
+                return_value=["25.1"]),
+          patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.SettingsMenu.process_id",
+                return_value=12345),
+          patch("ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.set_properties",
+                return_value=None)):
+        yield
