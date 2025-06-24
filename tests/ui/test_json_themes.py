@@ -73,7 +73,6 @@ def test_export_theme_writes_file(theme_dir):
         patch.object(json_themes.general_settings, "theme", theme_file.name),
         patch("ansys.aedt.toolkits.common.ui.utils.themes.json_themes.Path") as mock_path_class,
     ):
-        # Simular Path(__file__).resolve()
         mock_path_instance = mock_path_class.return_value
         mock_path_instance.resolve.return_value = theme_file
 
