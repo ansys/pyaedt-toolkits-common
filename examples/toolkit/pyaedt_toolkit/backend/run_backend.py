@@ -1,6 +1,6 @@
 import sys
 
-from api import ToolkitBackend
+from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
 
 from ansys.aedt.toolkits.common.backend.multithreading_server import MultithreadingServer
 from ansys.aedt.toolkits.common.backend.rest_api import app
@@ -26,7 +26,14 @@ def create_geometry():
         return jsonify("Geometry not created"), 500
 
 
-if __name__ == "__main__":
+def run_backend(port=0):
+    """Run the server."""
     app.debug = toolkit_api.properties.debug
     server = MultithreadingServer()
-    server.run(host=toolkit_api.properties.url, port=toolkit_api.properties.port, app=app)
+    if port == 0:
+        port = toolkit_api.properties.port
+    server.run(host=toolkit_api.properties.url, port=port, app=app)
+
+
+if __name__ == "__main__":
+    run_backend()
