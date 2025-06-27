@@ -148,7 +148,7 @@ class PlotDesignMenu(object):
 
             plotter = BackgroundPlotter(show=False)
 
-            for element in model_info:
+            for element in model_info:  # pragma: no cover
                 # Decode response
                 encoded_data = model_info[element][0]
                 encoded_data_bytes = bytes(encoded_data, "utf-8")
