@@ -354,20 +354,6 @@ class AEDTCommon(Common):
         self.desktop = None
         self.aedtapp = None
 
-    def handle_export_failure(func):
-        """Error handler."""
-
-        def wrapper(self, *args, **kwargs):
-            try:
-                return func(self, *args, **kwargs)
-            except Exception as e:
-                # Ensure self has the release_aedt method
-                if hasattr(self, "release_aedt") and callable(self.release_aedt):
-                    self.release_aedt()
-                raise e
-
-        return wrapper
-
     def is_aedt_connected(self) -> Tuple[bool, str]:
         """Check if AEDT is connected.
 
@@ -412,7 +398,11 @@ class AEDTCommon(Common):
         # Check if the backend is already connected to an AEDT session
         connected, msg = self.is_aedt_connected()
         if not connected:
-            logger.debug("Launching AEDT.")
+            msg = "Launching AEDT"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 0
+
             ansys.aedt.core.settings.use_grpc_api = self.properties.use_grpc
             ansys.aedt.core.settings.enable_logger = self.properties.debug
 
@@ -437,9 +427,17 @@ class AEDTCommon(Common):
             self.desktop = ansys.aedt.core.Desktop(**desktop_args)
 
             if not self.desktop:  # pragma: no cover
-                logger.error("AEDT not launched.")
+                msg = "AEDT not launched"
+                logger.error(msg)
+                self.properties.state = msg
+                self.properties.progress = 100
                 return False
-            logger.debug("AEDT launched.")
+
+            msg = "AEDT launched"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 50
+
             # Save AEDT session properties
             if self.properties.use_grpc:
                 self.properties.selected_process = self.desktop.port
@@ -456,8 +454,10 @@ class AEDTCommon(Common):
 
             self.release_aedt(False, False)
 
-            logger.debug("AEDT is released and project properties are loaded.")
-
+            msg = "AEDT released and properties loaded"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 100
         return True
 
     def connect_aedt(self) -> bool:
@@ -846,7 +846,6 @@ class AEDTCommon(Common):
 
         return design_list
 
-    @handle_export_failure
     def export_aedt_model(
         self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
     ):
@@ -911,7 +910,6 @@ class AEDTCommon(Common):
             is_student = False
         return version, is_student
 
-    @handle_export_failure
     def __save_project_info(self):
         """Save the project and design information."""
         # Save project and design info

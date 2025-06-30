@@ -28,14 +28,20 @@ def start_backend(pp):
 
 
 def show_splash_and_start_frontend(app, url, port):
-    """Start the frontend process."""
     from examples.toolkit.pyaedt_toolkit.ui.run_frontend import run_frontend
     from examples.toolkit.pyaedt_toolkit.ui.splash import show_splash_screen
 
     splash = show_splash_screen(app)  # Should return the splash widget
-    QTimer.singleShot(7000, splash.close)  # 7 seconds
-    print("Starting frontend...")
-    run_frontend(url, port, app)
+    url_call = f"http://{url}:{port}"
+
+    def check_backend():
+        if check_backend_communication(url_call):
+            splash.close()
+            run_frontend(url, port, app)
+        else:
+            QTimer.singleShot(500, check_backend)  # Check again in 0.5s
+   
+    check_backend()
 
 
 if __name__ == "__main__":
@@ -54,11 +60,13 @@ if __name__ == "__main__":
     python_path = sys.executable
     splash_thread = None
 
+
     def terminate_processes():
         print("Terminating backend and frontend processes...")
         backend_process.terminate()
         backend_process.join()
         print("Processes terminated.")
+
 
     # Clean python processes when script ends
     atexit.register(clean_python_processes, url, port)
@@ -70,20 +78,11 @@ if __name__ == "__main__":
     # Launch backend process
     backend_process = multiprocessing.Process(target=start_backend, args=(new_port,))
     backend_process.start()
-    # app = QApplication(sys.argv)
-    app = QApplication(sys.argv)
-    show_splash_and_start_frontend(app, url, port)
-    app.exec()
-    # Wait for backend to start
-    count = 0
-    while not check_backend_communication(url_call) and count < 10:
-        time.sleep(1)
-        count += 1
-
-    if not check_backend_communication(url_call):
-        raise Exception("Backend communication is not working.")
 
     # Connect to AEDT session if necessary
     process_desktop_properties(is_linux, url_call)
 
-    terminate_processes()
+    app = QApplication(sys.argv)
+    show_splash_and_start_frontend(app, url, port)
+    app.aboutToQuit.connect(terminate_processes)
+    sys.exit(app.exec())
