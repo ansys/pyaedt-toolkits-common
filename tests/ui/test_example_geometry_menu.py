@@ -22,7 +22,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-from unittest.mock import patch
+from unittest.mock import ANY, patch
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 from examples.toolkit.pyaedt_toolkit.ui.run_frontend import ApplicationWindow
@@ -53,7 +53,7 @@ def test_windows_create_geometry_with_default_values(mock_log, mock_post, patche
     geometry_thread = windows.geometry_menu.geometry_thread
     with qtbot.waitSignal(geometry_thread.finished_signal, timeout=1000):
         pass
-    mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry")
+    mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry", timeout=ANY)
 
     assert any("Creating geometry." in call.args[0] for call in mock_log.call_args_list)
     assert any("Geometry created." in call.args[0] for call in mock_log.call_args_list)
