@@ -123,5 +123,5 @@ def test_geometry_button_clicked_no_active_project(mock_get_properties,
 
     qtbot.mouseClick(window.geometry_menu.geometry_button, Qt.LeftButton)
 
-    assert any("Toolkit not connect to AEDT." in call.args[0] for call in mock_log.call_args_list)
+    assert any("Toolkit not connected to AEDT." in call.args[0] for call in mock_log.call_args_list)
     mock_post.assert_not_called()
