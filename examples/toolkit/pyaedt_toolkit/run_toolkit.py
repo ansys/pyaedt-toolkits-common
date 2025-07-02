@@ -12,11 +12,11 @@ from ansys.aedt.toolkits.common.utils import find_free_port
 from ansys.aedt.toolkits.common.utils import is_server_running
 from ansys.aedt.toolkits.common.utils import process_desktop_properties
 
-backend = None
-ui = None
-
 from examples.toolkit.pyaedt_toolkit.backend.models import properties as backend_properties
 from examples.toolkit.pyaedt_toolkit.ui.models import properties as frontend_properties
+
+backend = None
+ui = None
 
 
 def start_backend(pp):

@@ -1,4 +1,5 @@
 import sys
+import warnings
 
 from examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend
 
@@ -26,11 +27,12 @@ def create_geometry():
         return jsonify("Geometry not created"), 500
 
 
-def run_backend(port=0):
+def run_backend(port=None):
     """Run the server."""
     app.debug = toolkit_api.properties.debug
     server = MultithreadingServer()
-    if port == 0:
+    if not port:
+        warnings.warn("Using port value defined in toolkit properties.")
         port = toolkit_api.properties.port
     server.run(host=toolkit_api.properties.url, port=port, app=app)
 
