@@ -193,7 +193,7 @@ class GeometryMenu(object):
             self.geometry_thread.start()
 
         else:
-            self.ui.update_logger("Toolkit not connect to AEDT.")
+            self.ui.update_logger("Toolkit not connected to AEDT.")
 
     def geometry_created_finished(self, success):
         self.ui.update_progress(100)
