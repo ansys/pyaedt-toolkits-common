@@ -35,8 +35,6 @@ import time
 import psutil
 import requests
 
-from ansys.aedt.toolkits.common.ui.actions_generic import DEFAULT_REQUESTS_TIMEOUT
-
 
 def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
@@ -150,7 +148,7 @@ def clean_python_processes(url, port):  # pragma: no cover
 def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     try:
-        response = requests.get(url_call + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
+        response = requests.get(url_call + "/health", timeout=10)
         return response.ok
     except requests.exceptions.RequestException:
         print("Failed to check backend communication.")
