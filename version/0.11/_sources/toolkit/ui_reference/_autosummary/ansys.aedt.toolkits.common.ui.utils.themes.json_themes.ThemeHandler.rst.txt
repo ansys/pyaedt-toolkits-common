@@ -1,0 +1,28 @@
+﻿ThemeHandler
+============
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.themes.json_themes
+
+.. autoclass:: ThemeHandler
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      ThemeHandler.export_theme
+      
+      
+      ThemeHandler.read_theme
+      
+   
+   
+
+   
+   
+   
