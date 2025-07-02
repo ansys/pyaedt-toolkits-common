@@ -150,6 +150,11 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
+      - name: "Install X Virtual Frame Buffer"
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
       - name: Create Python venv
         run: |
           python -m venv .venv
@@ -199,7 +204,7 @@ jobs:
         run: |
           .\.venv\Scripts\Activate.ps1
 
-          pytest -v -m ui --cov --cov-append
+          xvfb-run pytest -v -m ui --cov --cov-append
 
       - name: "Combine coverage files"
         run: |
