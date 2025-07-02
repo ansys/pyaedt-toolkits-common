@@ -142,7 +142,7 @@ def clean_python_processes(url, port):  # pragma: no cover
                 print(f"Killing process {process.pid} on {ip_tmp}:{port_tmp}")
                 process.terminate()
             except psutil.NoSuchProcess:
-                print(f"Process {process.pid} on {ip}:{port_tmp} was already killed")
+                print(f"Process {process.pid} on {ip_tmp}:{port_tmp} was already killed")
 
 
 def check_backend_communication(url_call):  # pragma: no cover
