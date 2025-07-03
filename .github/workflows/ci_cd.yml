@@ -234,11 +234,11 @@ jobs:
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
 
-      - name: "Install X Virtual Frame Buffer"
+      - name: "Install system packages for Linux tests"
         run: |
           sudo apt-get update
-          sudo apt-get install -y xvfb
-          sudo apt-get install -y libfontconfig1-dev \
+          sudo apt-get install -y xvfb \
+            libfontconfig1-dev \
             libfreetype6-dev \
             libx11-dev \
             libx11-xcb-dev \
