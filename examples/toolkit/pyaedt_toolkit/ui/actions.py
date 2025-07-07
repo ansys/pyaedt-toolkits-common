@@ -34,7 +34,7 @@ class Frontend(FrontendGeneric):
 
         self.set_properties(be_properties)
 
-        response = requests.post(self.url + "/create_geometry")
+        response = requests.post(self.url + "/create_geometry", timeout=10)
 
         self.properties.example.primitives_created.append(response.text)
 
