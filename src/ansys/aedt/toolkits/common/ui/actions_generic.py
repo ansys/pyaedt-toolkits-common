@@ -33,6 +33,8 @@ from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
 MSG_TK_RUNNING = "Please wait, toolkit running"
+DEFAULT_REQUESTS_TIMEOUT = 10
+"""Default timeout for requests in seconds."""
 
 
 class FrontendGeneric:
@@ -51,41 +53,51 @@ class FrontendGeneric:
         self.images_path = os.path.join(os.path.dirname(__file__), "images")
 
     @staticmethod
-    def poll_url(url: str, timeout: int = 10):
-        """Perform GET requests on URL.
+    def poll_url(url: str, timeout: int = 10, interval: float = 0.5):
+        """Poll a URL repeatedly until a successful response or a timeout is reached.
 
-        Continuously perform GET requests to the specified URL until a valid response is received.
+        This function sends repeated GET requests to the given URL at a fixed interval,
+        stopping when a success response is received or when the specified timeout is
+        exceeded.
 
         Parameters
         ----------
         url : str
-            URL to poll.
+            The URL to poll.
         timeout : int, optional
-            Time out in seconds. The default is 10 seconds.
+            Maximum total time (in seconds) to continue polling before giving up.
+            Default is 10.
+        interval : float, optional
+            Time (in seconds) to wait between each request attempt.
+            Default is 0.5.
 
         Returns
         -------
-        tuple
-            A 2-tuple containing a string and a boolean.
-            The boolean states if the GET requests succeeded.
-            The string represents the response or exception content.
+        tuple[bool, str | dict]
+            A 2-tuple containing a boolean and a dict or string.
+            The first element is a boolean stating if the GET requests succeeded.
+            The second element is either the response content (parsed as JSON if successful)
+            or a string describing the failure reason.
         """
-        logger.debug(f"Poll url '{url}'")
+        logger.debug(f"Polling url '{url}' for up to {timeout} seconds")
 
-        count = 0
-        response_content = None
+        end_time = time.time() + timeout
         response_success = False
-        try:
-            while not response_success and count < timeout:
-                time.sleep(0.1)
-                response = requests.get(url)
+
+        while time.time() < end_time and not response_success:
+            try:
+                response = requests.get(url, timeout=2.0)
                 response_success = response.ok
-                count += 1
-        except requests.exceptions.RequestException as e:
-            response_content = f"Backend error occurred. Exception {str(e)}"
-        else:
-            response_content = response.json()
-        return response_success, response_content
+                if response_success:
+                    return True, response.json()
+            except requests.exceptions.Timeout as e:
+                logger.debug(f"Timeout while polling {url}: {e}")
+            except requests.exceptions.RequestException as e:
+                logger.debug(f"Request failed while polling {url}: {e}")
+
+            time.sleep(interval)
+
+        return False, f"Polling failed after {timeout} seconds."
 
     def check_connection(self):
         """Check the backend connection.
@@ -113,14 +125,14 @@ class FrontendGeneric:
             ``True`` if the backend is busy, ``False`` otherwise.
         """
         try:
-            response = requests.get(self.url + "/status")
+            response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
             res = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
             return res
         except requests.exceptions.RequestException:
             logger.error("Get backend status failed")
             return False
 
-    def wait_thread(self, timeout: int = 10):
+    def wait_thread(self, timeout: int = DEFAULT_REQUESTS_TIMEOUT):
         """
         Wait thread until backend is idle.
 
@@ -135,11 +147,8 @@ class FrontendGeneric:
             ``True`` when the backend is idle, ``False`` otherwise.
         """
         try:
-            response = requests.get(self.url + "/wait_thread", json=timeout)
-            if response.ok:
-                return True
-            else:
-                return False
+            response = requests.get(self.url + "/wait_thread", timeout=timeout)
+            return response.ok
         except requests.exceptions.RequestException:
             logger.error("Wait thread failed.")
             return False
@@ -154,7 +163,7 @@ class FrontendGeneric:
             A list of installed AEDT versions if successful, ``False`` otherwise.
         """
         try:
-            response = requests.get(self.url + "/installed_versions")
+            response = requests.get(self.url + "/installed_versions", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok:
                 versions = response.json()
                 return versions
@@ -173,7 +182,7 @@ class FrontendGeneric:
             A dictionary of properties if successful, ``False`` otherwise.
         """
         try:
-            response = requests.get(self.url + "/properties")
+            response = requests.get(self.url + "/properties", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok:
                 data = response.json()
                 if data:
@@ -195,7 +204,7 @@ class FrontendGeneric:
             Dictionary of properties to set.
         """
         try:
-            response = requests.put(self.url + "/properties", json=data)
+            response = requests.put(self.url + "/properties", json=data, timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok:
                 return response.json()
             else:
@@ -225,7 +234,7 @@ class FrontendGeneric:
             be_properties["aedt_version"] = version
             be_properties["non_graphical"] = non_graphical
             self.set_properties(be_properties)
-            response = requests.get(self.url + "/aedt_sessions")
+            response = requests.get(self.url + "/aedt_sessions", timeout=DEFAULT_REQUESTS_TIMEOUT)
             sessions = []
             if response.ok:
                 sessions = response.json()
@@ -246,7 +255,7 @@ class FrontendGeneric:
         non_graphical : bool, optional
             Flag indicating whether to run AEDT in non-graphical mode. The default is False.
         """
-        response = requests.get(self.url + "/status")
+        response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
         if res_busy:
@@ -254,7 +263,7 @@ class FrontendGeneric:
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
             self.ui.update_progress(0)
-            response = requests.get(self.url + "/health")
+            response = requests.get(self.url + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok and response.json() == "Toolkit is not connected to AEDT.":
                 be_properties = self.get_properties()
                 if be_properties["selected_process"] == 0 or not self.properties.block_settings_after_load:
@@ -270,7 +279,7 @@ class FrontendGeneric:
                             be_properties["use_grpc"] = False
                             be_properties["selected_process"] = int(text_splitted[1])
                     self.set_properties(be_properties)
-                response = requests.post(self.url + "/launch_aedt")
+                response = requests.post(self.url + "/launch_aedt", timeout=DEFAULT_REQUESTS_TIMEOUT)
 
                 if response.status_code == 200:
                     msg = "Launching AEDT"
@@ -293,7 +302,7 @@ class FrontendGeneric:
         selected_project : str
             The path to the selected AEDT project.
         """
-        response = requests.get(self.url + "/status")
+        response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
         res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
         res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
         if res_busy:
@@ -301,9 +310,9 @@ class FrontendGeneric:
             self.log_and_update_progress(msg, log_level="debug")
         elif res_idle:
             self.ui.update_progress(0)
-            response = requests.get(self.url + "/health")
+            response = requests.get(self.url + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok and response.json() == "Toolkit is not connected to AEDT.":
-                response = requests.post(self.url + "/open_project", data=selected_project)
+                response = requests.post(self.url + "/open_project", data=selected_project, timeout=20)
                 if response.status_code == 200:
                     msg = "Project opened"
                     self.log_and_update_progress(msg, log_level="debug")
@@ -383,6 +392,7 @@ class FrontendGeneric:
                 "export_path": export_path,
                 "export_as_single_objects": export_as_single_objects,
             },
+            timeout=20,
         )
 
         if response.ok:
@@ -482,14 +492,14 @@ class FrontendGeneric:
         )
 
         if file_name:
-            response = requests.get(self.url + "/status")
+            response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
             res_busy = response.ok and response.json() == ToolkitThreadStatus.BUSY.value
             res_idle = response.ok and response.json() == ToolkitThreadStatus.IDLE.value
             if res_busy:
                 msg = MSG_TK_RUNNING
                 self.log_and_update_progress(msg, log_level="debug")
             elif res_idle:
-                response = requests.post(self.url + "/save_project", json=file_name)
+                response = requests.post(self.url + "/save_project", json=file_name, timeout=DEFAULT_REQUESTS_TIMEOUT)
                 if response.ok:
                     msg = "Saving project: {}".format(file_name)
                     self.log_and_update_progress(msg, log_level="debug")
@@ -499,25 +509,25 @@ class FrontendGeneric:
 
     def release_only(self):
         """Release the AEDT desktop without closing projects."""
-        response = requests.get(self.url + "/status")
+        response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
             self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
         else:
             properties = {"close_projects": False, "close_on_exit": False}
             if self.close():
-                requests.post(self.url + "/close_aedt", json=properties)
+                requests.post(self.url + "/close_aedt", json=properties, timeout=20)
 
     def release_and_close(self):
         """Release and close the AEDT desktop."""
-        response = requests.get(self.url + "/status")
+        response = requests.get(self.url + "/status", timeout=DEFAULT_REQUESTS_TIMEOUT)
 
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
             self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
         elif response.ok and response.json() == ToolkitThreadStatus.IDLE.value:
             properties = {"close_projects": True, "close_on_exit": True}
             if self.close():
-                requests.post(self.url + "/close_aedt", json=properties)
+                requests.post(self.url + "/close_aedt", json=properties, timeout=20)
 
     def on_cancel_clicked(self):
         """Handle cancel button click."""
