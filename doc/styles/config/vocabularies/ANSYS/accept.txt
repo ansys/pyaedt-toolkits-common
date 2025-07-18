@@ -45,4 +45,4 @@ Utils
 walkthrough
 Nullsoft
 Scriptable
-[Ss]ynopsys
+synopsys

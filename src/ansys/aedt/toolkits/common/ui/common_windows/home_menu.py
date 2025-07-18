@@ -97,6 +97,8 @@ class HomeMenu(object):
             main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-black.svg")
             if self.ui.themes["theme_name"] == "ansys_dark":
                 main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-white.svg")
+            elif "synopsys" in self.ui.themes["theme_name"]:
+                main_window_logo = self.ui.images_load.image_path("synopsys-logo.svg")
         else:
             main_window_logo = general_settings.logo
         main_logo = QSvgWidget(main_window_logo)
