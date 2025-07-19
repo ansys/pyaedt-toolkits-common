@@ -8,6 +8,7 @@
 
 * [Alberto Di Maria](https://github.com/Alberto-DM)
 * [Arien Sligar](https://github.com/ariensligar)
+* [Eduardo Blanco](https://github.com/eblanco-ansys)
 * [gmalinve](https://github.com/gmalinve)
 * [Kathy Pippert](https://github.com/PipKat)
 * [Massimo Capodiferro](https://github.com/maxcapodi78)
