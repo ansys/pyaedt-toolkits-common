@@ -45,6 +45,9 @@ import os
 import pytest
 
 from tests.backend.conftest import read_local_config, setup_aedt_settings, DEFAULT_CONFIG
+
+from ansys.aedt.toolkits.common.backend.api import AEDTCommon
+
 from ansys.aedt.toolkits.common.backend.rest_api import app
 
 # Setup config
@@ -59,28 +62,41 @@ setup_aedt_settings(config)
 @pytest.fixture(scope="session")
 def client(logger, common_temp_dir):
     """Create a test client."""
+    logger.info("AEDTCommon API initialization")
+    toolkit = AEDTCommon()
+
+    new_properties = {
+        "aedt_version": config["desktop_version"],
+        "non_graphical": config["non_graphical"],
+        "use_grpc": config["use_grpc"],
+        "debug": config["debug"],
+    }
+    aedt_file = os.path.join(common_temp_dir, "input_data", "Test.aedt")
+
+    toolkit.set_properties(new_properties)
+    toolkit.launch_aedt()
+    toolkit.open_project(aedt_file)
+    toolkit.release_aedt()
+
     logger.info("Client initialization")
     app.testing = True
 
+    properties = toolkit.properties
+
     with app.test_client() as client:
-        properties = {
-            "aedt_version": config["desktop_version"],
-            "non_graphical": config["non_graphical"],
-            "use_grpc": config["use_grpc"],
-            "debug": config["debug"],
-        }
-        client.put("/properties", json=properties)
-        client.post("/launch_aedt")
-        timeout = 60
-        client.get("/wait_thread", json=timeout)
 
-        aedt_file = os.path.join(common_temp_dir, "input_data", f"Test_REST_API.aedt")
-        properties = {
-            "active_project": aedt_file
+        new_properties = {
+            "aedt_version": properties.aedt_version,
+            "non_graphical": properties.non_graphical,
+            "use_grpc": properties.use_grpc,
+            "debug": properties.debug,
+            "active_design": properties.active_design,
+            "active_project": properties.active_project,
+            "design_list": properties.design_list,
+            "project_list": properties.project_list,
+            "selected_process": properties.selected_process,
         }
-        client.put("/properties", json=properties)
-
-        client.post("/connect_design", json={"aedtapp": "Icepak"})
+        client.put("/properties", json=new_properties)
 
         yield client
 

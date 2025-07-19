@@ -6,8 +6,8 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 
-from windows.create_geometry.geometry_page import Ui_Geometry
-from windows.create_geometry.geometry_column import Ui_LeftColumn
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_page import Ui_Geometry
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_column import Ui_LeftColumn
 
 # toolkit PySide6 Widgets
 from ansys.aedt.toolkits.common.ui.utils.widgets import PyLabel
@@ -24,7 +24,6 @@ class CreateGeometryThread(QThread):
         self.selected_design = selected_design
 
     def run(self):
-
         success = self.main_window.create_geometry_toolkit(
             self.selected_project, self.selected_design
         )
@@ -175,7 +174,6 @@ class GeometryMenu(object):
         be_properties["example"]["multiplier"] = multiplier
 
         self.main_window.set_properties(be_properties)
-
         if be_properties.get("active_project"):
             self.ui.update_progress(0)
             selected_project = self.main_window.home_menu.project_combobox.currentText()
@@ -195,7 +193,7 @@ class GeometryMenu(object):
             self.geometry_thread.start()
 
         else:
-            self.ui.update_logger("Toolkit not connect to AEDT.")
+            self.ui.update_logger("Toolkit not connected to AEDT.")
 
     def geometry_created_finished(self, success):
         self.ui.update_progress(100)
@@ -213,5 +211,5 @@ class GeometryMenu(object):
             msg = "Geometry created."
             self.ui.update_logger(msg)
         else:
-            msg = f"Failed backend call: {self.main_window.url}"
+            msg = f"Failed backend call: {self.main_window.url}/create_geometry"
             self.ui.update_logger(msg)

@@ -36,23 +36,26 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.9.0",
+    "pyside6==6.9.1",
     "pyqtgraph",
     "qdarkstyle",
-    "pyvistaqt",
+    "pyvistaqt>=0.10,<0.11.3",
 ]
 tests = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pytest>=7.4.0,<8.4",
-    "pytest-cov>=4.0.0,<6.2",
+    "pyside6==6.9.1",
+    "pytest>=7.4.0,<8.5",
+    "pytest-cov>=4.0.0,<6.3",
+    "pytest-qt>=4.0.0,<4.6",
+    "pyvistaqt>=0.10,<0.11.3"
 ]
 doc = [
     "pyaedt[all]>=0.15.2",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.9.0",
+    "pyside6==6.9.1",
     "ansys-sphinx-theme>=0.10.0,<1.4",
-    "numpydoc>=1.5.0,<1.9",
+    "numpydoc>=1.5.0,<1.10",
     "Sphinx>=7.1.0,<8.3",
     "sphinx-copybutton>=0.5.0,<0.6",
     "sphinx-autobuild==2021.3.14; python_version == '3.8'",
