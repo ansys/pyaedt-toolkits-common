@@ -230,8 +230,24 @@ class ApplicationWindow(QMainWindow, Frontend):
                 self.ui.toggle_left_column()
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
+def run_frontend(backend_url="", backend_port=0, app=None):
+    if backend_url:
+        properties.backend_url = backend_url
+    if backend_port:
+        properties.backend_port = backend_port
+
+    run_separately = False
+
+    if not app:
+        run_separately = True
+        app = QApplication(sys.argv)
+
     window = ApplicationWindow()
     window.show()
-    sys.exit(app.exec())
+    app.processEvents()
+    if run_separately:
+        sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    run_frontend()
