@@ -9,6 +9,122 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.13.1 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.13.1>`_ - July 19, 2025
+=========================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update pytest-qt requirement from <4.5,>=4.0.0 to >=4.0.0,<4.6
+          - `#291 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/291>`_
+
+        * - Bump ansys/actions from 10.0.11 to 10.0.12
+          - `#292 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/292>`_
+
+
+  .. tab-item:: Documentation
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update ``contributors.md`` with the latest contributors
+          - `#293 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/293>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update changelog for v0.13.0
+          - `#288 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/288>`_
+
+        * - Update v0.14.dev0
+          - `#289 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/289>`_
+
+        * - Add safety check to all dependencies
+          - `#290 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/290>`_
+
+
+`0.13.0 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.13.0>`_ - July 07, 2025
+=========================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Added
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Add last example tests
+          - `#281 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/281>`_
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update pytest requirement from <8.4,>=7.4.0 to >=7.4.0,<8.5
+          - `#274 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/274>`_
+
+        * - Bump pyside6 from 6.9.0 to 6.9.1
+          - `#275 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/275>`_
+
+        * - Update pytest-cov requirement from <6.2,>=4.0.0 to >=4.0.0,<6.3
+          - `#277 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/277>`_
+
+        * - Update numpydoc requirement from <1.9,>=1.5.0 to >=1.5.0,<1.10
+          - `#287 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/287>`_
+
+
+  .. tab-item:: Documentation
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Added deepwiki badge
+          - `#286 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/286>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update changelog for v0.12.6
+          - `#273 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/273>`_
+
+        * - Cleanup and updates
+          - `#280 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/280>`_
+
+        * - Add vulnerability check and refactor the code accordingly
+          - `#285 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/285>`_
+
+
+  .. tab-item:: Miscellaneous
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Improve example and test ui
+          - `#276 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/276>`_
+
+
 `0.12.6 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.12.6>`_ - June 13, 2025
 =========================================================================================================
 

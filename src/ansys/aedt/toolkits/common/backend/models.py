@@ -53,6 +53,8 @@ class CommonProperties(BaseModel):
     debug: bool = True
     toolkit_name: str = "common"
     log_file: str = "common_backend.log"
+    state: str = ""
+    progress: int = 0
 
 
 class Properties(CommonProperties, validate_assignment=True):

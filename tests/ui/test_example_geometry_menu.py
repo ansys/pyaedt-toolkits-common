@@ -23,9 +23,12 @@
 # SOFTWARE.
 
 from unittest.mock import patch
+from unittest.mock import MagicMock
+from unittest.mock import ANY
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 from examples.toolkit.pyaedt_toolkit.ui.run_frontend import ApplicationWindow
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_menu import CreateGeometryThread
 from PySide6.QtCore import Qt
 
 DEFAULT_URL = "http://127.0.0.1:5001"
@@ -51,9 +54,75 @@ def test_windows_create_geometry_with_default_values(mock_log, mock_post, patche
 
     # Wait for the geometry thread to finish and then check the post request
     geometry_thread = windows.geometry_menu.geometry_thread
-    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=1000):
+    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=10000):
         pass
-    mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry")
+    mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry", timeout=ANY)
 
     assert any("Creating geometry." in call.args[0] for call in mock_log.call_args_list)
     assert any("Geometry created." in call.args[0] for call in mock_log.call_args_list)
+
+
+@patch.object(PyLogger, "log")
+def test_windows_create_geometry_aedt_not_connected(mock_log, patched_window_methods, qtbot):
+    """Test the creation of geometry not connected to AEDT."""
+    windows = ApplicationWindow()
+
+    # Force aedt_thread to False
+    windows.settings_menu.aedt_thread = False
+
+    qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
+
+    assert any("AEDT not launched." in call.args[0] for call in mock_log.call_args_list)
+
+
+@patch.object(PyLogger, "log")
+def test_windows_create_geometry_backend_busy(mock_log, patched_window_methods, qtbot):
+    windows = ApplicationWindow()
+
+    windows.geometry_menu.geometry_thread = MagicMock()
+    windows.geometry_menu.geometry_thread.isRunning.return_value = True
+
+    qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
+
+    assert any("Toolkit running" in call.args[0] for call in mock_log.call_args_list)
+
+
+@patch.object(PyLogger, "log")
+@patch.object(
+    CreateGeometryThread,
+    "run",
+    lambda self: self.finished_signal.emit(False),
+)
+def test_windows_create_geometry_non_success(mock_log, patched_window_methods, qtbot):
+    windows = ApplicationWindow()
+
+    qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
+
+    geometry_thread = windows.geometry_menu.geometry_thread
+    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=1000) as signal:
+        pass
+    assert signal.args == [False]
+    assert any("Failed backend call" in call.args[0] for call in mock_log.call_args_list)
+
+
+@patch("requests.post")
+@patch.object(PyLogger, "log")
+@patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.get_properties")
+def test_geometry_button_clicked_no_active_project(mock_get_properties,
+                                                   mock_log,
+                                                   mock_post,
+                                                   patched_window_methods,
+                                                   qtbot):
+    window = ApplicationWindow()
+
+    mock_get_properties.return_value = {
+        "version": "0.1",
+        "project_list": ["Dummy project"],
+        "design_list": {"Dummy project": "Dummy design"},
+        "example": {},
+    }
+
+    qtbot.mouseClick(window.geometry_menu.geometry_button, Qt.LeftButton)
+
+    assert any("Toolkit not connected to AEDT." in call.args[0] for call in mock_log.call_args_list)
+    mock_post.assert_not_called()

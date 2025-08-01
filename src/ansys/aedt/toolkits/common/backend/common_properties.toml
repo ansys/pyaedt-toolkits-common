@@ -12,3 +12,5 @@ port= 5001
 debug= false
 toolkit_name= "common"
 log_file= "common_backend.log"
+state = ""
+progress = 0

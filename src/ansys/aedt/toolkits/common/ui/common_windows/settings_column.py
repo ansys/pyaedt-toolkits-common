@@ -22,29 +22,53 @@
 # SOFTWARE.
 
 import os
+import time
 
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Signal
+from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QFileDialog
 
 
 class AedtLauncherThread(QThread):
-    finished_signal = Signal(bool)
+    finished = Signal(bool)
+    progress_update = Signal(int)
+    log_update = Signal(str)
 
-    def __init__(self, app, version, session, non_graphical):
+    def __init__(self, main_window, version, session, non_graphical):
         super().__init__()
-        self.app = app
+        self.main_window = main_window
+        self.app = main_window.ui.app
         self.version = version
         self.session = session
         self.non_graphical = non_graphical
         self.aedt_launched = False
 
     def run(self):
+        """
+        Launch AEDT.
+
+        This method handles the main logic for opening AEDT.
+        """
+        self.main_window.set_properties({"state": "AEDT launcher started", "progress": 5})
+
         self.app.launch_aedt(self.version, self.session, self.non_graphical)
-        self.aedt_launched = self.app.wait_thread(120)
-        self.finished_signal.emit(self.aedt_launched)
+
+        finished = False
+
+        while not finished:
+            if not self.main_window.backend_busy():
+                finished = True
+                properties = self.main_window.get_properties()
+                actual_log = properties["state"]
+                self.log_update.emit(actual_log)
+                self.progress_update.emit(properties["progress"])
+            time.sleep(1)
+
+        self.aedt_launched = True
+        self.finished.emit(self.aedt_launched)
 
 
 class SettingsMenu(QObject):
@@ -245,18 +269,20 @@ class SettingsMenu(QObject):
         selected_session = self.aedt_session.currentText()
         selected_version = self.aedt_version.currentText()
         non_graphical = self.graphical_mode.isChecked()
-        self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
-
-        # Connect the AedtLauncher's finished signal to a slot
-        self.aedt_thread.finished_signal.connect(self.handle_aedt_thread_finished)
+        self.aedt_thread = AedtLauncherThread(self.main_window, selected_version, selected_session, non_graphical)
 
         self.aedt_thread.start()
+
+        self.aedt_thread.log_update.connect(self.ui.update_logger)
+        self.aedt_thread.progress_update.connect(self.ui.update_progress)
+        self.aedt_thread.finished.connect(self.handle_aedt_thread_finished)
 
         if self.main_window.properties.block_settings_after_load:
             self.connect_aedt.setEnabled(False)
             self.aedt_session.setEnabled(False)
         self.aedt_version.setEnabled(False)
 
+    @Slot(bool)
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes
         if aedt_launched:
@@ -273,6 +299,9 @@ class SettingsMenu(QObject):
             self.ui.update_logger("AEDT session connected")
         else:
             self.ui.update_logger("AEDT not launched")
+
+        self.aedt_thread.wait()
+        self.aedt_thread.quit()
         self.ui.update_progress(100)
 
     def browse_file(self):
