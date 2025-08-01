@@ -127,7 +127,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Build documentation
-        uses: ansys/actions/doc-build@refactor/windows-doc-build-install-of-miktex
+        uses: ansys/actions/doc-build@8d3e4946f36c2a7d447b92e34b1022a5c9dc77a7 # v10.0.12
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
