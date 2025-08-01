@@ -111,7 +111,7 @@ jobs:
 
   doc-build:
     name: "Build documentation"
-    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
     needs: [ doc-style ]
     timeout-minutes: 20
     steps:
@@ -142,7 +142,7 @@ jobs:
 
   tests_windows:
     name: "Windows Tests"
-    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
     needs: [smoke-tests]
     steps:
       - uses: actions/checkout@v4
@@ -223,7 +223,7 @@ jobs:
 
   tests_linux:
     name: "Linux Tests"
-    runs-on: [self-hosted, pyaedt, toolkits, Linux]
+    runs-on: [self-hosted, Linux, pyaedt-toolkit]
     needs: [ smoke-tests ]
     env:
       ANSYSEM_ROOT252: '/usr/ansys_inc/v252/AnsysEM'
