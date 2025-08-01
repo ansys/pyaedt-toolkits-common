@@ -122,7 +122,7 @@ jobs:
 
   doc-build:
     name: "Build documentation"
-    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
     needs: [ doc-style ]
     timeout-minutes: 20
     steps:
@@ -152,7 +152,7 @@ jobs:
 
   tests_windows:
     name: "Windows Tests"
-    runs-on: [self-hosted, pyaedt, toolkits, Windows]
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
     needs: [smoke-tests]
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -233,10 +233,10 @@ jobs:
 
   tests_linux:
     name: "Linux Tests"
-    runs-on: [self-hosted, pyaedt, toolkits, Linux]
+    runs-on: [self-hosted, Linux, pyaedt-toolkit]
     needs: [ smoke-tests ]
     env:
-      ANSYSEM_ROOT251: '/opt/AnsysEM/v251/AnsysEM'
+      ANSYSEM_ROOT252: '/usr/ansys_inc/v252/AnsysEM'
       ANS_NODEPCHECK: '1'
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -294,35 +294,35 @@ jobs:
       - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m aedt_common_api
 
       - name: Test Common API
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m common_api
 
       - name: Test EDB API
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api
 
       - name: Test REST API
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api
 
       - name: Test utils
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT242 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m utils
 
