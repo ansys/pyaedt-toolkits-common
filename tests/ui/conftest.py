@@ -42,7 +42,7 @@ def patched_window_methods():
           patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.get_properties",
                 return_value=MOCK_PROPERTIES),
           patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.installed_versions",
-                return_value=["25.1"]),
+                return_value=["25.2"]),
           patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.SettingsMenu.process_id",
                 return_value=12345),
           patch("ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.set_properties",
