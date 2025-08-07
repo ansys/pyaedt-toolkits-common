@@ -39,7 +39,6 @@ all = [
     "pyside6==6.9.1",
     "pyqtgraph",
     "qdarkstyle",
-    "pyvistaqt>=0.10,<0.11.3",
 ]
 tests = [
     "pyaedt[all]>=0.15.2",
@@ -48,7 +47,6 @@ tests = [
     "pytest>=7.4.0,<8.5",
     "pytest-cov>=4.0.0,<6.3",
     "pytest-qt>=4.0.0,<4.6",
-    "pyvistaqt>=0.10,<0.11.3"
 ]
 doc = [
     "pyaedt[all]>=0.15.2",

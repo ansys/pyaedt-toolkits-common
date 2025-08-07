@@ -45,9 +45,6 @@ except ImportError:
     from ansys.aedt.toolkits.common import __version__
 
 logger = logging.getLogger(__name__)
-path = pathlib.Path(os.path.join(root_path, "examples"))
-EXAMPLES_DIRECTORY = path.resolve()
-
 
 # Sphinx event hooks
 
@@ -79,7 +76,7 @@ project = "ansys-aedt-toolkits-common"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-cname = os.getenv("DOCUMENTATION_CNAME", "nocname.com")
+cname = os.getenv("DOCUMENTATION_CNAME", default="aedt.common.toolkit.docs.pyansys.com")
 switcher_version = get_version_match(__version__)
 print(copyright)
 

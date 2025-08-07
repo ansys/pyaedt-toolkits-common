@@ -12,10 +12,11 @@ from PySide6.QtWidgets import QGridLayout
 from PySide6.QtWidgets import QWidget
 from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
 from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_page import Ui_Plot_Design
-
+from ansys.tools.visualization_interface import Plotter
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 import tempfile
-from pyvistaqt import BackgroundPlotter
 import base64
+
 import pyvista as pv
 import os
 
@@ -146,7 +147,9 @@ class PlotDesignMenu(object):
         if self.get_model_thread.model_info:
             model_info = self.get_model_thread.model_info
 
-            plotter = BackgroundPlotter(show=False)
+            pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
+            pv_plotter = Plotter(backend=pv_backend)
+            plotter = pv_plotter.backend.pv_interface.scene
 
             for element in model_info:  # pragma: no cover
                 # Decode response
