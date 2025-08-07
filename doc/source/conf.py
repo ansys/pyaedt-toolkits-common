@@ -48,6 +48,7 @@ logger = logging.getLogger(__name__)
 path = pathlib.Path(os.path.join(root_path, "examples"))
 EXAMPLES_DIRECTORY = path.resolve()
 
+
 # Sphinx event hooks
 
 
@@ -69,6 +70,8 @@ def check_pandoc_installed(app):
 def setup(app):
     app.connect("builder-inited", check_pandoc_installed)
 
+
+os.environ["PYANSYS_VISUALIZER_HTML_BACKEND"] = "true"
 
 print(__version__)
 # Project information
@@ -115,7 +118,8 @@ html_theme_options = {
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",
+            # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
