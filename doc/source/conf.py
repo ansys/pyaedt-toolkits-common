@@ -71,6 +71,7 @@ def setup(app):
     app.connect("builder-inited", check_pandoc_installed)
 
 
+os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
 os.environ["PYANSYS_VISUALIZER_HTML_BACKEND"] = "true"
 
 print(__version__)
@@ -132,7 +133,6 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
-    "sphinx.ext.intersphinx",
     "sphinx.ext.coverage",
     "sphinx_copybutton",
     "sphinx_design",
