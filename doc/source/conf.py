@@ -35,18 +35,19 @@ from ansys_sphinx_theme import watermark
 from sphinx.util import logging
 
 root_path = str(pathlib.Path(__file__).parent.parent.parent)
+src_path = pathlib.Path(root_path) / "src"
+
+sys.path.insert(0, str(root_path))
+sys.path.insert(0, str(src_path))
 
 try:
     from ansys.aedt.toolkits.common import __version__
 except ImportError:
     sys.path.append(root_path)
-    src_path = os.path.join(root_path, "src")
-    sys.path.append(src_path)
+    sys.path.append(str(src_path))
     from ansys.aedt.toolkits.common import __version__
 
 logger = logging.getLogger(__name__)
-path = pathlib.Path(os.path.join(root_path, "examples"))
-EXAMPLES_DIRECTORY = path.resolve()
 
 # Sphinx event hooks
 
@@ -70,13 +71,16 @@ def setup(app):
     app.connect("builder-inited", check_pandoc_installed)
 
 
+os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
+os.environ["PYANSYS_VISUALIZER_HTML_BACKEND"] = "true"
+
 print(__version__)
 # Project information
 project = "ansys-aedt-toolkits-common"
 copyright = f"(c) {datetime.now().year} ANSYS, Inc. All rights reserved"
 author = "ANSYS, Inc."
 release = version = __version__
-cname = os.getenv("DOCUMENTATION_CNAME", "nocname.com")
+cname = os.getenv("DOCUMENTATION_CNAME", default="aedt.common.toolkit.docs.pyansys.com")
 switcher_version = get_version_match(__version__)
 print(copyright)
 
@@ -115,7 +119,8 @@ html_theme_options = {
         },
         {
             "name": "Download documentation in PDF",
-            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",  # noqa: E501
+            "url": f"https://{cname}/version/{switcher_version}/_static/assets/download/ansys-aedt-toolkits-common.pdf",
+            # noqa: E501
             "icon": "fa fa-file-pdf fa-fw",
         },
     ],
@@ -128,7 +133,6 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
-    "sphinx.ext.intersphinx",
     "sphinx.ext.coverage",
     "sphinx_copybutton",
     "sphinx_design",
