@@ -18,10 +18,11 @@ left_menu_content_margins= 3
 left_column_size= {minimum= 0, maximum= 250}
 right_column_size= {minimum= 0, maximum= 350}
 progress_size= {minimum= 0, maximum= 100}
-font= {family= "Segoe UI", title_size= 12, text_size= 9}
+font= {family= "Segoe UI", title_size= 10, text_size= 8, combo_size= 8}
 high_resolution= false
 theme= "ansys_dark.json"
 images= ""
+block_settings_after_load=true
 
 [[add_left_menus]]
 btn_icon= "icon_home.svg"

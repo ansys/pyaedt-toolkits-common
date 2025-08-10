@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -21,28 +22,53 @@
 # SOFTWARE.
 
 import os
+import time
 
 from PySide6.QtCore import QObject
 from PySide6.QtCore import QThread
 from PySide6.QtCore import Signal
+from PySide6.QtCore import Slot
+from PySide6.QtWidgets import QComboBox
 from PySide6.QtWidgets import QFileDialog
 
 
 class AedtLauncherThread(QThread):
-    finished_signal = Signal(bool)
+    finished = Signal(bool)
+    progress_update = Signal(int)
+    log_update = Signal(str)
 
-    def __init__(self, app, version, session, non_graphical):
+    def __init__(self, main_window, version, session, non_graphical):
         super().__init__()
-        self.app = app
+        self.main_window = main_window
+        self.app = main_window.ui.app
         self.version = version
         self.session = session
         self.non_graphical = non_graphical
         self.aedt_launched = False
 
     def run(self):
+        """
+        Launch AEDT.
+
+        This method handles the main logic for opening AEDT.
+        """
+        self.main_window.set_properties({"state": "AEDT launcher started", "progress": 5})
+
         self.app.launch_aedt(self.version, self.session, self.non_graphical)
-        self.aedt_launched = self.app.wait_thread(120)
-        self.finished_signal.emit(self.aedt_launched)
+
+        finished = False
+
+        while not finished:
+            if not self.main_window.backend_busy():
+                finished = True
+                properties = self.main_window.get_properties()
+                actual_log = properties["state"]
+                self.log_update.emit(actual_log)
+                self.progress_update.emit(properties["progress"])
+            time.sleep(1)
+
+        self.aedt_launched = True
+        self.finished.emit(self.aedt_launched)
 
 
 class SettingsMenu(QObject):
@@ -51,7 +77,7 @@ class SettingsMenu(QObject):
         self.main_window = main_window
         self.ui = main_window.ui
         self.app = self.ui.app
-
+        self.app_color = self.main_window.ui.themes["app_color"]
         self.aedt_version_label = None
         self.aedt_version = None
 
@@ -77,7 +103,7 @@ class SettingsMenu(QObject):
         self.line4 = None
 
     def setup(self):
-        font_size = self.main_window.properties.font["title_size"]
+        font_size = self.main_window.properties.font["combo_size"]
         # Version row
         row_returns = self.ui.add_combobox(
             self.ui.right_column.menus.settings_vertical_layout,
@@ -95,7 +121,6 @@ class SettingsMenu(QObject):
         self.aedt_version = row_returns[2]
 
         self.aedt_version.currentTextChanged.connect(lambda: self.process_id())
-
         # Add line
         self.line1 = self.ui.add_vertical_line(
             self.ui.right_column.menus.settings_vertical_layout, top_spacer=[0, 10], bot_spacer=[0, 10]
@@ -114,17 +139,20 @@ class SettingsMenu(QObject):
         self.ui.right_column.menus.browse_aedt_session = row_returns[0]
         self.aedt_session_label = row_returns[1]
         self.aedt_session = row_returns[2]
+        self.aedt_session.showPopup = self.update_process_id
 
         # Add line
-        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 20])
+        self.line2 = self.ui.add_vertical_line(self.ui.right_column.menus.settings_vertical_layout, [0, 10], [0, 10])
 
         # Non-graphical
         row_returns = self.ui.add_toggle(
             self.ui.right_column.menus.settings_vertical_layout,
-            height=40,
-            width=[100, 50, 150],
+            height=30,
+            width=[100, 135, 100],
             label=["Graphical", "Non-graphical"],
             font_size=font_size,
+            bg_color=self.app_color["label_off"],
+            active_color=self.app_color["label_on"],
         )
 
         self.ui.left_column.menus.non_graphical_select_row = row_returns[0]
@@ -195,6 +223,37 @@ class SettingsMenu(QObject):
                     else:
                         self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
 
+    def update_process_id(self):
+        success = self.app.check_connection()
+        if not success:
+            msg = "Error getting properties from backend. User interface running without backend"
+            self.ui.update_logger(msg)
+            return
+        non_graphical = self.graphical_mode.isChecked()
+        item_count = self.aedt_session.count()
+
+        # Retrieve all items as a list
+        aedt_sessions_items = [self.aedt_session.itemText(i) for i in range(item_count)]
+        if self.aedt_version.currentText() and self.aedt_version.currentText() != "AEDT not installed":
+            sessions = self.app.find_process_ids(self.aedt_version.currentText(), non_graphical)
+            for session in aedt_sessions_items:
+                try:
+                    session_id = int(session.split(" ")[-1])
+                    if session_id not in sessions and session_id not in sessions.values():
+                        self.aedt_session.removeItem(aedt_sessions_items.index(session))
+                except ValueError:
+                    pass
+            for pid in sessions:
+                if sessions[pid] == -1:
+                    if "Process {}".format(pid) not in aedt_sessions_items:
+                        self.aedt_session.addItem("Process {}".format(pid))
+                elif "Grpc on port {}".format(sessions[pid]) not in aedt_sessions_items:
+                    if "Process {}".format(pid) in aedt_sessions_items:
+                        index = aedt_sessions_items.index("Process {}".format(pid))
+                        self.aedt_session.removeItem(index)
+                    self.aedt_session.addItem("Grpc on port {}".format(sessions[pid]))
+        QComboBox.showPopup(self.aedt_session)
+
     def connect_aedt_directly(
         self,
     ):
@@ -210,18 +269,20 @@ class SettingsMenu(QObject):
         selected_session = self.aedt_session.currentText()
         selected_version = self.aedt_version.currentText()
         non_graphical = self.graphical_mode.isChecked()
-
-        self.aedt_thread = AedtLauncherThread(self.app, selected_version, selected_session, non_graphical)
-
-        # Connect the AedtLauncher's finished signal to a slot
-        self.aedt_thread.finished_signal.connect(self.handle_aedt_thread_finished)
+        self.aedt_thread = AedtLauncherThread(self.main_window, selected_version, selected_session, non_graphical)
 
         self.aedt_thread.start()
 
-        self.connect_aedt.setEnabled(False)
-        self.aedt_version.setEnabled(False)
-        self.aedt_session.setEnabled(False)
+        self.aedt_thread.log_update.connect(self.ui.update_logger)
+        self.aedt_thread.progress_update.connect(self.ui.update_progress)
+        self.aedt_thread.finished.connect(self.handle_aedt_thread_finished)
 
+        if self.main_window.properties.block_settings_after_load:
+            self.connect_aedt.setEnabled(False)
+            self.aedt_session.setEnabled(False)
+        self.aedt_version.setEnabled(False)
+
+    @Slot(bool)
     def handle_aedt_thread_finished(self, aedt_launched):
         # This method will be called when the thread finishes
         if aedt_launched:
@@ -233,10 +294,14 @@ class SettingsMenu(QObject):
             self.app.home_menu.update_design()
             if self.ui.is_right_column_visible():
                 self.ui.toggle_right_column()
-            self.ui.title_bar.menu.setEnabled(False)
+            if self.main_window.properties.block_settings_after_load:
+                self.ui.title_bar.menu.setEnabled(False)
             self.ui.update_logger("AEDT session connected")
         else:
             self.ui.update_logger("AEDT not launched")
+
+        self.aedt_thread.wait()
+        self.aedt_thread.quit()
         self.ui.update_progress(100)
 
     def browse_file(self):

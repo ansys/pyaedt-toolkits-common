@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -31,6 +32,16 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
+from pydantic import ValidationError
+
+from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
+from ansys.aedt.toolkits.common.backend.logger_handler import logger
+from ansys.aedt.toolkits.common.backend.models import common_properties
+from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
+from ansys.aedt.toolkits.common.utils import PropertiesUpdate
+from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
+
+# isort: off
 import ansys.aedt.core
 from ansys.aedt.core import Desktop
 from ansys.aedt.core.generic.general_methods import active_sessions
@@ -44,16 +55,9 @@ else:
 
     list_installed_aedt = aedt_versions.list_installed_ansysem
 
-
 from ansys.aedt.core import generate_unique_project_name
-from pydantic import ValidationError
 
-from ansys.aedt.toolkits.common.backend.constants import NAME_TO_AEDT_APP
-from ansys.aedt.toolkits.common.backend.logger_handler import logger
-from ansys.aedt.toolkits.common.backend.models import common_properties
-from ansys.aedt.toolkits.common.backend.thread_manager import ThreadManager
-from ansys.aedt.toolkits.common.utils import PropertiesUpdate
-from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
+# isort: on
 
 
 @dataclass
@@ -91,7 +95,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2025.1"}
+    >>> new_properties = {"aedt_version": "2025.2"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -178,9 +182,9 @@ class Common:
                                 break
         return is_updated
 
-    def launch_thread(self, process) -> ThreadManager:
+    def launch_thread(self, process, *args) -> ThreadManager:
         """Launch the thread."""
-        return self.thread_manager.launch_thread(process)
+        return self.thread_manager.launch_thread(process, *args)
 
     def get_thread_status(self) -> ToolkitThreadStatus:
         """Get the toolkit thread status.
@@ -224,7 +228,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2024.2", "2025.1"]
+        ["2024.2", "2025.1", "2025.2"]
         """
 
         # Detect existing AEDT installation
@@ -394,7 +398,11 @@ class AEDTCommon(Common):
         # Check if the backend is already connected to an AEDT session
         connected, msg = self.is_aedt_connected()
         if not connected:
-            logger.debug("Launching AEDT.")
+            msg = "Launching AEDT"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 0
+
             ansys.aedt.core.settings.use_grpc_api = self.properties.use_grpc
             ansys.aedt.core.settings.enable_logger = self.properties.debug
 
@@ -408,20 +416,28 @@ class AEDTCommon(Common):
 
             # AEDT with COM
             if self.properties.selected_process == 0:
-                desktop_args["new_desktop_session"] = True
+                desktop_args["new_desktop"] = True
             # AEDT with gRPC
             elif self.properties.use_grpc:  # pragma: no cover
-                desktop_args["new_desktop_session"] = False
+                desktop_args["new_desktop"] = False
                 desktop_args["port"] = self.properties.selected_process
             else:  # pragma: no cover
-                desktop_args["new_desktop_session"] = False
+                desktop_args["new_desktop"] = False
                 desktop_args["aedt_process_id"] = self.properties.selected_process
             self.desktop = ansys.aedt.core.Desktop(**desktop_args)
 
             if not self.desktop:  # pragma: no cover
-                logger.error("AEDT not launched.")
+                msg = "AEDT not launched"
+                logger.error(msg)
+                self.properties.state = msg
+                self.properties.progress = 100
                 return False
-            logger.debug("AEDT launched.")
+
+            msg = "AEDT launched"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 50
+
             # Save AEDT session properties
             if self.properties.use_grpc:
                 self.properties.selected_process = self.desktop.port
@@ -438,8 +454,10 @@ class AEDTCommon(Common):
 
             self.release_aedt(False, False)
 
-            logger.debug("AEDT is released and project properties are loaded.")
-
+            msg = "AEDT released and properties loaded"
+            logger.debug(msg)
+            self.properties.state = msg
+            self.properties.progress = 100
         return True
 
     def connect_aedt(self) -> bool:
@@ -476,10 +494,10 @@ class AEDTCommon(Common):
         version, is_student = self.__get_aedt_version()
 
         desktop_args = {
-            "specified_version": version,
+            "version": version,
             "non_graphical": self.properties.non_graphical,
             "student_version": is_student,
-            "new_desktop_session": False,
+            "new_desktop": False,
         }
         if self.properties.use_grpc:
             desktop_args["port"] = self.properties.selected_process
@@ -552,13 +570,17 @@ class AEDTCommon(Common):
 
         if not app_name:
             app_name = "HFSS"
+        elif app_name not in NAME_TO_AEDT_APP.keys():
+            raise KeyError("Application name '{}' not found.".format(app_name))
 
         # Select app
-        aedt_app = ansys.aedt.core.Hfss
+        aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
+
         if design_name != "No Design":
             project_name = self.get_project_name(project_name)
             active_design = design_name
             if design_name in self.properties.design_list[project_name]:
+                # PyAEDT object with specified design
                 if not self.desktop.odesktop.GetActiveProject():  # pragma: no cover
                     self.desktop.odesktop.SetActiveProject(project_name)
                 self.aedtapp = self.desktop[[project_name, design_name]]
@@ -567,7 +589,11 @@ class AEDTCommon(Common):
                     logger.error("Wrong active project and design.")
                     return False
                 active_design = self.aedtapp.design_name
+            elif app_name in list(NAME_TO_AEDT_APP.keys()):
+                # Create new design with specified name
+                active_design = design_name
         elif app_name in list(NAME_TO_AEDT_APP.keys()):
+            # No design name specified but application specified
             design_name = ansys.aedt.core.generate_unique_name(app_name)
             aedt_app = getattr(ansys.aedt.core, NAME_TO_AEDT_APP[app_name])
             active_design = design_name
@@ -581,12 +607,12 @@ class AEDTCommon(Common):
             version, is_student = self.__get_aedt_version()
 
             aedt_app_args = {
-                "specified_version": version,
+                "version": version,
                 "port": self.properties.selected_process,
                 "non_graphical": self.properties.non_graphical,
-                "new_desktop_session": False,
-                "projectname": project_name,
-                "designname": active_design,
+                "new_desktop": False,
+                "project": project_name,
+                "design": active_design,
                 "student_version": is_student,
             }
             if self.properties.use_grpc:
@@ -892,18 +918,21 @@ class AEDTCommon(Common):
 
         if project_list:
             new_properties["project_list"] = []
-            active_project = self.desktop.odesktop.GetActiveProject()
+            active_project = self.desktop.active_project()
             if not active_project:  # pragma: no cover
-                active_project = self.desktop.odesktop.SetActiveProject(project_list[0])
+                return False
+
             active_project_name = active_project.GetName()
-            active_design = active_project.GetActiveDesign()
+            active_design = None
+            if active_project.GetChildNames():
+                active_design = self.desktop.active_design(active_project)
 
             # Save active design info
             if active_design:
                 active_design_name = active_design.GetName()
-                active_design_name = (
-                    active_design_name if ";" not in active_design_name else active_design_name.split(";")[1]
-                )
+                design_type = active_design.GetDesignType()
+                active_design_name = self.__design_name(active_design_name, design_type)
+
                 new_properties["active_design"] = active_design_name
 
             elif active_project.GetChildNames():  # pragma: no cover
@@ -931,10 +960,21 @@ class AEDTCommon(Common):
 
                 if design_list:
                     for design_name in design_list:
+                        try:
+                            design_type = oproject.GetChildObject(design_name).GetDesignType()
+                        except Exception:
+                            design_type = "Exception"
+                        design_name = self.__design_name(design_name, design_type)
                         new_properties["design_list"][project_name].append(design_name)
 
         if new_properties:
             self.set_properties(new_properties)
+
+    @staticmethod
+    def __design_name(name, solution_type):
+        if solution_type in ["HFSS 3D Layout Design", "Circuit Design", "Maxwell Circuit", "Twin Builder", "Exception"]:
+            name = name if ";" not in name else name.split(";")[1]
+        return name
 
 
 class EDBCommon(Common):

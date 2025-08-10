@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -65,6 +66,7 @@ class UIProperties(BaseModel):
     images: str = ""
     add_left_menus: List[Dict] = Field(default_factory=list)
     add_title_bar_menus: List[Dict] = Field(default_factory=list)
+    block_settings_after_load: bool = True
 
 
 class Properties(UIProperties, validate_assignment=True):

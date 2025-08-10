@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -24,9 +25,9 @@
 
 from enum import Enum
 import os
-import random
+import secrets
 import socket
-import subprocess
+import subprocess  # nosec
 import sys
 import threading
 import time
@@ -37,7 +38,7 @@ import requests
 
 def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
-    with requests.get(url, stream=True) as r:
+    with requests.get(url, stream=True, timeout=60) as r:
         r.raise_for_status()
         with open(local_filename, "wb") as f:
             for chunk in r.iter_content(chunk_size=4096):
@@ -75,7 +76,7 @@ def find_free_port(server="localhost", start_port=5001, max_attempts=50):
         except Exception as e:  # pragma: no cover
             print("An error occurred:", e)
             return False
-        port = random.randint(start_port, start_port + 100)  # pragma: no cover
+        port = secrets.randbelow(101) + start_port  # pragma: no cover
     return False  # pragma: no cover
 
 
@@ -106,15 +107,19 @@ def wait_for_server(server="localhost", port=5001, timeout=10.0):  # pragma: no 
 
 
 def run_command(*command, is_linux):
-    """Run command in subprocess."""
-    create_no_window = 0x08000000 if not is_linux else 0
+    """Run command in subprocess.
+
+    Warning
+    -------
+    The command and its arguments should be trusted and properly validated.
+    Never pass user input directly without sanitization to avoid command injection
+    vulnerabilities.
+    """
+    creationflags = 0 if is_linux else subprocess.CREATE_NO_WINDOW  # nosec
     process = subprocess.Popen(
-        command,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        creationflags=create_no_window,
-    )
-    stdout, stderr = process.communicate()
+        command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, creationflags=creationflags, text=True
+    )  # nosec
+    stdout, _ = process.communicate()
     print(stdout.decode())
 
 
@@ -137,13 +142,13 @@ def clean_python_processes(url, port):  # pragma: no cover
                 print(f"Killing process {process.pid} on {ip_tmp}:{port_tmp}")
                 process.terminate()
             except psutil.NoSuchProcess:
-                print(f"Process {process.pid} on {ip}:{port_tmp} was already killed")
+                print(f"Process {process.pid} on {ip_tmp}:{port_tmp} was already killed")
 
 
 def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     try:
-        response = requests.get(url_call + "/health")
+        response = requests.get(url_call + "/health", timeout=10)
         return response.ok
     except requests.exceptions.RequestException:
         print("Failed to check backend communication.")
@@ -176,12 +181,12 @@ def process_desktop_properties(is_linux, url_call):  # pragma: no cover
             "non_graphical": False,
         }
         try:
-            response = requests.put(url_call + "/properties", json=new_properties)
+            response = requests.put(url_call + "/properties", json=new_properties, timeout=10)
             if not response.ok:
                 return
             print("Connect to AEDT session.")
-            requests.post(url_call + "/launch_aedt")
-            requests.post(url_call + "/wait_thread")
+            requests.post(url_call + "/launch_aedt", timeout=20)
+            requests.post(url_call + "/wait_thread", timeout=10)
         except requests.exceptions.RequestException:
             raise Exception("Properties update failed.")
 

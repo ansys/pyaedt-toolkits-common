@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -196,9 +197,11 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(
+            text=label, font_size=font_size, height=height, width=width[0], color=text_foreground
+        )
+        # Label aligned to the left
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         combobox_widget = PyComboBox(
@@ -211,7 +214,9 @@ class CommonWindowUtils(object):
         )
         combobox_widget.setMinimumHeight(height)
         combobox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(combobox_widget)
+
+        # Box aligned to the right
+        layout_row.addWidget(combobox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, combobox_widget]
 
@@ -224,15 +229,15 @@ class CommonWindowUtils(object):
         layout: QLayout
             The layout object to which the label and combobox will be added.
         height: int, optional
-            The height of the label and combobox widgets. Default is 40.
+            The height of the label and combobox widgets. The default is `40`.
         width: list, optional
-            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.
+            The width of the label and combobox widgets. If not provided, a default width of `[100, 100]` will be used.
         label: str, optional
-            The text to be displayed on the label widget. Default is '"label1"'.
+            The text to be displayed on the label widget. The default is '"label1"'.
         initial_text: str, optional
             Text to be displayed in the textbox.
         font_size: int, optional
-            The font size of the label widget. Default is 12.
+            The font size of the label widget. The default is `12`.
 
         Returns
         -------
@@ -249,9 +254,8 @@ class CommonWindowUtils(object):
         layout_row = QHBoxLayout()
         layout.addLayout(layout_row)
 
-        label_widget = PyLabel(text=label, font_size=font_size, color=text_foreground)
-        label_widget.setMinimumHeight(height)
-        label_widget.setFixedWidth(width[0])
+        label_widget = self._create_label(label, font_size, height, width[0])
+        label_widget.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
         layout_row.addWidget(label_widget)
 
         linebox_widget = PyLineEdit(
@@ -266,11 +270,24 @@ class CommonWindowUtils(object):
         )
         linebox_widget.setMinimumHeight(height)
         linebox_widget.setFixedWidth(width[1])
-        layout_row.addWidget(linebox_widget)
+        layout_row.addWidget(linebox_widget, alignment=Qt.AlignVCenter | Qt.AlignRight)
 
         return [layout_row, label_widget, linebox_widget]
 
-    def add_toggle(self, layout, height=40, width=None, label=None, font_size=12):
+    def add_toggle(
+        self,
+        layout,
+        height=40,
+        width=None,
+        label=None,
+        font_size=12,
+        bg_color=None,
+        circle_color=None,
+        active_color=None,
+        text_color_on=None,
+        text_color_off=None,
+        show_on_off=False,
+    ):
         """
         Add a label and a toggle button to a specified layout.
 
@@ -279,13 +296,25 @@ class CommonWindowUtils(object):
         layout: QLayout
             Layout object to add the label and toggle button to.
         height: int, optional
-            Height of the label and toggle. Default is 40.
+            Height of the label and toggle. The default value is ``40``.
         width: list, optional
-            Width of the label and toggle. Default is [50, 100, 50] if None.
+            Width of the label and toggle. The default is [50, 100, 50] if ``None``.
         label: list of str, optional
-            Label text. Default is ['label1', 'label2'] if None.
+            Label text. The default value is ``['label1', 'label2']``.
         font_size: int, optional
-            Font size for the label text. Default is 12.
+            Font size for the label text. The default value is ``12``.
+        bg_color : str, optional
+            Background color of the toggle switch. The default is ``label_off``.
+        circle_color : str, optional
+            Color of the circle in the toggle switch. The default is ``icon_color``.
+        active_color : str, optional
+            Color of the toggle switch when active. The default is ``label_on``.
+        text_color_on : str, optional
+            Color of the on toggle text. The default is ``text_foreground``.
+        text_color_off : str, optional
+            Color of the off toggle text. The default is ``text_foreground``.
+        show_on_off: bool, optional
+            Show on and off text in the toggle. The default value is ``False``.
 
         Returns
         -------
@@ -296,25 +325,64 @@ class CommonWindowUtils(object):
         label = label or ["label1", "label2"]
         width = width or [50, 100, 50]
 
-        layout_row = QHBoxLayout()
-        layout.addLayout(layout_row)
+        if not bg_color:
+            bg_color = self.themes["app_color"]["label_off"]
+        if not circle_color:
+            circle_color = self.themes["app_color"]["icon_color"]
+        if not active_color:
+            active_color = self.themes["app_color"]["label_on"]
+        if not text_color_on:
+            text_color_on = self.themes["app_color"]["text_foreground"]
+        if not text_color_off:
+            text_color_off = self.themes["app_color"]["text_foreground"]
 
+        main_row = QHBoxLayout()
+        layout.addLayout(main_row)
+
+        # Left container
+        left_container = QHBoxLayout()
         label1 = self._create_label(label[0], font_size, height, width[0])
-        layout_row.addWidget(label1)
+        label1.setAlignment(Qt.AlignVCenter | Qt.AlignLeft)
+        left_container.addWidget(label1)
+        left_container.addStretch()
+        main_row.addLayout(left_container)
 
-        spacer1 = QSpacerItem(0, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer1)
+        # Central contained
+        toggle_container = QHBoxLayout()
 
-        toggle = self._create_toggle(width[1], height)
-        layout_row.addWidget(toggle)
+        toggle = self._create_toggle(
+            width[1],
+            height,
+            bg_color=bg_color,
+            circle_color=circle_color,
+            active_color=active_color,
+            show_on_off=show_on_off,
+            text_color_on=text_color_on,
+            text_color_off=text_color_off,
+        )
 
-        spacer2 = QSpacerItem(15, 0, QSizePolicy.Fixed, QSizePolicy.Fixed)
-        layout_row.addItem(spacer2)
+        if width[2] != 0:
+            # If label2, toggle centered
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter)
+            toggle_container.addStretch()
 
-        label2 = self._create_label(label[1], font_size, height, width[2])
-        layout_row.addWidget(label2)
+            # Right container
+            right_container = QHBoxLayout()
+            right_container.addStretch()
+            label2 = self._create_label(label[1], font_size, height, width[2])
+            label2.setAlignment(Qt.AlignVCenter | Qt.AlignRight)
+            right_container.addWidget(label2)
+            main_row.addLayout(toggle_container)
+            main_row.addLayout(right_container)
+        else:
+            # If no label2, toggle in the right
+            toggle_container.addStretch()
+            toggle_container.addWidget(toggle, alignment=Qt.AlignVCenter | Qt.AlignRight)
+            label2 = None
+            main_row.addLayout(toggle_container)
 
-        return layout_row, label1, toggle, label2
+        return main_row, label1, toggle, label2
 
     def add_icon_button(self, layout, icon, height=40, width=None, text="lineedit"):
         """
@@ -433,6 +501,8 @@ class CommonWindowUtils(object):
             layout_row_obj.addWidget(button_obj)
             button_obj.setFixedWidth(width[idx])
             all_objects.append(button_obj)
+            layout_row_obj.setAlignment(Qt.AlignCenter)
+
         return all_objects
 
     def add_vertical_line(self, layout, top_spacer=None, bot_spacer=None):
@@ -544,15 +614,28 @@ class CommonWindowUtils(object):
         self.group.addAnimation(right_box)
         self.group.start()
 
-    def toggle_progress(self):
+    def toggle_progress(self, mode=0):
         """
-        Toggles the progress row.
+        Toggles the visibility of the progress row.
+
+        Parameters
+        ----------
+        mode : int, optional
+            The mode of the toggle operation. Default is 0.
+            - 0: Toggles the progress row between open and closed states.
+            - 1: Opens the progress row.
+            - 2: Closes the progress row.
         """
         minimum_progress = general_settings.progress_size["minimum"]
         maximum_progress = general_settings.progress_size["maximum"]
-        progress_box_height = self.progress_frame.height()
-        progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
-        self.progress_frame.setMaximumHeight(progress_width)
+        if mode == 0:
+            progress_box_height = self.progress_frame.height()
+            progress_width = maximum_progress if progress_box_height == minimum_progress else minimum_progress
+            self.progress_frame.setMaximumHeight(progress_width)
+        elif mode == 1:
+            self.progress_frame.setMaximumHeight(maximum_progress)
+        else:
+            self.progress_frame.setMaximumHeight(minimum_progress)
 
     def clear_layout(self, layout):
         """Clear all layout."""
@@ -634,18 +717,45 @@ class CommonWindowUtils(object):
         animation.setEasingCurve(QEasingCurve.InOutQuart)
         return animation
 
-    def _create_toggle(self, width, height):
+    def _create_toggle(
+        self,
+        width,
+        height,
+        bg_color=None,
+        circle_color=None,
+        active_color=None,
+        text_color_on=None,
+        text_color_off=None,
+        show_on_off=False,
+    ):
+
+        if not bg_color:
+            bg_color = self.themes["app_color"]["label_off"]
+        if not circle_color:
+            circle_color = self.themes["app_color"]["icon_color"]
+        if not active_color:
+            active_color = self.themes["app_color"]["label_off"]
+        if not text_color_on:
+            text_color_on = self.themes["app_color"]["text_foreground"]
+        if not text_color_off:
+            text_color_off = self.themes["app_color"]["text_foreground"]
+
         toggle = PyToggle(
             width=width,
-            bg_color=self.themes["app_color"]["dark_one"],
-            circle_color=self.themes["app_color"]["icon_color"],
-            active_color=self.themes["app_color"]["dark_one"],
+            bg_color=bg_color,
+            circle_color=circle_color,
+            active_color=active_color,
+            text_color_on=text_color_on,
+            text_color_off=text_color_off,
+            show_on_off=show_on_off,
         )
         toggle.setMaximumHeight(height)
         return toggle
 
-    def _create_label(self, text, font_size, height, width):
-        label = PyLabel(text=text, font_size=font_size, color=self.themes["app_color"]["text_foreground"])
+    def _create_label(self, text, font_size, height, width, color=None):
+        if color is None:
+            color = self.themes["app_color"]["text_foreground"]
+        label = PyLabel(text=text, font_size=font_size, color=color)
         label.setMinimumHeight(height)
         label.setAlignment(Qt.AlignLeft)
         label.setFixedWidth(width)

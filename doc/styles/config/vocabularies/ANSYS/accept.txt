@@ -43,3 +43,5 @@ toolkits
 url
 Utils
 walkthrough
+Nullsoft
+Scriptable

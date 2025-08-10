@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -58,12 +59,14 @@ class HomeMenu(object):
 
     def setup(self):
         # Project row
+        font_size = self.main_window.properties.font["combo_size"]
         row_returns = self.ui.add_combobox(
             self.ui.left_column.menus.home_vertical_layout,
             height=40,
             width=[75, 135],
             label="Project",
             combobox_list=["No Project"],
+            font_size=font_size,
         )
 
         self.ui.left_column.menus.browse_project_group = row_returns[0]
@@ -79,6 +82,7 @@ class HomeMenu(object):
             width=[75, 135],
             label="Design",
             combobox_list=["No Design"],
+            font_size=font_size,
         )
 
         self.ui.left_column.menus.browse_design_group = row_returns[0]

@@ -46,6 +46,13 @@ The PyADT Common Toolkit provides common methods and best practices for creating
 
         Learn how to contribute to the PyAEDT Common Toolkit codebase or documentation.
 
+    .. grid-item-card:: How to distribute :fa:`truck-fast`
+        :padding: 2 2 2 2
+        :link: distributing
+        :link-type: doc
+
+        Learn how to package your toolkit and its dependencies into a distributable format for the end user.
+
 .. toctree::
    :hidden:
 
@@ -54,6 +61,8 @@ The PyADT Common Toolkit provides common methods and best practices for creating
    toolkit/ui
    examples/index
    contributing
+   changelog
+   distributing
 
 What is this library?
 ---------------------

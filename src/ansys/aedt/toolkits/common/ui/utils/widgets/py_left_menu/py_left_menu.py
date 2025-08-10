@@ -1,3 +1,27 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 from PySide6.QtCore import QEasingCurve
 from PySide6.QtCore import QPropertyAnimation
 from PySide6.QtCore import Qt
@@ -215,6 +239,23 @@ class PyLeftMenu(QWidget):
             self.toggle_button.set_icon(self._icon_path)
         self.animation.setEasingCurve(QEasingCurve.InOutCubic)
         self.animation.start()
+
+    def set_visible_button(self, widget: str, visible: bool = True):
+        """
+        Sets the visibility of a QPushButton widget within the UI.
+
+        This method searches for a QPushButton widget by its object name and sets its visibility.
+
+        Parameters
+        ----------
+        widget : str
+            The object name of the QPushButton to modify.
+        visible : bool, optional
+            A boolean indicating whether the button should be visible. The default is `False`.
+        """
+        btn = self.findChild(QPushButton, widget)
+        if btn:
+            btn.setVisible(visible)
 
     def select_only_one(self, widget: str):
         """

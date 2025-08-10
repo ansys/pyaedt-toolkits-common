@@ -10,8 +10,8 @@ from PySide6.QtWidgets import QLineEdit
 from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QGridLayout
 from PySide6.QtWidgets import QWidget
-from windows.plot_design.plot_design_column import Ui_LeftColumn
-from windows.plot_design.plot_design_page import Ui_Plot_Design
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_column import Ui_LeftColumn
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_page import Ui_Plot_Design
 
 import tempfile
 from pyvistaqt import BackgroundPlotter
@@ -148,7 +148,7 @@ class PlotDesignMenu(object):
 
             plotter = BackgroundPlotter(show=False)
 
-            for element in model_info:
+            for element in model_info:  # pragma: no cover
                 # Decode response
                 encoded_data = model_info[element][0]
                 encoded_data_bytes = bytes(encoded_data, "utf-8")

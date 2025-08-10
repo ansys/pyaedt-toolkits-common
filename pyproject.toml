@@ -27,7 +27,7 @@ dependencies = [
     "build==1.2.2.post1",
     "twine==6.1.0",
     "pyaedt>=0.15.2",
-    "pydantic>=2.0,<2.11",
+    "pydantic>=2.0,<2.12",
     "tomli; python_version < '3.12'",
     "attrs<25.2.0"
 ]
@@ -36,23 +36,26 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.8.2.1",
+    "pyside6==6.9.1",
     "pyqtgraph",
     "qdarkstyle",
-    "pyvistaqt",
+    "pyvistaqt>=0.10,<0.11.3",
 ]
 tests = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pytest>=7.4.0,<8.4",
-    "pytest-cov>=4.0.0,<6.1",
+    "pyside6==6.9.1",
+    "pytest>=7.4.0,<8.5",
+    "pytest-cov>=4.0.0,<6.3",
+    "pytest-qt>=4.0.0,<4.6",
+    "pyvistaqt>=0.10,<0.11.3"
 ]
 doc = [
     "pyaedt[all]>=0.15.2",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.8.2.1",
+    "pyside6==6.9.1",
     "ansys-sphinx-theme>=0.10.0,<1.4",
-    "numpydoc>=1.5.0,<1.9",
+    "numpydoc>=1.5.0,<1.10",
     "Sphinx>=7.1.0,<8.3",
     "sphinx-copybutton>=0.5.0,<0.6",
     "sphinx-autobuild==2021.3.14; python_version == '3.8'",
@@ -61,7 +64,7 @@ doc = [
     "sphinx_design",
     "jupytext",
     "ipython>=8.13.0,<9.1",
-    "jupyterlab>=4.0.0,<4.4",
+    "jupyterlab>=4.0.0,<4.5",
     "pypandoc>=1.10.0,<1.16",
 ]
 
@@ -83,7 +86,6 @@ line-length = 120
 profile = "black"
 force_sort_within_sections = true
 line_length = 120
-default_section = "THIRDPARTY"
 src_paths = ["doc", "src", "tests"]
 
 [tool.coverage.run]
@@ -105,3 +107,47 @@ markers = [
     "edb_api: mark test as related to the EDB API.",
     "rest_api: mark test as related to the REST API.",
 ]
+
+[tool.towncrier]
+package = "ansys.aedt.toolkits.common"
+directory = "doc/changelog.d"
+filename = "doc/source/changelog.rst"
+start_string = ".. towncrier release notes start\n"
+template = "doc/changelog.d/changelog_template.jinja"
+title_format = "`{version} <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v{version}>`_ - {project_date}"
+issue_format = "`#{issue} <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/{issue}>`_"
+
+[[tool.towncrier.type]]
+directory = "added"
+name = "Added"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "dependencies"
+name = "Dependencies"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "documentation"
+name = "Documentation"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "fixed"
+name = "Fixed"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "maintenance"
+name = "Maintenance"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "miscellaneous"
+name = "Miscellaneous"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "test"
+name = "Test"
+showcontent = true

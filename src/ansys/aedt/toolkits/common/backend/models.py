@@ -1,6 +1,7 @@
-# Copyright (C) 2023 - 2024 ANSYS, Inc. and/or its affiliates.
-# SPDX-License-Identifier: MIT
+# -*- coding: utf-8 -*-
 #
+# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -38,7 +39,7 @@ from pydantic import Field
 class CommonProperties(BaseModel):
     """Stores common AEDT properties."""
 
-    aedt_version: str = "2025.1"
+    aedt_version: str = "2025.2"
     non_graphical: bool = False
     active_project: str = ""
     active_design: str = ""
@@ -52,6 +53,8 @@ class CommonProperties(BaseModel):
     debug: bool = True
     toolkit_name: str = "common"
     log_file: str = "common_backend.log"
+    state: str = ""
+    progress: int = 0
 
 
 class Properties(CommonProperties, validate_assignment=True):

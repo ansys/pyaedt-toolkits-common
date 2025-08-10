@@ -5,23 +5,26 @@ import sys
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QApplication
 
-# Toolkit frontend API
-from actions import Frontend
-
+# isort: off
 # Default user interface properties
-from models import properties
+from examples.toolkit.pyaedt_toolkit.ui.models import properties
+# isort: on
+
+# Toolkit frontend API
+from examples.toolkit.pyaedt_toolkit.ui.actions import Frontend
 
 # Windows
 
 # New windows
-from windows.create_geometry.geometry_menu import GeometryMenu
-from windows.plot_design.plot_design_menu import PlotDesignMenu
-from windows.help.help_menu import HelpMenu
+from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_menu import GeometryMenu
+from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_menu import PlotDesignMenu
+from examples.toolkit.pyaedt_toolkit.ui.windows.help.help_menu import HelpMenu
 
 # Common windows
 from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import MainWindowLayout
 from ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu
 from ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu
+from ansys.aedt.toolkits.common.ui.utils.resolution import set_pyside_resolution
 
 # Import general common frontend modules
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
@@ -37,8 +40,8 @@ port = properties.backend_port
 os.environ["QT_API"] = "pyside6"
 os.environ["QT_FONT_DPI"] = "96"
 
-if properties.high_resolution:
-    os.environ["QT_SCALE_FACTOR"] = "2"
+set_pyside_resolution(properties, use_tkinter=False)
+properties.version = "example_toolkit_version"
 
 
 class ApplicationWindow(QMainWindow, Frontend):
@@ -227,8 +230,24 @@ class ApplicationWindow(QMainWindow, Frontend):
                 self.ui.toggle_left_column()
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
+def run_frontend(backend_url="", backend_port=0, app=None):
+    if backend_url:
+        properties.backend_url = backend_url
+    if backend_port:
+        properties.backend_port = backend_port
+
+    run_separately = False
+
+    if not app:
+        run_separately = True
+        app = QApplication(sys.argv)
+
     window = ApplicationWindow()
     window.show()
-    sys.exit(app.exec())
+    app.processEvents()
+    if run_separately:
+        sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    run_frontend()

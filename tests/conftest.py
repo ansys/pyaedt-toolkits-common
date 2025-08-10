@@ -26,8 +26,11 @@ Common conftest
 import os
 from pathlib import Path
 import shutil
+from typing import List
 
 import pytest
+
+UI_TESTS_PREFIX = "tests/ui"
 
 
 @pytest.fixture(scope="session")
@@ -37,3 +40,11 @@ def common_temp_dir(tmp_path_factory):
     shutil.copytree(src_folder, os.path.join(tmp_dir, "input_data"))
 
     yield tmp_dir
+
+
+def pytest_collection_modifyitems(config: pytest.Config, items: List[pytest.Item]):
+    """Hook used to apply marker on tests."""
+    for item in items:
+        # Mark unit, integration and system tests
+        if item.nodeid.startswith(UI_TESTS_PREFIX):
+            item.add_marker(pytest.mark.ui)
