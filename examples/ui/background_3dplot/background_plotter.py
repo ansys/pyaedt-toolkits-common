@@ -28,7 +28,7 @@ class ApplicationWindow(QMainWindow):
 
         self.grid_layout = QGridLayout(self.central_widget)
 
-        self.pv_backend = PyVistaBackend()
+        self.pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
         self.pv_plotter = Plotter(backend=self.pv_backend)
         self.plotter = self.pv_plotter.backend.pv_interface.scene
 

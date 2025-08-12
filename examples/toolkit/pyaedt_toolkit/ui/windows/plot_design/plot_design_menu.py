@@ -147,7 +147,7 @@ class PlotDesignMenu(object):
         if self.get_model_thread.model_info:
             model_info = self.get_model_thread.model_info
 
-            pv_backend = PyVistaBackend()
+            pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
             pv_plotter = Plotter(backend=pv_backend)
             plotter = pv_plotter.backend.pv_interface.scene
 
