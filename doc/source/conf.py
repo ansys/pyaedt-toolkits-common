@@ -21,9 +21,10 @@
 # SOFTWARE.
 
 """Sphinx documentation configuration file."""
+
 from datetime import datetime
 import os
-import pathlib
+from pathlib import Path
 import sys
 
 from ansys_sphinx_theme import ansys_favicon
@@ -34,9 +35,8 @@ from ansys_sphinx_theme import latex
 from ansys_sphinx_theme import watermark
 from sphinx.util import logging
 
-root_path = str(pathlib.Path(__file__).parent.parent.parent)
-src_path = pathlib.Path(root_path) / "src"
-
+root_path = str(Path(__file__).parent.parent.parent)
+src_path = Path(root_path) / "src"
 sys.path.insert(0, str(root_path))
 sys.path.insert(0, str(src_path))
 
@@ -44,6 +44,7 @@ try:
     from ansys.aedt.toolkits.common import __version__
 except ImportError:
     sys.path.append(root_path)
+
     sys.path.append(str(src_path))
     from ansys.aedt.toolkits.common import __version__
 
@@ -53,12 +54,12 @@ logger = logging.getLogger(__name__)
 
 
 def check_pandoc_installed(app):
-    """Ensure that pandoc is installed"""
+    """Ensure that pandoc is installed."""
     import pypandoc
 
     try:
         pandoc_path = pypandoc.get_pandoc_path()
-        pandoc_dir = os.path.dirname(pandoc_path)
+        pandoc_dir = str(Path(pandoc_path).parent)
         if pandoc_dir not in os.environ["PATH"].split(os.pathsep):
             logger.info("Pandoc directory is not in $PATH.")
             os.environ["PATH"] += os.pathsep + pandoc_dir
@@ -71,8 +72,8 @@ def setup(app):
     app.connect("builder-inited", check_pandoc_installed)
 
 
-os.environ["PYANSYS_VISUALIZER_DOC_MODE"] = "true"
 os.environ["PYANSYS_VISUALIZER_HTML_BACKEND"] = "true"
+
 
 print(__version__)
 # Project information
@@ -96,7 +97,6 @@ html_context = {
     "doc_path": "doc/source",
 }
 html_theme_options = {
-    "logo": "pyansys",
     "switcher": {
         "json_url": f"https://{cname}/versions.json",
         "version_match": switcher_version,
@@ -133,6 +133,7 @@ extensions = [
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
     "sphinx.ext.autosummary",
+    "sphinx.ext.intersphinx",
     "sphinx.ext.coverage",
     "sphinx_copybutton",
     "sphinx_design",
@@ -232,3 +233,5 @@ latex_additional_files = [watermark, ansys_logo_white, ansys_logo_white_cropped]
 # change the preamble of latex with customized title page
 # variables are the title of pdf, watermark
 latex_elements = {"preamble": latex.generate_preamble(html_title)}
+
+os.environ["PYAEDT_NON_GRAPHICAL"] = "1"
