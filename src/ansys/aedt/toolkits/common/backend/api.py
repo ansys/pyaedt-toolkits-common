@@ -779,6 +779,7 @@ class AEDTCommon(Common):
                 self.properties.project_list.pop(index)
                 self.properties.active_project = project_path
                 self.properties.project_list.append(project_path)
+
                 new_project_name = self.get_project_name(self.properties.active_project)
                 self.properties.design_list[new_project_name] = self.properties.design_list[old_project_name]
                 if old_project_name != new_project_name:
@@ -945,16 +946,19 @@ class AEDTCommon(Common):
 
             # Save active project
             active_project_path = active_project.GetPath()
-            new_properties["active_project"] = os.path.join(active_project_path, active_project_name + ".aedt")
+            project_name = active_project_name + ".aedt"
+            new_properties["active_project"] = str(Path(active_project_path) / project_name)
 
             # Save projects info
             new_properties["design_list"] = {}
             for project in project_list:
                 oproject = self.desktop.odesktop.SetActiveProject(project)
                 project_name = oproject.GetName()
-                project_path = oproject.GetPath()
+                project_path = str(Path(oproject.GetPath()))
                 logger.debug("Project name: {}".format(project_name))
-                new_properties["project_list"].append(os.path.join(project_path, project_name + ".aedt"))
+                project_name_aedt = project_name + ".aedt"
+                new_project = Path(project_path) / project_name_aedt
+                new_properties["project_list"].append(str(new_project))
 
                 new_properties["design_list"][project_name] = []
 
