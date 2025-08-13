@@ -25,6 +25,7 @@ import base64
 from dataclasses import dataclass
 import gc
 import os
+from pathlib import Path
 import time
 from typing import Any
 from typing import Dict
@@ -625,16 +626,17 @@ class AEDTCommon(Common):
             self.__save_project_info()
 
         if self.aedtapp:
-            project_name = self.aedtapp.project_file
-            if self.aedtapp.project_file not in self.properties.project_list:  # pragma: no cover
-                self.properties.project_list.append(project_name)
+            project_name = Path(self.aedtapp.project_file).resolve()
+            normalized_list = [Path(p).resolve() for p in self.properties.project_list]
+            if project_name not in normalized_list:  # pragma: no cover
+                self.properties.project_list.append(str(project_name))
                 self.properties.design_list[self.aedtapp.project_name] = [active_design]
 
             if (
                 self.aedtapp.design_list and active_design not in self.properties.design_list[self.aedtapp.project_name]
             ):  # pragma: no cover
                 self.properties.design_list[self.aedtapp.project_name].append(active_design)
-            self.properties.active_project = project_name
+            self.properties.active_project = str(project_name)
             self.properties.active_design = active_design
             logger.info("Toolkit is connected to AEDT design.")
             return True
