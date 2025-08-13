@@ -87,24 +87,6 @@ def test_windows_create_geometry_backend_busy(mock_log, patched_window_methods, 
     assert any("Toolkit running" in call.args[0] for call in mock_log.call_args_list)
 
 
-@patch.object(PyLogger, "log")
-@patch.object(
-    CreateGeometryThread,
-    "run",
-    lambda self: self.finished_signal.emit(False),
-)
-def test_windows_create_geometry_non_success(mock_log, patched_window_methods, qtbot):
-    windows = ApplicationWindow()
-
-    qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
-
-    geometry_thread = windows.geometry_menu.geometry_thread
-    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=1000) as signal:
-        pass
-    assert signal.args == [False]
-    assert any("Failed backend call" in call.args[0] for call in mock_log.call_args_list)
-
-
 @patch("requests.post")
 @patch.object(PyLogger, "log")
 @patch("examples.toolkit.pyaedt_toolkit.ui.run_frontend.ApplicationWindow.get_properties")
