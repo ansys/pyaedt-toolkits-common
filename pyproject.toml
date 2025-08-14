@@ -39,19 +39,16 @@ all = [
     "pyside6==6.9.1",
     "pyqtgraph",
     "qdarkstyle",
+    "ansys-tools-visualization-interface[pyvistaqt]"
 ]
 tests = [
-    "pyaedt[all]>=0.15.2",
-    "flask",
-    "pyside6==6.9.1",
     "pytest>=7.4.0,<8.5",
     "pytest-cov>=4.0.0,<6.3",
     "pytest-qt>=4.0.0,<4.6",
+    "ansys-aedt-toolkits-common[all]",
 ]
 doc = [
-    "pyaedt[all]>=0.15.2",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.9.1",
     "ansys-sphinx-theme==1.5.3",
     "numpydoc>=1.5.0,<1.10",
     "Sphinx>=7.1.0,<8.3",
@@ -64,7 +61,8 @@ doc = [
     "ipython>=8.13.0,<9.1",
     "jupyterlab>=4.0.0,<4.5",
     "pypandoc>=1.10.0,<1.16",
-    "ipywidgets"
+    "ipywidgets",
+    "ansys-aedt-toolkits-common[all]",
 ]
 
 [tool.flit.module]
