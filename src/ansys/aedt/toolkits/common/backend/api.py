@@ -25,6 +25,7 @@ import base64
 from dataclasses import dataclass
 import gc
 import os
+from pathlib import Path
 import time
 from typing import Any
 from typing import Dict
@@ -95,7 +96,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2025.1"}
+    >>> new_properties = {"aedt_version": "2025.2"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -228,7 +229,7 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2024.2", "2025.1"]
+        ["2024.2", "2025.1", "2025.2"]
         """
 
         # Detect existing AEDT installation
@@ -625,16 +626,17 @@ class AEDTCommon(Common):
             self.__save_project_info()
 
         if self.aedtapp:
-            project_name = self.aedtapp.project_file
-            if self.aedtapp.project_file not in self.properties.project_list:  # pragma: no cover
-                self.properties.project_list.append(project_name)
+            project_name = Path(self.aedtapp.project_file).resolve()
+            normalized_list = [Path(p).resolve() for p in self.properties.project_list]
+            if project_name not in normalized_list:  # pragma: no cover
+                self.properties.project_list.append(str(project_name))
                 self.properties.design_list[self.aedtapp.project_name] = [active_design]
 
             if (
                 self.aedtapp.design_list and active_design not in self.properties.design_list[self.aedtapp.project_name]
             ):  # pragma: no cover
                 self.properties.design_list[self.aedtapp.project_name].append(active_design)
-            self.properties.active_project = project_name
+            self.properties.active_project = str(project_name)
             self.properties.active_design = active_design
             logger.info("Toolkit is connected to AEDT design.")
             return True
@@ -777,6 +779,7 @@ class AEDTCommon(Common):
                 self.properties.project_list.pop(index)
                 self.properties.active_project = project_path
                 self.properties.project_list.append(project_path)
+
                 new_project_name = self.get_project_name(self.properties.active_project)
                 self.properties.design_list[new_project_name] = self.properties.design_list[old_project_name]
                 if old_project_name != new_project_name:
@@ -943,16 +946,19 @@ class AEDTCommon(Common):
 
             # Save active project
             active_project_path = active_project.GetPath()
-            new_properties["active_project"] = os.path.join(active_project_path, active_project_name + ".aedt")
+            project_name = active_project_name + ".aedt"
+            new_properties["active_project"] = str(Path(active_project_path) / project_name)
 
             # Save projects info
             new_properties["design_list"] = {}
             for project in project_list:
                 oproject = self.desktop.odesktop.SetActiveProject(project)
                 project_name = oproject.GetName()
-                project_path = oproject.GetPath()
+                project_path = str(Path(oproject.GetPath()))
                 logger.debug("Project name: {}".format(project_name))
-                new_properties["project_list"].append(os.path.join(project_path, project_name + ".aedt"))
+                project_name_aedt = project_name + ".aedt"
+                new_project = Path(project_path) / project_name_aedt
+                new_properties["project_list"].append(str(new_project))
 
                 new_properties["design_list"][project_name] = []
 
