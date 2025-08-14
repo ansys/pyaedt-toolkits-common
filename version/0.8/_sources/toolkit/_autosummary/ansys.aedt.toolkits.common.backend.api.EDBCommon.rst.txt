@@ -1,0 +1,55 @@
+﻿EDBCommon
+=========
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. autoclass:: EDBCommon
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      EDBCommon.aedt_sessions
+      
+      
+      EDBCommon.close_edb
+      
+      
+      EDBCommon.get_properties
+      
+      
+      EDBCommon.get_thread_status
+      
+      
+      EDBCommon.installed_aedt_version
+      
+      
+      EDBCommon.launch_thread
+      
+      
+      EDBCommon.load_edb
+      
+      
+      EDBCommon.save_edb
+      
+      
+      EDBCommon.serialize_obj_base64
+      
+      
+      EDBCommon.set_properties
+      
+      
+      EDBCommon.wait_to_be_idle
+      
+   
+   
+
+   
+   
+   
