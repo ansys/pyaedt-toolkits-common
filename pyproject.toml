@@ -36,7 +36,7 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.9.1",
+    "pyside6==6.9.0",
     "pyqtgraph",
     "qdarkstyle",
     "pyvistaqt>=0.10,<0.11.3",
