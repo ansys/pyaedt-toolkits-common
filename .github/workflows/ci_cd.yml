@@ -332,6 +332,12 @@ jobs:
           source .venv_linux/bin/activate
           xvfb-run pytest -v -m ui --cov --cov-append
 
+      - name: Combine coverage files
+        run: |
+          source .venv_linux/bin/activate
+          python -m coverage html -d .cov\total-html-linux
+          python -m coverage xml -o .cov\total-linux.xml
+
       - name: "Upload coverage results"
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
