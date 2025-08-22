@@ -24,7 +24,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "build==1.2.2.post1",
+    "build==1.3.0",
     "twine==6.1.0",
     "pyaedt>=0.15.2",
     "pydantic>=2.0,<2.12",
@@ -36,7 +36,7 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.9.1",
+    "pyside6==6.9.0",
     "pyqtgraph",
     "qdarkstyle",
     "pyvistaqt>=0.10,<0.11.3",
