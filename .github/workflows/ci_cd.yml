@@ -42,18 +42,6 @@ jobs:
           bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
           use-upper-case: true
 
-  vulnerabilities:
-    name: "Vulnerabilities"
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/check-vulnerabilities@1096998b81f7ebdea116b683e11f3a8bda759ca6 # v10.0.14
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          python-package-name: ${{ env.LIBRARY_NAME }}
-          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-          dev-mode: ${{ github.ref != 'refs/heads/main' }}
-          extra-targets: 'all'
-
   # NOTE: We do not allow dependabot to trigger the CI/CD pipeline automatically.
   # This is to mitigate supply chain attacks, where a malicious dependency update
   # could execute arbitrary code in our build environment.
@@ -85,6 +73,18 @@ jobs:
           echo "::warning::PyAnsys CI bot is not allowed to trigger this workflow in dependabot's PR. Please review carefully the changes before running the workflow manually."
           exit 1
 
+  vulnerabilities:
+    name: "Vulnerabilities"
+    runs-on: ubuntu-latest
+    needs: [ block-pyansys-ci-bot ]
+    steps:
+      - uses: ansys/actions/check-vulnerabilities@1096998b81f7ebdea116b683e11f3a8bda759ca6 # v10.0.14
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-package-name: ${{ env.LIBRARY_NAME }}
+          token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+          dev-mode: ${{ github.ref != 'refs/heads/main' }}
+          extra-targets: 'all'
 
   pr-title:
     name: Check the title of the PR (if needed)
@@ -104,6 +104,7 @@ jobs:
 
   code-style:
     name: "Code style"
+    needs: [ pr-title ]
     runs-on: ubuntu-latest
     steps:
       - uses: ansys/actions/code-style@1096998b81f7ebdea116b683e11f3a8bda759ca6 # v10.0.14
@@ -113,6 +114,7 @@ jobs:
 
   doc-style:
     name: "Documentation style"
+    needs: [ code-style ]
     runs-on: ubuntu-latest
     steps:
       - uses: ansys/actions/doc-style@1096998b81f7ebdea116b683e11f3a8bda759ca6 # v10.0.14
