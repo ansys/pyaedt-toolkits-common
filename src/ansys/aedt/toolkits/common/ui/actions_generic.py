@@ -35,6 +35,8 @@ from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 MSG_TK_RUNNING = "Please wait, toolkit running"
 DEFAULT_REQUESTS_TIMEOUT = 10
 """Default timeout for requests in seconds."""
+DEFAULT_AEDT_SESSION_VALUE = "New Session"
+"""Default value for AEDT session selection in the UI."""
 
 
 class FrontendGeneric:
@@ -269,7 +271,7 @@ class FrontendGeneric:
                 if be_properties["selected_process"] == 0 or not self.properties.block_settings_after_load:
                     be_properties["aedt_version"] = selected_version
                     be_properties["non_graphical"] = non_graphical
-                    if selected_process != "New Session":
+                    if selected_process != DEFAULT_AEDT_SESSION_VALUE:
                         be_properties["non_graphical"] = False
                         text_splitted = selected_process.split(" ")
                         if len(text_splitted) == 4:
