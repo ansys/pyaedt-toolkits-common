@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit_core >=3.2,<3.11"]
+requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
@@ -36,12 +36,15 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.9.1",
+    "pyside6==6.9.0",
     "pyqtgraph",
     "qdarkstyle",
     "ansys-tools-visualization-interface[pyvistaqt]"
 ]
 tests = [
+    "pyaedt[all]>=0.15.2",
+    "flask",
+    "pyside6==6.9.0",
     "pytest>=7.4.0,<8.5",
     "pytest-cov>=4.0.0,<6.3",
     "pytest-qt>=4.0.0,<4.6",
@@ -49,6 +52,8 @@ tests = [
 ]
 doc = [
     "recommonmark>=0.7.0,<0.8",
+    "pyside6==6.9.0",
+    "ansys-sphinx-theme>=0.10.0,<1.4",
     "ansys-sphinx-theme==1.5.3",
     "numpydoc>=1.5.0,<1.10",
     "Sphinx>=7.1.0,<8.3",

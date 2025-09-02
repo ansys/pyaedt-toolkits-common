@@ -9,6 +9,73 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.13.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.13.3>`_ - August 21, 2025
+===========================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump actions/checkout from 4.2.2 to 5.0.0
+          - `#304 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/304>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.13.2
+          - `#303 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/303>`_
+
+        * - Revert pyside6 6.9.0
+          - `#305 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/305>`_
+
+
+`0.13.2 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.13.2>`_ - August 14, 2025
+===========================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump ansys/actions from 10.0.12 to 10.0.14
+          - `#300 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/300>`_
+
+        * - Bump actions/download-artifact from 4.3.0 to 5.0.0
+          - `#301 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/301>`_
+
+        * - Bump build from 1.2.2.post1 to 1.3.0
+          - `#302 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/302>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update changelog for v0.13.1
+          - `#294 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/294>`_
+
+        * - Pin vtk-osmesa version
+          - `#296 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/296>`_
+
+        * - Use aedt 2025r2
+          - `#297 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/297>`_
+
+
 `0.13.1 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.13.1>`_ - July 19, 2025
 =========================================================================================================
 

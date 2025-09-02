@@ -174,8 +174,9 @@ class Common:
                 setattr(properties, key, value)
                 is_updated = True
             if not is_updated:
-                if hasattr(properties, "model_fields"):
-                    for attr_name in properties.model_fields:
+                model_cls = type(properties)
+                if hasattr(model_cls, "model_fields"):
+                    for attr_name in model_cls.model_fields:
                         attr = getattr(properties, attr_name)
                         if hasattr(attr, "__dict__"):
                             is_updated = self._update_properties(attr, data)
