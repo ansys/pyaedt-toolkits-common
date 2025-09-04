@@ -78,7 +78,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ block-pyansys-ci-bot ]
     steps:
-      - uses: ansys/actions/check-pr-title@d93d46bd89025d3c78a0d18a68a9f16434c74382 # v10.0.15
+      - uses: ansys/actions/check-vulnerabilities@d93d46bd89025d3c78a0d18a68a9f16434c74382 # v10.0.15
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
