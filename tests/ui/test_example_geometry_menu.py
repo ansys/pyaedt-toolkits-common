@@ -26,23 +26,13 @@ from unittest.mock import patch
 from unittest.mock import MagicMock
 from unittest.mock import ANY
 
-# from PIL.ImageMath import lambda_eval
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 from examples.toolkit.pyaedt_toolkit.ui.run_frontend import ApplicationWindow
 from examples.toolkit.pyaedt_toolkit.ui.windows.create_geometry.geometry_menu import CreateGeometryThread
 from PySide6.QtCore import Qt
-from PySide6.QtCore import QTimer
-from PySide6.QtCore import QThread
-from PySide6.QtCore import Signal
 
 DEFAULT_URL = "http://127.0.0.1:5001"
 
-
-class FakeCreateGeometryThread(QThread):
-    finished_signal = Signal(bool)
-
-    def run(self):
-        QTimer.singleShot(0, lambda: self.finished_signal.emit(False))
 
 def test_windows_default_values(patched_window_methods, qtbot):
     """Test the default values of the geometry menu in the application window."""
