@@ -28,7 +28,6 @@ from PySide6.QtWidgets import QWidget
 
 from ansys.aedt.toolkits.common.ui.utils.widgets.py_logger.py_logger import PyLogger
 from examples.toolkit.pyaedt_toolkit.ui.run_frontend import ApplicationWindow
-from examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_menu import PlotDesignThread
 from PySide6.QtCore import Qt
 
 DEFAULT_URL = "http://127.0.0.1:5001"
@@ -44,8 +43,7 @@ class BackgroundPlotterMock(QWidget):
         self.show_grid = MagicMock()
 
 
-@patch("examples.toolkit.pyaedt_toolkit.ui.windows.plot_design.plot_design_menu.BackgroundPlotter",
-       new=BackgroundPlotterMock)
+@patch("pyvistaqt.plotting.BackgroundPlotter", new=BackgroundPlotterMock)
 @patch("requests.get")
 @patch.object(PyLogger, "log")
 def test_plot_design_menu_setup_and_button_click(mock_log, mock_get, patched_window_methods, qtbot):
