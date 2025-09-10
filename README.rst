@@ -7,17 +7,23 @@ PyAEDT Common Toolkit
    :target: https://docs.pyansys.com/
    :alt: PyAnsys
 
+.. |pypi| image:: https://img.shields.io/pypi/v/ansys-aedt-toolkits-common.svg?logo=python&logoColor=white
+   :target: https://pypi.org/project/ansys-aedt-toolkits-common/
+
+.. |PyPIact| image:: https://static.pepy.tech/badge/ansys-aedt-toolkits-common/month
+   :target: https://www.pepy.tech/projects/ansys-aedt-toolkits-common
+
 .. |PythonVersion| image:: https://img.shields.io/badge/python-3.10+-blue.svg
    :target: https://www.python.org/downloads/
 
 .. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml/badge.svg
    :target: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml
 
-.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
-   :target: https://opensource.org/licenses/MIT
-
 .. |coverage| image:: https://codecov.io/gh/ansys/pyaedt-toolkits-common/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/ansys/pyaedt-toolkits-common
+
+.. |MIT| image:: https://img.shields.io/badge/License-MIT-yellow.svg
+   :target: https://opensource.org/licenses/MIT
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat
   :target: https://github.com/psf/black
