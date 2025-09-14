@@ -7,6 +7,7 @@ from PySide6.QtWidgets import QApplication
 
 # isort: off
 # Default user interface properties
+from ansys.aedt.toolkits.common.ui.actions_generic import DEFAULT_AEDT_SESSION_VALUE
 from examples.toolkit.pyaedt_toolkit.ui.models import properties
 # isort: on
 
@@ -77,7 +78,6 @@ class ApplicationWindow(QMainWindow, Frontend):
             logger.error(msg)
             self.settings_menu.signal_flag = False
             self.settings_menu.aedt_version.addItem("Backend OFF")
-            self.settings_menu.aedt_session.addItem("Backend OFF")
         else:
             # Get default properties
             be_properties = self.get_properties()
@@ -85,7 +85,7 @@ class ApplicationWindow(QMainWindow, Frontend):
             installed_versions = self.installed_versions()
 
             self.settings_menu.aedt_session.clear()
-            self.settings_menu.aedt_session.addItem("New Session")
+            self.settings_menu.aedt_session.addItem(DEFAULT_AEDT_SESSION_VALUE)
             if installed_versions:
                 self.settings_menu.connect_aedt.setEnabled(True)
                 for ver in installed_versions:

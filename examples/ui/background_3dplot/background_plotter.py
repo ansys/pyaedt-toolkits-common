@@ -12,7 +12,8 @@ from PySide6.QtWidgets import QVBoxLayout
 from PySide6.QtWidgets import QWidget
 from PySide6.QtWidgets import QComboBox
 
-from pyvistaqt import BackgroundPlotter
+from ansys.tools.visualization_interface import Plotter
+from ansys.tools.visualization_interface.backends.pyvista import PyVistaBackend
 import pyvista as pv
 
 from ansys.aedt.toolkits.common.ui.main_window.main_window_layout import PyLogger
@@ -27,7 +28,9 @@ class ApplicationWindow(QMainWindow):
 
         self.grid_layout = QGridLayout(self.central_widget)
 
-        self.plotter = BackgroundPlotter(show=False)
+        self.pv_backend = PyVistaBackend(use_qt=True, show_qt=False)
+        self.pv_plotter = Plotter(backend=self.pv_backend)
+        self.plotter = self.pv_plotter.backend.pv_interface.scene
 
         self.grid_layout.addWidget(self.plotter, 0, 0)
 

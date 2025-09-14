@@ -13,7 +13,6 @@ import sys
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 import ansys.aedt.core
 
-
 # ## Initialize toolkit
 #
 # Initialize the toolkit.
@@ -31,7 +30,7 @@ properties_from_backend = toolkit.get_properties()
 # Initialize AEDT using PyAEDT and then release it.
 ansys.aedt.core.settings.enable_logger = False
 app = ansys.aedt.core.Desktop(version=properties_from_backend["aedt_version"],
-                     non_graphical=properties_from_backend["non_graphical"])
+                              non_graphical=properties_from_backend["non_graphical"])
 app.release_desktop(close_projects=False, close_on_exit=False)
 
 # ## Get AEDT sessions
@@ -86,10 +85,7 @@ new_properties = toolkit.get_properties()
 # Create a waveguide in the design.
 
 wg = toolkit.aedtapp.modeler.create_waveguide([0, 0, 0], 1)
-model = toolkit.aedtapp.plot(show=False)
-model.show_grid = False
-model.plot(os.path.join(toolkit.aedtapp.working_directory, "Image.jpg"))
-
+model = toolkit.aedtapp.plot(show=True)
 
 # ## Save and release AEDT
 #
