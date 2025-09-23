@@ -411,7 +411,7 @@ class AEDTCommon(Common):
             version, is_student = self.__get_aedt_version()
 
             desktop_args = {
-                "specified_version": version,
+                "version": version,
                 "non_graphical": self.properties.non_graphical,
                 "student_version": is_student,
             }

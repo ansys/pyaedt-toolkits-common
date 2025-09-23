@@ -46,7 +46,7 @@ tests = [
     "flask",
     "pyside6==6.9.2",
     "pytest>=7.4.0,<8.5",
-    "pytest-cov>=4.0.0,<6.3",
+    "pytest-cov>=4.0.0,<7.1",
     "pytest-qt>=4.0.0,<4.6",
     "ansys-aedt-toolkits-common[all]",
 ]
