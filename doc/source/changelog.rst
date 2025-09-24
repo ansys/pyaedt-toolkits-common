@@ -9,6 +9,64 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.14.1 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.14.1>`_ - September 24, 2025
+==============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump twine from 6.1.0 to 6.2.0
+          - `#323 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/323>`_
+
+        * - Update pytest-cov requirement from <6.3,>=4.0.0 to >=4.0.0,<7.1
+          - `#327 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/327>`_
+
+        * - Bump ansys/actions from 10.0.20 to 10.1.1
+          - `#329 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/329>`_
+
+
+  .. tab-item:: Documentation
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update ``CONTRIBUTORS.md`` with the latest contributors
+          - `#324 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/324>`_
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Deprecated pyaedt argument
+          - `#330 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/330>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.14.0
+          - `#321 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/321>`_
+
+        * - Bump 0.15.dev0
+          - `#322 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/322>`_
+
+        * - Update README.rst
+          - `#325 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/325>`_
+
+
 `0.14.0 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.14.0>`_ - September 10, 2025
 ==============================================================================================================
 
