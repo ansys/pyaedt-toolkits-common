@@ -585,7 +585,14 @@ class AEDTCommon(Common):
                 # PyAEDT object with specified design
                 if not self.desktop.odesktop.GetActiveProject():  # pragma: no cover
                     self.desktop.odesktop.SetActiveProject(project_name)
+
                 self.aedtapp = self.desktop[[project_name, design_name]]
+
+                if not self.aedtapp:  # pragma: no cover
+                    # Sometimes the project is not activated. Try to activate it again.
+                    self.desktop.odesktop.SetActiveProject(project_name)
+                    self.aedtapp = self.desktop[[project_name, design_name]]
+
                 if not self.aedtapp:  # pragma: no cover
                     self.release_aedt(False, False)
                     logger.error("Wrong active project and design.")
