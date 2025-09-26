@@ -450,7 +450,7 @@ class AEDTCommon(Common):
 
             self.__save_project_info()
 
-            if self.desktop.project_list():  # pragma: no cover
+            if self.desktop.project_list:  # pragma: no cover
                 # If there are projects not saved in the session, PyAEDT could find issues loading some properties
                 self.desktop.save_project()
 
