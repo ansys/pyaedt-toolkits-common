@@ -151,6 +151,8 @@ jobs:
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
+          target: 'all'
+          use-python-cache: false
 
   tests_windows:
     name: "Windows Tests"
