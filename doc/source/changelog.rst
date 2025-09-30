@@ -9,6 +9,35 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.14.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.14.3>`_ - September 26, 2025
+==============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Fixed change of pyaedt on desktop project_list which is now a property
+          - `#334 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/334>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.14.2
+          - `#333 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/333>`_
+
+        * - Remove caching from wheelhouse
+          - `#335 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/335>`_
+
+
 `0.14.2 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.14.2>`_ - September 25, 2025
 ==============================================================================================================
 
