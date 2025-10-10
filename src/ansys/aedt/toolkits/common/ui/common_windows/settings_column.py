@@ -306,7 +306,6 @@ class SettingsMenu(QObject):
 
     def browse_file(self):
         options = QFileDialog.Options()
-        options |= QFileDialog.DontUseNativeDialog
         file, _ = QFileDialog.getOpenFileName(
             self.ui.app,
             "QFileDialog.getOpenFileName()",
