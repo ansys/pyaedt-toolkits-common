@@ -7,7 +7,7 @@ convenient package.
 Packaging helps making your toolkit easier to distribute and more likely to run consistently across systems.
 
 How to distribute in Windows
----------------------------
+----------------------------
 The aim is to package the toolkit into a Windows installer (EXE file) using NSIS (Nullsoft Scriptable Install System).
 
 Pre-requisites and setup
@@ -53,7 +53,7 @@ This step requires you to have the `extract_version.py <https://github.com/ansys
     python installer/extract_version.py
 
 6. Create the standalone executable
-This step requires you to have a `frozen.spec` file. An example of such file can be found  `here <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/frozen.spec>`_.
+This step requires you to have a `frozen.spec` file. An example of such file can be found  `here <frozen_spec_>`_.
 This file plays a key role in how your toolkit is turned into a standalone executable.
 It defines the instructions PyInstaller uses to package your toolkit into a single executable file.
 
@@ -62,7 +62,7 @@ It defines the instructions PyInstaller uses to package your toolkit into a sing
     pyinstaller frozen.spec
 
 7. Create a standalone installer program
-This step requires you to have a `setup.nsi` file. An example of such file can be found `here <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/setup.nsi>`_.
+This step requires you to have a `setup.nsi` file. An example of such file can be found `here <setup_nsi_>`_.
 The ``setup.nsi`` file is the NSIS script (a plain text file) that describes how to build the installer, that is what files to include,
 where to install them, shortcuts to create, etc., and it compiles this script into a Windows installer executable.
 In simple terms ``setup.nsi`` contains instructions and by running:
@@ -72,3 +72,6 @@ In simple terms ``setup.nsi`` contains instructions and by running:
     makensis setup.nsi
 
 NSIS turns these instructions into a standalone installer program.
+
+.. _frozen_spec: https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/frozen.spec
+.. _setup_nsi: https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/setup.nsi

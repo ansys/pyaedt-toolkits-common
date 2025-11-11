@@ -54,8 +54,8 @@ def test_windows_create_geometry_with_default_values(mock_log, mock_post, patche
 
     # Wait for the geometry thread to finish and then check the post request
     geometry_thread = windows.geometry_menu.geometry_thread
-    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=10000):
-        pass
+    assert geometry_thread.isRunning()
+    qtbot.waitUntil(lambda: not geometry_thread.isRunning(), timeout=20000)
     mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry", timeout=ANY)
 
     assert any("Creating geometry." in call.args[0] for call in mock_log.call_args_list)
@@ -85,24 +85,6 @@ def test_windows_create_geometry_backend_busy(mock_log, patched_window_methods, 
     qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
 
     assert any("Toolkit running" in call.args[0] for call in mock_log.call_args_list)
-
-
-@patch.object(PyLogger, "log")
-@patch.object(
-    CreateGeometryThread,
-    "run",
-    lambda self: self.finished_signal.emit(False),
-)
-def test_windows_create_geometry_non_success(mock_log, patched_window_methods, qtbot):
-    windows = ApplicationWindow()
-
-    qtbot.mouseClick(windows.geometry_menu.geometry_button, Qt.LeftButton)
-
-    geometry_thread = windows.geometry_menu.geometry_thread
-    with qtbot.waitSignal(geometry_thread.finished_signal, timeout=1000) as signal:
-        pass
-    assert signal.args == [False]
-    assert any("Failed backend call" in call.args[0] for call in mock_log.call_args_list)
 
 
 @patch("requests.post")

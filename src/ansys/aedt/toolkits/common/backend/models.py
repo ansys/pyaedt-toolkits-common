@@ -35,11 +35,13 @@ from typing import List
 from pydantic import BaseModel
 from pydantic import Field
 
+DEFAULT_AEDT_VERSION = "2025.2"
+
 
 class CommonProperties(BaseModel):
     """Stores common AEDT properties."""
 
-    aedt_version: str = "2025.1"
+    aedt_version: str = DEFAULT_AEDT_VERSION
     non_graphical: bool = False
     active_project: str = ""
     active_design: str = ""
