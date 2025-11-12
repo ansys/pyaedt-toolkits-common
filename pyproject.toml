@@ -29,7 +29,7 @@ dependencies = [
     "pyaedt>=0.20.0",
     "pydantic>=2.0,<2.13",
     "tomli; python_version < '3.12'",
-    "attrs<25.2.0"
+    "attrs<25.5.0"
 ]
 
 [project.optional-dependencies]
