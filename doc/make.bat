@@ -14,18 +14,7 @@ set SOURCEDIR=source
 set BUILDDIR=_build
 
 REM This LOCs are used to uninstall and install specific package(s) during CI/CD
-for /f %%i in ('pip freeze ^| findstr /c:"vtk-osmesa"') do set is_vtk_osmesa_installed=%%i
-if NOT "%is_vtk_osmesa_installed%" == "vtk-osmesa" if "%ON_CI%" == "true" (
-	@ECHO ON
-	echo "Removing vtk to avoid conflicts with vtk-osmesa"
-	@ECHO OFF
-	pip uninstall --yes vtk
-	@ECHO ON
-	echo "Installing vtk-osmesa"
-	@ECHO OFF
-	pip install --index-url https://wheels.vtk.org vtk-osmesa==9.3.1
-	)
-	for /f %%i in ('pip freeze ^| findstr /c:"pypandoc_binary"') do set is_pypandoc_binary_installed=%%i
+for /f %%i in ('pip freeze ^| findstr /c:"pypandoc_binary"') do set is_pypandoc_binary_installed=%%i
 if NOT "%is_pypandoc_binary_installed%" == "pypandoc_binary" if "%ON_CI%" == "true" (
 	@ECHO ON
 	echo "Removing pypandoc to avoid conflicts with pypandoc-binary"

@@ -7,8 +7,8 @@ app_name= "Example Wizard"
 main_title= "Amazing Toolkit Wizard"
 welcome_message= "Welcome to the amazing toolkit"
 copyright= "By: slopez"
-year= 2024
-theme= "ansys_dark.json"
+year= 2025
+theme= "ansys_light.json"
 high_resolution= false
 
 [[defaults.add_left_menus]]
