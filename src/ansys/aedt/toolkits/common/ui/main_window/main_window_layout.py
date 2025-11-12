@@ -193,9 +193,9 @@ class MainWindowLayout(CommonWindowUtils):
         self.title_bar_frame.setLayout(self.title_bar_layout)
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 
-        logo = self.images_load.image_path("ansys-primary-logo-black.svg")
+        logo = self.images_load.image_path("ansys-black.svg")
         if self.themes["theme_name"] == "ansys_dark":
-            logo = self.images_load.image_path("ansys-primary-logo-white.svg")
+            logo = self.images_load.image_path("ansys-white.svg")
         elif "synopsys" in self.themes["theme_name"]:
             logo = self.images_load.image_path("synopsys-logo.svg")
 
