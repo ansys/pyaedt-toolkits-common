@@ -26,7 +26,7 @@
         "green" : "#00FF7F",
         "red" : "#FF5555",
         "yellow" : "#6A1B9A",
-        "label_on": "#6A1B9A",
+        "label_on": "#BA68C8",
         "label_off": "#F0F0F0"
     }
 }

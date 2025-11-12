@@ -8,7 +8,7 @@ main_title= "Amazing Toolkit Wizard"
 welcome_message= "Welcome to the amazing toolkit"
 copyright= "By: slopez"
 year= 2025
-theme= "synopsys_light.json"
+theme= "synopsys_dark.json"
 high_resolution= false
 
 [[defaults.add_left_menus]]
