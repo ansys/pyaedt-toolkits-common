@@ -7,6 +7,7 @@
 ## Individual Contributors
 
 * [Alberto Di Maria](https://github.com/Alberto-DM)
+* [althaf-ansys](https://github.com/althaf-ansys)
 * [Arien Sligar](https://github.com/ariensligar)
 * [Edouard Coussoux](https://github.com/ecoussoux-ansys)
 * [Eduardo Blanco](https://github.com/eblanco-ansys)

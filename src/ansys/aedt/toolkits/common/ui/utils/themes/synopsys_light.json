@@ -1,0 +1,32 @@
+{
+    "theme_name" : "synopsys_light",
+    "app_color" : {
+        "dark_one" : "#D9D8D6",
+        "dark_two" : "#D9D8D6",
+        "dark_three" : "#BEBEBE",
+        "dark_four" : "#A8A8A8",
+        "bg_one" : "#F2F2F2",
+        "bg_two" : "#E0E0E0",
+        "bg_three" : "#CCCCCC",
+        "icon_color" : "#4A148C",
+        "icon_hover" : "#6A1B9A",
+        "icon_pressed" : "#311B92",
+        "icon_active" : "#6A1B9A",
+        "context_color" : "#6A1B9A",
+        "context_hover" : "#7E3F98",
+        "context_pressed" : "#4A148C",
+        "combo_color" : "#F0F0F0",
+        "combo_hover" : "#E0E0E0",
+        "text_title" : "#21252d",
+        "text_foreground" : "#000000",
+        "text_description" : "#757575",
+        "text_active" : "#000000",
+        "white" : "#FFFFFF",
+        "pink" : "#FF007F",
+        "green" : "#00FF7F",
+        "red" : "#FF5555",
+        "yellow" : "#6A1B9A",
+        "label_on": "#6A1B9A",
+        "label_off": "#F0F0F0"
+    }
+}
