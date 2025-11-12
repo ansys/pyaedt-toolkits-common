@@ -153,12 +153,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
           target: 'all'
           use-python-cache: false
-          whitelist-license-check: |
-            fpdf2
-            PySide6
-            PySide6_Addons
-            PySide6_Essentials
-            shiboken6
+          whitelist-license-check: 'fpdf2 PySide6 PySide6_Addons PySide6_Essentials shiboken6'
 
   tests_windows:
     name: "Windows Tests"
