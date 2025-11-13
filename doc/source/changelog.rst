@@ -9,6 +9,86 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.15.0 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.15.0>`_ - November 12, 2025
+=============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Added
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Updated the project browse dialog box to native windows dialog box
+          - `#343 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/343>`_
+
+        * - Add synopsys theme
+          - `#352 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/352>`_
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump ansys/actions from 10.1.1 to 10.1.2
+          - `#337 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/337>`_
+
+        * - Bump ansys/actions from 10.1.2 to 10.1.4
+          - `#339 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/339>`_
+
+        * - Bump peter-evans/create-or-update-comment from 4.0.0 to 5.0.0
+          - `#340 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/340>`_
+
+        * - Update pydantic requirement from <2.12,>=2.0 to >=2.0,<2.13
+          - `#346 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/346>`_
+
+        * - Bump actions/upload-artifact from 4.6.2 to 5.0.0
+          - `#349 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/349>`_
+
+        * - Bump actions/download-artifact from 5.0.0 to 6.0.0
+          - `#350 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/350>`_
+
+        * - Bump ansys/actions from 10.1.4 to 10.1.5
+          - `#351 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/351>`_
+
+
+  .. tab-item:: Documentation
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update \`\`CONTRIBUTORS.md\`\` with the latest contributors
+          - `#345 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/345>`_
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Synopsys theme fix
+          - `#353 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/353>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.14.3
+          - `#336 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/336>`_
+
+        * - Remove usage of vtk-osmesa package
+          - `#354 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/354>`_
+
+
 `0.14.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.14.3>`_ - September 26, 2025
 ==============================================================================================================
 
