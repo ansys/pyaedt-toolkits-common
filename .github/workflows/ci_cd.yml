@@ -314,18 +314,21 @@ jobs:
       - name: Test EDB API
         timeout-minutes: 5
         run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api --cov --cov-append
 
       - name: Test REST API
         timeout-minutes: 5
         run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
         timeout-minutes: 5
         run: |
+          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m utils --cov --cov-append
 
