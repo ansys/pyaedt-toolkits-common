@@ -299,6 +299,17 @@ jobs:
           pip install .[tests]
           pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
 
+      - name: Prepare native EDB libs
+        run: |
+          # Link EDBCWrapper so the runtime can find it by name
+          sudo ln -sf ${{ env.ANSYSEM_ROOT252 }}/libEDBCWrapper.so /usr/lib/libEDBCWrapper.so || echo "libEDBCWrapper.so not found or already linked"
+
+          # Also expose libmonosgen if needed by the runtime
+          sudo ln -sf ${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64/libmonosgen-2.0.so.1 /usr/lib/libmonosgen-2.0.so.1 || echo "libmonosgen-2.0.so.1 not found or already linked"
+
+          # Refresh linker cache
+          sudo ldconfig
+
       - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
@@ -323,14 +334,12 @@ jobs:
       - name: Test REST API
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m utils --cov --cov-append
 

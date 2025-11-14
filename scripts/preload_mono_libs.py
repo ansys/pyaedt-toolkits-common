@@ -6,7 +6,6 @@ mono_dir = os.environ.get("MONO_DIR")
 if mono_dir:
     loaded = 0
     for filename in os.listdir(mono_dir):
-        # Only load .so files
         if not filename.endswith(".so"):
             continue
 
