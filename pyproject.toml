@@ -65,7 +65,7 @@ doc = [
     "jupytext",
     "ipython>=8.13.0,<9.1",
     "jupyterlab>=4.0.0,<4.5",
-    "pypandoc>=1.10.0,<1.16",
+    "pypandoc>=1.10.0,<1.17",
     "ipywidgets",
 ]
 
