@@ -312,37 +312,47 @@ jobs:
           pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
 
       - name: Test AEDT Common API
+        env:
+          ANSYSEM: ${{ env.ANSYSEM_ROOT252 }}
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${ANSYSEM}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m aedt_common_api --cov
 
       - name: Test Common API
+        env:
+          ANSYSEM: ${{ env.ANSYSEM_ROOT252 }}
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${ANSYSEM}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m common_api --cov --cov-append
 
       - name: Test EDB API
+        env:
+          ANSYSEM: ${{ env.ANSYSEM_ROOT252 }}
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${ANSYSEM}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m edb_api --cov --cov-append
 
       - name: Test REST API
+        env:
+          ANSYSEM: ${{ env.ANSYSEM_ROOT252 }}
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${ANSYSEM}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
+        env:
+          ANSYSEM: ${{ env.ANSYSEM_ROOT252 }}
         timeout-minutes: 5
         run: |
-          export LD_LIBRARY_PATH=${{ env.ANSYSEM_ROOT252 }}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${ANSYSEM}/common/mono/Linux64/lib64:$LD_LIBRARY_PATH
           source .venv_linux/bin/activate
           pytest -v -m utils --cov --cov-append
 
