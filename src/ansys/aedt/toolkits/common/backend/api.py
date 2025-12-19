@@ -652,7 +652,7 @@ class AEDTCommon(Common):
             logger.error("Toolkit is not connected to AEDT design.")
             return False
 
-    def release_aedt(self, close_projects=False, close_on_exit=False):
+    def release_aedt(self, close_projects=False, close_desktop=False):
         """Release AEDT.
 
         Parameters
@@ -660,7 +660,7 @@ class AEDTCommon(Common):
         close_projects : bool, optional
             Whether to close the AEDT projects that are open in the session.
             The default is ``True``.
-        close_on_exit : bool, optional
+        close_desktop : bool, optional
             Whether to close the active AEDT session on exiting AEDT.
             The default is ``True``.
 
@@ -680,7 +680,7 @@ class AEDTCommon(Common):
         released = False
         if self.desktop:
             try:
-                released = self.desktop.release_desktop(close_projects, close_on_exit)
+                released = self.desktop.release_desktop(close_projects, close_desktop)
                 self.desktop = None
                 self.aedtapp = None
             except:  # pragma: no cover
@@ -689,14 +689,14 @@ class AEDTCommon(Common):
 
         if self.aedtapp:  # pragma: no cover
             try:
-                released = self.aedtapp.release_desktop(close_projects, close_on_exit)
+                released = self.aedtapp.release_desktop(close_projects, close_desktop)
                 self.aedtapp = None
             except:
                 logger.error("AEDT is not released.")
                 return False
 
-        if not released and close_projects and close_on_exit and self.connect_aedt():
-            self.desktop.release_desktop(close_projects, close_on_exit)
+        if not released and close_projects and close_desktop and self.connect_aedt():
+            self.desktop.release_desktop(close_projects, close_desktop)
         logger.info("AEDT is released.")
         gc.collect()
         return True
@@ -858,7 +858,7 @@ class AEDTCommon(Common):
         return design_list
 
     def export_aedt_model(
-        self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
+        self, obj_list=None, export_path=None, export_as_multiple_objects=False, air_objects=False, encode=True
     ):
         """Export the model in the OBJ format and then encode the file if the ``encode`` parameter is enabled.
 
@@ -870,9 +870,9 @@ class AEDTCommon(Common):
         export_path : str, optional
             Full path of the exported OBJ file.
             The default is ``None``, in which case the file is exported in the working directory.
-        export_as_single_objects : bool, optional
-            Whether to export the model as a single object. The default is ``True``.
-            If ``False``, the model is exported as a list of objects for each object.
+        export_as_multiple_objects : bool, optional
+           Whether to export the model as multiple objects or not. Default is ``False``
+           in which case the model is exported as single object.
         air_objects : bool, optional
             Whether to export air and vacuum objects. The default is ``False``.
         encode : bool, optional
@@ -891,7 +891,7 @@ class AEDTCommon(Common):
             files = self.aedtapp.post.export_model_obj(
                 assignment=obj_list,
                 export_path=export_path,
-                export_as_single_objects=export_as_single_objects,
+                export_as_multiple_objects=export_as_multiple_objects,
                 air_objects=air_objects,
             )
             self.release_aedt(False, False)
