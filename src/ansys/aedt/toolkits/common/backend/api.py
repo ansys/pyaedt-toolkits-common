@@ -652,7 +652,7 @@ class AEDTCommon(Common):
             logger.error("Toolkit is not connected to AEDT design.")
             return False
 
-    def release_aedt(self, close_projects=False, close_desktop=False):
+    def release_aedt(self, close_projects=False, close_on_exit=False):
         """Release AEDT.
 
         Parameters
@@ -660,7 +660,7 @@ class AEDTCommon(Common):
         close_projects : bool, optional
             Whether to close the AEDT projects that are open in the session.
             The default is ``True``.
-        close_desktop : bool, optional
+        close_on_exit : bool, optional
             Whether to close the active AEDT session on exiting AEDT.
             The default is ``True``.
 
@@ -680,7 +680,7 @@ class AEDTCommon(Common):
         released = False
         if self.desktop:
             try:
-                released = self.desktop.release_desktop(close_projects, close_desktop)
+                released = self.desktop.release_desktop(close_projects, close_on_exit)
                 self.desktop = None
                 self.aedtapp = None
             except:  # pragma: no cover
@@ -689,14 +689,14 @@ class AEDTCommon(Common):
 
         if self.aedtapp:  # pragma: no cover
             try:
-                released = self.aedtapp.release_desktop(close_projects, close_desktop)
+                released = self.aedtapp.release_desktop(close_projects, close_on_exit)
                 self.aedtapp = None
             except:
                 logger.error("AEDT is not released.")
                 return False
 
-        if not released and close_projects and close_desktop and self.connect_aedt():
-            self.desktop.release_desktop(close_projects, close_desktop)
+        if not released and close_projects and close_on_exit and self.connect_aedt():
+            self.desktop.release_desktop(close_projects, close_on_exit)
         logger.info("AEDT is released.")
         gc.collect()
         return True
