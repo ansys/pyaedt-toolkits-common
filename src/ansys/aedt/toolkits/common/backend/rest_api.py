@@ -142,7 +142,7 @@ def get_aedt_model():
     default_values = {
         "obj_list": None,
         "export_path": None,
-        "export_as_single_objects": True,
+        "export_as_multiple_objects": False,
         "air_objects": False,
         "encode": True,
     }
@@ -183,7 +183,7 @@ def close_aedt():
     logger.info("[POST] /close_aedt (close AEDT).")
 
     body = request.json
-    aedt_keys = ["close_projects", "close_on_exit"]
+    aedt_keys = ["close_projects", "close_desktop"]
     if not body:
         msg = BodyErrorMessage.EMPTY.value
         logger.error(msg)
@@ -194,8 +194,8 @@ def close_aedt():
         return jsonify(msg), 500
 
     close_projects = body["close_projects"]
-    close_on_exit = body["close_on_exit"]
-    response = toolkit_api.release_aedt(close_projects, close_on_exit)
+    close_desktop = body["close_desktop"]
+    response = toolkit_api.release_aedt(close_projects, close_desktop)
 
     if response:
         return jsonify("AEDT correctly released"), 200

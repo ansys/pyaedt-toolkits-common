@@ -858,7 +858,7 @@ class AEDTCommon(Common):
         return design_list
 
     def export_aedt_model(
-        self, obj_list=None, export_path=None, export_as_single_objects=True, air_objects=False, encode=True
+        self, obj_list=None, export_path=None, export_as_multiple_objects=False, air_objects=False, encode=True
     ):
         """Export the model in the OBJ format and then encode the file if the ``encode`` parameter is enabled.
 
@@ -870,9 +870,9 @@ class AEDTCommon(Common):
         export_path : str, optional
             Full path of the exported OBJ file.
             The default is ``None``, in which case the file is exported in the working directory.
-        export_as_single_objects : bool, optional
-            Whether to export the model as a single object. The default is ``True``.
-            If ``False``, the model is exported as a list of objects for each object.
+        export_as_multiple_objects : bool, optional
+           Whether to export the model as multiple objects or not. Default is ``False``
+           in which case the model is exported as single object.
         air_objects : bool, optional
             Whether to export air and vacuum objects. The default is ``False``.
         encode : bool, optional
@@ -891,7 +891,7 @@ class AEDTCommon(Common):
             files = self.aedtapp.post.export_model_obj(
                 assignment=obj_list,
                 export_path=export_path,
-                export_as_single_objects=export_as_single_objects,
+                export_as_multiple_objects=export_as_multiple_objects,
                 air_objects=air_objects,
             )
             self.release_aedt(False, False)
