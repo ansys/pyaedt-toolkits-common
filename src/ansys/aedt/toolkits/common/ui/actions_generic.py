@@ -336,7 +336,7 @@ class FrontendGeneric:
         encode=True,
         obj_list=None,
         export_path=None,
-        export_as_single_objects=True,
+        export_as_multiple_objects=False,
     ):
         """Get AEDT model.
 
@@ -356,9 +356,9 @@ class FrontendGeneric:
         export_path : str, optional
             Full path of the exported OBJ file.
             The default is ``None``, in which case the file is exported in the working directory.
-        export_as_single_objects : bool, optional
-            Whether to export the model as a single object. The default is ``True``.
-            If ``False``, the model is exported as a list of objects for each object.
+        export_as_multiple_objects : bool, optional
+           Whether to export the model as multiple objects or not. Default is ``False``
+           in which case the model is exported as single object.
 
         Returns
         -------
@@ -392,7 +392,7 @@ class FrontendGeneric:
                 "encode": encode,
                 "obj_list": obj_list,
                 "export_path": export_path,
-                "export_as_single_objects": export_as_single_objects,
+                "export_as_multiple_objects": export_as_multiple_objects,
             },
             timeout=20,
         )
@@ -516,7 +516,7 @@ class FrontendGeneric:
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
             self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
         else:
-            properties = {"close_projects": False, "close_on_exit": False}
+            properties = {"close_projects": False, "close_desktop": False}
             if self.close():
                 requests.post(self.url + "/close_aedt", json=properties, timeout=20)
 
@@ -527,7 +527,7 @@ class FrontendGeneric:
         if response.ok and response.json() == ToolkitThreadStatus.BUSY.value:
             self.log_and_update_progress(MSG_TK_RUNNING, log_level="debug")
         elif response.ok and response.json() == ToolkitThreadStatus.IDLE.value:
-            properties = {"close_projects": True, "close_on_exit": True}
+            properties = {"close_projects": True, "close_desktop": True}
             if self.close():
                 requests.post(self.url + "/close_aedt", json=properties, timeout=20)
 
