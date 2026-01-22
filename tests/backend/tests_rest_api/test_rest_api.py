@@ -112,4 +112,4 @@ class TestRESTAPI:
 
     def test_12_get_aedt_model(self, client):
         response = client.get("/get_aedt_model", json={})
-        assert response.status_code == 500
+        assert response.status_code == 200

@@ -31,7 +31,7 @@ properties_from_backend = toolkit.get_properties()
 ansys.aedt.core.settings.enable_logger = False
 app = ansys.aedt.core.Desktop(version=properties_from_backend["aedt_version"],
                               non_graphical=properties_from_backend["non_graphical"])
-app.release_desktop(close_projects=False, close_on_exit=False)
+app.release_desktop(close_projects=False, close_desktop=False)
 
 # ## Get AEDT sessions
 #
