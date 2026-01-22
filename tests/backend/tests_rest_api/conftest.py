@@ -100,5 +100,5 @@ def client(logger, common_temp_dir):
 
         yield client
 
-        close_properties = {"close_projects": True, "close_on_exit": True}
+        close_properties = {"close_projects": True, "close_desktop": True}
         client.post("/close_aedt", json=close_properties)
