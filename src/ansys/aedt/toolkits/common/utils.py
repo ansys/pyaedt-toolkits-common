@@ -46,7 +46,8 @@ else:
 
 def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
-    with requests.get(url, stream=True, timeout=DEFAULT_REQUESTS_TIMEOUT*2) as r:
+    download_timeout = DEFAULT_REQUESTS_TIMEOUT * 2
+    with requests.get(url, stream=True, timeout=download_timeout) as r:
         r.raise_for_status()
         with open(local_filename, "wb") as f:
             for chunk in r.iter_content(chunk_size=4096):
