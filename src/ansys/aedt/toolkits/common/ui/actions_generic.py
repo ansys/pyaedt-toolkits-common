@@ -320,7 +320,9 @@ class FrontendGeneric:
             self.ui.update_progress(0)
             response = requests.get(self.url + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok and response.json() == "Toolkit is not connected to AEDT.":
-                response = requests.post(self.url + "/open_project", data=selected_project, timeout=DEFAULT_REQUESTS_TIMEOUT)
+                response = requests.post(
+                    self.url + "/open_project", data=selected_project, timeout=DEFAULT_REQUESTS_TIMEOUT
+                )
                 if response.status_code == 200:
                     msg = "Project opened"
                     self.log_and_update_progress(msg, log_level="debug")

@@ -44,6 +44,7 @@ else:
     DEFAULT_REQUESTS_TIMEOUT = 30
 """Default timeout for requests in seconds."""
 
+
 def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
     download_timeout = DEFAULT_REQUESTS_TIMEOUT * 2
