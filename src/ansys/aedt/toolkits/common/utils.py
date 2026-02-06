@@ -35,13 +35,7 @@ import time
 import psutil
 import requests
 
-if "CUSTOM_TIMEOUT" in os.environ:
-    try:
-        DEFAULT_REQUESTS_TIMEOUT = int(os.environ["CUSTOM_TIMEOUT"])
-    except ValueError:
-        DEFAULT_REQUESTS_TIMEOUT = 30
-else:
-    DEFAULT_REQUESTS_TIMEOUT = 30
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYEADT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 """Default timeout for requests in seconds."""
 
 
