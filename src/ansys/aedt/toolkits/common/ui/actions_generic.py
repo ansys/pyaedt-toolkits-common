@@ -32,7 +32,7 @@ from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
-DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYEADT_TOOLKIT_REQUESTS_TIMEOUT", 30))
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 """Default timeout for requests in seconds."""
 MSG_TK_RUNNING = "Please wait, toolkit running"
 DEFAULT_AEDT_SESSION_VALUE = "New Session"

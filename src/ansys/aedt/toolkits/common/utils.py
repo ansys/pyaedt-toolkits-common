@@ -35,7 +35,7 @@ import time
 import psutil
 import requests
 
-DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYEADT_TOOLKIT_REQUESTS_TIMEOUT", 30))
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 """Default timeout for requests in seconds."""
 
 
@@ -153,6 +153,7 @@ def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     print("Current default timeout used is {}.".format(DEFAULT_REQUESTS_TIMEOUT))
     try:
+        print("Default requests timeout currently set to {}".format(DEFAULT_REQUESTS_TIMEOUT))
         response = requests.get(url_call + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
         return response.ok
     except requests.exceptions.RequestException:
