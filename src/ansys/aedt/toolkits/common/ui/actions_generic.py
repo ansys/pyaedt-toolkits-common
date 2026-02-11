@@ -32,9 +32,9 @@ from ansys.aedt.toolkits.common.ui.logger_handler import logger
 from ansys.aedt.toolkits.common.ui.models import general_settings
 from ansys.aedt.toolkits.common.utils import ToolkitThreadStatus
 
-MSG_TK_RUNNING = "Please wait, toolkit running"
-DEFAULT_REQUESTS_TIMEOUT = 10
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 """Default timeout for requests in seconds."""
+MSG_TK_RUNNING = "Please wait, toolkit running"
 DEFAULT_AEDT_SESSION_VALUE = "New Session"
 """Default value for AEDT session selection in the UI."""
 
@@ -134,7 +134,7 @@ class FrontendGeneric:
             logger.error("Get backend status failed")
             return False
 
-    def wait_thread(self, timeout: int = DEFAULT_REQUESTS_TIMEOUT):
+    def wait_thread(self):
         """
         Wait thread until backend is idle.
 
@@ -149,7 +149,7 @@ class FrontendGeneric:
             ``True`` when the backend is idle, ``False`` otherwise.
         """
         try:
-            response = requests.get(self.url + "/wait_thread", timeout=timeout)
+            response = requests.get(self.url + "/wait_thread", timeout=DEFAULT_REQUESTS_TIMEOUT)
             return response.ok
         except requests.exceptions.RequestException:
             logger.error("Wait thread failed.")
@@ -314,7 +314,9 @@ class FrontendGeneric:
             self.ui.update_progress(0)
             response = requests.get(self.url + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
             if response.ok and response.json() == "Toolkit is not connected to AEDT.":
-                response = requests.post(self.url + "/open_project", data=selected_project, timeout=20)
+                response = requests.post(
+                    self.url + "/open_project", data=selected_project, timeout=DEFAULT_REQUESTS_TIMEOUT
+                )
                 if response.status_code == 200:
                     msg = "Project opened"
                     self.log_and_update_progress(msg, log_level="debug")
@@ -394,7 +396,7 @@ class FrontendGeneric:
                 "export_path": export_path,
                 "export_as_multiple_objects": export_as_multiple_objects,
             },
-            timeout=20,
+            timeout=DEFAULT_REQUESTS_TIMEOUT,
         )
 
         if response.ok:
@@ -518,7 +520,7 @@ class FrontendGeneric:
         else:
             properties = {"close_projects": False, "close_desktop": False}
             if self.close():
-                requests.post(self.url + "/close_aedt", json=properties, timeout=20)
+                requests.post(self.url + "/close_aedt", json=properties, timeout=DEFAULT_REQUESTS_TIMEOUT)
 
     def release_and_close(self):
         """Release and close the AEDT desktop."""
@@ -529,7 +531,7 @@ class FrontendGeneric:
         elif response.ok and response.json() == ToolkitThreadStatus.IDLE.value:
             properties = {"close_projects": True, "close_desktop": True}
             if self.close():
-                requests.post(self.url + "/close_aedt", json=properties, timeout=20)
+                requests.post(self.url + "/close_aedt", json=properties, timeout=DEFAULT_REQUESTS_TIMEOUT)
 
     def on_cancel_clicked(self):
         """Handle cancel button click."""
