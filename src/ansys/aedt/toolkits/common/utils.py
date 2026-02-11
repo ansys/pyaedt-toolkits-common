@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2026 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -35,10 +35,14 @@ import time
 import psutil
 import requests
 
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
+"""Default timeout for requests in seconds."""
+
 
 def download_file(url, local_filename):  # pragma: no cover
     """Download a file from a URL into a local file."""
-    with requests.get(url, stream=True, timeout=60) as r:
+    download_timeout = DEFAULT_REQUESTS_TIMEOUT * 2
+    with requests.get(url, stream=True, timeout=download_timeout) as r:
         r.raise_for_status()
         with open(local_filename, "wb") as f:
             for chunk in r.iter_content(chunk_size=4096):
@@ -148,7 +152,7 @@ def clean_python_processes(url, port):  # pragma: no cover
 def check_backend_communication(url_call):  # pragma: no cover
     """Check backend communication."""
     try:
-        response = requests.get(url_call + "/health", timeout=10)
+        response = requests.get(url_call + "/health", timeout=DEFAULT_REQUESTS_TIMEOUT)
         return response.ok
     except requests.exceptions.RequestException:
         print("Failed to check backend communication.")
@@ -181,12 +185,12 @@ def process_desktop_properties(is_linux, url_call):  # pragma: no cover
             "non_graphical": False,
         }
         try:
-            response = requests.put(url_call + "/properties", json=new_properties, timeout=10)
+            response = requests.put(url_call + "/properties", json=new_properties, timeout=DEFAULT_REQUESTS_TIMEOUT)
             if not response.ok:
                 return
             print("Connect to AEDT session.")
-            requests.post(url_call + "/launch_aedt", timeout=20)
-            requests.post(url_call + "/wait_thread", timeout=10)
+            requests.post(url_call + "/launch_aedt", timeout=DEFAULT_REQUESTS_TIMEOUT)
+            requests.post(url_call + "/wait_thread", timeout=DEFAULT_REQUESTS_TIMEOUT)
         except requests.exceptions.RequestException:
             raise Exception("Properties update failed.")
 
