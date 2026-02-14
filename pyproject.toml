@@ -36,7 +36,7 @@ dependencies = [
 all = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.10.0",
+    "pyside6==6.10.2",
     "pyqtgraph",
     "qdarkstyle",
     "ansys-tools-visualization-interface[pyvistaqt]"
@@ -44,7 +44,7 @@ all = [
 tests = [
     "pyaedt[all]>=0.15.2",
     "flask",
-    "pyside6==6.10.0",
+    "pyside6==6.10.2",
     "pytest>=7.4.0,<8.5",
     "pytest-cov>=4.0.0,<7.1",
     "pytest-qt>=4.0.0,<4.6",
@@ -53,7 +53,7 @@ tests = [
 doc = [
     "ansys-aedt-toolkits-common[all]",
     "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.10.0",
+    "pyside6==6.10.2",
     "ansys-sphinx-theme==1.6.0",
     "numpydoc>=1.5.0,<1.10",
     "Sphinx>=7.1.0,<8.3",
