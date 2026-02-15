@@ -123,6 +123,21 @@ UI and backend interaction
 
 The UI sends HTTP requests to retrieve data, while the backend returns appropriate results.
 
+These operations are tied to a timeout (set to 30 seconds by default) to prevent hanging requests,
+which could be exploited to cause denial of service (DoS) conditions (for more information, see
+`here <https://bandit.readthedocs.io/en/latest/plugins/b113_request_without_timeout.html>`_).
+Users can adjust this timeout (expressed in seconds) by setting the environment variable
+``PYAEDT_TOOLKIT_REQUESTS_TIMEOUT`` and assigning it a value higher than the default, for example
+for a Windows user:
+
+.. code:: bash
+
+    set PYAEDT_TOOLKIT_REQUESTS_TIMEOUT=60
+
+Setting a longer timeout may be necessary if certain actions triggered via the UI (such as
+connecting to AEDT) fail to complete within the default time limit. This can for instance
+manifest through errors in validating or updating toolkit properties, or a stuck progress bar.
+
 The toolkit uses CRUD (Create, Read, Update & Delete) operations that are simply HTTP request methods
 that specify the action to perform through the request.
 
