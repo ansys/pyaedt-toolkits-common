@@ -1,0 +1,6 @@
+add\_icon\_button
+=================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.add_icon_button

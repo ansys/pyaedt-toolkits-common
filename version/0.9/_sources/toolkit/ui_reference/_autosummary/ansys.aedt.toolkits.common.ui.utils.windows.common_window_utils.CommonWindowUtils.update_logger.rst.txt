@@ -1,0 +1,6 @@
+update\_logger
+==============
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.update_logger

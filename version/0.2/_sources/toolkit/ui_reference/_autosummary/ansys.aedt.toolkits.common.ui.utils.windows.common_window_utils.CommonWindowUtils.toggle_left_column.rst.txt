@@ -1,0 +1,6 @@
+toggle\_left\_column
+====================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.toggle_left_column

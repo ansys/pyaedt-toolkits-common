@@ -1,0 +1,6 @@
+image\_path
+===========
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.images.load_images
+
+.. automethod:: LoadImages.image_path

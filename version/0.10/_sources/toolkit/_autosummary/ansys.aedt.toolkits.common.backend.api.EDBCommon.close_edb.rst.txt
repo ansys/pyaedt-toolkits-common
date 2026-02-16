@@ -1,0 +1,6 @@
+close\_edb
+==========
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: EDBCommon.close_edb

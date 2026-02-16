@@ -1,0 +1,6 @@
+wait\_to\_be\_idle
+==================
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: EDBCommon.wait_to_be_idle

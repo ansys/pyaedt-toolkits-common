@@ -1,0 +1,6 @@
+set\_page
+=========
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.set_page
