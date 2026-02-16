@@ -1047,7 +1047,7 @@ class EDBCommon(Common):
             ansys.aedt.core.settings.enable_logger = self.properties.debug
             ansys.aedt.core.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
-            self.edb = ansys.aedt.core.Edb(edbversion=aedt_version, edbpath=edb_path)
+            self.edb = ansys.aedt.core.Edb(edb_path, version=aedt_version)
             logger.debug("Project {} is opened".format(edb_path))
             return True
         else:

@@ -9,6 +9,78 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.15.1 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.15.1>`_ - February 11, 2026
+=============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update pypandoc requirement from <1.16,>=1.10.0 to >=1.10.0,<1.17
+          - `#358 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/358>`_
+
+        * - Update jupyterlab requirement from <4.5,>=4.0.0 to >=4.0.0,<4.6
+          - `#360 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/360>`_
+
+        * - Bump codecov/codecov-action from 5.5.1 to 5.5.2
+          - `#365 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/365>`_
+
+        * - Bump actions/download-artifact from 6.0.0 to 7.0.0
+          - `#366 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/366>`_
+
+        * - Bump actions/upload-artifact from 5.0.0 to 6.0.0
+          - `#367 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/367>`_
+
+        * - Bump build from 1.3.0 to 1.4.0
+          - `#372 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/372>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.15.0
+          - `#355 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/355>`_
+
+        * - Bump dev version
+          - `#356 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/356>`_
+
+        * - Update missing or outdated files
+          - `#361 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/361>`_
+
+        * - Add \`\`ansys/actions/check-actions-security\`\` action and related fixes
+          - `#362 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/362>`_
+
+        * - Make \`\`ansys/actions/check-actions-security\`\` dependent on dependabot checks
+          - `#368 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/368>`_
+
+        * - Update license header
+          - `#371 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/371>`_
+
+        * - Standardize timeout values across calls to \`\`requests\`\` methods and enable definition via env variable
+          - `#376 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/376>`_
+
+        * - Add dependabot cooldown settings
+          - `#377 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/377>`_
+
+
+  .. tab-item:: Miscellaneous
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Fixed tests
+          - `#369 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/369>`_
+
+
 `0.15.0 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.15.0>`_ - November 12, 2025
 =============================================================================================================
 
