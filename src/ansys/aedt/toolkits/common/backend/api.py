@@ -237,7 +237,12 @@ class Common:
         installed_versions = []
 
         for ver in list_installed_aedt:
-            if "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
+            # Allow AEDT installation directory
+            if "AWP_ROOT" in ver:  # pragma: no cover
+                installed_versions.append(
+                    "20{}.{}".format(ver.replace("AWP_ROOT", "")[:2], ver.replace("AWP_ROOT", "")[-1])
+                )
+            elif "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
                 # Handle the special case
                 installed_versions.append(
                     "20{}.{} STUDENT".format(
@@ -248,7 +253,7 @@ class Common:
                 installed_versions.append(
                     "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
                 )
-
+        installed_versions = list(set(installed_versions))
         logger.debug(str(installed_versions))
         return installed_versions
 
