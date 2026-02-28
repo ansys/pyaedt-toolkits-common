@@ -83,19 +83,19 @@ jobs:
       #     .\.venv\Scripts\Activate.ps1
       #     pytest -v -m edb_api --cov --cov-append
 
-      # - name: Test REST API
-      #   timeout-minutes: 5
-      #   run: |
-      #     .\.venv\Scripts\Activate.ps1
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
 
-      #     pytest -v -m rest_api --cov --cov-append
+          pytest -v -m rest_api --cov --cov-append
 
-      # - name: Test utils
-      #   timeout-minutes: 5
-      #   run: |
-      #     .\.venv\Scripts\Activate.ps1
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
 
-      #     pytest -v -m utils --cov --cov-append
+          pytest -v -m utils --cov --cov-append
 
       - name: Test UI
         timeout-minutes: 5
