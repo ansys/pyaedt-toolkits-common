@@ -205,17 +205,6 @@ jobs:
           pip install -U build wheel
           pip install .[tests] -U
 
-      - name: Export requirements.txt
-        run: |
-          .\.venv\Scripts\Activate.ps1
-          pip freeze > requirements.txt
-
-      - name: Upload requirements.txt
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-        with:
-          name: requirements-txt
-          path: requirements.txt
-
       - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
@@ -327,13 +316,9 @@ jobs:
       - name: Install packages for testing
         run: |
           source .venv_linux/bin/activate
-          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip -U
-          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org wheel setuptools -U
-          python -c "import sys; print(sys.executable)"
-          python -m pip install --upgrade pip
-          pip install --upgrade build wheel
-          pip install .[tests]
-          pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
+          python -m pip install -U pip
+          pip install -U build wheel
+          pip install .[tests] -U
 
       - name: Test AEDT Common API
         timeout-minutes: 5
