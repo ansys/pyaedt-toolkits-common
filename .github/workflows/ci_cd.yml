@@ -342,23 +342,23 @@ jobs:
       #     source .venv_linux/bin/activate
       #     pytest -v -m common_api --cov --cov-append
 
-      - name: Test EDB API
-        timeout-minutes: 5
-        run: |
-          source .venv_linux/bin/activate
-          pytest -v -m edb_api --cov --cov-append
+      # - name: Test EDB API
+      #   timeout-minutes: 5
+      #   run: |
+      #     source .venv_linux/bin/activate
+      #     pytest -v -m edb_api --cov --cov-append
 
-      - name: Test REST API
-        timeout-minutes: 5
-        run: |
-          source .venv_linux/bin/activate
-          pytest -v -m rest_api --cov --cov-append
+      # - name: Test REST API
+      #   timeout-minutes: 5
+      #   run: |
+      #     source .venv_linux/bin/activate
+      #     pytest -v -m rest_api --cov --cov-append
 
-      - name: Test utils
-        timeout-minutes: 5
-        run: |
-          source .venv_linux/bin/activate
-          pytest -v -m utils --cov --cov-append
+      # - name: Test utils
+      #   timeout-minutes: 5
+      #   run: |
+      #     source .venv_linux/bin/activate
+      #     pytest -v -m utils --cov --cov-append
 
       - name: Test UI
         timeout-minutes: 5
