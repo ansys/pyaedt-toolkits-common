@@ -336,11 +336,11 @@ jobs:
       #     source .venv_linux/bin/activate
       #     pytest -v -m aedt_common_api --cov
 
-      # - name: Test Common API
-      #   timeout-minutes: 5
-      #   run: |
-      #     source .venv_linux/bin/activate
-      #     pytest -v -m common_api --cov --cov-append
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m common_api --cov --cov-append
 
       - name: Test EDB API
         timeout-minutes: 5
