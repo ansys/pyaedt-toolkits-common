@@ -330,11 +330,11 @@ jobs:
           name: requirements-txt
           path: requirements.txt
 
-      # - name: Test AEDT Common API
-      #   timeout-minutes: 5
-      #   run: |
-      #     source .venv_linux/bin/activate
-      #     pytest -v -m aedt_common_api --cov
+      - name: Test AEDT Common API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m aedt_common_api --cov
 
       - name: Test Common API
         timeout-minutes: 5
