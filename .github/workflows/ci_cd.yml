@@ -201,9 +201,9 @@ jobs:
       - name: Install packages for testing
         run: |
           .\.venv\Scripts\Activate.ps1
-          python -m pip install --upgrade pip
-          pip install --upgrade build wheel
-          pip install .[tests]
+          python -m pip install -U pip
+          pip install -U build wheel
+          pip install .[tests] -U
 
       - name: Test AEDT Common API
         timeout-minutes: 5
@@ -265,7 +265,6 @@ jobs:
   tests_linux:
     name: "Linux Tests"
     runs-on: [self-hosted, Linux, pyaedt-toolkit]
-    needs: [ smoke-tests ]
     env:
       ANSYSEM_ROOT252: '/usr/ansys_inc/v252/AnsysEM'
       ANS_NODEPCHECK: '1'
@@ -316,13 +315,9 @@ jobs:
       - name: Install packages for testing
         run: |
           source .venv_linux/bin/activate
-          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pip -U
-          python -m pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org wheel setuptools -U
-          python -c "import sys; print(sys.executable)"
-          python -m pip install --upgrade pip
-          pip install --upgrade build wheel
-          pip install .[tests]
-          pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org pytest-azurepipelines
+          python -m pip install -U pip
+          pip install -U build wheel
+          pip install .[tests] -U
 
       - name: Test AEDT Common API
         timeout-minutes: 5
