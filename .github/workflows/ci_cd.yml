@@ -20,6 +20,7 @@ env:
   LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
+  PYAEDT_TOOLKIT_REQUESTS_TIMEOUT: 60
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
