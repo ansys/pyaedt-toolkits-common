@@ -236,19 +236,17 @@ class Common:
         # Detect existing AEDT installation
         installed_versions = []
 
-        for ver in list_installed_aedt:
-            if "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
-                # Handle the special case
-                installed_versions.append(
-                    "20{}.{} STUDENT".format(
-                        ver.replace("ANSYSEMSV_ROOT", "")[:2], ver.replace("ANSYSEMSV_ROOT", "")[-1]
-                    )
-                )
-            else:
-                installed_versions.append(
-                    "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
-                )
+        known_prefixes = ("AWP_ROOT", "ANSYSEM_PY_CLIENT_ROOT", "ANSYSEMSV_ROOT", "ANSYSEM_ROOT")
 
+        for ver in list_installed_aedt:  # pragma: no cover
+            for prefix in known_prefixes:
+                if prefix in ver:
+                    digits = ver.replace(prefix, "")
+                    suffix = " STUDENT" if prefix == "ANSYSEMSV_ROOT" else ""
+                    installed_versions.append(f"20{digits[:2]}.{digits[-1]}{suffix}")
+                    break
+
+        installed_versions = sorted(set(installed_versions))
         logger.debug(str(installed_versions))
         return installed_versions
 
