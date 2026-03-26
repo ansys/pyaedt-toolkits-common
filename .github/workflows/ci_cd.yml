@@ -82,7 +82,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/check-vulnerabilities@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
+      - uses: ansys/actions/check-vulnerabilities@feat/cleanup
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
