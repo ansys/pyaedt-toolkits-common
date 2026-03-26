@@ -31,7 +31,7 @@ jobs:
 
 
   doc-build:
-    name: "Build documentation"
+    name: "Build SH"
     runs-on: [self-hosted, Windows, pyaedt-toolkit]
     timeout-minutes: 20
     steps:
@@ -46,8 +46,25 @@ jobs:
           add-pdf-html-docs-as-assets: true
           check-links: true
 
+  doc-build-bis:
+    name: "Build SH BIS"
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
+    needs: doc-build
+    timeout-minutes: 20
+    steps:
+      - name: Set up headless display
+        uses: pyvista/setup-headless-display-action@7d84ae825e6d9297a8e99bdbbae20d1b919a0b19 # v4.2
+
+      - name: Build documentation
+        uses: ansys/actions/doc-build@fix/miktex-installation-with-recent-choco
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          use-python-cache: false
+          add-pdf-html-docs-as-assets: true
+          check-links: true
+
   doc-build-gh:
-    name: "Build documentation"
+    name: "Build GH"
     runs-on: windows-latest
     timeout-minutes: 20
     steps:
