@@ -45,6 +45,7 @@ jobs:
           use-python-cache: false
           add-pdf-html-docs-as-assets: true
           check-links: true
+          uploaded-artifact-name-prefix: "sh-docs"
 
   doc-build-bis:
     name: "Build SH BIS"
@@ -62,6 +63,7 @@ jobs:
           use-python-cache: false
           add-pdf-html-docs-as-assets: true
           check-links: true
+          uploaded-artifact-name-prefix: "sh-docs-bis"
 
   doc-build-gh:
     name: "Build GH"
@@ -78,3 +80,4 @@ jobs:
           use-python-cache: false
           add-pdf-html-docs-as-assets: true
           check-links: true
+          uploaded-artifact-name-prefix: "gh-docs"
