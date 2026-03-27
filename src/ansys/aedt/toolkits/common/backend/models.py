@@ -32,10 +32,11 @@ else:
 from typing import Dict
 from typing import List
 
+from ansys.aedt.core.internal.aedt_versions import aedt_versions
 from pydantic import BaseModel
 from pydantic import Field
 
-DEFAULT_AEDT_VERSION = "2025.2"
+DEFAULT_AEDT_VERSION = aedt_versions.current_version
 
 
 class CommonProperties(BaseModel):
