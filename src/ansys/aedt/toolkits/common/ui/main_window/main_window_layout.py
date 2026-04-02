@@ -45,7 +45,7 @@ from ansys.aedt.toolkits.common.ui.utils.widgets.py_window.py_window import PyWi
 
 # Widgets
 from ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils import CommonWindowUtils
-from ansys.aedt.toolkits.common.ui.models import general_settings
+
 
 class MainWindowLayout(CommonWindowUtils):
     """Class representing the main window of the application."""
@@ -193,7 +193,6 @@ class MainWindowLayout(CommonWindowUtils):
         self.title_bar_frame.setLayout(self.title_bar_layout)
         self.title_bar_layout.setContentsMargins(0, 0, 0, 0)
 
-
         # Add logo to main page depending on the theme, we can change the logo to white or black version
         if self.properties.logo:
             logo = self.images_load.image_path(self.properties.logo)
@@ -203,7 +202,6 @@ class MainWindowLayout(CommonWindowUtils):
                 logo = self.images_load.image_path("ansys-white.svg")
             elif "synopsys" in self.themes["theme_name"]:
                 logo = self.images_load.image_path("synopsys-logo.svg")
-
 
         self.title_bar = PyTitleBar(
             parent=self.main_window,
