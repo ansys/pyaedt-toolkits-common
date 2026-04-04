@@ -24,7 +24,7 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "build==1.4.0",
+    "build==1.4.2",
     "twine==6.2.0",
     "pyaedt==1.0.0rc1",
     "pydantic>=2.0,<2.13",
