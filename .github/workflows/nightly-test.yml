@@ -1,0 +1,214 @@
+name: Nightly tests
+
+on:
+  workflow_dispatch:
+  schedule:  # UTC at 0300
+    - cron:  '0 3 * * *'
+
+
+env:
+  MAIN_PYTHON_VERSION: '3.12'
+  ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
+  ON_CI: True
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions: {} # Disable default permissions
+
+jobs:
+
+  tests_windows:
+    name: Windows Tests
+    runs-on: [self-hosted, Windows, pyaedt-toolkit]
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: Create Python venv
+        run: |
+          python -m venv .venv
+          .\.venv\Scripts\Activate.ps1
+
+      - name: Install packages for testing
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m pip install -U pip
+          pip install -U build wheel
+          pip install .[tests] -U
+
+      - name: Test AEDT Common API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m aedt_common_api --cov
+
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m common_api --cov --cov-append
+
+      - name: Test EDB API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          pytest -v -m edb_api --cov --cov-append
+
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m rest_api --cov --cov-append
+
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m utils --cov --cov-append
+
+      - name: Test UI
+        timeout-minutes: 5
+        run: |
+          .\.venv\Scripts\Activate.ps1
+
+          pytest -v -m ui --cov --cov-append
+
+      - name: Combine coverage files
+        run: |
+          .\.venv\Scripts\Activate.ps1
+          python -m coverage html -d .cov\total-html
+          python -m coverage xml -o .cov\total.xml
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          path: .cov/total-html-windows
+          name: html-total-coverage-windows
+
+      - uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        with:
+          name: codecov-tests-windows
+          files: .cov/total.xml
+          flags: windows_tests
+
+  tests_linux:
+    name: Linux Tests
+    runs-on: [self-hosted, Linux, pyaedt-toolkit]
+    env:
+      ANSYSEM_ROOT261: '/usr/ansys_inc/v261/AnsysEM'
+      ANS_NODEPCHECK: '1'
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        with:
+          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+
+      - name: Install system packages for Linux tests
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb \
+            libfontconfig1-dev \
+            libfreetype6-dev \
+            libx11-dev \
+            libx11-xcb-dev \
+            libxext-dev \
+            libxfixes-dev \
+            libxi-dev \
+            libxrender-dev \
+            libxcb1-dev \
+            libxcb-glx0-dev \
+            libxcb-keysyms1-dev \
+            libxcb-image0-dev \
+            libxcb-shm0-dev \
+            libxcb-icccm4-dev \
+            libxcb-sync-dev \
+            libxcb-xfixes0-dev \
+            libxcb-shape0-dev \
+            libxcb-randr0-dev \
+            libxcb-render-util0-dev \
+            libxcb-cursor-dev \
+            libxcb-util-dev \
+            libxcb-xkb-dev \
+            libxcb-xinerama0-dev \
+            libxkbcommon-dev \
+            libxkbcommon-x11-dev
+
+      - name: Create Python venv
+        run: |
+          python -m venv .venv_linux
+
+      - name: Install packages for testing
+        run: |
+          source .venv_linux/bin/activate
+          python -m pip install -U pip
+          pip install -U build wheel
+          pip install .[tests] -U
+
+      - name: Test AEDT Common API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m aedt_common_api --cov
+
+      - name: Test Common API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m common_api --cov --cov-append
+
+      - name: Test EDB API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m edb_api --cov --cov-append
+
+      - name: Test REST API
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m rest_api --cov --cov-append
+
+      - name: Test utils
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          pytest -v -m utils --cov --cov-append
+
+      - name: Test UI
+        timeout-minutes: 5
+        run: |
+          source .venv_linux/bin/activate
+          xvfb-run pytest -v -m ui --cov --cov-append
+
+      - name: Combine coverage files
+        run: |
+          source .venv_linux/bin/activate
+          python -m coverage html -d .cov\total-html-linux
+          python -m coverage xml -o .cov\total-linux.xml
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          path: .cov/total-html-linux
+          name: html-total-coverage-linux
+
+      - uses: codecov/codecov-action@671740ac38dd9b0130fbe1cec585b89eea48d3de # v5.5.2
+        with:
+          name: codecov-tests-linux
+          files: .cov/total.xml
+          flags: linux_tests
+
