@@ -1,5 +1,4 @@
 version: 2
-enable-beta-ecosystems: true
 updates:
   - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
@@ -15,10 +14,6 @@ updates:
       exclude:
         - "ansys-sphinx-theme"
         - "ansys-tools-visualization-interface"
-        - "ansys-pythonnet"
-    reviewers:
-      - "Samuelopez-ansys"
-      - "gmalinve"
     assignees:
       - "pyansys-ci-bot"
     labels:
@@ -30,14 +25,16 @@ updates:
   - package-ecosystem: "github-actions" # zizmor: ignore[dependabot-cooldown] cooldown feature is not available for github actions yet.
     cooldown:
       default-days: 10 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
-    reviewers:
-      - "Samuelopez-ansys"
     assignees:
       - "pyansys-ci-bot"
     labels:

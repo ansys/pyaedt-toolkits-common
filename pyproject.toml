@@ -3,38 +3,40 @@ requires = ["flit_core >=3.2,<4"]
 build-backend = "flit_core.buildapi"
 
 [project]
-# Check https://flit.readthedocs.io/en/latest/pyproject_toml.html for all available sections
 name = "ansys-aedt-toolkits-common"
 dynamic = ["version"]
 description = "User interface example repository to create your toolkit."
 readme = "README.rst"
-requires-python = ">=3.8"
-license = {file = "LICENSE"}
-authors = [
-    {name = "ANSYS, Inc.", email = "pyansys.support@ansys.com"},
-]
-maintainers = [
-    {name = "PyAnsys developers", email = "pyansys.maintainers@ansys.com"},
-]
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
+maintainers = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
 
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Manufacturing",
     "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Topic :: Scientific/Engineering :: Information Analysis",
 ]
+
 dependencies = [
-    "build==1.4.0",
-    "twine==6.2.0",
-    "pyaedt==1.0.0rc1",
+    "pyaedt==1.0.0rc2",
     "pydantic>=2.0,<2.13",
     "tomli; python_version < '3.12'",
-    "attrs<25.2.0"
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]==1.0.0rc1",
+    "pyaedt[all]==1.0.0rc2",
     "flask",
     "pyside6==6.10.0",
     "pyqtgraph",
@@ -42,7 +44,7 @@ all = [
     "ansys-tools-visualization-interface[pyvistaqt]"
 ]
 tests = [
-    "pyaedt[all]==1.0.0rc1",
+    "pyaedt[all]==1.0.0rc2",
     "flask",
     "pyside6==6.10.0",
     "pytest>=7.4.0,<8.5",
@@ -65,7 +67,7 @@ doc = [
     "jupytext",
     "ipython>=8.13.0,<9.1",
     "jupyterlab>=4.0.0,<4.6",
-    "pypandoc>=1.10.0,<1.17",
+    "pypandoc>=1.10.0,<1.18",
     "ipywidgets",
 ]
 
