@@ -221,7 +221,7 @@ jobs:
           python -m coverage xml -o .cov\total.xml
 
       - name: Upload coverage results
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           path: .cov/total-html-windows
           name: html-total-coverage-windows
@@ -235,6 +235,7 @@ jobs:
   tests_linux:
     name: Linux Tests
     runs-on: [self-hosted, Linux, pyaedt-toolkit]
+    needs: [smoke-tests]
     env:
       ANSYSEM_ROOT261: '/usr/ansys_inc/v261/AnsysEM'
       ANS_NODEPCHECK: '1'
@@ -332,7 +333,7 @@ jobs:
           python -m coverage xml -o .cov\total-linux.xml
 
       - name: Upload coverage results
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
         with:
           path: .cov/total-html-linux
           name: html-total-coverage-linux
