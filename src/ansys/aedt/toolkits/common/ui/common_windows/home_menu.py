@@ -93,14 +93,15 @@ class HomeMenu(object):
         self.ui.left_column.menus.home_vertical_layout.addItem(spacer)
 
         # Add logo to main page depending on the theme, we can change the logo to white or black version
-        if not general_settings.logo:
+        if self.app.properties.logo:
+            main_window_logo = self.ui.images_load.image_path(self.app.properties.logo)
+        else:
             main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-black.svg")
             if self.ui.themes["theme_name"] == "ansys_dark":
                 main_window_logo = self.ui.images_load.image_path("ansys-primary-logo-white.svg")
             elif "synopsys" in self.ui.themes["theme_name"]:
                 main_window_logo = self.ui.images_load.image_path("synopsys-logo.svg")
-        else:
-            main_window_logo = general_settings.logo
+
         main_logo = QSvgWidget(main_window_logo)
         self.ui.load_pages.logo_layout.addWidget(main_logo, Qt.AlignCenter, Qt.AlignCenter)
 

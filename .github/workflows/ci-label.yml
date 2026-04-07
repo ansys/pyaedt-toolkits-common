@@ -2,14 +2,10 @@ name: Labeler
 
 on:
   pull_request:
-      # opened, reopened, and synchronize are default for pull_request
-      # edited - when PR title or body is changed
-      # labeled - when labels are added to PR
-      types: [opened, reopened, synchronize, edited, labeled]
-  push:
-    branches: [ main ]
-    paths:
-      - '../labels.yml'
+    # opened, reopened, and synchronize are default for pull_request
+    # edited - when PR title or body is changed
+    # labeled - when labels are added to PR
+    types: [opened, reopened, synchronize, edited, labeled]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -102,17 +98,17 @@ jobs:
           - [release](https://github.com/pyansys/pyaedt-toolkits.git/pulls?q=label%3Arelease+)
 
   changelog-fragment:
-    name: "Create changelog fragment"
+    name: Create changelog fragment file
     needs: [labeler]
     permissions:
       contents: write # Needed to create changelog fragment on PR
       pull-requests: write # Needed to create changelog fragment on PR
     runs-on: ubuntu-latest
     steps:
-    - uses: ansys/actions/doc-changelog@36cd86710c966963f4dcec56a9670171618cf76a # v10.2.4
+    - uses: ansys/actions/doc-changelog@7d55ff0b9f67c77dae50a286d711ee1ae27b0a25 # v10.2.12
       with:
-        token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
-        use-conventional-commits: true
-        use-default-towncrier-config: true
-        bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
         bot-email: ${{ secrets.PYANSYS_CI_BOT_EMAIL }}
+        bot-user: ${{ secrets.PYANSYS_CI_BOT_USERNAME }}
+        token: ${{ secrets.PYANSYS_CI_BOT_TOKEN }}
+        use-default-towncrier-config: true
+        use-pull-request-title: true

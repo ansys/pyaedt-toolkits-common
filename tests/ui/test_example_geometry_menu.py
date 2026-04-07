@@ -46,7 +46,7 @@ def test_windows_default_values(patched_window_methods, qtbot):
 
 @patch("requests.post")
 @patch.object(PyLogger, "log")
-def test_windows_create_geometry_with_default_values(mock_log, mock_post, patched_window_methods, qtbot):
+def test_windows_create_geometry_with_default_values(mock_log, mock_post, patched_window_methods, qtbot, caplog):
     """Test the creation of geometry with default values in the geometry menu."""
     windows = ApplicationWindow()
 
@@ -59,7 +59,7 @@ def test_windows_create_geometry_with_default_values(mock_log, mock_post, patche
     mock_post.assert_called_once_with(f"{DEFAULT_URL}/create_geometry", timeout=ANY)
 
     assert any("Creating geometry." in call.args[0] for call in mock_log.call_args_list)
-    assert any("Geometry created." in call.args[0] for call in mock_log.call_args_list)
+    assert "Geometry created." in caplog.text
 
 
 @patch.object(PyLogger, "log")
