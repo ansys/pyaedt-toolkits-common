@@ -40,7 +40,7 @@ st.title("Simple AEDT Toolkit - Create geometry")
 
 def _get_frontend():
     if "frontend" not in st.session_state:
-        from examples.toolkit_webapp.ui.actions import Frontend
+        from examples.toolkit_webapp.pyaedt_toolkit.ui.actions import Frontend
 
         st.session_state.frontend = Frontend()
     return st.session_state.frontend

@@ -24,7 +24,7 @@
 import sys
 import warnings
 
-from examples.toolkit_webapp.backend.api import ToolkitBackend
+from examples.toolkit_webapp.pyaedt_toolkit.backend.api import ToolkitBackend
 
 from ansys.aedt.toolkits.common.backend.multithreading_server import MultithreadingServer
 from ansys.aedt.toolkits.common.backend.rest_api import app
@@ -49,16 +49,20 @@ def create_geometry():
     else:
         return jsonify("Geometry not created"), 500
 
-@app.route("/close_desktop", methods=["POST"])
-def close_desktop():
-    logger.info("[POST] /close_desktop (close AEDT Desktop).")
-
-    toolkit_api.connect_design()
-    response = toolkit_api.release_aedt(True, True)
-    if response:
-        return response, 200
-    else:
-        return jsonify("Failed to close Desktop"), 500
+# @app.route("/close_desktop", methods=["POST"])
+# def close_desktop():
+#     logger.info("[POST] /close_desktop (close AEDT Desktop).")
+#
+#     props = toolkit_api.get_properties()
+#     props["non_graphical"] = False
+#     toolkit_api.set_properties(props)
+#
+#     toolkit_api.connect_aedt()
+#     response = toolkit_api.release_aedt(True, True)
+#     if response:
+#         return response, 200
+#     else:
+#         return jsonify("Failed to close Desktop"), 500
 
 
 def run_backend(port=None):

@@ -33,7 +33,7 @@ from ansys.aedt.toolkits.common.utils import clean_python_processes
 from ansys.aedt.toolkits.common.utils import find_free_port
 from ansys.aedt.toolkits.common.utils import is_server_running
 
-from examples.toolkit_webapp.backend.models import properties as backend_properties
+from examples.toolkit_webapp.pyaedt_toolkit.backend.models import properties as backend_properties
 
 backend = None
 ui = None
@@ -41,7 +41,7 @@ ui = None
 
 def start_backend(pp):
     """Start the backend process."""
-    from examples.toolkit_webapp.backend.run_backend import run_backend
+    from examples.toolkit_webapp.pyaedt_toolkit.backend.run_backend import run_backend
 
     print(f"Starting backend on port {pp}...")
     run_backend(pp)
@@ -55,7 +55,7 @@ def start_frontend(url, port):
 
     frontend_path = os.path.join(
         base_dir,
-        "ui",
+        "pyaedt_toolkit/ui",
         "run_frontend.py")
     subprocess.run([
         sys.executable,
