@@ -49,21 +49,6 @@ def create_geometry():
     else:
         return jsonify("Geometry not created"), 500
 
-# @app.route("/close_desktop", methods=["POST"])
-# def close_desktop():
-#     logger.info("[POST] /close_desktop (close AEDT Desktop).")
-#
-#     props = toolkit_api.get_properties()
-#     props["non_graphical"] = False
-#     toolkit_api.set_properties(props)
-#
-#     toolkit_api.connect_aedt()
-#     response = toolkit_api.release_aedt(True, True)
-#     if response:
-#         return response, 200
-#     else:
-#         return jsonify("Failed to close Desktop"), 500
-
 
 def run_backend(port=None):
     """Run the server."""
