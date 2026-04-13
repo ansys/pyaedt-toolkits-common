@@ -9,6 +9,121 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.16.0 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.0>`_ - April 13, 2026
+==========================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump actions/checkout from 6.0.1 to 6.0.2
+          - `#373 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/373>`_
+
+        * - Bump actions/setup-python from 6.1.0 to 6.2.0
+          - `#374 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/374>`_
+
+        * - Bump ansys/actions from 10.2.3 to 10.2.4
+          - `#375 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/375>`_
+
+        * - Bump actions/download-artifact from 7.0.0 to 8.0.0
+          - `#386 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/386>`_
+
+        * - Bump actions/upload-artifact from 6.0.0 to 7.0.0
+          - `#389 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/389>`_
+
+        * - Bump pyvista/setup-headless-display-action from 4.2 to 4.3
+          - `#391 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/391>`_, `#412 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/412>`_
+
+        * - Update pypandoc requirement from <1.17,>=1.10.0 to >=1.10.0,<1.18
+          - `#396 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/396>`_
+
+        * - Bump actions/download-artifact from 8.0.0 to 8.0.1
+          - `#397 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/397>`_
+
+        * - Update pytest-cov requirement from <7.1,>=4.0.0 to >=4.0.0,<7.2
+          - `#403 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/403>`_
+
+        * - Bump ansys/actions from 10.2.4 to 10.2.12
+          - `#406 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/406>`_
+
+        * - Bump codecov/codecov-action from 5.5.2 to 6.0.0
+          - `#407 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/407>`_
+
+        * - Bump ansys-sphinx-theme from 1.6.1 to 1.7.2
+          - `#413 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/413>`_
+
+        * - Update pytest requirement from <8.5,>=7.4.0 to >=7.4.0,<9.1
+          - `#414 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/414>`_
+
+        * - Update numpydoc requirement from <1.10,>=1.5.0 to >=1.5.0,<1.11
+          - `#415 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/415>`_
+
+
+  .. tab-item:: Documentation
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update link to avoid using line number
+          - `#381 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/381>`_
+
+        * - Fix example connect session
+          - `#387 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/387>`_
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Arguments passed to ansys.aedt.core.Edb
+          - `#380 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/380>`_
+
+        * - Available AEDT versions available
+          - `#382 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/382>`_
+
+        * - Update default AEDT version to use current version from aedt versions
+          - `#392 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/392>`_
+
+        * - Fix logo
+          - `#401 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/401>`_
+
+        * - Add \`\`ON_CI: True\`\` env variable to \`\`nightly-doc\`\` workflow
+          - `#410 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/410>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.15.1
+          - `#378 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/378>`_
+
+        * - Fix testing issue
+          - `#384 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/384>`_
+
+        * - Update ansys-sphinx-theme version
+          - `#390 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/390>`_
+
+        * - Update CI and cleanup pyproject.toml
+          - `#399 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/399>`_
+
+        * - Update PyAEDT rc2
+          - `#405 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/405>`_
+
+        * - Add copyright notice and update requests timeout in multiple files
+          - `#409 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/409>`_
+
+
 `0.15.1 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.15.1>`_ - February 11, 2026
 =============================================================================================================
 
