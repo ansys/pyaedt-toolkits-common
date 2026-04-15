@@ -45,6 +45,7 @@ def _get_frontend():
         st.session_state.frontend = Frontend()
     return st.session_state.frontend
 
+
 frontend = _get_frontend()
 
 if st.button("Create geometry"):

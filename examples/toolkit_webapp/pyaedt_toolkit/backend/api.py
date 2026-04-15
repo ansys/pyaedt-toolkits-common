@@ -70,8 +70,8 @@ class ToolkitBackend(AEDTCommon):
         >>> toolkit_api.wait_to_be_idle()
         >>> toolkit_api.create_geometry()
         """
-        dkp = Desktop(version=self.properties.aedt_version)
-        self.properties.selected_process = dkp.aedt_process_id
+        self.launch_aedt()
+
         self.connect_design()
 
         if self.aedtapp:

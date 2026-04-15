@@ -46,6 +46,7 @@ def start_backend(pp):
     print(f"Starting backend on port {pp}...")
     run_backend(pp)
 
+
 def start_frontend(url, port):
     """Start the frontend process."""
     frontend_port = _find_free_port_streamlit()
