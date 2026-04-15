@@ -162,7 +162,7 @@ Toolkit example web-app
 
 The `examples/toolkit_webapp <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit_webapp>`_
 folder contains all files for creating a toolkit using the PyAEDT Common Toolkit backend with a web-based user
-interface built using Streamlit.
+interface built using `Streamlit <https://streamlit.io>`_.
 
 .. note::
    This example requires **Streamlit**, a Python framework for creating interactive web applications.
