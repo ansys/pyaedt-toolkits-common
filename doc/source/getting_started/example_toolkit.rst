@@ -155,3 +155,63 @@ The ``run_toolkit.py`` script facilitates the simultaneous execution of both the
 different threads. This eliminates the need for launching the backend and UI separately.
 In cases where the backend is running remotely, execute the backend on the remote machine
 before running this script.
+
+
+Toolkit example web-app
+=======================
+
+The `examples/toolkit_webapp <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit_webapp>`_
+folder contains all files for creating a toolkit using the PyAEDT Common Toolkit backend with a web-based user
+interface built using `Streamlit <https://streamlit.io>`_.
+
+.. note::
+   This example requires **Streamlit**, a Python framework for creating interactive web applications.
+   Streamlit is not included in the base PyAEDT Toolkits Common installation and must be installed separately.
+
+Requirements
+~~~~~~~~~~~~
+
+To run the web-app example, install Streamlit:
+
+.. code-block:: bash
+
+   pip install streamlit
+
+
+Example walkthrough
+~~~~~~~~~~~~~~~~~~~
+
+Follow the steps outlined in the example to gain practical insights into toolkit implementation:
+
+1. **Access the example**: Navigate to the `examples/toolkit_webapp <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit_webapp>`_
+   folder.
+
+2. **Install dependencies**: Ensure Streamlit is installed as described.
+
+3. **Run the toolkit**: Execute the ``run_toolkit.py`` script to launch both the backend and frontend:
+
+   .. code-block:: bash
+
+      python run_toolkit.py
+
+   This launches the backend server and opens a Streamlit web interface in your default browser.
+
+4. **Understand the toolkit structure**:
+
+   - Explore the directory and file structure of the example toolkit.
+   - Gain insights into best practices for organizing toolkit components with a web-based UI.
+
+Key features
+~~~~~~~~~~~~
+
+The web-app example demonstrates:
+
+- **AEDT launch mode selection**: A radio button selector to choose between graphical and non-graphical modes
+  for launching AEDT, providing flexibility for different use cases.
+
+- **Geometry creation**: Create geometric primitives in AEDT through a simple web interface.
+
+- **Desktop management**: Close AEDT sessions remotely through the web interface.
+
+- **Real-time feedback**: Visual feedback with spinners and success/error messages for all operations.
+
