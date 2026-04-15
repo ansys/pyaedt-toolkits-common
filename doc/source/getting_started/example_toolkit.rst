@@ -186,7 +186,7 @@ Follow the steps outlined in the example to gain practical insights into toolkit
 1. **Access the example**: Navigate to the `examples/toolkit_webapp <https://github.com/ansys/pyaedt-toolkits-common/tree/main/examples/toolkit_webapp>`_
    folder.
 
-2. **Install dependencies**: Ensure Streamlit is installed as described above.
+2. **Install dependencies**: Ensure Streamlit is installed as described.
 
 3. **Run the toolkit**: Execute the ``run_toolkit.py`` script to launch both the backend and frontend:
 
