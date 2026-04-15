@@ -48,6 +48,25 @@ def _get_frontend():
 
 frontend = _get_frontend()
 
+# Display AEDT mode selector
+properties = frontend.get_properties()
+current_non_graphical = properties.get("non_graphical", False)
+current_index = 1 if current_non_graphical else 0
+
+mode = st.radio(
+    "AEDT Launch Mode:",
+    options=["Graphical", "Non-Graphical"],
+    index=current_index,
+    horizontal=True,
+    help="Select whether to launch AEDT with or without the graphical user interface"
+)
+
+# Update backend property if mode changed
+new_non_graphical = (mode == "Non-Graphical")
+if new_non_graphical != current_non_graphical:
+    frontend.set_properties({"non_graphical": new_non_graphical})
+    st.rerun()
+
 if st.button("Create geometry"):
     with st.spinner("Creating geometry in AEDT..."):
         success = frontend.create_geometry_toolkit()

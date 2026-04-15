@@ -78,7 +78,6 @@ class Frontend(FrontendGeneric):
 
     def close_desktop(self):
         print("Calling:", self._url("/close_aedt"))
-        requests.post(self._url("/connect_design"))
         properties = {"close_projects": True, "close_desktop": True}
         response = requests.post(self._url("/close_aedt"), json=properties)
 
