@@ -30,7 +30,7 @@ classifiers = [
 
 dependencies = [
     "pyaedt",
-    "pydantic>=2.0,<2.13",
+    "pydantic>=2.0,<2.14",
     "tomli; python_version < '3.12'",
 ]
 
