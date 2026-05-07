@@ -29,6 +29,58 @@ Toolkit architecture diagram
   :width: 800
   :alt: Toolkit architecture
 
+REST API
+~~~~~~~~
+
+REST APIs are standard web interfaces allowing clients to communicate with services via HTTP requests.
+JSON is the standard for transferring data. In fact, REST APIs accept JSON for request payload and also
+send responses to JSON.
+
+In the client-server architecture model, the client sends the request to the server to fetch some information.
+Server-side technologies decode JSON information and transmit back the response to the client. This interaction
+is handled by the HTTP protocol.
+
+REST API expose resources (data or operations) via HTTP methods:
+- GET: read data
+- POST: create or execute an action
+- PUT/PATCH: update data
+- DELETE: remove data
+
+Each operation is stateless: The server does not remember previous requests; each request in independent.
+
+.. image:: ../_static/rest_methods.png
+  :width: 600
+  :alt: REST API methods
+
+API
+~~~
+
+The :doc:`../toolkit/api` contains three classes, ``Common``, ``AEDTCommon``, and ``EDBCommon``, which provide methods for
+controlling the toolkit workflow.
+
+UI
+~~
+
+For more information on the UI, see :doc:`../toolkit/ui`.
+
+Backend/Frontend separation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is an architectural decision to make PyAEDT Toolkits robust and testable.
+Backend and frontend are two separate processes that communicate only through HTTP.
+The backend is a Python process that owns the AEDT connection. it defines the ``ToolkitBackend`` class that lets
+users manage and interact with the AEDT session.
+The backend/frontend separation allows to run headlessly and it brings several advantages:
+- Run backend server only
+- Call backend directly in Python
+- Integration into CI/CD pipelines
+
+Because the backend exposes all functionalities as APIs, the frontend is just one way to interact with the backend.
+User can choose:
+- Default UI provided by the framework: PySide6-based desktop GUI
+- Web app: Use any web technology (React, Angular, Vue, Streamlit etc.)
+- Other frontend frameworks
+
 Toolkit backend and UI
 ~~~~~~~~~~~~~~~~~~~~~~
 
@@ -101,23 +153,6 @@ method builds the GET HTTP request to send to the backend to retrieve properties
 The event of setting up a property calls the `set_properties() <https://github.com/ansys/pyaedt-toolkits-common/blob/main/src/ansys/aedt/toolkits/common/ui/actions_generic.py#L165>`_
 method, which builds the PUT HTTP request that is sent to the backend.
 
-API
-~~~
-
-The :doc:`../toolkit/api` contains three classes, ``Common``, ``AEDTCommon``, and ``EDBCommon``, which provide methods for
-controlling the toolkit workflow.
-
-REST API
-~~~~~~~~
-
-REST APIs are standard web interfaces allowing clients to communicate with services via HTTP requests.
-JSON is the standard for transferring data. In fact, REST APIs accept JSON for request payload and also
-send responses to JSON.
-
-In the client-server architecture model, the client sends the request to the server to fetch some information.
-Server-side technologies decode JSON information and transmit back the response to the client. This interaction
-is handled by the HTTP protocol.
-
 UI and backend interaction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -141,7 +176,3 @@ manifest through errors in validating or updating toolkit properties, or a stuck
 The toolkit uses CRUD (Create, Read, Update & Delete) operations that are simply HTTP request methods
 that specify the action to perform through the request.
 
-UI
-~~
-
-For more information on the UI, see :doc:`../toolkit/ui`.
