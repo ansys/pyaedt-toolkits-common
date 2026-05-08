@@ -42,10 +42,10 @@ is handled by the HTTP protocol.
 
 REST API expose resources (data or operations) via HTTP methods:
 
--   GET: read data
--   POST: create or execute an action
--   PUT/PATCH: update data
--   DELETE: remove data
+-   **GET**: read data
+-   **POST**: create or execute an action
+-   **PUT/PATCH**: update data
+-   **DELETE**: remove data
 
 Each operation is stateless: The server does not remember previous requests; each request in independent.
 
@@ -64,7 +64,7 @@ UI
 
 For more information on the UI, see :doc:`../toolkit/ui`.
 
-Backend/Frontend separation
+Backend-Frontend separation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is an architectural decision to make PyAEDT Toolkits robust and testable.
@@ -73,7 +73,7 @@ The backend is a Python process that owns the AEDT connection. it defines the ``
 users manage and interact with the AEDT session.
 The backend/frontend separation allows to run headlessly and it brings several advantages:
 
--   Run backend server only*
+-   Run backend server only
 -   Call backend directly in Python
 -   Integration into CI/CD pipelines
 
