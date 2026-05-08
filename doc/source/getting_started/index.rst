@@ -28,10 +28,10 @@ Electronics Desktop (AEDT) toolkit.
 
     .. grid-item-card:: Toolkit project setup :fa:`computer`
         :padding: 2 2 2 2
-        :link: architecture
+        :link: toolkit_setup
         :link-type: doc
 
-        Learn about this toolkit's architecture.
+        Learn basic concepts that will help you setup your own toolkit project.
 
 
     .. grid-item-card:: Example toolkit :fa:`scroll`
@@ -48,4 +48,5 @@ Electronics Desktop (AEDT) toolkit.
 
    installation
    architecture
+   toolkit_setup
    example_toolkit
