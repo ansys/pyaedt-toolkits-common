@@ -72,7 +72,7 @@ It answers 4 key questions:
    jobs:                      #**what?** One workflow, can run in parallel or sequentially
      test:
      runs-on: ubuntu-latest   #**where?** Ubuntu/ Windows or GitHub hosted machines
-     steps:                   #**how?** Steps run commands (run) and use pre pre-built actions (uses)
+     steps:                   #**how?** Steps run commands (run) and use pre-built actions (uses)
        -run: pytest
 
 Runners
