@@ -41,10 +41,11 @@ Server-side technologies decode JSON information and transmit back the response 
 is handled by the HTTP protocol.
 
 REST API expose resources (data or operations) via HTTP methods:
-- GET: read data
-- POST: create or execute an action
-- PUT/PATCH: update data
-- DELETE: remove data
+
+-   GET: read data
+-   POST: create or execute an action
+-   PUT/PATCH: update data
+-   DELETE: remove data
 
 Each operation is stateless: The server does not remember previous requests; each request in independent.
 
@@ -73,14 +74,14 @@ users manage and interact with the AEDT session.
 The backend/frontend separation allows to run headlessly and it brings several advantages:
 
 -   Run backend server only*
-* Call backend directly in Python
-* Integration into CI/CD pipelines
+-   Call backend directly in Python
+-   Integration into CI/CD pipelines
 
 Because the backend exposes all functionalities as APIs, the frontend is just one way to interact with the backend.
 User can choose:
-- Default UI provided by the framework: PySide6-based desktop GUI
-- Web app: Use any web technology (React, Angular, Vue, Streamlit etc.)
-- Other frontend frameworks
+-   Default UI provided by the framework: PySide6-based desktop GUI
+-   Web app: Use any web technology (React, Angular, Vue, Streamlit etc.)
+-   Other frontend frameworks
 
 Toolkit backend and UI
 ~~~~~~~~~~~~~~~~~~~~~~
