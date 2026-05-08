@@ -35,7 +35,7 @@ Where automation lives: GitHub Actions and the importance of the .yml file
 A very common tool for CI/CD is GitHub Actions.
 
 GitHub Actions lets you define workflows that run automatically when something happens in
-your repository (e.g. on a code push or when publishing a package)
+your repository (for example on a code push or when publishing a package)
 
 The core piece that defines how to run GitHub Actions is the .yml file.
 The .yml file it’s a configuration file that tells GitHub which steps to run and the sequence
@@ -49,7 +49,7 @@ They make the process repeatable, automated, standardized and collaborative.
   :width: 600
   :alt: yml_github
 
-.yml file content
+File content
 ~~~~~~~~~~~~~~~~~
 
 What is it? A recipe that tells GitHub Actions exactly how to run your CI/CD pipeline.
@@ -98,7 +98,7 @@ From code to users: Packaging and executable deployment
 • ``CI/CD``: Automates building , testing , and delivering the code. Triggers everything on push or tag.
 • ``Packaging``: Prepares the code to be reused. It creates installable artifacts (libraries and wheels)
 • ``Tags and releases``:
-    -   Tag: Version maker (e.g. v1.0.0)
+    -   Tag: Version maker (for example v1.0.0)
     -   Release: Official distributed version. Often triggers CI/CD to publish artifacts.
 • ``Executable deployment``: makes the code runnable without Python. Produces an .exe.
 
