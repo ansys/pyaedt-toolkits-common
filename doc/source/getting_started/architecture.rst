@@ -72,7 +72,7 @@ The backend is a Python process that owns the AEDT connection. it defines the ``
 users manage and interact with the AEDT session.
 The backend/frontend separation allows to run headlessly and it brings several advantages:
 
-* Run backend server only
+-   Run backend server only*
 * Call backend directly in Python
 * Integration into CI/CD pipelines
 
