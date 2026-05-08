@@ -7,8 +7,10 @@ CI/CD
 ~~~~~
 
 What is CI/CD ?
--CI: Continuous Integration
--CD: Continuous Delivery / Deployment
+
+-   **CI**: Continuous Integration
+-   **CD**: Continuous Delivery / Deployment
+
 It's a way to automate the process of building, testing, and releasing software
 
 ``Continuous Integration (CI)``:

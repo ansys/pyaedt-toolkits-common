@@ -64,14 +64,14 @@ UI
 
 For more information on the UI, see :doc:`../toolkit/ui`.
 
-Backend-Frontend separation
+Backend-frontend separation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This is an architectural decision to make PyAEDT Toolkits robust and testable.
 Backend and frontend are two separate processes that communicate only through HTTP.
 The backend is a Python process that owns the AEDT connection. it defines the ``ToolkitBackend`` class that lets
 users manage and interact with the AEDT session.
-The backend/frontend separation allows to run headlessly and it brings several advantages:
+The backend/frontend separation allows to run headless and it brings several advantages:
 
 -   Run backend server only
 -   Call backend directly in Python
@@ -80,7 +80,7 @@ The backend/frontend separation allows to run headlessly and it brings several a
 Because the backend exposes all functionalities as APIs, the frontend is just one way to interact with the backend.
 User can choose:
 -   Default UI provided by the framework: PySide6-based desktop GUI
--   Web app: Use any web technology (React, Angular, Vue, Streamlit etc.)
+-   Web app: Use any web technology (React, Angular, Streamlit etc.)
 -   Other frontend frameworks
 
 Toolkit backend and UI
