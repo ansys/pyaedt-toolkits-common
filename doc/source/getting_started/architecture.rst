@@ -71,6 +71,7 @@ Backend and frontend are two separate processes that communicate only through HT
 The backend is a Python process that owns the AEDT connection. it defines the ``ToolkitBackend`` class that lets
 users manage and interact with the AEDT session.
 The backend/frontend separation allows to run headlessly and it brings several advantages:
+
 * Run backend server only
 * Call backend directly in Python
 * Integration into CI/CD pipelines
