@@ -1,0 +1,6 @@
+load\_edb
+=========
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: EDBCommon.load_edb
