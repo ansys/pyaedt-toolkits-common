@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  MAIN_PYTHON_VERSION: '3.12'
+  MAIN_PYTHON_VERSION: '3.14'
+  TESTS_PYTHON_VERSION: '3.10'
   DOCUMENTATION_CNAME: 'aedt.common.toolkit.docs.pyansys.com'
   LIBRARY_NAME: 'ansys-aedt-toolkits-common'
   LIBRARY_NAMESPACE: 'ansys.aedt.toolkits.common'
@@ -161,7 +162,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Create Python venv
         run: |
@@ -247,7 +248,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Install system packages for Linux tests
         run: |
