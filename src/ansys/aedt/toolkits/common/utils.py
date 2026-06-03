@@ -138,7 +138,7 @@ def server_actions(command, name, is_linux):
 def clean_python_processes(url, port):  # pragma: no cover
     """Clean up Python processes."""
     for conn in psutil.net_connections():
-        (ip_tmp, port_tmp) = conn.laddr
+        ip_tmp, port_tmp = conn.laddr
         pid = conn.pid
         if ip_tmp == url and port_tmp == port and pid and pid != 0:
             try:
