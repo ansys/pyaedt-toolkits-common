@@ -41,7 +41,7 @@ all = [
     "flask",
     "pyaedt[all]",
     "pyqtgraph",
-    "pyside6==6.10.0",
+    "pyside6==6.11.1",
     "qdarkstyle",
 ]
 tests = [
@@ -51,7 +51,7 @@ tests = [
     "pytest>=7.4.0,<9.1",
     "pytest-cov>=4.0.0,<7.2",
     "pytest-qt>=4.0.0,<4.6",
-    "pyside6==6.10.0",
+    "pyside6==6.11.1",
 ]
 doc = [
     "ansys-aedt-toolkits-common[all]",
@@ -63,7 +63,7 @@ doc = [
     "nbsphinx>=0.9.0,<0.10",
     "numpydoc>=1.5.0,<1.11",
     "pypandoc>=1.10.0,<1.18",
-    "pyside6==6.10.0",
+    "pyside6==6.11.1",
     "recommonmark>=0.7.0,<0.8",
     "Sphinx>=7.1.0,<8.3",
     "sphinx-autobuild>=2024.10.3",
