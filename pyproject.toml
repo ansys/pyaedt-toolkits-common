@@ -82,6 +82,7 @@ Releases = "https://github.com/ansys/pyaedt-toolkits-common/releases"
 
 [tool.black]
 line-length = 120
+target-version = ["py310"]
 
 [tool.isort]
 profile = "black"
