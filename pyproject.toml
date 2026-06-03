@@ -29,46 +29,45 @@ classifiers = [
 ]
 
 dependencies = [
-    "pyaedt",
     "pydantic>=2.0,<2.14",
+    "pyaedt",
     "tomli; python_version < '3.12'",
 ]
 
 [project.optional-dependencies]
 all = [
-    "pyaedt[all]",
+    "ansys-tools-visualization-interface[pyvistaqt]",
     "flask",
-    "pyside6==6.10.0",
+    "pyaedt[all]",
     "pyqtgraph",
+    "pyside6==6.10.0",
     "qdarkstyle",
-    "ansys-tools-visualization-interface[pyvistaqt]"
 ]
 tests = [
-    "pyaedt[all]",
+    "ansys-aedt-toolkits-common[all]",
     "flask",
-    "pyside6==6.10.0",
+    "pyaedt[all]",
     "pytest>=7.4.0,<9.1",
     "pytest-cov>=4.0.0,<7.2",
     "pytest-qt>=4.0.0,<4.6",
-    "ansys-aedt-toolkits-common[all]",
+    "pyside6==6.10.0",
 ]
 doc = [
     "ansys-aedt-toolkits-common[all]",
-    "recommonmark>=0.7.0,<0.8",
-    "pyside6==6.10.0",
-    "ansys-sphinx-theme==1.8.2",
-    "numpydoc>=1.5.0,<1.11",
-    "Sphinx>=7.1.0,<8.3",
-    "sphinx-copybutton>=0.5.0,<0.6",
-    "sphinx-autobuild==2021.3.14; python_version == '3.8'",
-    "sphinx-autobuild==2024.10.3; python_version > '3.8'",
-    "nbsphinx>=0.9.0,<0.10",
-    "sphinx_design",
-    "jupytext",
+    "ansys-sphinx-theme>=1.8.2",
     "ipython>=8.13.0,<9.1",
-    "jupyterlab>=4.0.0,<4.6",
-    "pypandoc>=1.10.0,<1.18",
     "ipywidgets",
+    "jupyterlab>=4.0.0,<4.6",
+    "jupytext",
+    "nbsphinx>=0.9.0,<0.10",
+    "numpydoc>=1.5.0,<1.11",
+    "pypandoc>=1.10.0,<1.18",
+    "pyside6==6.10.0",
+    "recommonmark>=0.7.0,<0.8",
+    "Sphinx>=7.1.0,<8.3",
+    "sphinx-autobuild>=2024.10.3",
+    "sphinx-copybutton>=0.5.0,<0.6",
+    "sphinx_design",
 ]
 
 [tool.flit.module]
