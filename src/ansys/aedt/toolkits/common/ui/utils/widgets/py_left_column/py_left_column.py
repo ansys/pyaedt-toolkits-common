@@ -148,14 +148,12 @@ class PyLeftColumn(QWidget):
 
         self.title_bg_frame = QFrame()
         self.title_bg_frame.setObjectName("title_bg_frame")
-        self.title_bg_frame.setStyleSheet(
-            f"""
+        self.title_bg_frame.setStyleSheet(f"""
         #title_bg_frame {{
             background-color: {self._bg_color};
             border-radius: {self._radius}px;
         }}
-        """
-        )
+        """)
 
         self.title_bg_layout = QHBoxLayout(self.title_bg_frame)
         self.title_bg_layout.setContentsMargins(5, 5, 5, 5)
@@ -172,16 +170,14 @@ class PyLeftColumn(QWidget):
 
         self.title_label = QLabel(self._text_title)
         self.title_label.setObjectName("title_label")
-        self.title_label.setStyleSheet(
-            f"""
+        self.title_label.setStyleSheet(f"""
         #title_label {{
             font-size: {self._text_title_size}pt;
             color: {self._text_title_color};
             padding-bottom: 2px;
             background: none;
         }}
-        """
-        )
+        """)
 
         self.btn_frame = QFrame()
         self.btn_frame.setFixedSize(30, 30)

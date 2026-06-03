@@ -25,7 +25,6 @@
 PyAEDT Common Toolkit constants.
 """
 
-
 # Mapping from name to its associated AEDT application
 NAME_TO_AEDT_APP = {
     "Circuit Design": "Circuit",
