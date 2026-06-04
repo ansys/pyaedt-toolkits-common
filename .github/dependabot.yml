@@ -15,7 +15,8 @@ updates:
         - "ansys-sphinx-theme"
         - "ansys-tools-visualization-interface"
     assignees:
-      - "pyansys-ci-bot"
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
     labels:
       - "maintenance"
       - "dependencies"
@@ -36,9 +37,32 @@ updates:
       time: "06:00"
       timezone: "Europe/Paris"
     assignees:
-      - "pyansys-ci-bot"
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
     labels:
       - "maintenance"
       - "dependencies"
     commit-message:
       prefix: "BUILD(actions)"
+
+  - package-ecosystem: "pre-commit"
+    cooldown:
+      default-days: 7 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/pre-commit-hooks"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    assignees:
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
+    labels:
+      - "maintenance"
+      - "dependencies"
+    commit-message:
+      prefix: "BUILD(pre-commit)"

@@ -5,7 +5,7 @@ on:
       - main
 
 env:
-  MAIN_PYTHON_VERSION: '3.12'
+  MAIN_PYTHON_VERSION: '3.14'
   LIBRARY_NAME: 'ansys-aedt-toolkits-common'
 
 concurrency:
@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/check-vulnerabilities@7d55ff0b9f67c77dae50a286d711ee1ae27b0a25 # v10.2.12
+      - uses: ansys/actions/check-vulnerabilities@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
@@ -36,29 +36,19 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/check-actions-security@7d55ff0b9f67c77dae50a286d711ee1ae27b0a25 # v10.2.12
+      - uses: ansys/actions/check-actions-security@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
           auditing-level: 'high'
 
-  code-style:
-    name: Code style
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ansys/actions/code-style@7d55ff0b9f67c77dae50a286d711ee1ae27b0a25 # v10.2.12
-        with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
-          use-python-cache: false
-
   doc-style:
     name: Documentation style
-    needs: [ code-style ]
     runs-on: ubuntu-latest
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/doc-style@7d55ff0b9f67c77dae50a286d711ee1ae27b0a25 # v10.2.12
+      - uses: ansys/actions/doc-style@d946b24b9a765f4169bcc94afdb27bd1a0533741 # v10.3.2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           vale-version: "3.4.1"
