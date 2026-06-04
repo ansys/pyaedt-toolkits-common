@@ -30,19 +30,21 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-version: ${{ env.TESTS_VERSION }}
 
-      - name: Create Python venv
-        run: |
-          python -m venv .venv
-          .\.venv\Scripts\Activate.ps1
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: false
+          prune-cache: true
+
+      - name: Create virtual environment
+        run: uv venv .venv
 
       - name: Install packages for testing
         run: |
           .\.venv\Scripts\Activate.ps1
-          python -m pip install -U pip
-          pip install -U build wheel
-          pip install .[tests] -U
+          uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
@@ -115,7 +117,13 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.MAIN_PYTHON_VERSION }}
+          python-version: ${{ env.TESTS_VERSION }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        with:
+          enable-cache: false
+          prune-cache: true
 
       - name: Install system packages for Linux tests
         run: |
@@ -147,58 +155,55 @@ jobs:
             libxkbcommon-dev \
             libxkbcommon-x11-dev
 
-      - name: Create Python venv
-        run: |
-          python -m venv .venv_linux
+      - name: Create virtual environment
+        run: uv venv .venv
 
       - name: Install packages for testing
         run: |
-          source .venv_linux/bin/activate
-          python -m pip install -U pip
-          pip install -U build wheel
-          pip install .[tests] -U
+          source .venv/bin/activate
+          uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           pytest -v -m aedt_common_api --cov
 
       - name: Test Common API
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           pytest -v -m common_api --cov --cov-append
 
       - name: Test EDB API
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           pytest -v -m edb_api --cov --cov-append
 
       - name: Test REST API
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           pytest -v -m utils --cov --cov-append
 
       - name: Test UI
         timeout-minutes: 5
         run: |
-          source .venv_linux/bin/activate
+          source .venv/bin/activate
           xvfb-run pytest -v -m ui --cov --cov-append
 
       - name: Combine coverage files
         run: |
-          source .venv_linux/bin/activate
-          python -m coverage html -d .cov\total-html-linux
-          python -m coverage xml -o .cov\total-linux.xml
+          source .venv/bin/activate
+          python -m coverage html -d .cov/total-html-linux
+          python -m coverage xml -o .cov/total-linux.xml
 
       - name: Upload coverage results
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -209,6 +214,6 @@ jobs:
       - uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
         with:
           name: codecov-tests-linux
-          files: .cov/total.xml
+          files: .cov/total-linux.xml
           flags: linux_tests
 

@@ -35,6 +35,8 @@ jobs:
           use-python-cache: false
           add-pdf-html-docs-as-assets: true
           check-links: true
+          optional-dependencies-name: 'all'
+          group-dependencies-name: 'doc'
 
   doc-deploy-dev:
     name: Deploy development documentation
