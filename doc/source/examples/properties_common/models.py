@@ -17,6 +17,8 @@ from ansys.aedt.toolkits.common.backend.models import common_properties
 
 class ExampleProperties(BaseModel):
     """Store properties for the example"""
+    model_config = {"validate_assignment": True, "strict": True}
+
     invented_property: List[int] = Field(default_factory=list)
     test: str = "hola"
 

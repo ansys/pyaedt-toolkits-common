@@ -16,8 +16,8 @@ PyAEDT Common Toolkit
 .. |PythonVersion| image:: https://img.shields.io/badge/python-3.10+-blue.svg
    :target: https://www.python.org/downloads/
 
-.. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml/badge.svg
-   :target: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci_cd.yml
+.. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci-pr.yml/badge.svg
+   :target: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci-pr.yml
 
 .. |coverage| image:: https://codecov.io/gh/ansys/pyaedt-toolkits-common/branch/main/graph/badge.svg
    :target: https://codecov.io/gh/ansys/pyaedt-toolkits-common

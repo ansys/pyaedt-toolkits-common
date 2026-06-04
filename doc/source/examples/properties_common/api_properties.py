@@ -43,12 +43,12 @@ toolkit.get_properties()
 #
 # Set the property directly.
 
-properties.invented_property = [10, 20, 30]
+properties.example.invented_property = [10, 20, 30]
 toolkit.get_properties()
 
 # ## Set wrong property
 #
 # Set the wrong property. It is not possible to change the property type.
 
-set_properties = {"invented_property": 1}
+set_properties = {"test": True}
 toolkit.set_properties(set_properties)
