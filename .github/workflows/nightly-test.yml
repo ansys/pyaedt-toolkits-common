@@ -38,13 +38,8 @@ jobs:
           enable-cache: false
           prune-cache: true
 
-      - name: Create virtual environment
-        run: uv venv .venv
-
       - name: Install packages for testing
-        run: |
-          .\.venv\Scripts\Activate.ps1
-          uv sync --frozen --group tests --extra all
+        run: uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
@@ -68,14 +63,12 @@ jobs:
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-
           pytest -v -m utils --cov --cov-append
 
       - name: Test UI
@@ -155,13 +148,8 @@ jobs:
             libxkbcommon-dev \
             libxkbcommon-x11-dev
 
-      - name: Create virtual environment
-        run: uv venv .venv
-
       - name: Install packages for testing
-        run: |
-          source .venv/bin/activate
-          uv sync --frozen --group tests --extra all
+        run: uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
