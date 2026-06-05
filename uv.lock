@@ -216,6 +216,7 @@ wheels = [
 name = "ansys-aedt-toolkits-common"
 source = { editable = "." }
 dependencies = [
+    { name = "ansys-tools-common" },
     { name = "pyaedt" },
     { name = "pydantic" },
     { name = "tomli", marker = "python_full_version < '3.12'" },
@@ -291,6 +292,7 @@ tests = [
 
 [package.metadata]
 requires-dist = [
+    { name = "ansys-tools-common" },
     { name = "ansys-tools-visualization-interface", extras = ["pyvistaqt"], marker = "extra == 'all'" },
     { name = "flask", marker = "extra == 'all'" },
     { name = "pyaedt" },
