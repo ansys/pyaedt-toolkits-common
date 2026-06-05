@@ -33,6 +33,9 @@ jobs:
       contents: read
       pull-requests: write # Needed to add existing labels to PRs
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
     steps:
 
       # Label based on modified files
@@ -44,25 +47,25 @@ jobs:
       # Label based on branch name
       - name: Label docs
         if: startsWith(github.event.pull_request.head.ref, 'docs')
-        run: gh pr edit "$PR_NUMBER" --add-label "documentation" --repo ansys/pyaedt
+        run: gh pr edit "$PR_NUMBER" --add-label "documentation" --repo ansys/pyaedt-toolkits-common
 
       - name: Label maintenance
         if: |
           startsWith(github.event.pull_request.head.ref, 'maint') ||
           startsWith(github.event.pull_request.head.ref, 'ci')
-        run: gh pr edit "$PR_NUMBER" --add-label "maintenance" --repo ansys/pyaedt
+        run: gh pr edit "$PR_NUMBER" --add-label "maintenance" --repo ansys/pyaedt-toolkits-common
 
       - name: Label enhancement
         if: startsWith(github.event.pull_request.head.ref, 'feat')
-        run: gh pr edit "$PR_NUMBER" --add-label "enhancement" --repo ansys/pyaedt
+        run: gh pr edit "$PR_NUMBER" --add-label "enhancement" --repo ansys/pyaedt-toolkits-common
 
       - name: Label bug
         if: startsWith(github.event.pull_request.head.ref, 'fix')
-        run: gh pr edit "$PR_NUMBER" --add-label "bug" --repo ansys/pyaedt
+        run: gh pr edit "$PR_NUMBER" --add-label "bug" --repo ansys/pyaedt-toolkits-common
 
       - name: Label testing
         if: startsWith(github.event.pull_request.head.ref, 'test')
-        run: gh pr edit "$PR_NUMBER" --add-label "testing" --repo ansys/pyaedt
+        run: gh pr edit "$PR_NUMBER" --add-label "testing" --repo ansys/pyaedt-toolkits-common
 
   commenter:
     name: Suggest labels if none assigned
