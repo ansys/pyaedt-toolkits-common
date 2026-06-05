@@ -39,17 +39,6 @@ DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT",
 """Default timeout for requests in seconds."""
 
 
-def download_file(url, local_filename):  # pragma: no cover
-    """Download a file from a URL into a local file."""
-    download_timeout = DEFAULT_REQUESTS_TIMEOUT * 2
-    with requests.get(url, stream=True, timeout=download_timeout) as r:
-        r.raise_for_status()
-        with open(local_filename, "wb") as f:
-            for chunk in r.iter_content(chunk_size=4096):
-                f.write(chunk)
-    return local_filename
-
-
 def is_server_running(server="localhost", port=5001):  # pragma: no cover
     """Check if port is used."""
     result = None

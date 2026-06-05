@@ -12,7 +12,7 @@ import shutil
 
 from ansys.aedt.core import generate_unique_folder_name
 
-from ansys.aedt.toolkits.common.utils import download_file
+from ansys.tools.common.example_download import download_manager
 from ansys.aedt.toolkits.common.backend.api import EDBCommon
 
 # ## Initialize temporary folder and project settings
@@ -20,19 +20,10 @@ from ansys.aedt.toolkits.common.backend.api import EDBCommon
 # Initialize a temporary folder to copy the input file into
 # and specify project settings.
 
-# +
-URL_BASE = "https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/"
-EDB_PROJECT = "edb_edge_ports.aedb/edb.def"
-URL = os.path.join(URL_BASE, EDB_PROJECT)
-
 temp_folder = os.path.join(generate_unique_folder_name())
-
 edb_path = os.path.join(temp_folder, "edb_example.aedb")
 os.makedirs(edb_path, exist_ok=True)
-local_project = os.path.join(edb_path, "edb.def")
-
-download_file(URL, local_project)
-# -
+local_project = download_manager.download_file("edb.def", "toolkits/common", edb_path)
 
 # ## Initialize toolkit
 #
