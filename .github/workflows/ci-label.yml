@@ -53,19 +53,19 @@ jobs:
         if: |
           startsWith(github.event.pull_request.head.ref, 'maint') ||
           startsWith(github.event.pull_request.head.ref, 'ci')
-        run: gh pr edit "$PR_NUMBER" --add-label "maintenance" --repo "$GH_REPO"
+        run: gh pr edit "$PR_NUMBER" --add-label "maintenance" --repo ansys/pyaedt-toolkits-common
 
       - name: Label enhancement
         if: startsWith(github.event.pull_request.head.ref, 'feat')
-        run: gh pr edit "$PR_NUMBER" --add-label "enhancement" --repo "$GH_REPO"
+        run: gh pr edit "$PR_NUMBER" --add-label "enhancement" --repo ansys/pyaedt-toolkits-common
 
       - name: Label bug
         if: startsWith(github.event.pull_request.head.ref, 'fix')
-        run: gh pr edit "$PR_NUMBER" --add-label "bug" --repo "$GH_REPO"
+        run: gh pr edit "$PR_NUMBER" --add-label "bug" --repo ansys/pyaedt-toolkits-common
 
       - name: Label testing
         if: startsWith(github.event.pull_request.head.ref, 'test')
-        run: gh pr edit "$PR_NUMBER" --add-label "testing" --repo "$GH_REPO"
+        run: gh pr edit "$PR_NUMBER" --add-label "testing" --repo ansys/pyaedt-toolkits-common
 
   commenter:
     name: Suggest labels if none assigned
