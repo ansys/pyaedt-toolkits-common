@@ -47,7 +47,7 @@ jobs:
       # Label based on branch name
       - name: Label docs
         if: startsWith(github.event.pull_request.head.ref, 'docs')
-        run: gh pr edit "$PR_NUMBER" --add-label "documentation" --repo "$GH_REPO"
+        run: gh pr edit "$PR_NUMBER" --add-label "documentation" --repo ansys/pyaedt-toolkits-common
 
       - name: Label maintenance
         if: |
