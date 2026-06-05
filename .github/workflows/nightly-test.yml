@@ -7,7 +7,7 @@ on:
 
 
 env:
-  MAIN_PYTHON_VERSION: '3.10'
+  TESTS_PYTHON_VERSION: '3.10'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
 
@@ -30,7 +30,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.TESTS_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
@@ -117,7 +117,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
         with:
-          python-version: ${{ env.TESTS_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
         uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
