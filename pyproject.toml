@@ -47,7 +47,7 @@ all = [
 
 [dependency-groups]
 dev = [
-  "prek==0.4.1",
+  "prek==0.4.3",
   { include-group = "doc" },
   { include-group = "tests" },
 ]
