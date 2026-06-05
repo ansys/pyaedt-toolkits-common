@@ -14,7 +14,7 @@ import shutil
 
 from ansys.aedt.core import generate_unique_folder_name
 
-from ansys.aedt.toolkits.common.utils import download_file
+from ansys.tools.common.example_download import download_manager
 from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 
 # ## Initialize temporary folder and project settings
@@ -22,17 +22,8 @@ from ansys.aedt.toolkits.common.backend.api import AEDTCommon
 # Initialize a temporary folder to copy the input file into
 # and specify project settings.
 
-# +
-URL_BASE = "https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/"
-AEDT_PROJECT = "Test.aedt"
-URL = os.path.join(URL_BASE, AEDT_PROJECT)
-
 temp_folder = os.path.join(generate_unique_folder_name())
-
-local_project = os.path.join(temp_folder, AEDT_PROJECT)
-
-download_file(URL, local_project)
-# -
+local_project = download_manager.download_file("Test.aedt", "toolkits/common", temp_folder)
 
 # ## Initialize toolkit
 #

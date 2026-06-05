@@ -14,6 +14,7 @@ updates:
       exclude:
         - "ansys-sphinx-theme"
         - "ansys-tools-visualization-interface"
+        - "ansys-tools-common"
         - "pyaedt"
         - "pyedb"
     assignees:
