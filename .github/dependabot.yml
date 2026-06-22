@@ -10,7 +10,7 @@ updates:
     groups:
       direct-dependencies:
         patterns:
-          - "ansys-tools-common"          
+          - "ansys-tools-common"
           - "ansys-tools-visualization-interface"
           - "flask"
           - "pyaedt"
