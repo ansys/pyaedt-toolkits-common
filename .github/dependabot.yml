@@ -22,7 +22,7 @@ updates:
       dev-dependencies:
         patterns:
           # Documentation
-          - "ansys-sphinx-theme>=1.8.2"
+          - "ansys-sphinx-theme"
           - "ipython"
           - "ipywidgets"
           - "jupyterlab"
@@ -69,9 +69,6 @@ updates:
       time: "06:00"
       timezone: "Europe/Paris"
     groups:
-      ansys-actions:
-        patterns:
-          - "ansys/actions/*"
       actions:
         patterns:
           - "*"
@@ -98,9 +95,6 @@ updates:
       time: "06:00"
       timezone: "Europe/Paris"
     groups:
-      ansys-precommit:
-        patterns:
-          - "ansys/*"
       precommit:
         patterns:
           - "*"
