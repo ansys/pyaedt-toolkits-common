@@ -69,9 +69,6 @@ updates:
       time: "06:00"
       timezone: "Europe/Paris"
     groups:
-      ansys-actions:
-        patterns:
-          - "ansys/actions/*"
       actions:
         patterns:
           - "*"
@@ -98,9 +95,6 @@ updates:
       time: "06:00"
       timezone: "Europe/Paris"
     groups:
-      ansys-precommit:
-        patterns:
-          - "ansys/*"
       precommit:
         patterns:
           - "*"
