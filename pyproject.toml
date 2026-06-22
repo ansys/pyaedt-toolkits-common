@@ -79,7 +79,6 @@ Discussions = "https://github.com/ansys/pyaedt-toolkits-common/discussions"
 Documentation = "https://aedt.common.toolkit.docs.pyansys.com"
 Releases = "https://github.com/ansys/pyaedt-toolkits-common/releases"
 
-
 [tool.black]
 line-length = 120
 
@@ -119,13 +118,18 @@ title_format = "`{version} <https://github.com/ansys-internal/pyaedt-toolkits-co
 issue_format = "`#{issue} <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/{issue}>`_"
 
 [[tool.towncrier.type]]
+directory = "breaking"
+name = "Breaking"
+showcontent = true
+
+[[tool.towncrier.type]]
 directory = "added"
 name = "Added"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "dependencies"
-name = "Dependencies"
+directory = "fixed"
+name = "Fixed"
 showcontent = true
 
 [[tool.towncrier.type]]
@@ -134,8 +138,8 @@ name = "Documentation"
 showcontent = true
 
 [[tool.towncrier.type]]
-directory = "fixed"
-name = "Fixed"
+directory = "dependencies"
+name = "Dependencies"
 showcontent = true
 
 [[tool.towncrier.type]]
