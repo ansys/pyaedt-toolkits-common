@@ -7,14 +7,49 @@ updates:
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
+    groups:
+      direct-dependencies:
+        patterns:
+          - "ansys-tools-common"
+          - "ansys-tools-visualization-interface"
+          - "flask"
+          - "pyaedt"
+          - "pydantic"
+          - "pyqtgraph"
+          - "pyside6"
+          - "qdarkstyle"
+          - "tomli"
+      dev-dependencies:
+        patterns:
+          # Documentation
+          - "ansys-sphinx-theme>=1.8.2"
+          - "ipython"
+          - "ipywidgets"
+          - "jupyterlab"
+          - "jupytext"
+          - "nbsphinx"
+          - "numpydoc"
+          - "pypandoc"
+          - "recommonmark"
+          - "Sphinx"
+          - "sphinx-autobuild"
+          - "sphinx-copybutton"
+          - "sphinx_design"
+          # Lint / Format
+          - "prek"
+          # Test
+          - "pytest"
+          - "pytest-cov"
+          - "pytest-qt"
+      transitive-dependencies:
+        patterns:
+          - "*"
     cooldown:
       default-days: 7
       include:
         - "*"  # Include all dependencies in cooldown
       exclude:
-        - "ansys-sphinx-theme"
-        - "ansys-tools-visualization-interface"
-        - "ansys-tools-common"
+        - "ansys-*"
         - "pyaedt"
         - "pyedb"
     assignees:
@@ -27,18 +62,25 @@ updates:
       prefix: "BUILD(uv)"
 
   - package-ecosystem: "github-actions" # zizmor: ignore[dependabot-cooldown] cooldown feature is not available for github actions yet.
-    cooldown:
-      default-days: 10 # Fallback cooldown if no specific rule applies
-      include:
-        - "*"  # Include all dependencies in cooldown
-      exclude:
-        - "ansys/actions"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
+    groups:
+      ansys-actions:
+        patterns:
+          - "ansys/actions/*"
+      actions:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 10 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/actions"
     assignees:
       - "Samuelopez-ansys"
       - "SMoraisAnsys"
@@ -49,18 +91,25 @@ updates:
       prefix: "BUILD(actions)"
 
   - package-ecosystem: "pre-commit"
-    cooldown:
-      default-days: 7 # Fallback cooldown if no specific rule applies
-      include:
-        - "*"  # Include all dependencies in cooldown
-      exclude:
-        - "ansys/pre-commit-hooks"
     directory: "/"
     schedule:
       interval: "weekly"
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
+    groups:
+      ansys-precommit:
+        patterns:
+          - "ansys/*"
+      precommit:
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 7 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/pre-commit-hooks"
     assignees:
       - "Samuelopez-ansys"
       - "SMoraisAnsys"
