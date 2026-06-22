@@ -1,8 +1,34 @@
+# -*- coding: utf-8 -*-
+#
+# Copyright (C) 2023 - 2026 ANSYS, Inc. and/or its affiliates.
+# SPDX-License-Identifier: MIT
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
 from ansys.aedt.core.generic.file_utils import generate_unique_project_name
 import requests
+import os
 
 from ansys.aedt.toolkits.common.ui.actions_generic import FrontendGeneric
 from ansys.aedt.toolkits.common.ui.logger_handler import logger
+
+DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 
 
 class Frontend(FrontendGeneric):
@@ -14,7 +40,7 @@ class Frontend(FrontendGeneric):
         be_properties = self.get_properties()
         if project_selected and design_selected:
             if project_selected == "No Project":
-                project_selected = generate_unique_project_name(rootname=self.plot_design_menu.temp_folder)
+                project_selected = generate_unique_project_name(root_name=self.plot_design_menu.temp_folder)
                 be_properties["active_project"] = project_selected
 
             for project in be_properties["project_list"]:
@@ -34,7 +60,7 @@ class Frontend(FrontendGeneric):
 
         self.set_properties(be_properties)
 
-        response = requests.post(self.url + "/create_geometry", timeout=10)
+        response = requests.post(self.url + "/create_geometry", timeout=DEFAULT_REQUESTS_TIMEOUT)
 
         self.properties.example.primitives_created.append(response.text)
 

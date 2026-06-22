@@ -45,4 +45,5 @@ Utils
 walkthrough
 Nullsoft
 Scriptable
+Streamlit
 synopsys

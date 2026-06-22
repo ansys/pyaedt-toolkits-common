@@ -37,7 +37,7 @@ PyInstaller bundles a Python application and all its dependencies into a single 
 The user can run the packaged app without installing a Python interpreter or any modules.
 
 This step requires the toolkit TOML file to have a section called ``freeze`` in ``[project.optional-dependencies]``.
-An example can be found in `Antenna Wizard TOML file <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/pyproject.toml#L30>`_.
+An example can be found in `Antenna Wizard TOML file <https://github.com/ansys/pyaedt-toolkits-antenna/blob/main/pyproject.toml>`_.
 
 Open the toolkit project in your IDE of choice, activate your virtual environment and run the following command:
 

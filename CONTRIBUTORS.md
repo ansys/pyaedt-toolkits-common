@@ -8,6 +8,7 @@
 
 * [Alberto Di Maria](https://github.com/Alberto-DM)
 * [althaf-ansys](https://github.com/althaf-ansys)
+* [Anderson Santos Nunes](https://github.com/nunesanderson)
 * [Arien Sligar](https://github.com/ariensligar)
 * [Edouard Coussoux](https://github.com/ecoussoux-ansys)
 * [Eduardo Blanco](https://github.com/eblanco-ansys)

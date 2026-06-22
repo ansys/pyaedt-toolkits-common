@@ -26,7 +26,7 @@ from unittest.mock import patch
 
 import pytest
 
-INSTALLED_VERSIONS = ["2025.2"]
+INSTALLED_VERSIONS = ["2026.1"]
 MOCK_PROPERTIES = {
     "version": "0.1",
     "active_project": "Dummy project",

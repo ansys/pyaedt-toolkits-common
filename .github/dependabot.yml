@@ -1,31 +1,72 @@
 version: 2
-enable-beta-ecosystems: true
 updates:
-  - package-ecosystem: "pip" # See documentation for possible values
+  - package-ecosystem: "uv" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
+    groups:
+      direct-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "ansys-tools-common"
+          - "ansys-tools-visualization-interface"
+          - "flask"
+          - "pyaedt"
+          - "pydantic"
+          - "pyqtgraph"
+          - "pyside6"
+          - "qdarkstyle"
+          - "tomli"
+      dev-dependencies:
+        applies-to: version-updates
+        patterns:
+          # Documentation
+          - "ansys-sphinx-theme"
+          - "ipython"
+          - "ipywidgets"
+          - "jupyterlab"
+          - "jupytext"
+          - "nbsphinx"
+          - "numpydoc"
+          - "pypandoc"
+          - "recommonmark"
+          - "Sphinx"
+          - "sphinx-autobuild"
+          - "sphinx-copybutton"
+          - "sphinx_design"
+          # Lint / Format
+          - "prek"
+          # Test
+          - "pytest"
+          - "pytest-cov"
+          - "pytest-qt"
+      transitive-dependencies:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      security-updates:
+        applies-to: security-updates
+        patterns:
+          - "*"
     cooldown:
       default-days: 7
       include:
         - "*"  # Include all dependencies in cooldown
       exclude:
-        - "ansys-sphinx-theme"
-        - "ansys-tools-visualization-interface"
-        - "ansys-pythonnet"
-    reviewers:
-      - "Samuelopez-ansys"
-      - "gmalinve"
+        - "ansys-*"
+        - "pyaedt"
+        - "pyedb"
     assignees:
-      - "pyansys-ci-bot"
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
     labels:
       - "maintenance"
       - "dependencies"
     commit-message:
-      prefix: "BUILD(pip)"
+      prefix: "BUILD(uv)"
 
   - package-ecosystem: "github-actions" # zizmor: ignore[dependabot-cooldown] cooldown feature is not available for github actions yet.
     directory: "/"
@@ -34,12 +75,57 @@ updates:
       day: "saturday"
       time: "06:00"
       timezone: "Europe/Paris"
-    reviewers:
-      - "Samuelopez-ansys"
+    groups:
+      actions:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      actions-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 10 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/actions"
     assignees:
-      - "pyansys-ci-bot"
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
     labels:
       - "maintenance"
       - "dependencies"
     commit-message:
       prefix: "BUILD(actions)"
+
+  - package-ecosystem: "pre-commit"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "saturday"
+      time: "06:00"
+      timezone: "Europe/Paris"
+    groups:
+      precommit:
+        applies-to: version-updates
+        patterns:
+          - "*"
+      precommit-security:
+        applies-to: security-updates
+        patterns:
+          - "*"
+    cooldown:
+      default-days: 7 # Fallback cooldown if no specific rule applies
+      include:
+        - "*"  # Include all dependencies in cooldown
+      exclude:
+        - "ansys/pre-commit-hooks"
+    assignees:
+      - "Samuelopez-ansys"
+      - "SMoraisAnsys"
+    labels:
+      - "maintenance"
+      - "dependencies"
+    commit-message:
+      prefix: "BUILD(pre-commit)"

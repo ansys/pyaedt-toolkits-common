@@ -1,0 +1,4 @@
+[defaults]
+toolkit_name = "example"
+log_file = "backend.log"
+debug = false

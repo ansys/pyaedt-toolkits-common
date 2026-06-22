@@ -96,7 +96,7 @@ class Common:
     >>> from ansys.aedt.toolkits.common.backend.api import Common
     >>> toolkit_api = Common()
     >>> toolkit_properties = toolkit_api.get_properties()
-    >>> new_properties = {"aedt_version": "2025.2"}
+    >>> new_properties = {"aedt_version": "2026.1"}
     >>> toolkit_api.set_properties(new_properties)
     >>> new_properties = toolkit_api.get_properties()
     """
@@ -230,25 +230,23 @@ class Common:
         >>> from ansys.aedt.toolkits.common.backend.api import Common
         >>> toolkit_api = Common()
         >>> toolkit_api.installed_aedt_version()
-        ["2024.2", "2025.1", "2025.2"]
+        ["2024.2", "2025.1", "2025.2", "2026.1"]
         """
 
         # Detect existing AEDT installation
         installed_versions = []
 
-        for ver in list_installed_aedt:
-            if "ANSYSEMSV_ROOT" in ver:  # pragma: no cover
-                # Handle the special case
-                installed_versions.append(
-                    "20{}.{} STUDENT".format(
-                        ver.replace("ANSYSEMSV_ROOT", "")[:2], ver.replace("ANSYSEMSV_ROOT", "")[-1]
-                    )
-                )
-            else:
-                installed_versions.append(
-                    "20{}.{}".format(ver.replace("ANSYSEM_ROOT", "")[:2], ver.replace("ANSYSEM_ROOT", "")[-1])
-                )
+        known_prefixes = ("AWP_ROOT", "ANSYSEM_PY_CLIENT_ROOT", "ANSYSEMSV_ROOT", "ANSYSEM_ROOT")
 
+        for ver in list_installed_aedt:  # pragma: no cover
+            for prefix in known_prefixes:
+                if prefix in ver:
+                    digits = ver.replace(prefix, "")
+                    suffix = " STUDENT" if prefix == "ANSYSEMSV_ROOT" else ""
+                    installed_versions.append(f"20{digits[:2]}.{digits[-1]}{suffix}")
+                    break
+
+        installed_versions = sorted(set(installed_versions))
         logger.debug(str(installed_versions))
         return installed_versions
 
@@ -1047,7 +1045,7 @@ class EDBCommon(Common):
             ansys.aedt.core.settings.enable_logger = self.properties.debug
             ansys.aedt.core.settings.enable_debug_edb_logger = self.properties.debug
             self.properties.active_project = edb_path
-            self.edb = ansys.aedt.core.Edb(edbversion=aedt_version, edbpath=edb_path)
+            self.edb = ansys.aedt.core.Edb(edb_path, version=aedt_version)
             logger.debug("Project {} is opened".format(edb_path))
             return True
         else:
