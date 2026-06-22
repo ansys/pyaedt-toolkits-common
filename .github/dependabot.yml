@@ -22,7 +22,7 @@ updates:
       dev-dependencies:
         patterns:
           # Documentation
-          - "ansys-sphinx-theme>=1.8.2"
+          - "ansys-sphinx-theme"
           - "ipython"
           - "ipywidgets"
           - "jupyterlab"
