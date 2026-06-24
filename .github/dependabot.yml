@@ -65,6 +65,10 @@ updates:
     labels:
       - "maintenance"
       - "dependencies"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
     commit-message:
       prefix: "BUILD(uv)"
 
@@ -96,6 +100,10 @@ updates:
     labels:
       - "maintenance"
       - "dependencies"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
     commit-message:
       prefix: "BUILD(actions)"
 
@@ -127,5 +135,9 @@ updates:
     labels:
       - "maintenance"
       - "dependencies"
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
     commit-message:
       prefix: "BUILD(pre-commit)"
