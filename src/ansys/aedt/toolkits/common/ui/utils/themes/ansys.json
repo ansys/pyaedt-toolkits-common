@@ -1,0 +1,28 @@
+{
+    "theme_name" : "ansys",
+    "app_color" : {
+        "dark_one" : "#000000",
+        "dark_two" : "#D9D8D6",
+        "dark_three" : "#21252d",
+        "dark_four" : "#272c36",
+        "bg_one" : "#151617",
+        "bg_two" : "#313131",
+        "bg_three" : "#999999",
+        "icon_color" : "#FFB71B",
+        "icon_hover" : "#000000",
+        "icon_pressed" : "#FFB71B",
+        "icon_active" : "#ffffff",
+        "context_color" : "#FFB71B",
+        "context_hover" : "#6c99f4",
+        "context_pressed" : "#3f6fd1",
+        "text_title" : "#dce1ec",
+        "text_foreground" : "#FFFFFF",
+        "text_description" : "#D2D2D2",
+        "text_active" : "#dce1ec",
+        "white" : "#f5f6f9",
+        "pink" : "#ff007f",
+        "green" : "#00ff7f",
+        "red" : "#ff5555",
+        "yellow" : "#f1fa8c"
+    }
+}
