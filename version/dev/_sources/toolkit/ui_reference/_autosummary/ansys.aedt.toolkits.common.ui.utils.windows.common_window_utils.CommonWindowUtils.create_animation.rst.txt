@@ -1,0 +1,6 @@
+create\_animation
+=================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.create_animation

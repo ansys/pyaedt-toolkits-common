@@ -1,0 +1,1348 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ansys.aedt.toolkits.common.ui.actions_generic &#8212; ansys-aedt-toolkits-common</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/styles/ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/styles\ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../_static/custom.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../../../../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../../../../../_static/documentation_options.js?v=a9ba800c"></script>
+    <script src="../../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ansys/aedt/toolkits/common/ui/actions_generic';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://aedt.common.toolkit.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.14';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../../../../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.14.3" />
+  <link rel="canonical" href="https://aedt.common.toolkit.docs.pyansys.com/version/stable/_modules/ansys/aedt/toolkits/common/ui/actions_generic.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="ansys-aedt-toolkits-common - Home"/>
+    <img src="../../../../../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="ansys-aedt-toolkits-common - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="ansys-aedt-toolkits-common home">
+    Home
+</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../toolkit/api.html">
+    Backend API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../toolkit/ui.html">
+    UI API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../distributing.html">
+    Distribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common/issues" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://aedt.common.toolkit.docs.pyansys.com/version/0.14/_static/assets/download/ansys-aedt-toolkits-common.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="ansys-aedt-toolkits-common home">
+    Home
+</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../toolkit/api.html">
+    Backend API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../toolkit/ui.html">
+    UI API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../distributing.html">
+    Distribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common/issues" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://aedt.common.toolkit.docs.pyansys.com/version/0.14/_static/assets/download/ansys-aedt-toolkits-common.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../../../../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../../../../index.html" class="nav-link">Module code</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ansys.aedt.toolkits.common.ui.actions_generic</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for ansys.aedt.toolkits.common.ui.actions_generic</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2023 - 2025 ANSYS, Inc. and/or its affiliates.</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6</span><span class="w"> </span><span class="kn">import</span> <span class="n">QtWidgets</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.logger_handler</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">general_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolkitThreadStatus</span>
+
+<span class="n">MSG_TK_RUNNING</span> <span class="o">=</span> <span class="s2">&quot;Please wait, toolkit running&quot;</span>
+<span class="n">DEFAULT_REQUESTS_TIMEOUT</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="sd">&quot;&quot;&quot;Default timeout for requests in seconds.&quot;&quot;&quot;</span>
+<span class="n">DEFAULT_AEDT_SESSION_VALUE</span> <span class="o">=</span> <span class="s2">&quot;New Session&quot;</span>
+<span class="sd">&quot;&quot;&quot;Default value for AEDT session selection in the UI.&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="FrontendGeneric">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">FrontendGeneric</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class provides a generic frontend for controlling the toolkit.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Frontend initialization...&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">backend_url</span>
+        <span class="n">port</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">backend_port</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;http://</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span>
+
+        <span class="c1"># Load toolkit icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">images_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s2">&quot;images&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FrontendGeneric.poll_url">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.poll_url">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">poll_url</span><span class="p">(</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Poll a URL repeatedly until a successful response or a timeout is reached.</span>
+
+<span class="sd">        This function sends repeated GET requests to the given URL at a fixed interval,</span>
+<span class="sd">        stopping when a success response is received or when the specified timeout is</span>
+<span class="sd">        exceeded.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        url : str</span>
+<span class="sd">            The URL to poll.</span>
+<span class="sd">        timeout : int, optional</span>
+<span class="sd">            Maximum total time (in seconds) to continue polling before giving up.</span>
+<span class="sd">            Default is 10.</span>
+<span class="sd">        interval : float, optional</span>
+<span class="sd">            Time (in seconds) to wait between each request attempt.</span>
+<span class="sd">            Default is 0.5.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple[bool, str | dict]</span>
+<span class="sd">            A 2-tuple containing a boolean and a dict or string.</span>
+<span class="sd">            The first element is a boolean stating if the GET requests succeeded.</span>
+<span class="sd">            The second element is either the response content (parsed as JSON if successful)</span>
+<span class="sd">            or a string describing the failure reason.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Polling url &#39;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">&#39; for up to </span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+        <span class="n">end_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="n">timeout</span>
+        <span class="n">response_success</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">while</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">end_time</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">response_success</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
+                <span class="n">response_success</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
+                <span class="k">if</span> <span class="n">response_success</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Timeout while polling </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Request failed while polling </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">interval</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;Polling failed after </span><span class="si">{</span><span class="n">timeout</span><span class="si">}</span><span class="s2"> seconds.&quot;</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.check_connection">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.check_connection">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">check_connection</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Check the backend connection.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` when successful, ``False`` when failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/health&quot;</span>
+        <span class="n">response_success</span><span class="p">,</span> <span class="n">response_content</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">poll_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">response_success</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">response_content</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response_success</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.backend_busy">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.backend_busy">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">backend_busy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the backend is currently busy.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` if the backend is busy, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">return</span> <span class="n">res</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Get backend status failed&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.wait_thread">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.wait_thread">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wait_thread</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Wait thread until backend is idle.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        timeout : int, optional</span>
+<span class="sd">            Time out in seconds. The default is 10 seconds.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` when the backend is idle, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/wait_thread&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Wait thread failed.&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.installed_versions">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.installed_versions">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">installed_versions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the installed versions of AEDT.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list or False</span>
+<span class="sd">            A list of installed AEDT versions if successful, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/installed_versions&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="n">versions</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">versions</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Get AEDT installed versions failed&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.get_properties">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.get_properties">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get properties from the backend.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict or False</span>
+<span class="sd">            A dictionary of properties if successful, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/properties&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Properties from backend updated successfully&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="n">data</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Backend properties empty&quot;</span><span class="p">)</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update_logger</span><span class="p">(</span><span class="s2">&quot;Get properties failed&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.set_properties">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.set_properties">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set properties in the backend.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            Dictionary of properties to set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/properties&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Set properties failed&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.find_process_ids">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.find_process_ids">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_process_ids</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">version</span><span class="p">,</span> <span class="n">non_graphical</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Find AEDT sessions based on the selected version and graphical mode.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        version : str</span>
+<span class="sd">            AEDT version.</span>
+<span class="sd">        non_graphical : bool</span>
+<span class="sd">            Flag indicating graphical or non-graphical mode.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list or False</span>
+<span class="sd">            A list of found AEDT sessions if successful, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">be_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;aedt_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">version</span>
+            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;non_graphical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">non_graphical</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">be_properties</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/aedt_sessions&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="n">sessions</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                <span class="n">sessions</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="k">return</span> <span class="n">sessions</span>
+        <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">RequestException</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Find AEDT sessions failed&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.launch_aedt">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.launch_aedt">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">launch_aedt</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_version</span><span class="p">,</span> <span class="n">selected_process</span><span class="p">,</span> <span class="n">non_graphical</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Launch AEDT.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        selected_version : str</span>
+<span class="sd">            The selected AEDT version.</span>
+<span class="sd">        selected_process : str</span>
+<span class="sd">            The selected AEDT process.</span>
+<span class="sd">        non_graphical : bool, optional</span>
+<span class="sd">            Flag indicating whether to run AEDT in non-graphical mode. The default is False.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+        <span class="n">res_busy</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">res_idle</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">res_busy</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">MSG_TK_RUNNING</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">res_idle</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update_progress</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/health&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Toolkit is not connected to AEDT.&quot;</span><span class="p">:</span>
+                <span class="n">be_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;selected_process&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">properties</span><span class="o">.</span><span class="n">block_settings_after_load</span><span class="p">:</span>
+                    <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;aedt_version&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">selected_version</span>
+                    <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;non_graphical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">non_graphical</span>
+                    <span class="k">if</span> <span class="n">selected_process</span> <span class="o">!=</span> <span class="n">DEFAULT_AEDT_SESSION_VALUE</span><span class="p">:</span>
+                        <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;non_graphical&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                        <span class="n">text_splitted</span> <span class="o">=</span> <span class="n">selected_process</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text_splitted</span><span class="p">)</span> <span class="o">==</span> <span class="mi">4</span><span class="p">:</span>
+                            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;use_grpc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;selected_process&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">text_splitted</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;use_grpc&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+                            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;selected_process&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">text_splitted</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">be_properties</span><span class="p">)</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/launch_aedt&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Launching AEDT&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed backend call: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.open_project">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.open_project">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">open_project</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">selected_project</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Open an AEDT project.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        selected_project : str</span>
+<span class="sd">            The path to the selected AEDT project.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+        <span class="n">res_busy</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span>
+        <span class="n">res_idle</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="o">.</span><span class="n">value</span>
+        <span class="k">if</span> <span class="n">res_busy</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">MSG_TK_RUNNING</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">res_idle</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update_progress</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/health&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;Toolkit is not connected to AEDT.&quot;</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/open_project&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">selected_project</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Project opened&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed backend call: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2"> + &#39;/&#39;open_project&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.get_aedt_model">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.get_aedt_model">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_aedt_model</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">project_selected</span><span class="p">,</span>
+        <span class="n">design_selected</span><span class="p">,</span>
+        <span class="n">air_objects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">encode</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">obj_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">export_path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">export_as_single_objects</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get AEDT model.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        project_selected : str</span>
+<span class="sd">            Project name.</span>
+<span class="sd">        design_selected : str</span>
+<span class="sd">            Design name.</span>
+<span class="sd">        air_objects : bool, optional</span>
+<span class="sd">            Define if air and vacuum objects will be exported.</span>
+<span class="sd">        encode : bool, optional</span>
+<span class="sd">            Whether to encode the file. The default is ``True``.</span>
+<span class="sd">        obj_list : list, optional</span>
+<span class="sd">            List of objects to export. The default is ``None``, in which case</span>
+<span class="sd">            every model object except 3D, vacuum, and air objects are exported.</span>
+<span class="sd">        export_path : str, optional</span>
+<span class="sd">            Full path of the exported OBJ file.</span>
+<span class="sd">            The default is ``None``, in which case the file is exported in the working directory.</span>
+<span class="sd">        export_as_single_objects : bool, optional</span>
+<span class="sd">            Whether to export the model as a single object. The default is ``True``.</span>
+<span class="sd">            If ``False``, the model is exported as a list of objects for each object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` when successful, ``False`` when failed.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Set active project and design</span>
+        <span class="n">be_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="n">project_selected</span> <span class="o">==</span> <span class="s2">&quot;No Project&quot;</span> <span class="ow">or</span> <span class="n">design_selected</span> <span class="o">==</span> <span class="s2">&quot;No Design&quot;</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Wrong project or design&quot;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;project_list&quot;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_project_name</span><span class="p">(</span><span class="n">project</span><span class="p">)</span> <span class="o">==</span> <span class="n">project_selected</span><span class="p">:</span>
+                    <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">project</span>
+                    <span class="k">if</span> <span class="n">project_selected</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;design_list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+                        <span class="n">designs</span> <span class="o">=</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;design_list&quot;</span><span class="p">][</span><span class="n">project_selected</span><span class="p">]</span>
+                        <span class="k">for</span> <span class="n">design</span> <span class="ow">in</span> <span class="n">designs</span><span class="p">:</span>
+                            <span class="k">if</span> <span class="n">design_selected</span> <span class="o">==</span> <span class="n">design</span><span class="p">:</span>
+                                <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_design&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">design</span>
+                                <span class="k">break</span>
+                    <span class="k">break</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">be_properties</span><span class="p">)</span>
+
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/get_aedt_model&quot;</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+                <span class="s2">&quot;air_objects&quot;</span><span class="p">:</span> <span class="n">air_objects</span><span class="p">,</span>
+                <span class="s2">&quot;encode&quot;</span><span class="p">:</span> <span class="n">encode</span><span class="p">,</span>
+                <span class="s2">&quot;obj_list&quot;</span><span class="p">:</span> <span class="n">obj_list</span><span class="p">,</span>
+                <span class="s2">&quot;export_path&quot;</span><span class="p">:</span> <span class="n">export_path</span><span class="p">,</span>
+                <span class="s2">&quot;export_as_single_objects&quot;</span><span class="p">:</span> <span class="n">export_as_single_objects</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Geometry created.&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed backend call: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.get_aedt_data">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.get_aedt_data">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_aedt_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get a list of AEDT projects.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of AEDT project names. Returns [&quot;No Project&quot;] if no projects are available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">be_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+        <span class="n">project_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;project_list&quot;</span><span class="p">]:</span>
+                <span class="k">for</span> <span class="n">project</span> <span class="ow">in</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;project_list&quot;</span><span class="p">]:</span>
+                    <span class="n">active_project_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">project</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">project_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">active_project_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">project_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;No Project&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">project_list</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.get_project_name">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.get_project_name">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_project_name</span><span class="p">(</span><span class="n">project_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get project name from project path.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            Project name</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">project_path</span><span class="p">))[</span><span class="mi">0</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.update_design_names">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.update_design_names">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_design_names</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">active_project</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Update design names based on the active project.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        active_project : str, optional</span>
+<span class="sd">            The active AEDT project. If not provided, the current active project will be used.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of design names.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">be_properties</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_properties</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">active_project</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;No Project&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;No Design&quot;</span><span class="p">]</span>
+            <span class="n">active_project</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]))[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">active_project</span><span class="p">:</span>
+                <span class="n">active_project</span> <span class="o">=</span> <span class="s2">&quot;No Project&quot;</span>
+                <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">active_project</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_project&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">active_project</span>
+
+        <span class="n">design_list</span> <span class="o">=</span> <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;design_list&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">active_project</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">design_list</span><span class="p">:</span>
+            <span class="n">design_list</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;No Design&quot;</span><span class="p">]</span>
+            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_design&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;No Design&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">be_properties</span><span class="p">[</span><span class="s2">&quot;active_design&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">design_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_properties</span><span class="p">(</span><span class="n">be_properties</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">design_list</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.save_project">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.save_project">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">save_project</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Save the current AEDT project.</span>
+
+<span class="sd">        Opens a file dialog to select a location to save the AEDT project. The project is saved</span>
+<span class="sd">        with a &#39;.aedt&#39; extension.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            This method relies on backend communication to save the project.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="p">()</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setOption</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setFileMode</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">FileMode</span><span class="o">.</span><span class="n">AnyFile</span><span class="p">)</span>
+        <span class="n">dialog</span><span class="o">.</span><span class="n">setOption</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">Option</span><span class="o">.</span><span class="n">DontConfirmOverwrite</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">file_name</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">dialog</span><span class="o">.</span><span class="n">getSaveFileName</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s2">&quot;Save new aedt file&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;Aedt Files (*.aedt)&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">file_name</span><span class="p">:</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+            <span class="n">res_busy</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">res_idle</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="o">.</span><span class="n">value</span>
+            <span class="k">if</span> <span class="n">res_busy</span><span class="p">:</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">MSG_TK_RUNNING</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">res_idle</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/save_project&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">file_name</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Saving project: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Failed backend call: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.release_only">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.release_only">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">release_only</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Release the AEDT desktop without closing projects.&quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">MSG_TK_RUNNING</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;close_projects&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;close_on_exit&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">():</span>
+                <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/close_aedt&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.release_and_close">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.release_and_close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">release_and_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Release and close the AEDT desktop.&quot;&quot;&quot;</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/status&quot;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="n">DEFAULT_REQUESTS_TIMEOUT</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">BUSY</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">log_and_update_progress</span><span class="p">(</span><span class="n">MSG_TK_RUNNING</span><span class="p">,</span> <span class="n">log_level</span><span class="o">=</span><span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">response</span><span class="o">.</span><span class="n">ok</span> <span class="ow">and</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="n">ToolkitThreadStatus</span><span class="o">.</span><span class="n">IDLE</span><span class="o">.</span><span class="n">value</span><span class="p">:</span>
+            <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;close_projects&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;close_on_exit&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">():</span>
+                <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/close_aedt&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">properties</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.on_cancel_clicked">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.on_cancel_clicked">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">on_cancel_clicked</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle cancel button click.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.closeEvent">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.closeEvent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle the close event of the application window.&quot;&quot;&quot;</span>
+        <span class="n">close</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">question</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;QUIT&quot;</span><span class="p">,</span> <span class="s2">&quot;Confirm quit?&quot;</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span> <span class="o">|</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">No</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">close</span> <span class="o">==</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Yes</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Closing toolkit&quot;</span><span class="p">)</span>
+            <span class="n">success</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_connection</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">success</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">release_only</span><span class="p">()</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">event</span><span class="o">.</span><span class="n">ignore</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="FrontendGeneric.log_and_update_progress">
+<a class="viewcode-back" href="../../../../../../toolkit/ui_reference/actions.html#ansys.aedt.toolkits.common.ui.actions_generic.FrontendGeneric.log_and_update_progress">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log_and_update_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">,</span> <span class="n">log_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;debug&quot;</span><span class="p">,</span> <span class="n">progress</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Log a message and update the progress bar.</span>
+
+<span class="sd">        This method logs the given message at the specified log level, and updates the progress</span>
+<span class="sd">        bar to the given progress percentage if provided.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        msg : str</span>
+<span class="sd">            The log message.</span>
+<span class="sd">        log_level : str, optional</span>
+<span class="sd">            The log level (debug, info, warning, error, critical). The default is &quot;debug&quot;.</span>
+<span class="sd">        progress : int, optional</span>
+<span class="sd">            The progress percentage. If provided, it updates the progress bar.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># toolkit logging</span>
+        <span class="n">log_levels</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;debug&quot;</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">,</span>
+            <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">,</span>
+            <span class="s2">&quot;warning&quot;</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">,</span>
+            <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">,</span>
+            <span class="s2">&quot;critical&quot;</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="n">log_func</span> <span class="o">=</span> <span class="n">log_levels</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">log_level</span><span class="p">,</span> <span class="s2">&quot;debug&quot;</span><span class="p">)</span>
+        <span class="n">log_func</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># UI logging</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update_logger</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+        <span class="c1"># Update progress bar if needed</span>
+        <span class="k">if</span> <span class="n">progress</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ui</span><span class="o">.</span><span class="n">update_progress</span><span class="p">(</span><span class="n">progress</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../../../../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../../../../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../../../../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2025 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.0. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

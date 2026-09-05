@@ -1,0 +1,1559 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils &#8212; ansys-aedt-toolkits-common</title>
+  
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../../../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../../../../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/styles/ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/styles\ansys-sphinx-theme.css?v=300e4a82" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../../../../../../_static/custom.css" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../../../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+
+  <!-- Include desired assets -->
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  
+
+  
+    <link href="../../../../../../../../_static/css/breadcrumbs.css" rel="stylesheet" />
+  
+    <script src="../../../../../../../../_static/documentation_options.js?v=4befc426"></script>
+    <script src="../../../../../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../../../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../../../../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="../../../../../../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/ansys/aedt/toolkits/common/ui/utils/windows/common_window_utils';</script>
+    <script>
+        DOCUMENTATION_OPTIONS.theme_version = '0.16.1';
+        DOCUMENTATION_OPTIONS.theme_switcher_json_url = 'https://aedt.common.toolkit.docs.pyansys.com/versions.json';
+        DOCUMENTATION_OPTIONS.theme_switcher_version_match = '0.15';
+        DOCUMENTATION_OPTIONS.show_version_warning_banner =
+            false;
+        </script>
+    <link rel="icon" href="../../../../../../../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../../../../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../../../../../search.html" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="0.15.1" />
+  <link rel="canonical" href="https://aedt.common.toolkit.docs.pyansys.com/version/stable/_modules/ansys/aedt/toolkits/common/ui/utils/windows/common_window_utils.html" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../../../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../../../../../../_static/pyansys_logo_transparent_black.png" class="logo__image only-light" alt="ansys-aedt-toolkits-common - Home"/>
+    <img src="../../../../../../../../_static/pyansys_logo_transparent_white.png" class="logo__image only-dark pst-js-only" alt="ansys-aedt-toolkits-common - Home"/>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="ansys-aedt-toolkits-common home">
+    Home
+</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../toolkit/api.html">
+    Backend API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../toolkit/ui.html">
+    UI API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+            <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle nav-item" type="button"
+                data-bs-toggle="dropdown" aria-expanded="false"
+                aria-controls="pst-nav-more-links">
+                    More
+                </button>
+                <ul id="pst-nav-more-links" class="dropdown-menu">
+                    
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class=" ">
+  <a class="nav-link dropdown-item nav-internal" href="../../../../../../../../distributing.html">
+    Distribute
+  </a>
+</li>
+
+                </ul>
+            </li>
+            
+  </ul>
+</nav>
+</div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+      
+        <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../../../../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+      
+        <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-2"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-2"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-2"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-2">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common/issues" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://aedt.common.toolkit.docs.pyansys.com/version/0.15/_static/assets/download/ansys-aedt-toolkits-common.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+  
+    <div id="announcement_msg"></div>
+<script>
+  fetch("announcement.html")
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then(
+      (text) => (document.getElementById("announcement_msg").innerHTML = text),
+    )
+    .catch((error) => console.error(`Fetch problem: ${error.message}`));
+</script>
+  
+
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="index.html" title="ansys-aedt-toolkits-common home">
+    Home
+</a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../getting_started/index.html">
+    Getting started
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../toolkit/api.html">
+    Backend API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../toolkit/ui.html">
+    UI API reference
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../examples/index.html">
+    Examples
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../contributing.html">
+    Contribute
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../changelog.html">
+    Release notes
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../../../../../../distributing.html">
+    Distribute
+  </a>
+</li>
+
+  </ul>
+</nav>
+</div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+<div class="search-bar pst-js-only" id="search-bar">
+  <form class="bd-search d-flex align-items-center" action="../../../../../../../../search.html" method="get">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="search" class="form-control" name="q" placeholder="Search the docs ..."
+      aria-label="Search the docs ..." autocomplete="off" autocorrect="off"
+      autocapitalize="off" spellcheck="false" />
+    <span class="search-button__kbd-shortcut">
+      <kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd>
+    </span>
+  </form>
+  <div id="static-search-results" class="static-search-results" style="display:none;" tabindex="0"></div>
+</div></div>
+        
+          <div class="navbar-item">
+<div class="version-switcher__container dropdown pst-js-only">
+  <button id="pst-version-switcher-button-3"
+    type="button"
+    class="version-switcher__button btn btn-sm dropdown-toggle"
+    data-bs-toggle="dropdown"
+    aria-haspopup="listbox"
+    aria-controls="pst-version-switcher-list-3"
+    aria-label="Version switcher list"
+  >
+    Choose version  <!-- this text may get changed later by javascript -->
+    <span class="caret"></span>
+  </button>
+  <div id="pst-version-switcher-list-3"
+    class="version-switcher__menu dropdown-menu list-group-flush py-0"
+    role="listbox" aria-labelledby="pst-version-switcher-button-3">
+    <!-- dropdown will be populated by javascript on page load -->
+  </div>
+</div></div>
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common.git" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pyaedt-toolkits-common/issues" title="Support" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Support</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://aedt.common.toolkit.docs.pyansys.com/version/0.15/_static/assets/download/ansys-aedt-toolkits-common.pdf" title="Download documentation in PDF" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa fa-file-pdf fa-fw fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">Download documentation in PDF</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../../../../../../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../../../../../../../index.html" class="nav-link">Module code</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils</span></li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2023 - 2026 ANSYS, Inc. and/or its affiliates.</span>
+<span class="c1"># SPDX-License-Identifier: MIT</span>
+<span class="c1">#</span>
+<span class="c1"># Permission is hereby granted, free of charge, to any person obtaining a copy</span>
+<span class="c1"># of this software and associated documentation files (the &quot;Software&quot;), to deal</span>
+<span class="c1"># in the Software without restriction, including without limitation the rights</span>
+<span class="c1"># to use, copy, modify, merge, publish, distribute, sublicense, and/or sell</span>
+<span class="c1"># copies of the Software, and to permit persons to whom the Software is</span>
+<span class="c1"># furnished to do so, subject to the following conditions:</span>
+<span class="c1">#</span>
+<span class="c1"># The above copyright notice and this permission notice shall be included in all</span>
+<span class="c1"># copies or substantial portions of the Software.</span>
+<span class="c1">#</span>
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR</span>
+<span class="c1"># IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,</span>
+<span class="c1"># FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE</span>
+<span class="c1"># AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER</span>
+<span class="c1"># LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE</span>
+<span class="c1"># SOFTWARE.</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QEasingCurve</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QParallelAnimationGroup</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPropertyAnimation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtCore</span><span class="w"> </span><span class="kn">import</span> <span class="n">Qt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QFrame</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QHBoxLayout</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QPushButton</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSizePolicy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QSpacerItem</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PySide6.QtWidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">QWidgetItem</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">general_settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyComboBox</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyIconButton</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyLabel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyLineEdit</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyPushButton</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ansys.aedt.toolkits.common.ui.utils.widgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyToggle</span>
+
+
+<div class="viewcode-block" id="CommonWindowUtils">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">CommonWindowUtils</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Class representing a common window with various UI functionalities.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_pages</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_column</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_column_frame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_column_frame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_column</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">title_bar_frame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_menu</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">themes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__resize</span> <span class="o">=</span> <span class="mi">1</span>
+
+<div class="viewcode-block" id="CommonWindowUtils.set_page">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_page.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_page">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_page</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">page</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the current page in the load_pages widget.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        page : QWidget</span>
+<span class="sd">            The page widget to be displayed as the current page.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">load_pages</span><span class="o">.</span><span class="n">pages</span><span class="o">.</span><span class="n">setCurrentWidget</span><span class="p">(</span><span class="n">page</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window_refresh</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.get_left_menu">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_left_menu.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_left_menu">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_left_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieves the QPushButton object in the left menu of the CommonWindow UI.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        object_name : str</span>
+<span class="sd">            The name of the button object to be retrieved from the left menu.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QPushButton</span>
+<span class="sd">            The QPushButton object with the given object_name found in the left menu of the CommonWindow UI.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_menu</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.set_left_column_menu">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_left_column_menu.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_left_column_menu">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_left_column_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">menu</span><span class="p">,</span> <span class="n">title</span><span class="p">,</span> <span class="n">icon_path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configures the left column of the CommonWindow UI by setting the current widget as the provided `menu`,</span>
+<span class="sd">         the title in the left column&#39;s title label as the provided `title`,</span>
+<span class="sd">          and the icon in the left column as the icon specified by `icon_path`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        menu : QWidget</span>
+<span class="sd">            The menu widget to be set as the current widget in the left column.</span>
+<span class="sd">        title : str</span>
+<span class="sd">            The title to be set in the left column&#39;s title label.</span>
+<span class="sd">        icon_path : str</span>
+<span class="sd">            The path to the icon image file to be set in the left column&#39;s icon.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_column</span><span class="o">.</span><span class="n">menus</span><span class="o">.</span><span class="n">menus</span><span class="o">.</span><span class="n">setCurrentWidget</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_column</span><span class="o">.</span><span class="n">title_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">left_column</span><span class="o">.</span><span class="n">icon</span><span class="o">.</span><span class="n">set_icon</span><span class="p">(</span><span class="n">icon_path</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.is_left_column_visible">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_left_column_visible.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_left_column_visible">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_left_column_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if the left column is visible.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` if the left column is visible, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_column_frame</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.is_right_column_visible">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_right_column_visible.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_right_column_visible">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_right_column_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the right column is visible.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` if the right column is visible, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_column_frame</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.is_progress_visible">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_progress_visible.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_progress_visible">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_progress_visible</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the progress bar is visible.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            ``True`` if the progress bar is visible, ``False`` otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span><span class="o">.</span><span class="n">height</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.set_right_column_menu">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_right_column_menu.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_right_column_menu">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_right_column_menu</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">title</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets the title of the right column menu.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        title: str</span>
+<span class="sd">            The title to be set.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">right_column</span><span class="o">.</span><span class="n">title_label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">title</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.get_title_bar">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_title_bar.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_title_bar">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_title_bar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">object_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get title.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        object_name: str</span>
+<span class="sd">            The name of the QPushButton object.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">title_bar_frame</span><span class="o">.</span><span class="n">findChild</span><span class="p">(</span><span class="n">QPushButton</span><span class="p">,</span> <span class="n">object_name</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_combobox">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_combobox.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_combobox">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_combobox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;label1&quot;</span><span class="p">,</span> <span class="n">combobox_list</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a label and combobox to a layout.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout</span>
+<span class="sd">            The layout object to which the label and combobox will be added.</span>
+<span class="sd">        height: int, optional</span>
+<span class="sd">            The height of the label and combobox widgets. Default is 40.</span>
+<span class="sd">        width: list, optional</span>
+<span class="sd">            The width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.</span>
+<span class="sd">        label: str, optional</span>
+<span class="sd">            The text to be displayed on the label widget. Default is &#39;label1&#39;.</span>
+<span class="sd">        combobox_list: list, optional</span>
+<span class="sd">            A list of items to be displayed in the combobox. If not provided, a default list of [&#39;1&#39;, &#39;2&#39;] will be used.</span>
+<span class="sd">        font_size: int, optional</span>
+<span class="sd">            The font size of the label widget. Default is 12.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list containing the layout row object, label object, and combobox object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">combobox_list</span> <span class="o">=</span> <span class="n">combobox_list</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+        <span class="n">app_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">]</span>
+        <span class="n">text_foreground</span> <span class="o">=</span> <span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+        <span class="n">combo_color</span> <span class="o">=</span> <span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;combo_color&quot;</span><span class="p">]</span>
+        <span class="n">combo_hover</span> <span class="o">=</span> <span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;combo_hover&quot;</span><span class="p">]</span>
+
+        <span class="n">layout_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_row</span><span class="p">)</span>
+
+        <span class="n">label_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_label</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">text_foreground</span>
+        <span class="p">)</span>
+        <span class="c1"># Label aligned to the left</span>
+        <span class="n">label_widget</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignLeft</span><span class="p">)</span>
+        <span class="n">layout_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
+
+        <span class="n">combobox_widget</span> <span class="o">=</span> <span class="n">PyComboBox</span><span class="p">(</span>
+            <span class="n">text_list</span><span class="o">=</span><span class="n">combobox_list</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="n">combo_color</span><span class="p">,</span>
+            <span class="n">bg_color_hover</span><span class="o">=</span><span class="n">combo_hover</span><span class="p">,</span>
+            <span class="n">text_color</span><span class="o">=</span><span class="n">text_foreground</span><span class="p">,</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">combobox_widget</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">combobox_widget</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="n">width</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="c1"># Box aligned to the right</span>
+        <span class="n">layout_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">combobox_widget</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">layout_row</span><span class="p">,</span> <span class="n">label_widget</span><span class="p">,</span> <span class="n">combobox_widget</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_textbox">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_textbox.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_textbox">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_textbox</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;label1&quot;</span><span class="p">,</span> <span class="n">initial_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Adds a label and textbox to a layout.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout</span>
+<span class="sd">            The layout object to which the label and combobox will be added.</span>
+<span class="sd">        height: int, optional</span>
+<span class="sd">            The height of the label and combobox widgets. The default is `40`.</span>
+<span class="sd">        width: list, optional</span>
+<span class="sd">            The width of the label and combobox widgets. If not provided, a default width of `[100, 100]` will be used.</span>
+<span class="sd">        label: str, optional</span>
+<span class="sd">            The text to be displayed on the label widget. The default is &#39;&quot;label1&quot;&#39;.</span>
+<span class="sd">        initial_text: str, optional</span>
+<span class="sd">            Text to be displayed in the textbox.</span>
+<span class="sd">        font_size: int, optional</span>
+<span class="sd">            The font size of the label widget. The default is `12`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list containing the layout row object, label object, and combobox object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">initial_text</span> <span class="o">=</span> <span class="n">initial_text</span> <span class="ow">or</span> <span class="s2">&quot; &quot;</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+        <span class="n">app_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">]</span>
+        <span class="n">text_foreground</span> <span class="o">=</span> <span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+        <span class="n">bg_color</span> <span class="o">=</span> <span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;combo_color&quot;</span><span class="p">]</span>
+
+        <span class="n">layout_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_row</span><span class="p">)</span>
+
+        <span class="n">label_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_label</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">label_widget</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignLeft</span><span class="p">)</span>
+        <span class="n">layout_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label_widget</span><span class="p">)</span>
+
+        <span class="n">linebox_widget</span> <span class="o">=</span> <span class="n">PyLineEdit</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">initial_text</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="n">bg_color</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">text_foreground</span><span class="p">,</span>
+            <span class="n">selection_color</span><span class="o">=</span><span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;white&quot;</span><span class="p">],</span>
+            <span class="n">bg_color_active</span><span class="o">=</span><span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;dark_three&quot;</span><span class="p">],</span>
+            <span class="n">context_color</span><span class="o">=</span><span class="n">app_color</span><span class="p">[</span><span class="s2">&quot;context_color&quot;</span><span class="p">],</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">linebox_widget</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">linebox_widget</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="n">width</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="n">layout_row</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">linebox_widget</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">layout_row</span><span class="p">,</span> <span class="n">label_widget</span><span class="p">,</span> <span class="n">linebox_widget</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_toggle">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_toggle.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_toggle">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_toggle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">layout</span><span class="p">,</span>
+        <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
+        <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">font_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+        <span class="n">bg_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">circle_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">active_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_color_on</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_color_off</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_on_off</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a label and a toggle button to a specified layout.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout</span>
+<span class="sd">            Layout object to add the label and toggle button to.</span>
+<span class="sd">        height: int, optional</span>
+<span class="sd">            Height of the label and toggle. The default value is ``40``.</span>
+<span class="sd">        width: list, optional</span>
+<span class="sd">            Width of the label and toggle. The default is [50, 100, 50] if ``None``.</span>
+<span class="sd">        label: list of str, optional</span>
+<span class="sd">            Label text. The default value is ``[&#39;label1&#39;, &#39;label2&#39;]``.</span>
+<span class="sd">        font_size: int, optional</span>
+<span class="sd">            Font size for the label text. The default value is ``12``.</span>
+<span class="sd">        bg_color : str, optional</span>
+<span class="sd">            Background color of the toggle switch. The default is ``label_off``.</span>
+<span class="sd">        circle_color : str, optional</span>
+<span class="sd">            Color of the circle in the toggle switch. The default is ``icon_color``.</span>
+<span class="sd">        active_color : str, optional</span>
+<span class="sd">            Color of the toggle switch when active. The default is ``label_on``.</span>
+<span class="sd">        text_color_on : str, optional</span>
+<span class="sd">            Color of the on toggle text. The default is ``text_foreground``.</span>
+<span class="sd">        text_color_off : str, optional</span>
+<span class="sd">            Color of the off toggle text. The default is ``text_foreground``.</span>
+<span class="sd">        show_on_off: bool, optional</span>
+<span class="sd">            Show on and off text in the toggle. The default value is ``False``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            A tuple containing the layout row, label object, toggle object, and second label object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">label</span> <span class="o">=</span> <span class="n">label</span> <span class="ow">or</span> <span class="p">[</span><span class="s2">&quot;label1&quot;</span><span class="p">,</span> <span class="s2">&quot;label2&quot;</span><span class="p">]</span>
+        <span class="n">width</span> <span class="o">=</span> <span class="n">width</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bg_color</span><span class="p">:</span>
+            <span class="n">bg_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;label_off&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">circle_color</span><span class="p">:</span>
+            <span class="n">circle_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;icon_color&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">active_color</span><span class="p">:</span>
+            <span class="n">active_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;label_on&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text_color_on</span><span class="p">:</span>
+            <span class="n">text_color_on</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text_color_off</span><span class="p">:</span>
+            <span class="n">text_color_off</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+
+        <span class="n">main_row</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">main_row</span><span class="p">)</span>
+
+        <span class="c1"># Left container</span>
+        <span class="n">left_container</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">label1</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_label</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">label1</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignLeft</span><span class="p">)</span>
+        <span class="n">left_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label1</span><span class="p">)</span>
+        <span class="n">left_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+        <span class="n">main_row</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">left_container</span><span class="p">)</span>
+
+        <span class="c1"># Central contained</span>
+        <span class="n">toggle_container</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+
+        <span class="n">toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_toggle</span><span class="p">(</span>
+            <span class="n">width</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+            <span class="n">height</span><span class="p">,</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="n">bg_color</span><span class="p">,</span>
+            <span class="n">circle_color</span><span class="o">=</span><span class="n">circle_color</span><span class="p">,</span>
+            <span class="n">active_color</span><span class="o">=</span><span class="n">active_color</span><span class="p">,</span>
+            <span class="n">show_on_off</span><span class="o">=</span><span class="n">show_on_off</span><span class="p">,</span>
+            <span class="n">text_color_on</span><span class="o">=</span><span class="n">text_color_on</span><span class="p">,</span>
+            <span class="n">text_color_off</span><span class="o">=</span><span class="n">text_color_off</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">width</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># If label2, toggle centered</span>
+            <span class="n">toggle_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+            <span class="n">toggle_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">toggle</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span><span class="p">)</span>
+            <span class="n">toggle_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+
+            <span class="c1"># Right container</span>
+            <span class="n">right_container</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+            <span class="n">right_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+            <span class="n">label2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_label</span><span class="p">(</span><span class="n">label</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+            <span class="n">label2</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+            <span class="n">right_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">label2</span><span class="p">)</span>
+            <span class="n">main_row</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">toggle_container</span><span class="p">)</span>
+            <span class="n">main_row</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">right_container</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># If no label2, toggle in the right</span>
+            <span class="n">toggle_container</span><span class="o">.</span><span class="n">addStretch</span><span class="p">()</span>
+            <span class="n">toggle_container</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">toggle</span><span class="p">,</span> <span class="n">alignment</span><span class="o">=</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignVCenter</span> <span class="o">|</span> <span class="n">Qt</span><span class="o">.</span><span class="n">AlignRight</span><span class="p">)</span>
+            <span class="n">label2</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">main_row</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">toggle_container</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">main_row</span><span class="p">,</span> <span class="n">label1</span><span class="p">,</span> <span class="n">toggle</span><span class="p">,</span> <span class="n">label2</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_icon_button">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_icon_button.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_icon_button">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_icon_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">icon</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;lineedit&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add icon button.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout</span>
+<span class="sd">            The layout to which the icon button and line edit will be added.</span>
+<span class="sd">        icon: QIcon</span>
+<span class="sd">            The path to the icon that will be displayed on the button.</span>
+<span class="sd">        height: int, optional</span>
+<span class="sd">            The height of the icon button and line edit. Default is 40.</span>
+<span class="sd">        width: list, optional</span>
+<span class="sd">            The width of the icon button. If not provided, it will be set to a default value.</span>
+<span class="sd">        text: str, optional</span>
+<span class="sd">            The placeholder text for the line edit. Default is &#39;lineedit&#39;.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list containing the layout row object, the button object, and the line edit object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">width</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="p">[</span><span class="mi">20</span><span class="p">,</span> <span class="mi">180</span><span class="p">]</span>
+
+        <span class="n">layout_row_obj</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_row_obj</span><span class="p">)</span>
+
+        <span class="n">button_obj1</span> <span class="o">=</span> <span class="n">PyIconButton</span><span class="p">(</span>
+            <span class="n">icon_path</span><span class="o">=</span><span class="n">icon</span><span class="p">,</span>
+            <span class="n">tooltip_text</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="n">height</span><span class="o">=</span><span class="n">height</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+            <span class="n">dark_one</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;dark_one&quot;</span><span class="p">),</span>
+            <span class="n">icon_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;icon_color&quot;</span><span class="p">),</span>
+            <span class="n">icon_color_hover</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;icon_hover&quot;</span><span class="p">),</span>
+            <span class="n">icon_color_pressed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;icon_active&quot;</span><span class="p">),</span>
+            <span class="n">icon_color_active</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;icon_active&quot;</span><span class="p">),</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;dark_one&quot;</span><span class="p">),</span>
+            <span class="n">bg_color_hover</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;dark_three&quot;</span><span class="p">),</span>
+            <span class="n">bg_color_pressed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;pink&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">button_obj1</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">layout_row_obj</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_obj1</span><span class="p">)</span>
+
+        <span class="n">lineedit_obj</span> <span class="o">=</span> <span class="n">PyLineEdit</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">place_holder_text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">border_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">),</span>
+            <span class="n">selection_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;white&quot;</span><span class="p">),</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;dark_one&quot;</span><span class="p">),</span>
+            <span class="n">bg_color_active</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;dark_three&quot;</span><span class="p">),</span>
+            <span class="n">context_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_get_color_theme</span><span class="p">(</span><span class="s2">&quot;context_color&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">lineedit_obj</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">layout_row_obj</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">lineedit_obj</span><span class="p">)</span>
+
+        <span class="n">lineedit_obj</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="n">width</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">layout_row_obj</span><span class="p">,</span> <span class="n">button_obj1</span><span class="p">,</span> <span class="n">lineedit_obj</span><span class="p">]</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_n_buttons">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_n_buttons.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_n_buttons">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_n_buttons</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">num_buttons</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="p">[</span><span class="mi">200</span><span class="p">],</span> <span class="n">text</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;button&quot;</span><span class="p">],</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a specified number of buttons to a layout object.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout, optional</span>
+<span class="sd">            The layout to which the buttons will be added. If None, a new QHBoxLayout will be created.</span>
+<span class="sd">        num_buttons: int, optional</span>
+<span class="sd">            The number of buttons to be added to the layout. Default is 1.</span>
+<span class="sd">        height: int, optional</span>
+<span class="sd">            The height of the buttons. Default is 40.</span>
+<span class="sd">        width: list of int, optional</span>
+<span class="sd">            The widths of the buttons. If list length is less than num_buttons, all buttons take the same width.</span>
+<span class="sd">            Default is [200].</span>
+<span class="sd">        text: list of str, optional</span>
+<span class="sd">            The texts to be displayed on the buttons.</span>
+<span class="sd">            If list length is less than num_buttons, all buttons display the same text.</span>
+<span class="sd">            Default is [&#39;button&#39;].</span>
+<span class="sd">        font_size: float or int, optional</span>
+<span class="sd">            Font size. Default is ``10``.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">             A list containing the layout row object and the button objects.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">width</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="p">[</span><span class="n">width</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_buttons</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;button&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="n">num_buttons</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">num_buttons</span><span class="p">:</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">[:</span><span class="n">num_buttons</span><span class="p">]</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">num_buttons</span><span class="p">:</span>  <span class="c1"># just reuse the first entry N times</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="p">[</span><span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">*</span> <span class="n">num_buttons</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="o">!=</span> <span class="n">num_buttons</span><span class="p">:</span>
+            <span class="n">width</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">200</span> <span class="o">/</span> <span class="n">num_buttons</span><span class="p">)</span>  <span class="c1"># left menu is about 200 wide</span>
+
+        <span class="n">layout_main_obj</span> <span class="o">=</span> <span class="n">layout</span>
+        <span class="n">layout_row_obj</span> <span class="o">=</span> <span class="n">QHBoxLayout</span><span class="p">()</span>
+        <span class="n">layout_main_obj</span><span class="o">.</span><span class="n">addLayout</span><span class="p">(</span><span class="n">layout_row_obj</span><span class="p">)</span>
+
+        <span class="n">all_objects</span> <span class="o">=</span> <span class="p">[</span><span class="n">layout_row_obj</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_buttons</span><span class="p">):</span>
+            <span class="n">button_obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_add_button</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">[</span><span class="n">idx</span><span class="p">],</span> <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">)</span>
+            <span class="n">button_obj</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+            <span class="n">layout_row_obj</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">button_obj</span><span class="p">)</span>
+            <span class="n">button_obj</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="n">width</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+            <span class="n">all_objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">button_obj</span><span class="p">)</span>
+            <span class="n">layout_row_obj</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">all_objects</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.add_vertical_line">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_vertical_line.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_vertical_line">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_vertical_line</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">,</span> <span class="n">top_spacer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">bot_spacer</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a vertical line.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        layout: QLayout</span>
+<span class="sd">            Layout object to add the label and toggle button to.</span>
+<span class="sd">        top_spacer: list, optional</span>
+<span class="sd">            Top spacer. Default is [0, 10].</span>
+<span class="sd">        bot_spacer: list, optional</span>
+<span class="sd">            Bottom, spacer. Default is [0, 10].</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">top_spacer</span> <span class="o">=</span> <span class="n">top_spacer</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+        <span class="n">bot_spacer</span> <span class="o">=</span> <span class="n">bot_spacer</span> <span class="ow">or</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+
+        <span class="n">spacer</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="n">top_spacer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">top_spacer</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer</span><span class="p">)</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">QFrame</span><span class="p">()</span>
+        <span class="n">line</span><span class="o">.</span><span class="n">setFrameShape</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">HLine</span><span class="p">)</span>
+        <span class="n">line</span><span class="o">.</span><span class="n">setFrameShadow</span><span class="p">(</span><span class="n">QFrame</span><span class="o">.</span><span class="n">Sunken</span><span class="p">)</span>
+        <span class="n">line</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;background-color: </span><span class="si">{}</span><span class="s2">;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;dark_two&quot;</span><span class="p">]))</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">spacer</span> <span class="o">=</span> <span class="n">QSpacerItem</span><span class="p">(</span><span class="n">bot_spacer</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">bot_spacer</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">,</span> <span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Minimum</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">addItem</span><span class="p">(</span><span class="n">spacer</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">line</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.toggle_left_column">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_left_column.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_left_column">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_left_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles the left column of the CommonWindow by starting a box animation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_box_animation</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.toggle_right_column">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_right_column.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_right_column">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_right_column</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles the display of the right column in a common window.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_box_animation</span><span class="p">(</span><span class="s2">&quot;right&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.window_refresh">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.window_refresh.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.window_refresh">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">window_refresh</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Window refresh&quot;&quot;&quot;</span>
+        <span class="c1"># Store the original size</span>
+        <span class="n">original_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">size</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__resize</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__resize</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">__resize</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># Change the size slightly to trigger a repaint</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">original_size</span><span class="o">.</span><span class="n">width</span><span class="p">()</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">__resize</span><span class="p">,</span> <span class="n">original_size</span><span class="o">.</span><span class="n">height</span><span class="p">())</span>
+
+        <span class="c1"># Restore the original size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">original_size</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.start_box_animation">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.start_box_animation.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.start_box_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start_box_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">direction</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Starts a box animation in the specified direction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        direction: str</span>
+<span class="sd">            The direction in which the box animation should be performed.</span>
+<span class="sd">            Possible values are &quot;left&quot; and &quot;right&quot;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">minimum_left</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">left_column_size</span><span class="p">[</span><span class="s2">&quot;minimum&quot;</span><span class="p">]</span>
+        <span class="n">maximum_left</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">left_column_size</span><span class="p">[</span><span class="s2">&quot;maximum&quot;</span><span class="p">]</span>
+        <span class="n">minimum_right</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">right_column_size</span><span class="p">[</span><span class="s2">&quot;minimum&quot;</span><span class="p">]</span>
+        <span class="n">maximum_right</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">right_column_size</span><span class="p">[</span><span class="s2">&quot;maximum&quot;</span><span class="p">]</span>
+
+        <span class="n">left_box_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">left_column_frame</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+        <span class="n">right_box_width</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">right_column_frame</span><span class="o">.</span><span class="n">width</span><span class="p">()</span>
+
+        <span class="n">left_width</span> <span class="o">=</span> <span class="n">maximum_left</span> <span class="k">if</span> <span class="n">left_box_width</span> <span class="o">==</span> <span class="n">minimum_left</span> <span class="ow">and</span> <span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span> <span class="k">else</span> <span class="n">minimum_left</span>
+        <span class="n">right_width</span> <span class="o">=</span> <span class="n">maximum_right</span> <span class="k">if</span> <span class="n">right_box_width</span> <span class="o">==</span> <span class="n">minimum_right</span> <span class="ow">and</span> <span class="n">direction</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span> <span class="k">else</span> <span class="n">minimum_right</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">setup_animation</span><span class="p">(</span><span class="n">left_box_width</span><span class="p">,</span> <span class="n">right_box_width</span><span class="p">,</span> <span class="n">left_width</span><span class="p">,</span> <span class="n">right_width</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.setup_animation">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.setup_animation.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.setup_animation">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_animation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">left_start</span><span class="p">,</span> <span class="n">right_start</span><span class="p">,</span> <span class="n">left_end</span><span class="p">,</span> <span class="n">right_end</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets up an animation for the left and right columns of the UI.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        left_start: int</span>
+<span class="sd">            The starting value for the left box animation.</span>
+<span class="sd">        right_start: int</span>
+<span class="sd">            The starting value for the right box animation.</span>
+<span class="sd">        left_end: int</span>
+<span class="sd">            The ending value for the left box animation.</span>
+<span class="sd">        right_end: int</span>
+<span class="sd">            The ending value for the right box animation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># ANIMATION LEFT BOX</span>
+        <span class="n">left_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">left_column_frame</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;minimumWidth&quot;</span><span class="p">,</span> <span class="n">left_start</span><span class="p">,</span> <span class="n">left_end</span><span class="p">)</span>
+
+        <span class="c1"># ANIMATION RIGHT BOX</span>
+        <span class="n">right_box</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_animation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">right_column_frame</span><span class="p">,</span> <span class="sa">b</span><span class="s2">&quot;minimumWidth&quot;</span><span class="p">,</span> <span class="n">right_start</span><span class="p">,</span> <span class="n">right_end</span><span class="p">)</span>
+
+        <span class="c1"># GROUP ANIMATION</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span> <span class="o">=</span> <span class="n">QParallelAnimationGroup</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">addAnimation</span><span class="p">(</span><span class="n">left_box</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">addAnimation</span><span class="p">(</span><span class="n">right_box</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">group</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.toggle_progress">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_progress.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_progress">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">toggle_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Toggles the visibility of the progress row.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        mode : int, optional</span>
+<span class="sd">            The mode of the toggle operation. Default is 0.</span>
+<span class="sd">            - 0: Toggles the progress row between open and closed states.</span>
+<span class="sd">            - 1: Opens the progress row.</span>
+<span class="sd">            - 2: Closes the progress row.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">minimum_progress</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">progress_size</span><span class="p">[</span><span class="s2">&quot;minimum&quot;</span><span class="p">]</span>
+        <span class="n">maximum_progress</span> <span class="o">=</span> <span class="n">general_settings</span><span class="o">.</span><span class="n">progress_size</span><span class="p">[</span><span class="s2">&quot;maximum&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">progress_box_height</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span><span class="o">.</span><span class="n">height</span><span class="p">()</span>
+            <span class="n">progress_width</span> <span class="o">=</span> <span class="n">maximum_progress</span> <span class="k">if</span> <span class="n">progress_box_height</span> <span class="o">==</span> <span class="n">minimum_progress</span> <span class="k">else</span> <span class="n">minimum_progress</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span><span class="o">.</span><span class="n">setMaximumHeight</span><span class="p">(</span><span class="n">progress_width</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span><span class="o">.</span><span class="n">setMaximumHeight</span><span class="p">(</span><span class="n">maximum_progress</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">progress_frame</span><span class="o">.</span><span class="n">setMaximumHeight</span><span class="p">(</span><span class="n">minimum_progress</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.clear_layout">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.clear_layout.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.clear_layout">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">clear_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all layout.&quot;&quot;&quot;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">count</span><span class="p">())):</span>
+            <span class="n">item</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">QWidgetItem</span><span class="p">):</span>
+                <span class="n">item</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">QSpacerItem</span><span class="p">):</span>
+                <span class="k">pass</span>
+                <span class="c1"># no need to do extra stuff</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">clear_layout</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">layout</span><span class="p">())</span>
+
+            <span class="c1"># remove the item from layout</span>
+            <span class="n">layout</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.update_progress">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_progress.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_progress">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">progress_value</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all layout.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">progress</span><span class="o">.</span><span class="n">progress</span> <span class="o">=</span> <span class="n">progress_value</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.update_logger">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_logger.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_logger">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">update_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Clear all layout.&quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">text</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.item_index">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.item_index.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.item_index">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">item_index</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Item index.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="n">layout</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">i</span>
+                <span class="k">elif</span> <span class="n">layout</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span> <span class="o">==</span> <span class="n">item</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">i</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="o">-</span><span class="mi">1</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.remove_item">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.remove_item.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.remove_item">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">remove_item</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">index</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove item by index.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">item</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">itemAt</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">:</span>
+            <span class="n">widget</span> <span class="o">=</span> <span class="n">item</span><span class="o">.</span><span class="n">widget</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">widget</span><span class="p">:</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="n">widget</span><span class="p">)</span>
+                <span class="n">widget</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">layout</span><span class="o">.</span><span class="n">removeItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+        <span class="n">layout</span><span class="o">.</span><span class="n">update</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="CommonWindowUtils.create_animation">
+<a class="viewcode-back" href="../../../../../../../../toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.create_animation.html#ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.create_animation">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_animation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">property_name</span><span class="p">,</span> <span class="n">start_val</span><span class="p">,</span> <span class="n">end_val</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an animation with specified parameters.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        obj: QObject</span>
+<span class="sd">            The object on which the animation will be applied.</span>
+<span class="sd">        property_name: str</span>
+<span class="sd">            The name of the property to animate.</span>
+<span class="sd">        start_val: Any</span>
+<span class="sd">            The initial value of the property.</span>
+<span class="sd">        end_val: Any</span>
+<span class="sd">            The final value of the property.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        QPropertyAnimation</span>
+<span class="sd">            The created animation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="n">QPropertyAnimation</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">property_name</span><span class="p">)</span>
+        <span class="n">animation</span><span class="o">.</span><span class="n">setStartValue</span><span class="p">(</span><span class="n">start_val</span><span class="p">)</span>
+        <span class="n">animation</span><span class="o">.</span><span class="n">setEndValue</span><span class="p">(</span><span class="n">end_val</span><span class="p">)</span>
+        <span class="n">animation</span><span class="o">.</span><span class="n">setEasingCurve</span><span class="p">(</span><span class="n">QEasingCurve</span><span class="o">.</span><span class="n">InOutQuart</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">animation</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_toggle</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">width</span><span class="p">,</span>
+        <span class="n">height</span><span class="p">,</span>
+        <span class="n">bg_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">circle_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">active_color</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_color_on</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">text_color_off</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">show_on_off</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">):</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">bg_color</span><span class="p">:</span>
+            <span class="n">bg_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;label_off&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">circle_color</span><span class="p">:</span>
+            <span class="n">circle_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;icon_color&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">active_color</span><span class="p">:</span>
+            <span class="n">active_color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;label_off&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text_color_on</span><span class="p">:</span>
+            <span class="n">text_color_on</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">text_color_off</span><span class="p">:</span>
+            <span class="n">text_color_off</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+
+        <span class="n">toggle</span> <span class="o">=</span> <span class="n">PyToggle</span><span class="p">(</span>
+            <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">,</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="n">bg_color</span><span class="p">,</span>
+            <span class="n">circle_color</span><span class="o">=</span><span class="n">circle_color</span><span class="p">,</span>
+            <span class="n">active_color</span><span class="o">=</span><span class="n">active_color</span><span class="p">,</span>
+            <span class="n">text_color_on</span><span class="o">=</span><span class="n">text_color_on</span><span class="p">,</span>
+            <span class="n">text_color_off</span><span class="o">=</span><span class="n">text_color_off</span><span class="p">,</span>
+            <span class="n">show_on_off</span><span class="o">=</span><span class="n">show_on_off</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">toggle</span><span class="o">.</span><span class="n">setMaximumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">toggle</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_create_label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">font_size</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">color</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">PyLabel</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setMinimumHeight</span><span class="p">(</span><span class="n">height</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignLeft</span><span class="p">)</span>
+        <span class="n">label</span><span class="o">.</span><span class="n">setFixedWidth</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">label</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_get_color_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">color_key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="n">color_key</span><span class="p">]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_add_button</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">&quot;button&quot;</span><span class="p">,</span> <span class="n">font_size</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">button_obj</span> <span class="o">=</span> <span class="n">PyPushButton</span><span class="p">(</span>
+            <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+            <span class="n">radius</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;text_foreground&quot;</span><span class="p">],</span>
+            <span class="n">bg_color</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;dark_one&quot;</span><span class="p">],</span>
+            <span class="n">bg_color_hover</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;dark_three&quot;</span><span class="p">],</span>
+            <span class="n">bg_color_pressed</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">themes</span><span class="p">[</span><span class="s2">&quot;app_color&quot;</span><span class="p">][</span><span class="s2">&quot;dark_four&quot;</span><span class="p">],</span>
+            <span class="n">font_size</span><span class="o">=</span><span class="n">font_size</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">button_obj</span></div>
+
+</pre></div>
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+<!-- If there is no fix edit button function, use the PyData edit-this-button-->
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../../../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../../../../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+
+  <!-- Include desired assets -->
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.7/require.min.js"></script>
+
+<script>
+// Passing the search options to the search.js file
+const SEARCH_OPTIONS = JSON.parse('{"keys": ["title", "text", "objectID"], "limit": 10, "threshold": 0.2}');
+const SEARCH_FILE = "../../../../../../../../_static/search.json";
+const ADVANCE_SEARCH_PATH = "../../../../../../../../search.html";
+const EXTRA_SOURCES = JSON.parse('""');
+</script>
+
+
+<script src="../../../../../../../../_static/js/search.js"></script>
+
+  
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2026 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  1.6.0. <br />Last updated on
+  <span id="ast_build_date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var ast_lastModifiedDate = new Date(document.lastModified);
+  var ast_build_date = ast_lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("ast_build_date").innerHTML = ast_build_date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

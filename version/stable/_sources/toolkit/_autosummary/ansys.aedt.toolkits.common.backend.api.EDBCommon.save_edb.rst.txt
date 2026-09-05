@@ -1,0 +1,6 @@
+save\_edb
+=========
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: EDBCommon.save_edb

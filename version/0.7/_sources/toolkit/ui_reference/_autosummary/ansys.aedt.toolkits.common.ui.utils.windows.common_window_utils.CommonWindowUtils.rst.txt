@@ -1,0 +1,100 @@
+﻿CommonWindowUtils
+=================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. autoclass:: CommonWindowUtils
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      CommonWindowUtils.add_combobox
+      
+      
+      CommonWindowUtils.add_icon_button
+      
+      
+      CommonWindowUtils.add_n_buttons
+      
+      
+      CommonWindowUtils.add_textbox
+      
+      
+      CommonWindowUtils.add_toggle
+      
+      
+      CommonWindowUtils.add_vertical_line
+      
+      
+      CommonWindowUtils.clear_layout
+      
+      
+      CommonWindowUtils.create_animation
+      
+      
+      CommonWindowUtils.get_left_menu
+      
+      
+      CommonWindowUtils.get_title_bar
+      
+      
+      CommonWindowUtils.is_left_column_visible
+      
+      
+      CommonWindowUtils.is_progress_visible
+      
+      
+      CommonWindowUtils.is_right_column_visible
+      
+      
+      CommonWindowUtils.item_index
+      
+      
+      CommonWindowUtils.remove_item
+      
+      
+      CommonWindowUtils.set_left_column_menu
+      
+      
+      CommonWindowUtils.set_page
+      
+      
+      CommonWindowUtils.set_right_column_menu
+      
+      
+      CommonWindowUtils.setup_animation
+      
+      
+      CommonWindowUtils.start_box_animation
+      
+      
+      CommonWindowUtils.toggle_left_column
+      
+      
+      CommonWindowUtils.toggle_progress
+      
+      
+      CommonWindowUtils.toggle_right_column
+      
+      
+      CommonWindowUtils.update_logger
+      
+      
+      CommonWindowUtils.update_progress
+      
+      
+      CommonWindowUtils.window_refresh
+      
+   
+   
+
+   
+   
+   

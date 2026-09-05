@@ -1,0 +1,6 @@
+launch\_thread
+==============
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: EDBCommon.launch_thread

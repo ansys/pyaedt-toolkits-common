@@ -1,0 +1,6 @@
+toggle\_right\_column
+=====================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.toggle_right_column

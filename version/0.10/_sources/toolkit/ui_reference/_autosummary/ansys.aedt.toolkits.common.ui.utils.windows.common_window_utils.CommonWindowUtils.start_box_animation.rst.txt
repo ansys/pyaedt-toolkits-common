@@ -1,0 +1,6 @@
+start\_box\_animation
+=====================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.start_box_animation
