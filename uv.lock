@@ -388,7 +388,7 @@ wheels = [
 
 [[package]]
 name = "ansys-tools-common"
-version = "0.5.2"
+version = "0.5.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "click" },
@@ -397,9 +397,9 @@ dependencies = [
     { name = "scooby" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c8/26/ce1d9dac0dcf9751879856c7f28a790b0da6b8c60d29c50d188d92491c72/ansys_tools_common-0.5.2.tar.gz", hash = "sha256:f9a69834d12eb066316b20c2538bce33031ee4a9e5ffc1ab067e24da947f0b66", size = 324497, upload-time = "2026-08-13T10:58:02.759Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/04/0a/1291f8c5167c68a920361d214c6be8516f3452392dccbb72fb9f41a825ac/ansys_tools_common-0.5.3.tar.gz", hash = "sha256:f922fe151d76d94b42658c2f1a23111c9d05147a35aac0c88cba3155462bacae", size = 327064, upload-time = "2026-08-31T09:36:51.907Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7c/5c/980135e1016d2c66a7392f0f96a8b86474cfe7400cb684bc239dd6e2efd9/ansys_tools_common-0.5.2-py3-none-any.whl", hash = "sha256:53f3cdce59cba868ef5fb585281cfd0b46653862dada6fa818db19883b8c3647", size = 87326, upload-time = "2026-08-13T10:58:00.94Z" },
+    { url = "https://files.pythonhosted.org/packages/62/fc/30cee1f72d0add309f45503255040087f65458b446b47743c550aa2ff707/ansys_tools_common-0.5.3-py3-none-any.whl", hash = "sha256:f1f70e424ba5f5ead6925b7d9471b0df691d80f8371f36997dcca63bdd11af85", size = 88760, upload-time = "2026-08-31T09:36:50.268Z" },
 ]
 
 [[package]]
@@ -3853,7 +3853,7 @@ wheels = [
 
 [[package]]
 name = "pyaedt"
-version = "1.4.0"
+version = "1.5.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "ansys-tools-common" },
@@ -3869,9 +3869,9 @@ dependencies = [
     { name = "tomli", marker = "python_full_version < '3.11'" },
     { name = "tomli-w" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/12/b2/86b33b7cd20b58f3ed149f899b01f83817a9ad0cf505ff329e23c7aa079c/pyaedt-1.4.0.tar.gz", hash = "sha256:b35066363896a5ac1318be5306ae95fe28ef337830a725475bdd8a7830e93a1c", size = 27683522, upload-time = "2026-08-13T09:40:38.005Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7d/b5/257882466c548ebc6363e3aa799bf37396922a04c12c13f4632e9d758606/pyaedt-1.5.0.tar.gz", hash = "sha256:a2296aeb331a9585451d08b09d091fb7d87b6923bb744e7588dd3d3bfd2198f3", size = 27653875, upload-time = "2026-09-02T17:16:18.475Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/de/8a/67ee2fc959439f3522b9c77b8f46ef55fd7917ee378f8c53d64a04acea4d/pyaedt-1.4.0-py3-none-any.whl", hash = "sha256:06ce66da33f0c7b19620f209fc55d63515b880cab0ab9c2cfc35a8d1de0c890e", size = 7612475, upload-time = "2026-08-13T09:40:33.963Z" },
+    { url = "https://files.pythonhosted.org/packages/77/cd/7aad8293a439577b7b36d044f8d785d88af2765d85f003202100f1078ad1/pyaedt-1.5.0-py3-none-any.whl", hash = "sha256:a56af0bb413f48df725af0c3fbdd2c88e42791b15e3e9e1fee1b525910598bd1", size = 7658124, upload-time = "2026-09-02T17:16:16.186Z" },
 ]
 
 [package.optional-dependencies]
