@@ -7,7 +7,7 @@ on:
 
 
 env:
-  MAIN_PYTHON_VERSION: '3.10'
+  TESTS_PYTHON_VERSION: '3.10'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
 
@@ -23,28 +23,23 @@ jobs:
     name: Windows Tests
     runs-on: [self-hosted, Windows, pyaedt-toolkit]
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ env.TESTS_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           enable-cache: false
           prune-cache: true
 
-      - name: Create virtual environment
-        run: uv venv .venv
-
       - name: Install packages for testing
-        run: |
-          .\.venv\Scripts\Activate.ps1
-          uv sync --frozen --group tests --extra all
+        run: uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
@@ -68,14 +63,12 @@ jobs:
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-
           pytest -v -m rest_api --cov --cov-append
 
       - name: Test utils
         timeout-minutes: 5
         run: |
           .\.venv\Scripts\Activate.ps1
-
           pytest -v -m utils --cov --cov-append
 
       - name: Test UI
@@ -97,7 +90,7 @@ jobs:
           path: .cov/total-html-windows
           name: html-total-coverage-windows
 
-      - uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           name: codecov-tests-windows
           files: .cov/total.xml
@@ -110,17 +103,17 @@ jobs:
       ANSYSEM_ROOT261: '/usr/ansys_inc/v261/AnsysEM'
       ANS_NODEPCHECK: '1'
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
         with:
           persist-credentials: false
 
       - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ env.TESTS_VERSION }}
+          python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           enable-cache: false
           prune-cache: true
@@ -155,13 +148,8 @@ jobs:
             libxkbcommon-dev \
             libxkbcommon-x11-dev
 
-      - name: Create virtual environment
-        run: uv venv .venv
-
       - name: Install packages for testing
-        run: |
-          source .venv/bin/activate
-          uv sync --frozen --group tests --extra all
+        run: uv sync --frozen --group tests --extra all
 
       - name: Test AEDT Common API
         timeout-minutes: 5
@@ -211,7 +199,7 @@ jobs:
           path: .cov/total-html-linux
           name: html-total-coverage-linux
 
-      - uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
+      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
         with:
           name: codecov-tests-linux
           files: .cov/total-linux.xml

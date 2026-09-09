@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 #
-# Copyright (C) 2023 - 2026 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2023 - 2026 Synopsys, Inc. and ANSYS, Inc. All rights reserved.
 # SPDX-License-Identifier: MIT
+#
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -37,17 +38,6 @@ import requests
 
 DEFAULT_REQUESTS_TIMEOUT = int(os.environ.get("PYAEDT_TOOLKIT_REQUESTS_TIMEOUT", 30))
 """Default timeout for requests in seconds."""
-
-
-def download_file(url, local_filename):  # pragma: no cover
-    """Download a file from a URL into a local file."""
-    download_timeout = DEFAULT_REQUESTS_TIMEOUT * 2
-    with requests.get(url, stream=True, timeout=download_timeout) as r:
-        r.raise_for_status()
-        with open(local_filename, "wb") as f:
-            for chunk in r.iter_content(chunk_size=4096):
-                f.write(chunk)
-    return local_filename
 
 
 def is_server_running(server="localhost", port=5001):  # pragma: no cover

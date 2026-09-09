@@ -1,5 +1,5 @@
 [build-system]
-requires = ["flit_core >=3.2,<4"]
+requires = ["flit_core>=3.2,<5"]
 build-backend = "flit_core.buildapi"
 
 [project]
@@ -30,8 +30,9 @@ classifiers = [
 ]
 
 dependencies = [
+    "ansys-tools-common",
     "pydantic>=2.0,<2.14",
-    "pyaedt",
+    "pyaedt>=1.0.0",
     "tomli; python_version < '3.12'",
 ]
 
@@ -39,7 +40,7 @@ dependencies = [
 all = [
     "ansys-tools-visualization-interface[pyvistaqt]",
     "flask",
-    "pyaedt[all]",
+    "pyaedt[all]>=1.0.0",
     "pyqtgraph",
     "pyside6",
     "qdarkstyle",
@@ -47,7 +48,7 @@ all = [
 
 [dependency-groups]
 dev = [
-  "prek==0.4.1",
+  "prek==0.5.0",
   { include-group = "doc" },
   { include-group = "tests" },
 ]
@@ -60,20 +61,16 @@ doc = [
     "nbsphinx",
     "numpydoc",
     "pypandoc",
-    "pyside6",
     "recommonmark",
     "Sphinx",
     "sphinx-autobuild",
     "sphinx-copybutton",
     "sphinx_design",
-    "pyvista[jupyter]",
 ]
 tests = [
-    "flask",
     "pytest",
     "pytest-cov",
     "pytest-qt",
-    "pyside6",
 ]
 
 [tool.flit.module]
