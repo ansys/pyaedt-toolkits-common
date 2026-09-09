@@ -139,6 +139,7 @@ jobs:
     steps:
       - uses: ansys/actions/build-wheelhouse@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
         with:
+          install-build-and-wheel: true
           library-name: ${{ env.LIBRARY_NAME }}
           operating-system: ${{ matrix.os }}
           python-version: ${{ matrix.python-version }}
