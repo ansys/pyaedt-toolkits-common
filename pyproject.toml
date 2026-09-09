@@ -32,7 +32,7 @@ classifiers = [
 dependencies = [
     "ansys-tools-common",
     "pydantic>=2.0,<2.14",
-    "pyaedt",
+    "pyaedt>=1.0.0",
     "tomli; python_version < '3.12'",
 ]
 
@@ -40,7 +40,7 @@ dependencies = [
 all = [
     "ansys-tools-visualization-interface[pyvistaqt]",
     "flask",
-    "pyaedt[all]",
+    "pyaedt[all]>=1.0.0",
     "pyqtgraph",
     "pyside6",
     "qdarkstyle",
