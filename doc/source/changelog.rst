@@ -9,6 +9,32 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.16.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.3>`_ - September 10, 2026
+==============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Corrected the header for the aedt project open which was using default header name of pyside6
+          - `#499 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/499>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump pypa/gh-action-pypi-publish
+          - `#498 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/498>`_
+
+
 `0.16.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.3>`_ - September 09, 2026
 ==============================================================================================================
 
