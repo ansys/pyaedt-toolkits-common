@@ -309,7 +309,7 @@ class SettingsMenu(QObject):
         options = QFileDialog.Options()
         file, _ = QFileDialog.getOpenFileName(
             self.ui.app,
-            "QFileDialog.getOpenFileName()",
+            "Open AEDT Project",
             "",
             "Ansys Electronics Desktop Project Files (*.aedt *.aedtz)",
             options=options,
