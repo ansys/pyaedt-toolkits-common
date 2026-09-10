@@ -9,6 +9,169 @@ This document contains the release notes for the project.
 
 .. towncrier release notes start
 
+`0.16.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.3>`_ - September 10, 2026
+==============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Fixed
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Corrected the header for the aedt project open which was using default header name of pyside6
+          - `#499 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/499>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump pypa/gh-action-pypi-publish
+          - `#498 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/498>`_
+
+
+`0.16.3 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.3>`_ - September 09, 2026
+==============================================================================================================
+
+.. tab-set::
+
+
+  .. tab-item:: Dependencies
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Bump prek from 0.4.1 to 0.4.3
+          - `#439 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/439>`_
+
+        * - Bump actions/checkout from 6.0.2 to 6.0.3
+          - `#443 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/443>`_
+
+        * - Bump check-jsonschema from 0.37.2 to 0.37.2
+          - `#444 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/444>`_
+
+        * - Bump astral-sh/setup-uv from 8.1.0 to 8.2.0
+          - `#445 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/445>`_
+
+        * - Bump pyaedt from 1.0.1 to 1.1.0
+          - `#446 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/446>`_
+
+        * - Bump prek from 0.4.3 to 0.4.4
+          - `#447 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/447>`_
+
+        * - Bump codecov/codecov-action from 6.0.1 to 7.0.0 in the actions group across 1 directory
+          - `#453 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/453>`_
+
+        * - Bump ansys-tools-common from 0.5.0 to 0.5.1 in the direct-dependencies group across 1 directory
+          - `#454 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/454>`_
+
+        * - Bump bleach from 6.3.0 to 6.4.0
+          - `#457 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/457>`_
+
+        * - Bump the dev-dependencies group across 1 directory with 3 updates
+          - `#467 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/467>`_
+
+        * - Bump pre-commit-hooks from v0.7.2 to 0.8.0 in the precommit group
+          - `#470 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/470>`_
+
+        * - Bump actions/checkout from 6.0.3 to 7.0.0 in the actions group
+          - `#471 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/471>`_
+
+        * - Bump pyaedt from 1.1.0 to 1.2.0 in the direct-dependencies group
+          - `#472 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/472>`_
+
+        * - Bump actions/setup-python from 6.2.0 to 6.3.0 in the actions group
+          - `#473 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/473>`_
+
+        * - Bump check-jsonschema from 0.37.3 to 0.37.4 in the precommit group
+          - `#474 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/474>`_
+
+        * - Bump the actions group with 12 updates
+          - `#475 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/475>`_
+
+        * - Bump pyaedt from 1.2.0 to 1.3.0 in the direct-dependencies group
+          - `#476 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/476>`_
+
+        * - Bump the actions group with 2 updates
+          - `#477 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/477>`_
+
+        * - Bump mistune from 3.2.1 to 3.3.0 in the security-updates group across 1 directory
+          - `#478 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/478>`_
+
+        * - Bump https://github.com/codespell-project/codespell from v2.4.2 to 2.4.3 in the precommit group across 1 directory
+          - `#479 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/479>`_
+
+        * - Bump the actions group across 1 directory with 15 updates
+          - `#481 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/481>`_
+
+        * - Bump the direct-dependencies group with 2 updates
+          - `#483 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/483>`_, `#492 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/492>`_
+
+        * - Update flit-core requirement from <4,>=3.2 to >=3.2,<5 in the transitive-dependencies group across 1 directory
+          - `#485 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/485>`_
+
+        * - Bump the security-updates group across 1 directory with 3 updates
+          - `#486 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/486>`_
+
+        * - Bump the actions group across 1 directory with 13 updates
+          - `#488 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/488>`_
+
+        * - Bump tornado from 6.5.7 to 6.5.8 in the security-updates group across 1 directory
+          - `#490 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/490>`_
+
+        * - Bump the precommit group across 1 directory with 2 updates
+          - `#491 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/491>`_
+
+        * - Bump prek from 0.4.5 to 0.5.0 in the dev-dependencies group
+          - `#494 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/494>`_
+
+        * - Bump the actions group across 1 directory with 2 updates
+          - `#496 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/496>`_
+
+
+  .. tab-item:: Maintenance
+
+    .. list-table::
+        :header-rows: 0
+        :widths: auto
+
+        * - Update CHANGELOG for v0.16.2
+          - `#436 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/436>`_
+
+        * - Update Python version variable in CI configuration files
+          - `#437 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/437>`_
+
+        * - Use ansys-tools-common instead of custom code
+          - `#440 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/440>`_
+
+        * - Remove redundant virtual environment creation in CI workflows
+          - `#441 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/441>`_
+
+        * - Add missing dependency information in uv lock file
+          - `#442 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/442>`_
+
+        * - Add dependabot group config
+          - `#451 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/451>`_
+
+        * - Update missing or outdated files
+          - `#465 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/465>`_, `#482 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/482>`_
+
+        * - Update dependencies as a group
+          - `#468 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/468>`_
+
+        * - Configure dependabot to skip patch release
+          - `#469 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/469>`_
+
+        * - Bump ansys actions into v11.0.8
+          - `#495 <https://github.com/ansys-internal/pyaedt-toolkits-common/pull/495>`_
+
+
 `0.16.2 <https://github.com/ansys-internal/pyaedt-toolkits-common/releases/tag/v0.16.2>`_ - June 04, 2026
 =========================================================================================================
 
