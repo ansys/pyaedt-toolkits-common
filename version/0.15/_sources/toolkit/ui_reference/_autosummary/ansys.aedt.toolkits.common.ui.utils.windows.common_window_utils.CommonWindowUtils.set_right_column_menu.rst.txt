@@ -1,0 +1,6 @@
+set\_right\_column\_menu
+========================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.set_right_column_menu

@@ -1,0 +1,6 @@
+is\_aedt\_connected
+===================
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.is_aedt_connected

@@ -1,0 +1,6 @@
+connect\_design
+===============
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.connect_design

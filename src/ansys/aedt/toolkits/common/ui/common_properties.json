@@ -1,0 +1,72 @@
+{
+  "toolkit_name": "common",
+  "backend_url" : "127.0.0.1",
+  "backend_port" : 5001,
+  "debug" : true,
+  "log_file" : "frontend.log",
+  "app_name": "Toolkit Wizard",
+  "main_title": "Toolkit Template Wizard",
+  "welcome_message": "Welcome to the Toolkit",
+  "version" : "v0.0.1",
+  "copyright" : "By: x",
+  "year" : 2023,
+  "startup_size": [
+      1400,
+      720
+  ],
+  "minimum_size": [
+      960,
+      540
+  ],
+  "left_menu_size" : {
+      "minimum" : 50,
+      "maximum" : 240
+  },
+  "left_menu_content_margins" : 3,
+  "left_column_size" : {
+      "minimum" : 0,
+      "maximum" : 250
+  },
+  "right_column_size" : {
+      "minimum" : 0,
+      "maximum" : 250
+  },
+  "progress_size" : {
+      "minimum" : 0,
+      "maximum" : 100
+  },
+  "font" : {
+      "family" : "Segoe UI",
+      "title_size" : 10,
+      "text_size" : 9
+  },
+  "high_resolution": false,
+  "theme" : "ansys.json",
+  "images" : "",
+  "add_left_menus" : [
+        {
+            "btn_icon": "icon_home.svg",
+            "btn_id": "home_menu",
+            "btn_text": "Home",
+            "btn_tooltip": "Home",
+            "show_top": true,
+            "is_active": false
+        },
+        {
+            "btn_icon": "icon_heart.svg",
+            "btn_id": "progress_menu",
+            "btn_text": "Progress",
+            "btn_tooltip": "Progress",
+            "show_top": false,
+            "is_active": false
+        }
+    ],
+  "add_title_bar_menus" : [
+        {
+            "btn_icon": "icon_settings.svg",
+            "btn_id": "top_settings",
+            "btn_tooltip": "Settings",
+            "is_active": false
+        }
+    ]
+}
