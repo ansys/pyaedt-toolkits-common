@@ -41,7 +41,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/check-vulnerabilities@21c78f8b27683ae8c93557345392abe39ab21d2f # v11.0.4
+      - uses: ansys/actions/check-vulnerabilities@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           python-package-name: ${{ env.LIBRARY_NAME }}
@@ -79,7 +79,7 @@ jobs:
     timeout-minutes: 20
     steps:
       - name: Set up headless display
-        uses: pyvista/setup-headless-display-action@b0bf9f57d62d2b3fee9f1c0e0c7e390f05e97a4e # v5.0.0
+        uses: pyvista/setup-headless-display-action@c103a2ff45650d38cb71684b5dc6cdfeb9442c79 # v5.1.0
 
       - name: Build documentation
         uses: ansys/actions/doc-build@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
@@ -124,7 +124,7 @@ jobs:
           python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
           enable-cache: false
           prune-cache: true
@@ -181,7 +181,7 @@ jobs:
           path: .cov/total-html-windows
           name: html-total-coverage-windows
 
-      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           name: codecov-tests-windows
           files: .cov/total.xml
@@ -204,7 +204,7 @@ jobs:
           python-version: ${{ env.TESTS_PYTHON_VERSION }}
 
       - name: Set up uv
-        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
         with:
           enable-cache: false
           prune-cache: true
@@ -290,7 +290,7 @@ jobs:
           path: .cov/total-html-linux
           name: html-total-coverage-linux
 
-      - uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+      - uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
           name: codecov-tests-linux
           files: .cov/total-linux.xml
