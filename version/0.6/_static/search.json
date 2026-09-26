@@ -1,0 +1,1360 @@
+[
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_page",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_page.html#set_page",
+        "title": "set_page",
+        "section": "set_page",
+        "text": "Set the current page in the load_pages widget.\nThe page widget to be displayed as the current page."
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#properties-example",
+        "title": "Properties example",
+        "section": "Properties example",
+        "text": "This example shows how to use the Common class, which contains properties models. These properties provide for sharing information through all the workflow.\nBefore importing the common module, you can add new properties. First create a file that contains the new properties type, Models. Then add a TOML file that sets the needed default values. Finally, import the properties.\nPerform the required imports.\nInitialize the toolkit with the new properties.\nGet the properties.\nUse set_properties to set the new property.\nSet the property directly.\nSet the wrong property. It is not possible to change the property type.\n[1]:\nfrom models import properties\n[2]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import Common\n[3]:\ntoolkit = Common(properties)\n[4]:\ntoolkit.get_properties()\n[4]:\n[5]:\nset_properties = {\"invented_property\": [1, 2, 3]}\ntoolkit.set_properties(set_properties)\ntoolkit.get_properties()\n[5]:\n[6]:\nproperties.invented_property = [10, 20, 30]\ntoolkit.get_properties()\n[7]:\nset_properties = {\"invented_property\": 1}\ntoolkit.set_properties(set_properties)\n[7]:"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#add-new-properties",
+        "title": "Properties example > Add new properties",
+        "section": "Add new properties",
+        "text": "Before importing the common module, you can add new properties. First create a file that contains the new properties type, Models. Then add a TOML file that sets the needed default values. Finally, import the properties.\n[1]:\nfrom models import properties"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#perform-required-imports",
+        "title": "Properties example > Perform required imports",
+        "section": "Perform required imports",
+        "text": "Perform the required imports.\n[2]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import Common"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#initialize-toolkit",
+        "title": "Properties example > Initialize toolkit",
+        "section": "Initialize toolkit",
+        "text": "Initialize the toolkit with the new properties.\n[3]:\ntoolkit = Common(properties)"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#get-properties",
+        "title": "Properties example > Get properties",
+        "section": "Get properties",
+        "text": "Get the properties.\n[4]:\ntoolkit.get_properties()\n[4]:"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#set-property",
+        "title": "Properties example > Set property",
+        "section": "Set property",
+        "text": "Use set_properties to set the new property.\n[5]:\nset_properties = {\"invented_property\": [1, 2, 3]}\ntoolkit.set_properties(set_properties)\ntoolkit.get_properties()\n[5]:"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#set-property-directly",
+        "title": "Properties example > Set property directly",
+        "section": "Set property directly",
+        "text": "Set the property directly.\n[6]:\nproperties.invented_property = [10, 20, 30]\ntoolkit.get_properties()"
+    },
+    {
+        "objectID": "examples/properties_common/api_properties",
+        "href": "examples/properties_common/api_properties.html#set-wrong-property",
+        "title": "Properties example > Set wrong property",
+        "section": "Set wrong property",
+        "text": "Set the wrong property. It is not possible to change the property type.\n[7]:\nset_properties = {\"invented_property\": 1}\ntoolkit.set_properties(set_properties)\n[7]:"
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler.read_theme",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler.read_theme.html#read_theme",
+        "title": "read_theme",
+        "section": "read_theme",
+        "text": "Read and load theme settings from the theme file.\nReads the theme settings from the theme file in JSON format and updates the internal state."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.window_refresh",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.window_refresh.html#window_refresh",
+        "title": "window_refresh",
+        "section": "window_refresh",
+        "text": "Window refresh"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_thread_status",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_thread_status.html#get_thread_status",
+        "title": "get_thread_status",
+        "section": "get_thread_status",
+        "text": "Get the toolkit thread status.\nTrue when active, False when inactive."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/right_column",
+        "href": "toolkit/ui_reference/widgets/right_column.html#pycombobox",
+        "title": "PyComboBox",
+        "section": "PyComboBox",
+        "text": "Custom widget representing a right column with a title, an icon, and a content area.\nThe title text for the right column.\nThe font size of the title text.\nThe color of the title text.\nColor representing a dark shade.\nBackground color of the right column.\nColor of the buttons in the right column.\nColor of the buttons when hovered.\nColor of the buttons when pressed.\nPath to the icon image file.\nColor of the icon.\nColor of the icon when hovered.\nColor of the icon when pressed.\nColor representing a context or active state.\nBorder radius of the right column.\nSet up the user interface for the title bar."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_right_column_visible",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_right_column_visible.html#is_right_column_visible",
+        "title": "is_right_column_visible",
+        "section": "is_right_column_visible",
+        "text": "Checks if the right column is visible.\nTrue if the right column is visible, False otherwise."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_left_column",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_left_column.html#toggle_left_column",
+        "title": "toggle_left_column",
+        "section": "toggle_left_column",
+        "text": "Toggles the left column of the CommonWindow by starting a box animation."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.html#common",
+        "title": "Common",
+        "section": "Common",
+        "text": "Provides the API for controlling the toolkits.\nThis class provides basic functions to control AEDT and EDB and the\nproperties to share between the backend and UI.\nUpdated properties.\nCommon.aedt_sessions()\nGet information for the active AEDT sessions.\nCommon.get_properties()\nGet the toolkit properties.\nCommon.get_thread_status()\nGet the toolkit thread status.\nCommon.installed_aedt_version()\nGet the installed AEDT versions.\nCommon.launch_thread(process)\nLaunch the thread.\nCommon.serialize_obj_base64(file_path)\nEncode a bytes-like object.\nCommon.set_properties(data)\nAssign the passed data to the internal data model.\nCommon.wait_to_be_idle([timeout])\nWait for the thread to be idle and ready to accept a new task."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/progress",
+        "href": "toolkit/ui_reference/widgets/progress.html#pyprogress",
+        "title": "PyProgress",
+        "section": "PyProgress",
+        "text": "A progress bar widget.\nInherits QWidget and includes customizable elements including\nprogress, background color, progress color, and width.\nCurrent progress value. The default is 0.\nColor of progress bar. The default is \"#ff79c6\".\nColor of background. The default is \"#151617\".\nWidth of the progress bar. The default is 10.\nPaint the progress bar.\nPaint event.\nGet the current progress value.\nThe current progress value."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.html#commonwindowutils",
+        "title": "CommonWindowUtils",
+        "section": "CommonWindowUtils",
+        "text": "Class representing a common window with various UI functionalities.\nCommonWindowUtils.add_combobox(layout[, ...])\nAdds a label and combobox to a layout.\nCommonWindowUtils.add_icon_button(layout, icon)\nAdd icon button.\nCommonWindowUtils.add_n_buttons([layout, ...])\nAdd a specified number of buttons to a layout object.\nCommonWindowUtils.add_toggle(layout[, ...])\nAdd a label and a toggle button to a specified layout.\nCommonWindowUtils.add_vertical_line(layout)\nAdd a vertical line.\nCommonWindowUtils.clear_layout(layout)\nClear all layout.\nCommonWindowUtils.create_animation(obj, ...)\nCreates an animation with specified parameters.\nCommonWindowUtils.get_left_menu(object_name)\nRetrieves the QPushButton object in the left menu of the CommonWindow UI.\nCommonWindowUtils.get_title_bar(object_name)\nGet title.\nCommonWindowUtils.is_left_column_visible()\nCheck if the left column is visible.\nCommonWindowUtils.is_progress_visible()\nChecks if the progress bar is visible.\nCommonWindowUtils.is_right_column_visible()\nChecks if the right column is visible.\nCommonWindowUtils.item_index(layout, item)\nItem index.\nCommonWindowUtils.remove_item(layout, index)\nRemove item by index.\nCommonWindowUtils.set_left_column_menu(menu, ...)\nConfigures the left column of the CommonWindow UI by setting the current widget as the provided menu,\nCommonWindowUtils.set_page(page)\nSet the current page in the load_pages widget.\nCommonWindowUtils.set_right_column_menu(title)\nSets the title of the right column menu.\nCommonWindowUtils.setup_animation(...)\nSets up an animation for the left and right columns of the UI.\nCommonWindowUtils.start_box_animation(direction)\nStarts a box animation in the specified direction.\nCommonWindowUtils.toggle_left_column()\nToggles the left column of the CommonWindow by starting a box animation.\nCommonWindowUtils.toggle_progress()\nToggles the progress row.\nCommonWindowUtils.toggle_right_column()\nToggles the display of the right column in a common window.\nCommonWindowUtils.update_logger(text)\nClear all layout.\nCommonWindowUtils.update_progress(progress_value)\nClear all layout.\nCommonWindowUtils.window_refresh()\nWindow refresh"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.launch_aedt",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.launch_aedt.html#launch_aedt",
+        "title": "launch_aedt",
+        "section": "launch_aedt",
+        "text": "Launch AEDT.\nThis method is launched in a thread if gRPC is enabled. AEDT is released once it is opened.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.html#aedtcommon",
+        "title": "AEDTCommon",
+        "section": "AEDTCommon",
+        "text": "Provides common functions for controlling AEDT.\nThis class provides basic functions for controlling AEDT and properties to share\nbetween the backend and UI.\nUpdated properties.\nAEDTCommon.aedt_sessions()\nGet information for the active AEDT sessions.\nAEDTCommon.connect_aedt()\nConnect to an existing AEDT session.\nAEDTCommon.connect_design([app_name])\nConnect to an application design.\nAEDTCommon.export_aedt_model([obj_list, ...])\nExport the model in the OBJ format and then encode the file if the encode parameter is enabled.\nAEDTCommon.get_design_names()\nGet the design names for a specific project.\nAEDTCommon.get_project_name(project_path)\nGet the project name from the project path.\nAEDTCommon.get_properties()\nGet the toolkit properties.\nAEDTCommon.get_thread_status()\nGet the toolkit thread status.\nAEDTCommon.installed_aedt_version()\nGet the installed AEDT versions.\nAEDTCommon.is_aedt_connected()\nCheck if AEDT is connected.\nAEDTCommon.launch_aedt()\nLaunch AEDT.\nAEDTCommon.launch_thread(process)\nLaunch the thread.\nAEDTCommon.open_project([project_name])\nOpen an AEDT project.\nAEDTCommon.release_aedt([close_projects, ...])\nRelease AEDT.\nAEDTCommon.save_project([project_path, ...])\nSave the project.\nAEDTCommon.serialize_obj_base64(file_path)\nEncode a bytes-like object.\nAEDTCommon.set_properties(data)\nAssign the passed data to the internal data model.\nAEDTCommon.wait_to_be_idle([timeout])\nWait for the thread to be idle and ready to accept a new task."
+    },
+    {
+        "objectID": "examples/index",
+        "href": "examples/index.html#examples",
+        "title": "Examples",
+        "section": "Examples",
+        "text": "End-to-end examples show how to use the three classes in the backend API of the PyAEDT Common Toolkit\nand its REST API.\nThese examples show how to use the AEDTCommon class of the backend API:\nThese examples show how to use the EDBCommon class of the backend API:\nThese examples show how to use the Common class of the backend API:\nFor an example of using the REST API for the PyAEDT Common Toolkit, see the\nrest_api_aedt_example.py\nfile in the repository."
+    },
+    {
+        "objectID": "examples/index",
+        "href": "examples/index.html#the-aedtcommon-class",
+        "title": "Examples > The AEDTCommon class",
+        "section": "The AEDTCommon class",
+        "text": "These examples show how to use the AEDTCommon class of the backend API:"
+    },
+    {
+        "objectID": "examples/index",
+        "href": "examples/index.html#the-edbcommon-class",
+        "title": "Examples > The EDBCommon class",
+        "section": "The EDBCommon class",
+        "text": "These examples show how to use the EDBCommon class of the backend API:"
+    },
+    {
+        "objectID": "examples/index",
+        "href": "examples/index.html#the-common-class",
+        "title": "Examples > The Common class",
+        "section": "The Common class",
+        "text": "These examples show how to use the Common class of the backend API:"
+    },
+    {
+        "objectID": "examples/index",
+        "href": "examples/index.html#rest-api",
+        "title": "Examples > REST API",
+        "section": "REST API",
+        "text": "For an example of using the REST API for the PyAEDT Common Toolkit, see the\nrest_api_aedt_example.py\nfile in the repository."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.connect_design",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.connect_design.html#connect_design",
+        "title": "connect_design",
+        "section": "connect_design",
+        "text": "Connect to an application design.\nIf a design exists, this method uses the active project and design. If a design does not exist,\nthis method creates a design of the specified type. If no application is specified, the default is \"HFSS\".\nAEDT application name. Options are:\n\"Circuit\"\n\"EMIT\"\n\"HFSS\"\n\"HFSS3DLayout\"\n\"Icepak\"\n\"Maxwell2D\"\n\"Maxwell3D\"\n\"Q2D\"\n\"Q3D\"\n\"Rmxprt\"\n\"TwinBuilder\"\n\"Mechanical\"\nReturns True if the connection to a design is successful, False otherwise."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_design_names",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_design_names.html#get_design_names",
+        "title": "get_design_names",
+        "section": "get_design_names",
+        "text": "Get the design names for a specific project.\nThe first design name returned is the active design.\nList of design names."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_toggle",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_toggle.html#add_toggle",
+        "title": "add_toggle",
+        "section": "add_toggle",
+        "text": "Add a label and a toggle button to a specified layout.\nLayout object to add the label and toggle button to.\nHeight of the label and toggle. Default is 40.\nWidth of the label and toggle. Default is [50, 100, 50] if None.\nLabel text. Default is [‘label1’, ‘label2’] if None.\nFont size for the label text. Default is 12.\nA tuple containing the layout row, label object, toggle object, and second label object"
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_progress_visible",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_progress_visible.html#is_progress_visible",
+        "title": "is_progress_visible",
+        "section": "is_progress_visible",
+        "text": "Checks if the progress bar is visible.\nTrue if the progress bar is visible, False otherwise."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.aedt_sessions",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.aedt_sessions.html#aedt_sessions",
+        "title": "aedt_sessions",
+        "section": "aedt_sessions",
+        "text": "Get information for the active AEDT sessions.\nDictionary of AEDT process IDs (PIDS) {AEDT PID: port}.\nIf the PID corresponds to a COM session, the port is set to -1."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.export_aedt_model",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.export_aedt_model.html#export_aedt_model",
+        "title": "export_aedt_model",
+        "section": "export_aedt_model",
+        "text": "Export the model in the OBJ format and then encode the file if the encode parameter is enabled.\nList of objects to export. The default is None, in which case\nevery model object except 3D, vacuum, and air objects are exported.\nFull path of the exported OBJ file.\nThe default is None, in which case the file is exported in the working directory.\nWhether to export the model as a single object. The default is True.\nIf False, the model is exported as a list of objects for each object.\nWhether to export air and vacuum objects. The default is False.\nWhether to encode the file. The default is True.\nList of exported OBJ files or encoded data."
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#aedt-simple-example",
+        "title": "AEDT simple example",
+        "section": "AEDT simple example",
+        "text": "This example shows how to use the AEDTCommon class to launch a new AEDT session in a thread, create an HFSS design, and create a coaxial.\nPerform the required imports.\nInitialize the toolkit.\nGet the toolkit properties.\nSet non-graphical mode.\nLaunch a new AEDT session in a thread.\nWait for the toolkit thread to be idle and ready to accept a new task.\nConnect or create a new design.\nGet the toolkit properties, which contain the project information.\nCreate a coaxial in the design.\nRelease AEDT.\nExport the OBJ files.\nRelease and close AEDT.\n[1]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon\n[2]:\ntoolkit = AEDTCommon()\n[3]:\nproperties_from_backend = toolkit.get_properties()\n[4]:\nset_properties = {\"non_graphical\": True}\nflag_set_properties, msg_set_properties = toolkit.set_properties(set_properties)\n[5]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)\n[6]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()\n[7]:\ntoolkit.connect_design(\"HFSS\")\n[7]:\n[8]:\nnew_properties = toolkit.get_properties()\n[9]:\ncoax = toolkit.aedtapp.modeler.create_coaxial([0, 0, 0], 1)\n[10]:\ntoolkit.release_aedt(False, False)\n[10]:\n[11]:\nfiles = toolkit.export_aedt_model()\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#perform-required-imports",
+        "title": "AEDT simple example > Perform required imports",
+        "section": "Perform required imports",
+        "text": "Perform the required imports.\n[1]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#initialize-toolkit",
+        "title": "AEDT simple example > Initialize toolkit",
+        "section": "Initialize toolkit",
+        "text": "Initialize the toolkit.\n[2]:\ntoolkit = AEDTCommon()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#get-toolkit-properties",
+        "title": "AEDT simple example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get the toolkit properties.\n[3]:\nproperties_from_backend = toolkit.get_properties()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#set-properties",
+        "title": "AEDT simple example > Set properties",
+        "section": "Set properties",
+        "text": "Set non-graphical mode.\n[4]:\nset_properties = {\"non_graphical\": True}\nflag_set_properties, msg_set_properties = toolkit.set_properties(set_properties)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#initialize-aedt",
+        "title": "AEDT simple example > Initialize AEDT",
+        "section": "Initialize AEDT",
+        "text": "Launch a new AEDT session in a thread.\n[5]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#wait-for-the-toolkit-thread-to-be-idle",
+        "title": "AEDT simple example > Wait for the toolkit thread to be idle",
+        "section": "Wait for the toolkit thread to be idle",
+        "text": "Wait for the toolkit thread to be idle and ready to accept a new task.\n[6]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#connect-design",
+        "title": "AEDT simple example > Connect design",
+        "section": "Connect design",
+        "text": "Connect or create a new design.\n[7]:\ntoolkit.connect_design(\"HFSS\")\n[7]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#get-toolkit-properties",
+        "title": "AEDT simple example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get the toolkit properties, which contain the project information.\n[8]:\nnew_properties = toolkit.get_properties()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#create-a-coaxial",
+        "title": "AEDT simple example > Create a coaxial",
+        "section": "Create a coaxial",
+        "text": "Create a coaxial in the design.\n[9]:\ncoax = toolkit.aedtapp.modeler.create_coaxial([0, 0, 0], 1)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#release-aedt",
+        "title": "AEDT simple example > Release AEDT",
+        "section": "Release AEDT",
+        "text": "Release AEDT.\n[10]:\ntoolkit.release_aedt(False, False)\n[10]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#export-aedt-model",
+        "title": "AEDT simple example > Export AEDT model",
+        "section": "Export AEDT model",
+        "text": "Export the OBJ files.\n[11]:\nfiles = toolkit.export_aedt_model()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_simple",
+        "href": "examples/aedt_common/api_aedt_simple.html#release-and-close-aedt",
+        "title": "AEDT simple example > Release and close AEDT",
+        "section": "Release and close AEDT",
+        "text": "Release and close AEDT.\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:"
+    },
+    {
+        "objectID": "toolkit/ui",
+        "href": "toolkit/ui.html#ui-api-reference",
+        "title": "UI API reference",
+        "section": "UI API reference",
+        "text": "The PyADT Common Toolkit is designed to streamline the process of creating standard AEDT applications\nusing Pyside6.\nThe UI API provides a set of pre-built components, utilities, and an API that simplifies\nthe development of robust and user-friendly applications.\nThe UI API contains three main modules: Utils, Windows, and Generic actions:\nCommon user interface classes to define widgets and load templates.\nDefault Windows initialization.\nGeneric methods to call the REST API.\nThis image shows the structure of the UI:\nThe UI is contained inside the main window. The main window contains some common widgets,\nsuch as the credits and title, that are initialized by default. You use the content widget\nto add new pages.\nFor initialization information, see the UI example."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.connect_aedt",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.connect_aedt.html#connect_aedt",
+        "title": "connect_aedt",
+        "section": "connect_aedt",
+        "text": "Connect to an existing AEDT session.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/left_button",
+        "href": "toolkit/ui_reference/widgets/left_button.html#pyleftbutton",
+        "title": "PyLeftButton",
+        "section": "PyLeftButton",
+        "text": "Left button widget designed to function as a left-aligned button with various style and interaction options.\nButton identifier.\nButton width.\nButton height.\nButton corner radius.\nButton background color.\nButton background color when hovered.\nButton background color when pressed.\nIcon color.\nIcon color when hovered.\nIcon color when pressed.\nActive icon color.\nPath to icon file.\nDark color for theming.\nContext color for theming.\nText foreground color.\nWhether the button is active.\nChange the button style based on the event type.\nEvent triggering the style change.\nHandle the enter event.\nEnter event.\nPaint the icon on the button.\nQPainter object.\nPath to the icon image.\nRectangle to paint the icon within.\nCheck if the button is active.\nTrue if the button is active, False otherwise.\nHandle the leave event.\nLeave event.\nHandle the mouse press event.\nMouse press event.\nHandle the mouse release event.\nMouse release event.\nPaint the button.\nPaint event.\nSet the active state of the button.\nWhether the button is active.\nSet the icon for the button.\nPath to the icon image file."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/slider",
+        "href": "toolkit/ui_reference/widgets/slider.html#pyslider",
+        "title": "PySlider",
+        "section": "PySlider",
+        "text": "Custom slider widget with customizable styles.\nThe margin of the slider, by default 0.\nThe background size, by default 20.\nThe background border radius, by default 10.\nThe background color, by default “#1b1e23”.\nThe background color on hover, by default “#1e2229”.\nThe margin of the slider handle, by default 2.\nThe size of the slider handle, by default 16.\nThe border radius of the slider handle, by default 8.\nThe color of the slider handle, by default “#568af2”.\nThe color of the slider handle on hover, by default “#6c99f4”.\nThe color of the slider handle when pressed, by default “#3f6fd1”."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.get_thread_status",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.get_thread_status.html#get_thread_status",
+        "title": "get_thread_status",
+        "section": "get_thread_status",
+        "text": "Get the toolkit thread status.\nTrue when active, False when inactive."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.installed_aedt_version",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.installed_aedt_version.html#installed_aedt_version",
+        "title": "installed_aedt_version",
+        "section": "installed_aedt_version",
+        "text": "Get the installed AEDT versions.\nList of installed AEDT versions."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/logger",
+        "href": "toolkit/ui_reference/widgets/logger.html#pylogger",
+        "title": "PyLogger",
+        "section": "PyLogger",
+        "text": "Logger widget.\nInherits QTextEdit and provides a simple interface for logging strings.\nText color. The default is \"#f5f6f9\".\nColor of background. The default is \"#000000\".\nFont size. The default is 10.\nFont size. The default is \"Segoe UI”.\nLogger height. The default is 10.\nLogs a message to the widget.\nmessage: The string message to log."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.serialize_obj_base64",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.serialize_obj_base64.html#serialize_obj_base64",
+        "title": "serialize_obj_base64",
+        "section": "serialize_obj_base64",
+        "text": "Encode a bytes-like object.\nPath to the file to serialize.\nEncoded data."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.create_animation",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.create_animation.html#create_animation",
+        "title": "create_animation",
+        "section": "create_animation",
+        "text": "Creates an animation with specified parameters.\nThe object on which the animation will be applied.\nThe name of the property to animate.\nThe initial value of the property.\nThe final value of the property.\nThe created animation."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.close_edb",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.close_edb.html#close_edb",
+        "title": "close_edb",
+        "section": "close_edb",
+        "text": "Close the EDB project.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.remove_item",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.remove_item.html#remove_item",
+        "title": "remove_item",
+        "section": "remove_item",
+        "text": "Remove item by index."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.release_aedt",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.release_aedt.html#release_aedt",
+        "title": "release_aedt",
+        "section": "release_aedt",
+        "text": "Release AEDT.\nWhether to close the AEDT projects that are open in the session.\nThe default is True.\nWhether to close the active AEDT session on exiting AEDT.\nThe default is True.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.load_edb",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.load_edb.html#load_edb",
+        "title": "load_edb",
+        "section": "load_edb",
+        "text": "Load the EDB project.\nFull path to the aedb folder.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.set_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.set_properties.html#set_properties",
+        "title": "set_properties",
+        "section": "set_properties",
+        "text": "Assign the passed data to the internal data model.\nDictionary containing the properties to update.\nTuple indicating the success status and a message."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/combobox",
+        "href": "toolkit/ui_reference/widgets/combobox.html#pycombobox",
+        "title": "PyComboBox",
+        "section": "PyComboBox",
+        "text": "Combo box widget with customizable elements.\nInherits QComboBox and includes customizable elements including\ntext, radius, color, and background colors in different states.\nList of options in combo box.\nRadius of combo box corners. The default is 5.\nBackground color of the combo box. The default is \"#FFFFFF\".\nBackground color when mouse hovers over the combo box. The default is \"#FFFFFF\".\nText color in the combo box. The default is \"#000000\".\nThe font size of the text on the button."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.get_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.get_properties.html#get_properties",
+        "title": "get_properties",
+        "section": "get_properties",
+        "text": "Get the toolkit properties.\nDictionary containing the toolkit properties."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_progress",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_progress.html#update_progress",
+        "title": "update_progress",
+        "section": "update_progress",
+        "text": "Clear all layout."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#pyaedt-common-toolkit-documentation-063",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3",
+        "section": "PyAEDT Common Toolkit documentation 0.6.3",
+        "text": "Useful links:\nInstallation |\nSource repository |\nIssues\nThe PyADT Common Toolkit provides common methods and best practices for creating an Ansys Electronics Desktop (AEDT) toolkit.\nLearn how to install the PyADT Common Toolkit, understand its architecture\nand use this toolkit’s common method to developer an example AEDT toolkit.\nUnderstand how to use the backend API.\nUnderstand how to use the UI API.\nExplore examples that show how to use the Common AEDT API.\nLearn how to contribute to the PyAEDT Common Toolkit codebase or documentation.\nThis library is a common library for AEDT toolkits. It brings numerous advantages like enhancing efficiency,\nconsistency, and collaboration in the creation and development of AEDT toolkits.\nThis library provides methods and best practices to develop AEDT toolkits. These are the main advantages of using\nthis library:\nA common toolkit framework establishes standardized guidelines, conventions, and practices\nfor toolkit development. This ensures that all developers follow a consistent structure, making it easier for them to\nunderstand and contribute to different toolkits.\nWith a common framework, different AEDT toolkits become more interoperable.\nDevelopers can create tools that seamlessly integrate with existing toolkits, promoting a modular\nand extensible ecosystem.\nThis interoperability is crucial for users who may need functionalities from multiple toolkits in their workflows.\nA common toolkit framework encourages the reuse of code components across different toolkits.\nDevelopers can leverage existing modules, functions, and libraries, saving time and effort in creating similar\nfunctionalities from scratch. This promotes a more efficient development process and reduces redundancy.\nStandardized frameworks make it easier to maintain and update AEDT toolkits.\nWhen changes or improvements are required, developers can follow a unified set of procedures, ensuring that updates are\napplied consistently across all toolkits.\nThis helps in avoiding compatibility issues and streamlining the maintenance process.\nA common toolkit framework fosters collaboration among developers by providing a shared set of tools and practices.\nIt becomes easier for multiple developers to work on different aspects of the toolkit simultaneously,\nas they all adhere to the same framework.\nThis collaborative environment can lead to faster development cycles and a more robust set of tools.\nA standardized framework comes with consistent documentation and training resources.\nThis makes it easier for developers to understand the structure of the toolkit, its functionalities, and best practices.\nA common toolkit framework enables better quality assurance processes.\nStandardized testing methodologies and practices can be implemented,\nensuring that each toolkit adheres to the same quality standards.\nThis results in more reliable and stable toolkits for end-users."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#what-is-this-library",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > What is this library?",
+        "section": "What is this library?",
+        "text": "This library is a common library for AEDT toolkits. It brings numerous advantages like enhancing efficiency,\nconsistency, and collaboration in the creation and development of AEDT toolkits.\nThis library provides methods and best practices to develop AEDT toolkits. These are the main advantages of using\nthis library:\nA common toolkit framework establishes standardized guidelines, conventions, and practices\nfor toolkit development. This ensures that all developers follow a consistent structure, making it easier for them to\nunderstand and contribute to different toolkits.\nWith a common framework, different AEDT toolkits become more interoperable.\nDevelopers can create tools that seamlessly integrate with existing toolkits, promoting a modular\nand extensible ecosystem.\nThis interoperability is crucial for users who may need functionalities from multiple toolkits in their workflows.\nA common toolkit framework encourages the reuse of code components across different toolkits.\nDevelopers can leverage existing modules, functions, and libraries, saving time and effort in creating similar\nfunctionalities from scratch. This promotes a more efficient development process and reduces redundancy.\nStandardized frameworks make it easier to maintain and update AEDT toolkits.\nWhen changes or improvements are required, developers can follow a unified set of procedures, ensuring that updates are\napplied consistently across all toolkits.\nThis helps in avoiding compatibility issues and streamlining the maintenance process.\nA common toolkit framework fosters collaboration among developers by providing a shared set of tools and practices.\nIt becomes easier for multiple developers to work on different aspects of the toolkit simultaneously,\nas they all adhere to the same framework.\nThis collaborative environment can lead to faster development cycles and a more robust set of tools.\nA standardized framework comes with consistent documentation and training resources.\nThis makes it easier for developers to understand the structure of the toolkit, its functionalities, and best practices.\nA common toolkit framework enables better quality assurance processes.\nStandardized testing methodologies and practices can be implemented,\nensuring that each toolkit adheres to the same quality standards.\nThis results in more reliable and stable toolkits for end-users."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#standardization",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Standardization",
+        "section": "Standardization",
+        "text": "A common toolkit framework establishes standardized guidelines, conventions, and practices\nfor toolkit development. This ensures that all developers follow a consistent structure, making it easier for them to\nunderstand and contribute to different toolkits."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#interoperability",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Interoperability",
+        "section": "Interoperability",
+        "text": "With a common framework, different AEDT toolkits become more interoperable.\nDevelopers can create tools that seamlessly integrate with existing toolkits, promoting a modular\nand extensible ecosystem.\nThis interoperability is crucial for users who may need functionalities from multiple toolkits in their workflows."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#reuse-code",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Reuse code",
+        "section": "Reuse code",
+        "text": "A common toolkit framework encourages the reuse of code components across different toolkits.\nDevelopers can leverage existing modules, functions, and libraries, saving time and effort in creating similar\nfunctionalities from scratch. This promotes a more efficient development process and reduces redundancy."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#maintain",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Maintain",
+        "section": "Maintain",
+        "text": "Standardized frameworks make it easier to maintain and update AEDT toolkits.\nWhen changes or improvements are required, developers can follow a unified set of procedures, ensuring that updates are\napplied consistently across all toolkits.\nThis helps in avoiding compatibility issues and streamlining the maintenance process."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#collaboration",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Collaboration",
+        "section": "Collaboration",
+        "text": "A common toolkit framework fosters collaboration among developers by providing a shared set of tools and practices.\nIt becomes easier for multiple developers to work on different aspects of the toolkit simultaneously,\nas they all adhere to the same framework.\nThis collaborative environment can lead to faster development cycles and a more robust set of tools."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#documentation-and-training",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Documentation and training",
+        "section": "Documentation and training",
+        "text": "A standardized framework comes with consistent documentation and training resources.\nThis makes it easier for developers to understand the structure of the toolkit, its functionalities, and best practices."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#quality-assurance",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Quality assurance",
+        "section": "Quality assurance",
+        "text": "A common toolkit framework enables better quality assurance processes.\nStandardized testing methodologies and practices can be implemented,\nensuring that each toolkit adheres to the same quality standards.\nThis results in more reliable and stable toolkits for end-users."
+    },
+    {
+        "objectID": "index",
+        "href": "index.html#indices-and-tables",
+        "title": "PyAEDT Common Toolkit documentation 0.6.3 > Indices and tables",
+        "section": "Indices and tables",
+        "text": "genindex\nmodindex\nsearch"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.installed_aedt_version",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.installed_aedt_version.html#installed_aedt_version",
+        "title": "installed_aedt_version",
+        "section": "installed_aedt_version",
+        "text": "Get the installed AEDT versions.\nList of installed AEDT versions."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_icon_button",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_icon_button.html#add_icon_button",
+        "title": "add_icon_button",
+        "section": "add_icon_button",
+        "text": "Add icon button.\nThe layout to which the icon button and line edit will be added.\nThe path to the icon that will be displayed on the button.\nThe height of the icon button and line edit. Default is 40.\nThe width of the icon button. If not provided, it will be set to a default value.\nThe placeholder text for the line edit. Default is ‘lineedit’.\nA list containing the layout row object, the button object, and the line edit object."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/title_button",
+        "href": "toolkit/ui_reference/widgets/title_button.html#pytitlebutton",
+        "title": "PyTitleButton",
+        "section": "PyTitleButton",
+        "text": "Customizable title button.\nInherits QPushButton and provides a customizable title button.\nParent widget.\nApplication parent widget. The default is None.\nTooltip text for the button. The default is an empty string.\nButton ID. The default is None.\nWidth of the button. The default is 30.\nHeight of the button. The default is 30.\nBorder radius of the button. The default is 8.\nBackground color of the button. The default is \"#343b48\".\nBackground color when the mouse hovers over the button. The default is \"#3c4454\".\nBackground color when the button is pressed. The default is \"#2c313c\".\nIcon color of the button. The default is \"#c3ccdf\".\nIcon color when the mouse hovers over the button. The default is \"#dce1ec\".\nIcon color when the button is pressed. The default is \"#edf0f5\".\nIcon color when the button is active. The default is \"#f5f6f9\".\nPath to the icon image. The default is \"no_icon.svg\".\nDark color for styling. The default is \"#1b1e23\".\nContext color for styling. The default is \"#568af2\".\nText foreground color. The default is \"#8a95aa\".\nInitial state of the button (active or not). The default is False.\nChange the style of the button based on the given event.\nThe event triggering the style change.\nEvent triggered when the mouse enters the button.\nMouse enter event.\nDraw the icon with specified colors.\nThe QPainter object.\nPath to the icon image.\nRectangle representing the button’s area.\nCheck if the button is in an active state.\nTrue if the button is active, False otherwise.\nEvent triggered when the mouse leaves the button.\nMouse leave event.\nEvent triggered when the left mouse button is pressed.\nMouse press event.\nEvent triggered when the left mouse button is released.\nMouse release event.\nMove the tooltip to the appropriate position relative to the button.\nPaint the button and its icon.\nPaint event.\nSet the active state of the button.\nTrue to set the button as active, False otherwise.\nSet the icon of the button.\nPath to the icon image."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.save_edb",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.save_edb.html#save_edb",
+        "title": "save_edb",
+        "section": "save_edb",
+        "text": "Save the EDB project.\nFull path to the aedb folder. The default is None.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_right_column_menu",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_right_column_menu.html#set_right_column_menu",
+        "title": "set_right_column_menu",
+        "section": "set_right_column_menu",
+        "text": "Sets the title of the right column menu.\nThe title to be set."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.aedt_sessions",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.aedt_sessions.html#aedt_sessions",
+        "title": "aedt_sessions",
+        "section": "aedt_sessions",
+        "text": "Get information for the active AEDT sessions.\nDictionary of AEDT process IDs (PIDS) {AEDT PID: port}.\nIf the PID corresponds to a COM session, the port is set to -1."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.setup_animation",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.setup_animation.html#setup_animation",
+        "title": "setup_animation",
+        "section": "setup_animation",
+        "text": "Sets up an animation for the left and right columns of the UI.\nThe starting value for the left box animation.\nThe starting value for the right box animation.\nThe ending value for the left box animation.\nThe ending value for the right box animation."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_vertical_line",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_vertical_line.html#add_vertical_line",
+        "title": "add_vertical_line",
+        "section": "add_vertical_line",
+        "text": "Add a vertical line.\nLayout object to add the label and toggle button to.\nTop spacer. Default is [0, 10].\nBottom, spacer. Default is [0, 10]."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_title_bar",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_title_bar.html#get_title_bar",
+        "title": "get_title_bar",
+        "section": "get_title_bar",
+        "text": "Get title.\nThe name of the QPushButton object."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler.html#themehandler",
+        "title": "ThemeHandler",
+        "section": "ThemeHandler",
+        "text": "A class for managing themes in a PySide6 desktop application.\nThis class handles the loading, exporting, and management of themes used in the application.\nThemeHandler.export_theme()\nExport the current theme to the theme file.\nThemeHandler.read_theme()\nRead and load theme settings from the theme file."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/window",
+        "href": "toolkit/ui_reference/widgets/window.html#pywindow",
+        "title": "PyWindow",
+        "section": "PyWindow",
+        "text": "Custom window frame widget with customizable styling and drop shadow effect.\nInherits QFrame and provides a customizable window frame.\nThe parent widget for this PyWindow.\nThe margin size around the window frame. Default is 0.\nThe spacing between layout items. Default is 2.\nThe background color of the window frame. Default is “#2c313c”.\nThe text color of the window frame. Default is “#fff”.\nThe font of the text in the window frame. Default is “9pt ‘Segoe UI’”.\nThe border radius of the window frame corners. Default is 10.\nThe size of the border around the window frame. Default is 2.\nThe color of the border around the window frame. Default is “#343b48”.\nSets the style sheet of the PyWindow with customizable attributes.\nThe background color of the window frame.\nThe border radius of the window frame corners.\nThe size of the border around the window frame.\nThe color of the border around the window frame.\nThe text color of the window frame.\nThe font of the text in the window frame."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/label",
+        "href": "toolkit/ui_reference/widgets/label.html#pylabel",
+        "title": "PyLabel",
+        "section": "PyLabel",
+        "text": "Label widget with customizable elements.\nText to be displayed on the QLabel, by default an empty string.\nColor for the text, in hex format, by default ‘#000000’ (black).\nSize for the font, by default is 8.\nWeight for the font, by default is ‘bold’.\nApply the custom styles defined in the class to the QLabel.\nText color for the QLabel.\nFont size for the QLabel.\nFont weight for the QLabel."
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#aedt-open-project-example",
+        "title": "AEDT open project example",
+        "section": "AEDT open project example",
+        "text": "This example shows how to use the AEDTCommon class to launch a new AEDT session in a thread and open an existing AEDT project.\nPerform the required imports.\nInitialize a temporary folder to copy the input file into and specify project settings.\nInitialize the toolkit.\nLaunch a new AEDT session in a thread.\nWait for the toolkit thread to be idle and ready to accept a new task.\nOpen the project.\nGet the toolkit properties, which contain the project information.\nConnect or create a new design.\nCreate a box in the design.\nSave and release AEDT.\nRemove the temporary folder.\n[1]:\nimport sys\nimport os\nimport shutil\n[2]:\nfrom ansys.aedt.core import generate_unique_folder_name\n[3]:\nfrom ansys.aedt.toolkits.common.utils import download_file\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon\n[4]:\nURL_BASE = \"https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/\"\nAEDT_PROJECT = \"Test.aedt\"\nURL = os.path.join(URL_BASE, AEDT_PROJECT)\n\ntemp_folder = os.path.join(generate_unique_folder_name())\n\nlocal_project = os.path.join(temp_folder, AEDT_PROJECT)\n\ndownload_file(URL, local_project)\n[4]:\n[5]:\ntoolkit = AEDTCommon()\n[6]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)\n[7]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()\n[8]:\nopen_msg = toolkit.open_project(local_project)\n[9]:\nnew_properties = toolkit.get_properties()\n[10]:\ntoolkit.connect_design()\n[10]:\n[11]:\ntoolkit.logger.info(\"Create Box\")\nbox = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])\nbox.plot()\n[11]:\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:\n[13]:\nshutil.rmtree(temp_folder, ignore_errors=True)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#perform-required-imports",
+        "title": "AEDT open project example > Perform required imports",
+        "section": "Perform required imports",
+        "text": "Perform the required imports.\n[1]:\nimport sys\nimport os\nimport shutil\n[2]:\nfrom ansys.aedt.core import generate_unique_folder_name\n[3]:\nfrom ansys.aedt.toolkits.common.utils import download_file\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#initialize-temporary-folder-and-project-settings",
+        "title": "AEDT open project example > Initialize temporary folder and project settings",
+        "section": "Initialize temporary folder and project settings",
+        "text": "Initialize a temporary folder to copy the input file into and specify project settings.\n[4]:\nURL_BASE = \"https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/\"\nAEDT_PROJECT = \"Test.aedt\"\nURL = os.path.join(URL_BASE, AEDT_PROJECT)\n\ntemp_folder = os.path.join(generate_unique_folder_name())\n\nlocal_project = os.path.join(temp_folder, AEDT_PROJECT)\n\ndownload_file(URL, local_project)\n[4]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#initialize-toolkit",
+        "title": "AEDT open project example > Initialize toolkit",
+        "section": "Initialize toolkit",
+        "text": "Initialize the toolkit.\n[5]:\ntoolkit = AEDTCommon()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#initialize-aedt",
+        "title": "AEDT open project example > Initialize AEDT",
+        "section": "Initialize AEDT",
+        "text": "Launch a new AEDT session in a thread.\n[6]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#wait-for-the-toolkit-thread-to-be-idle",
+        "title": "AEDT open project example > Wait for the toolkit thread to be idle",
+        "section": "Wait for the toolkit thread to be idle",
+        "text": "Wait for the toolkit thread to be idle and ready to accept a new task.\n[7]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#open-project",
+        "title": "AEDT open project example > Open project",
+        "section": "Open project",
+        "text": "Open the project.\n[8]:\nopen_msg = toolkit.open_project(local_project)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#get-toolkit-properties",
+        "title": "AEDT open project example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get the toolkit properties, which contain the project information.\n[9]:\nnew_properties = toolkit.get_properties()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#connect-design",
+        "title": "AEDT open project example > Connect design",
+        "section": "Connect design",
+        "text": "Connect or create a new design.\n[10]:\ntoolkit.connect_design()\n[10]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#create-a-box",
+        "title": "AEDT open project example > Create a box",
+        "section": "Create a box",
+        "text": "Create a box in the design.\n[11]:\ntoolkit.logger.info(\"Create Box\")\nbox = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])\nbox.plot()\n[11]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#save-and-release-aedt",
+        "title": "AEDT open project example > Save and release AEDT",
+        "section": "Save and release AEDT",
+        "text": "Save and release AEDT.\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_open_project",
+        "href": "examples/aedt_common/api_aedt_open_project.html#remove-temporary-folder",
+        "title": "AEDT open project example > Remove temporary folder",
+        "section": "Remove temporary folder",
+        "text": "Remove the temporary folder.\n[13]:\nshutil.rmtree(temp_folder, ignore_errors=True)"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.wait_to_be_idle",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.wait_to_be_idle.html#wait_to_be_idle",
+        "title": "wait_to_be_idle",
+        "section": "wait_to_be_idle",
+        "text": "Wait for the thread to be idle and ready to accept a new task.\nTime out in seconds. The default is 60."
+    },
+    {
+        "objectID": "toolkit/ui_reference/windows",
+        "href": "toolkit/ui_reference/windows.html#windows",
+        "title": "Windows",
+        "section": "Windows",
+        "text": "The Windows layout template is in the\nmain_window\ndirectory in the repository.\nThe Common_windows\ndirectory contains the files for setting up the main window, home menu, and settings column.\nThe following script shows how to use the previous files to initialize the application.\n# Import API\nimport os\nimport sys\nfrom PySide6.QtWidgets import QApplication\n\nfrom ansys.aedt.toolkits.common.ui.common_windows.home_menu import HomeMenu\nfrom ansys.aedt.toolkits.common.ui.common_windows.main_window import MainWindow\nfrom ansys.aedt.toolkits.common.ui.common_windows.settings_column import SettingsMenu\nfrom ansys.aedt.toolkits.common.ui.main_window.main_window_layout import (\n    MainWindowLayout,\n)\nfrom ansys.aedt.toolkits.common.ui.actions_generic import FrontendGeneric\n\n\n# Object with generic methods to control the toolkits\nclass ApplicationWindow(FrontendGeneric):\n    def __init__(self):\n\n        FrontendGeneric.__init__(self)\n\n        # Create UI object\n        self.ui = MainWindowLayout(self)\n        self.ui.setup()\n\n        # Set up main window\n        self.main_window = MainWindow(self)\n        self.main_window.setup()\n\n        # Set up settings menu\n        self.settings_menu = SettingsMenu(self)\n        self.settings_menu.setup()\n\n        self.home_menu = HomeMenu(self)\n        self.home_menu.setup()\n\n\nif __name__ == \"__main__\":\n    app = QApplication(sys.argv)\n    window = ApplicationWindow()\n    window.show()\n    sys.exit(app.exec())"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#toolkit-example",
+        "title": "Toolkit example",
+        "section": "Toolkit example",
+        "text": "The examples/toolkit/pyaedt_toolkit\nfolder contains all files for creating a toolkit using the PyAEDT Common Toolkit.\nFollow the steps outlined in the example to gain practical insights into toolkit implementation:\nAccess the example: Navigate to the examples/toolkit/pyaedt_toolkit\nfolder.\nUnderstand the toolkit structure:\nExplore the directory and file structure of the example toolkit.\nGain insights into best practices for organizing toolkit components.\nFor optimal organization and maintainability, toolkits should adhere to the following structure:\nAs described in Architecture, toolkits must have a separation between the\nbackend and UI.\nThe backend directory houses backend functionalities, including API and REST API definitions,\ndata processing, and communication with the common library.\nThe ui folder focuses on frontend interactions, managing the UI and connecting with backend\nfunctionalities.\nThe toolkit API controls the workflow, enabling the creation of an automated workflow without a UI.\nThe following code shows how to inherit common methods.\nYou can play with the API in the Python console:\nTo introduce new properties to the toolkit, define them using models. Properties have a fixed type,\nso they are protected. In models, specify the type. In this example, two new properties, multiplier\nand geometry, are defined as float and string, respectively.\nIn the backend_properties.json file, define default values for both common and new properties.\nThese properties are correctly loaded by being imported into the toolkit API, as seen here:\nA script, conventionally named  rest_api.py for its role in managing the REST API of the toolkit,\nis referred to as run_backend.py in this example. Upon execution, the script launches a server that\nlistens for incoming requests.\nSimilar to the API, this file inherits the common REST API, containing only the specific REST API functionalities\nrequired for the toolkit. The following Python code imports the REST API application from the common library:\nThis code then creates an instance of the toolkit API object:\nThe run_frontend.py script serves as the application launcher for the UI, built using PySide6.\nThe file concludes with the following code, ensuring proper initialization using PySide6:\nThe initialization of the ApplicationWindow class calls different common pages defined in\nUI reference.\nIf additional pages are to be added to the toolkit, include them along with any required actions\ninside the windows directory.\nCommon actions define the calls to the REST API, as described in Actions.\nSimilar to the backend, the UI has its own properties. The frontend_properties.json file enables\ncustomization of the UI theme, addition of new tabs, and modification of the URL and port for backend\ncommunication.\nThe run_toolkit.py script facilitates the simultaneous execution of both the backend and UI in two\ndifferent threads. This eliminates the need for launching the backend and UI separately.\nIn cases where the backend is running remotely, execute the backend on the remote machine\nbefore running this script.\npyaedt-toolkits-example\n├── backend\n│   ├── api.py\n│   ├── models.py\n│   ├── backend_properties.json\n│   └── run_backend.py\n│\n├── ui\n│   ├── run_frontend.py\n│   ├── actions.py\n│   ├── frontend_properties.json\n│   ├── windows\n│   └── models.json\n│\n└── run_toolkit.py\nToolkitBackend(AEDTCommon)\n# Import API\nfrom examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend\n\n# Object with generic methods to control the toolkits\ntoolkit_api = ToolkitBackend()\n\n# Launch AEDT, using common API method\ntoolkit_api.launch_aedt()\ntoolkit_api.wait_to_be_idle()\n\n# Create geometry, using specific API method\ntoolkit_api.create_geometry()\nfrom models import properties\nfrom ansys.aedt.toolkits.common.backend.rest_api import app\ntoolkit_api = ToolkitBackend()\nif __name__ == \"__main__\":\n    app = QApplication(sys.argv)\n    window = ApplicationWindow()\n    window.show()\n    sys.exit(app.exec())"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#example-walkthrough",
+        "title": "Toolkit example > Example walkthrough",
+        "section": "Example walkthrough",
+        "text": "Follow the steps outlined in the example to gain practical insights into toolkit implementation:\nAccess the example: Navigate to the examples/toolkit/pyaedt_toolkit\nfolder.\nUnderstand the toolkit structure:\nExplore the directory and file structure of the example toolkit.\nGain insights into best practices for organizing toolkit components."
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#toolkit-structure",
+        "title": "Toolkit example > Toolkit structure",
+        "section": "Toolkit structure",
+        "text": "For optimal organization and maintainability, toolkits should adhere to the following structure:\npyaedt-toolkits-example\n├── backend\n│   ├── api.py\n│   ├── models.py\n│   ├── backend_properties.json\n│   └── run_backend.py\n│\n├── ui\n│   ├── run_frontend.py\n│   ├── actions.py\n│   ├── frontend_properties.json\n│   ├── windows\n│   └── models.json\n│\n└── run_toolkit.py"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#backend-and-ui",
+        "title": "Toolkit example > Backend and UI",
+        "section": "Backend and UI",
+        "text": "As described in Architecture, toolkits must have a separation between the\nbackend and UI.\nThe backend directory houses backend functionalities, including API and REST API definitions,\ndata processing, and communication with the common library.\nThe ui folder focuses on frontend interactions, managing the UI and connecting with backend\nfunctionalities."
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#api",
+        "title": "Toolkit example > API",
+        "section": "API",
+        "text": "The toolkit API controls the workflow, enabling the creation of an automated workflow without a UI.\nThe following code shows how to inherit common methods.\nYou can play with the API in the Python console:\nToolkitBackend(AEDTCommon)\n# Import API\nfrom examples.toolkit.pyaedt_toolkit.backend.api import ToolkitBackend\n\n# Object with generic methods to control the toolkits\ntoolkit_api = ToolkitBackend()\n\n# Launch AEDT, using common API method\ntoolkit_api.launch_aedt()\ntoolkit_api.wait_to_be_idle()\n\n# Create geometry, using specific API method\ntoolkit_api.create_geometry()"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#models-and-properties",
+        "title": "Toolkit example > Models and properties",
+        "section": "Models and properties",
+        "text": "To introduce new properties to the toolkit, define them using models. Properties have a fixed type,\nso they are protected. In models, specify the type. In this example, two new properties, multiplier\nand geometry, are defined as float and string, respectively.\nIn the backend_properties.json file, define default values for both common and new properties.\nThese properties are correctly loaded by being imported into the toolkit API, as seen here:\nfrom models import properties"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#run-backend",
+        "title": "Toolkit example > Run backend",
+        "section": "Run backend",
+        "text": "A script, conventionally named  rest_api.py for its role in managing the REST API of the toolkit,\nis referred to as run_backend.py in this example. Upon execution, the script launches a server that\nlistens for incoming requests.\nSimilar to the API, this file inherits the common REST API, containing only the specific REST API functionalities\nrequired for the toolkit. The following Python code imports the REST API application from the common library:\nThis code then creates an instance of the toolkit API object:\nfrom ansys.aedt.toolkits.common.backend.rest_api import app\ntoolkit_api = ToolkitBackend()"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#run-frontend",
+        "title": "Toolkit example > Run frontend",
+        "section": "Run frontend",
+        "text": "The run_frontend.py script serves as the application launcher for the UI, built using PySide6.\nThe file concludes with the following code, ensuring proper initialization using PySide6:\nThe initialization of the ApplicationWindow class calls different common pages defined in\nUI reference.\nIf additional pages are to be added to the toolkit, include them along with any required actions\ninside the windows directory.\nif __name__ == \"__main__\":\n    app = QApplication(sys.argv)\n    window = ApplicationWindow()\n    window.show()\n    sys.exit(app.exec())"
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#common-actions",
+        "title": "Toolkit example > Common actions",
+        "section": "Common actions",
+        "text": "Common actions define the calls to the REST API, as described in Actions."
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#ui-properties",
+        "title": "Toolkit example > UI properties",
+        "section": "UI properties",
+        "text": "Similar to the backend, the UI has its own properties. The frontend_properties.json file enables\ncustomization of the UI theme, addition of new tabs, and modification of the URL and port for backend\ncommunication."
+    },
+    {
+        "objectID": "getting_started/example_toolkit",
+        "href": "getting_started/example_toolkit.html#run-toolkit",
+        "title": "Toolkit example > Run toolkit",
+        "section": "Run toolkit",
+        "text": "The run_toolkit.py script facilitates the simultaneous execution of both the backend and UI in two\ndifferent threads. This eliminates the need for launching the backend and UI separately.\nIn cases where the backend is running remotely, execute the backend on the remote machine\nbefore running this script."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/icon_button",
+        "href": "toolkit/ui_reference/widgets/icon_button.html#pyiconbutton",
+        "title": "PyIconButton",
+        "section": "PyIconButton",
+        "text": "Icon button widget that can be used as a colored icon.\nThe icon and color can be customized during initialization.\nPath to the icon image file.\nText for tooltip.\nIdentifier for the button.\nWidth of the button.\nHeight of the button.\nRadius for rounded corners.\nBackground color in hex color code.\nBackground color when hovered in hex color code.\nBackground color when being pressed in hex color code.\nIcon color in hex color code.\nIcon color when hovered in hex color code.\nIcon color when being pressed in hex color code.\nActive icon color in hex color code.\nColor for dark theme in hex color code.\nText color in hex color code.\nContext color in hex color code.\nTop margin for tooltip.\nWhether the button is currently active.\nChange the style of the button based on the given event.\nEvent triggering the style change.\nHandle the enter event.\nEnter event.\nPaint the icon on the button.\nQPainter object.\nPath to the icon image file.\nRectangle for the icon placement.\nCheck if the button is in an active state.\nTrue if the button is active, False otherwise.\nHandle the leave event.\nLeave event.\nHandle the mouse press event.\nMouse press event.\nHandle the mouse release event.\nMouse release event.\nPaint the button.\nPaint event.\nSet the active state of the button.\nWhether the button is active or not.\nSet the icon for the button.\nPath to the icon image file."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/title_bar",
+        "href": "toolkit/ui_reference/widgets/title_bar.html#pytitlebar",
+        "title": "PyTitleBar",
+        "section": "PyTitleBar",
+        "text": "Custom title bar for the application window.\nThe parent widget.\nThe main application window.\nThe path to the logo image file, by default “ansys-primary-logo-white.svg”.\nThe width of the logo, by default 10.\nThe color for the dark theme, by default “#1b1e23”.\nThe background color, by default “#343b48”.\nThe color for dividers, by default “#3c4454”.\nThe background color for buttons, by default “#343b48”.\nThe background color for buttons on hover, by default “#3c4454”.\nThe background color for buttons on pressed state, by default “#2c313c”.\nThe default icon color, by default “#c3ccdf”.\nThe icon color on hover, by default “#dce1ec”.\nThe icon color on pressed state, by default “#edf0f5”.\nThe icon color for the active state, by default “#f5f6f9”.\nThe context color, by default “#6c99f4”.\nThe text color, by default “#8a95aa”.\nThe border radius, by default 8.\nThe font family, by default “Segoe UI”.\nThe font size for the title, by default 10.\nAdd custom menus to the title bar.\nList of dictionaries, each containing information about a menu button.\nEach dictionary should have the following keys:\n- btn_icon: str, the icon file for the button.\n- btn_id: str, the ID of the button.\n- btn_tooltip: str, the tooltip text for the button.\n- is_active: bool, whether the button is initially active or not.\nHandle the button click event.\nHandle the button release event.\nMaximize or restore the application window.\nSet the title of the application.\nThe title to be set.\nSet up the user interface for the title bar."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_left_column_menu",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.set_left_column_menu.html#set_left_column_menu",
+        "title": "set_left_column_menu",
+        "section": "set_left_column_menu",
+        "text": "and the icon in the left column as the icon specified by icon_path.\nThe menu widget to be set as the current widget in the left column.\nThe title to be set in the left column’s title label.\nThe path to the icon image file to be set in the left column’s icon."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_combobox",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_combobox.html#add_combobox",
+        "title": "add_combobox",
+        "section": "add_combobox",
+        "text": "Adds a label and combobox to a layout.\nThe layout object to which the label and combobox will be added.\nThe height of the label and combobox widgets. Default is 40.\nThe width of the label and combobox widgets. If not provided, a default width of [100, 100] will be used.\nThe text to be displayed on the label widget. Default is ‘label1’.\nA list of items to be displayed in the combobox. If not provided, a default list of [‘1’, ‘2’] will be used.\nThe font size of the label widget. Default is 12.\nA list containing the layout row object, label object, and combobox object."
+    },
+    {
+        "objectID": "toolkit/ui_reference/utils",
+        "href": "toolkit/ui_reference/utils.html#utils",
+        "title": "Utils",
+        "section": "Utils",
+        "text": "This section describes the classes for common widgets, objects, and layout templates, which\nare all designed for versatile application use. While a description of each class follows,\nyou can click the class name to view detailed API reference information.\n``CommonWindowUtils``\nCommonWindowUtils()\nClass representing a common window with various UI functionalities.\n``LoadImages``\nLoadImages([path])\nA utility class for managing image and icon paths in a PySide6 desktop application.\n``ThemeHandler``\nThemeHandler()\nA class for managing themes in a PySide6 desktop application.\nYou use the CommonWindowUtils class to create custom widgets in the UI. The PyAEDT\nCommon Toolkit also provides the additional widgets described in widgets.\nIn addition to wrapped PySide6 widgets, the PyAEDT Common Toolkit provides these UI\ntemplates to enhance the overall layout:\nleft_column.ui\nright_column.ui\nmain_pages.ui\nThese templates serve as a foundation for creating default layouts. You can explore these templates in the\nui templates\ndirectory of the repository."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.wait_to_be_idle",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.wait_to_be_idle.html#wait_to_be_idle",
+        "title": "wait_to_be_idle",
+        "section": "wait_to_be_idle",
+        "text": "Wait for the thread to be idle and ready to accept a new task.\nTime out in seconds. The default is 60."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.html#edbcommon",
+        "title": "EDBCommon",
+        "section": "EDBCommon",
+        "text": "Provides the generic API for controlling EDB.\nThis class provides basic functions to control EDB and properties to share between the\nbackend and UI.\nUpdated properties.\nEDBCommon.aedt_sessions()\nGet information for the active AEDT sessions.\nEDBCommon.close_edb()\nClose the EDB project.\nEDBCommon.get_properties()\nGet the toolkit properties.\nEDBCommon.get_thread_status()\nGet the toolkit thread status.\nEDBCommon.installed_aedt_version()\nGet the installed AEDT versions.\nEDBCommon.launch_thread(process)\nLaunch the thread.\nEDBCommon.load_edb([edb_path])\nLoad the EDB project.\nEDBCommon.save_edb([edb_path])\nSave the EDB project.\nEDBCommon.serialize_obj_base64(file_path)\nEncode a bytes-like object.\nEDBCommon.set_properties(data)\nAssign the passed data to the internal data model.\nEDBCommon.wait_to_be_idle([timeout])\nWait for the thread to be idle and ready to accept a new task."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/line_edit",
+        "href": "toolkit/ui_reference/widgets/line_edit.html#pylineedit",
+        "title": "PyLineEdit",
+        "section": "PyLineEdit",
+        "text": "Custom QLineEdit widget with enhanced styling.\nThe initial text for the line edit. Default is an empty string.\nThe placeholder text to be displayed when the line edit is empty. Default is an empty string.\nThe border radius of the line edit. Default is 8.\nThe border size of the line edit. Default is 2.\nThe text color of the line edit. Default is “#FFF” (white).\nThe text selection color of the line edit. Default is “#FFF” (white).\nThe background color of the line edit. Default is “#333” (dark gray).\nThe background color of the line edit when active. Default is “#222” (darker gray).\nThe color representing a context or active state. Default is “#00ABE8” (blue).\nSet the stylesheet for the PyLineEdit.\nBorder radius of the line edit.\nBorder size of the line edit.\nText color of the line edit.\nText selection color of the line edit.\nBackground color of the line edit.\nBackground color when the line edit is active.\nColor representing a context or active state."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages.image_path",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages.image_path.html#image_path",
+        "title": "image_path",
+        "section": "image_path",
+        "text": "Get the full path for the specified image file.\nThe name of the image file.\nThe full path to the specified image file."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.aedt_sessions",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.aedt_sessions.html#aedt_sessions",
+        "title": "aedt_sessions",
+        "section": "aedt_sessions",
+        "text": "Get information for the active AEDT sessions.\nDictionary of AEDT process IDs (PIDS) {AEDT PID: port}.\nIf the PID corresponds to a COM session, the port is set to -1."
+    },
+    {
+        "objectID": "getting_started/index",
+        "href": "getting_started/index.html#getting-started",
+        "title": "Getting started",
+        "section": "Getting started",
+        "text": "This section explains how to install the PyAEDT Common Toolkit.\nIt then explains this toolkit’s architecture and provides an example\nof how to use its common methods to develop a new Ansys\nElectronics Desktop (AEDT) toolkit.\nLearn how to install the PyAEDT Common Toolkit.\nLearn about this toolkit’s architecture.\nUse this toolkit’s common methods to create an example toolkit."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.launch_thread",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.launch_thread.html#launch_thread",
+        "title": "launch_thread",
+        "section": "launch_thread",
+        "text": "Launch the thread."
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#edb-simple-example",
+        "title": "EDB simple example",
+        "section": "EDB simple example",
+        "text": "This example shows how to use the EDBCommon class to open an existing EDB project.\nPerform the required imports.\nInitialize a temporary folder to copy the input file into and specify project settings.\nInitialize the toolkit.\nOpen the EDB project.\nGet toolkit properties, which contain the project information.\nCopy the current project in a new file.\nGet cell names using PyEDB.\nSave and release EDB.\nRemove the temporary folder.\n[1]:\nimport os\nimport shutil\n[2]:\nfrom ansys.aedt.core import generate_unique_folder_name\n[3]:\nfrom ansys.aedt.toolkits.common.utils import download_file\nfrom ansys.aedt.toolkits.common.backend.api import EDBCommon\n[4]:\nURL_BASE = \"https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/\"\nEDB_PROJECT = \"edb_edge_ports.aedb/edb.def\"\nURL = os.path.join(URL_BASE, EDB_PROJECT)\n\ntemp_folder = os.path.join(generate_unique_folder_name())\n\nedb_path = os.path.join(temp_folder, \"edb_example.aedb\")\nos.makedirs(edb_path, exist_ok=True)\nlocal_project = os.path.join(edb_path, \"edb.def\")\n\ndownload_file(URL, local_project)\n[4]:\n[5]:\ntoolkit = EDBCommon()\n[6]:\nload_edb_msg = toolkit.load_edb(edb_path)\n[7]:\nnew_properties = toolkit.get_properties()\nedb_project = new_properties[\"active_project\"]\n[8]:\ndirectory, old_file_name = os.path.split(edb_project)\nnew_path = os.path.join(directory, \"new_edb.aedb\")\ntoolkit.save_edb(new_path)\n[8]:\n[9]:\ntoolkit.logger.info(\"Play with EDB\")\ncell_names = toolkit.edb.cell_names\ntoolkit.edb.nets.plot()\n[9]:\n[10]:\ntoolkit.close_edb()\n[10]:\n[11]:\nshutil.rmtree(temp_folder, ignore_errors=True)"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#perform-required-imports",
+        "title": "EDB simple example > Perform required imports",
+        "section": "Perform required imports",
+        "text": "Perform the required imports.\n[1]:\nimport os\nimport shutil\n[2]:\nfrom ansys.aedt.core import generate_unique_folder_name\n[3]:\nfrom ansys.aedt.toolkits.common.utils import download_file\nfrom ansys.aedt.toolkits.common.backend.api import EDBCommon"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#initialize-temporary-folder-and-project-settings",
+        "title": "EDB simple example > Initialize temporary folder and project settings",
+        "section": "Initialize temporary folder and project settings",
+        "text": "Initialize a temporary folder to copy the input file into and specify project settings.\n[4]:\nURL_BASE = \"https://raw.githubusercontent.com/ansys/example-data/master/toolkits/common/\"\nEDB_PROJECT = \"edb_edge_ports.aedb/edb.def\"\nURL = os.path.join(URL_BASE, EDB_PROJECT)\n\ntemp_folder = os.path.join(generate_unique_folder_name())\n\nedb_path = os.path.join(temp_folder, \"edb_example.aedb\")\nos.makedirs(edb_path, exist_ok=True)\nlocal_project = os.path.join(edb_path, \"edb.def\")\n\ndownload_file(URL, local_project)\n[4]:"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#initialize-toolkit",
+        "title": "EDB simple example > Initialize toolkit",
+        "section": "Initialize toolkit",
+        "text": "Initialize the toolkit.\n[5]:\ntoolkit = EDBCommon()"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#initialize-edb-project",
+        "title": "EDB simple example > Initialize EDB project",
+        "section": "Initialize EDB project",
+        "text": "Open the EDB project.\n[6]:\nload_edb_msg = toolkit.load_edb(edb_path)"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#get-toolkit-properties",
+        "title": "EDB simple example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get toolkit properties, which contain the project information.\n[7]:\nnew_properties = toolkit.get_properties()\nedb_project = new_properties[\"active_project\"]"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#save-project",
+        "title": "EDB simple example > Save project",
+        "section": "Save project",
+        "text": "Copy the current project in a new file.\n[8]:\ndirectory, old_file_name = os.path.split(edb_project)\nnew_path = os.path.join(directory, \"new_edb.aedb\")\ntoolkit.save_edb(new_path)\n[8]:"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#get-cell-names",
+        "title": "EDB simple example > Get cell names",
+        "section": "Get cell names",
+        "text": "Get cell names using PyEDB.\n[9]:\ntoolkit.logger.info(\"Play with EDB\")\ncell_names = toolkit.edb.cell_names\ntoolkit.edb.nets.plot()\n[9]:"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#save-and-release-edb",
+        "title": "EDB simple example > Save and release EDB",
+        "section": "Save and release EDB",
+        "text": "Save and release EDB.\n[10]:\ntoolkit.close_edb()\n[10]:"
+    },
+    {
+        "objectID": "examples/edb_common/api_edb",
+        "href": "examples/edb_common/api_edb.html#remove-temporary-folder",
+        "title": "EDB simple example > Remove temporary folder",
+        "section": "Remove temporary folder",
+        "text": "Remove the temporary folder.\n[11]:\nshutil.rmtree(temp_folder, ignore_errors=True)"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.serialize_obj_base64",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.serialize_obj_base64.html#serialize_obj_base64",
+        "title": "serialize_obj_base64",
+        "section": "serialize_obj_base64",
+        "text": "Encode a bytes-like object.\nPath to the file to serialize.\nEncoded data."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler.export_theme",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.themes.json_themes.ThemeHandler.export_theme.html#export_theme",
+        "title": "export_theme",
+        "section": "export_theme",
+        "text": "Export the current theme to the theme file.\nWrites the current theme settings to the theme file in JSON format."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.serialize_obj_base64",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.serialize_obj_base64.html#serialize_obj_base64",
+        "title": "serialize_obj_base64",
+        "section": "serialize_obj_base64",
+        "text": "Encode a bytes-like object.\nPath to the file to serialize.\nEncoded data."
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#aedt-connect-session-example",
+        "title": "AEDT connect session example",
+        "section": "AEDT connect session example",
+        "text": "This example shows how to use the Common AEDT API to connect to an existing AEDT session, create a HFSS design and create a waveguide.\nPerform the required imports.\nInitialize the toolkit.\nGet the toolkit properties, which contain the project information.\nGet AEDT sessions and select the first one.\nSpecify the AEDT session selection.\nLaunch a new AEDT session in a thread.\nWait for the toolkit thread to be idle and ready to accept a new task.\nConnect or create a new design.\nGet the toolkit properties, which contain the project information.\nCreate a waveguide in the design.\nSave and release AEDT.\n[1]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon\nimport ansys.aedt.core\n[2]:\ntoolkit = AEDTCommon()\n[3]:\nproperties_from_backend = toolkit.get_properties()\n[4]:\n# ## Initialize AEDT\n#\n# Initialize AEDT using PyAEDT and then release it.\nansys.aedt.core.settings.enable_logger = False\napp = ansys.aedt.core.Desktop(specified_version=properties_from_backend[\"aedt_version\"],\n                     non_graphical=properties_from_backend[\"non_graphical\"])\napp.release_desktop(close_projects=False, close_on_exit=False)\n[4]:\n[5]:\nsessions = toolkit.aedt_sessions()\nfirst_key, first_value = next(iter(sessions.items()))\nif first_value == -1:\n    use_grpc = False\n    selected_process = first_key\nelse:\n    use_grpc = True\n    selected_process = first_value\n[6]:\nnew_properties = {\"selected_process\": selected_process, \"use_grpc\": use_grpc}\nflag, msg = toolkit.set_properties(new_properties)\n[7]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)\n[8]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()\n[9]:\ntoolkit.connect_design(\"HFSS\")\n[9]:\n[10]:\nnew_properties = toolkit.get_properties()\n[11]:\nwg = toolkit.aedtapp.modeler.create_waveguide([0, 0, 0], 1)\ntoolkit.aedtapp.plot()\n[11]:\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#perform-required-imports",
+        "title": "AEDT connect session example > Perform required imports",
+        "section": "Perform required imports",
+        "text": "Perform the required imports.\n[1]:\nimport sys\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon\nimport ansys.aedt.core"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#initialize-toolkit",
+        "title": "AEDT connect session example > Initialize toolkit",
+        "section": "Initialize toolkit",
+        "text": "Initialize the toolkit.\n[2]:\ntoolkit = AEDTCommon()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#get-toolkit-properties",
+        "title": "AEDT connect session example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get the toolkit properties, which contain the project information.\n[3]:\nproperties_from_backend = toolkit.get_properties()\n[4]:\n# ## Initialize AEDT\n#\n# Initialize AEDT using PyAEDT and then release it.\nansys.aedt.core.settings.enable_logger = False\napp = ansys.aedt.core.Desktop(specified_version=properties_from_backend[\"aedt_version\"],\n                     non_graphical=properties_from_backend[\"non_graphical\"])\napp.release_desktop(close_projects=False, close_on_exit=False)\n[4]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#get-aedt-sessions",
+        "title": "AEDT connect session example > Get AEDT sessions",
+        "section": "Get AEDT sessions",
+        "text": "Get AEDT sessions and select the first one.\n[5]:\nsessions = toolkit.aedt_sessions()\nfirst_key, first_value = next(iter(sessions.items()))\nif first_value == -1:\n    use_grpc = False\n    selected_process = first_key\nelse:\n    use_grpc = True\n    selected_process = first_value"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#set-properties",
+        "title": "AEDT connect session example > Set properties",
+        "section": "Set properties",
+        "text": "Specify the AEDT session selection.\n[6]:\nnew_properties = {\"selected_process\": selected_process, \"use_grpc\": use_grpc}\nflag, msg = toolkit.set_properties(new_properties)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#initialize-aedt",
+        "title": "AEDT connect session example > Initialize AEDT",
+        "section": "Initialize AEDT",
+        "text": "Launch a new AEDT session in a thread.\n[7]:\nthread_msg = toolkit.launch_thread(toolkit.launch_aedt)"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#wait-for-the-toolkit-thread-to-be-idle",
+        "title": "AEDT connect session example > Wait for the toolkit thread to be idle",
+        "section": "Wait for the toolkit thread to be idle",
+        "text": "Wait for the toolkit thread to be idle and ready to accept a new task.\n[8]:\nidle = toolkit.wait_to_be_idle()\nif not idle:\n    print(\"AEDT not initialized.\")\n    sys.exit()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#connect-design",
+        "title": "AEDT connect session example > Connect design",
+        "section": "Connect design",
+        "text": "Connect or create a new design.\n[9]:\ntoolkit.connect_design(\"HFSS\")\n[9]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#get-toolkit-properties",
+        "title": "AEDT connect session example > Get toolkit properties",
+        "section": "Get toolkit properties",
+        "text": "Get the toolkit properties, which contain the project information.\n[10]:\nnew_properties = toolkit.get_properties()"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#create-a-waveguide",
+        "title": "AEDT connect session example > Create a waveguide",
+        "section": "Create a waveguide",
+        "text": "Create a waveguide in the design.\n[11]:\nwg = toolkit.aedtapp.modeler.create_waveguide([0, 0, 0], 1)\ntoolkit.aedtapp.plot()\n[11]:"
+    },
+    {
+        "objectID": "examples/aedt_common/api_aedt_connect_session",
+        "href": "examples/aedt_common/api_aedt_connect_session.html#save-and-release-aedt",
+        "title": "AEDT connect session example > Save and release AEDT",
+        "section": "Save and release AEDT",
+        "text": "Save and release AEDT.\n[12]:\ntoolkit.release_aedt(True, True)\n[12]:"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.set_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.set_properties.html#set_properties",
+        "title": "set_properties",
+        "section": "set_properties",
+        "text": "Assign the passed data to the internal data model.\nDictionary containing the properties to update.\nTuple indicating the success status and a message."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.clear_layout",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.clear_layout.html#clear_layout",
+        "title": "clear_layout",
+        "section": "clear_layout",
+        "text": "Clear all layout."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.installed_aedt_version",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.installed_aedt_version.html#installed_aedt_version",
+        "title": "installed_aedt_version",
+        "section": "installed_aedt_version",
+        "text": "Get the installed AEDT versions.\nList of installed AEDT versions."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.save_project",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.save_project.html#save_project",
+        "title": "save_project",
+        "section": "save_project",
+        "text": "Save the project.\nThis method uses the properties to get the project path. This method is launched in a thread.\nPath of the AEDT project. The default value is None, in which\ncase the current file is overwritten.\nRelease PyAEDT object. The default value is True.\nReturns True if the connection is successful, False otherwise."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.set_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.set_properties.html#set_properties",
+        "title": "set_properties",
+        "section": "set_properties",
+        "text": "Assign the passed data to the internal data model.\nDictionary containing the properties to update.\nTuple indicating the success status and a message."
+    },
+    {
+        "objectID": "toolkit/api",
+        "href": "toolkit/api.html#backend-api-reference",
+        "title": "Backend API reference",
+        "section": "Backend API reference",
+        "text": "The backend API contains three classes, AEDTCommon`, EDBCommon, and Common,\nwhich provide methods for controlling the toolkit workflow:\nAEDTCommon: Provides methods for controlling AEDT. This class inherits the Common class.\nEDBCommon: Provides methods for controlling EDB. This class inherits the Common class.\nCommon: Provides methods for controlling the toolkit flow.\nIn the following descriptions, you can click the class name to view detailed API information.\nAEDTCommon([backend_properties])\nProvides common functions for controlling AEDT.\nEDBCommon([backend_properties])\nProvides the generic API for controlling EDB.\nCommon([backend_properties])\nProvides the API for controlling the toolkits.\nThis code shows how to use the AEDTCommon class:\n# Import API\nfrom ansys.aedt.toolkits.common.backend.api import AEDTCommon\nfrom ansys.aedt.toolkits.common.utils import ToolkitThreadStatus\n\n# Object with generic methods to control the toolkits\ntoolkit = AEDTCommon(properties)\n\n# Get the default properties\nproperties_from_backend = toolkit.get_properties()\n\n# Set properties, which is useful for setting more than one property\nnew_properties = {\"use_grpc\": True, \"debug\": False}\nflag1, msg1 = toolkit.set_properties(new_properties)\n\n# Get new properties\nnew_properties1 = toolkit.get_properties()\n\n# Get AEDT installed versions\nversions = toolkit.installed_aedt_version()\n\n# Launch AEDT in a thread\nmsg3 = toolkit.launch_thread(toolkit.launch_aedt)\n\n# Wait until thread is finished\ntoolkit.wait_to_be_idle()\n\n# Get new properties, which should now contain project information\nnew_properties4 = toolkit.get_properties()\n\n# Connect to the design\nflag2 = toolkit.connect_design()\n\n# Create a box\nbox = toolkit.aedtapp.modeler.create_box([10, 10, 10], [20, 20, 20])\nbox_name = box.name\n\n# Release AEDT\nflag3 = toolkit.release_aedt()"
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/left_menu",
+        "href": "toolkit/ui_reference/widgets/left_menu.html#pyleftmenu",
+        "title": "PyLeftMenu",
+        "section": "PyLeftMenu",
+        "text": "Custom widget representing a left menu with toggle button, top and bottom layouts, and animated toggle behavior.\nThe parent widget.\nThe parent widget of the application.\nColor representing a dark shade.\nColor representing a darker shade.\nColor representing an even darker shade.\nBackground color of the left menu.\nColor of the icons in the left menu.\nColor of the icons when hovered.\nColor of the icons when pressed.\nColor of the icons in an active state.\nColor representing a context or active state.\nColor of the text in the left menu.\nColor of the text in an active state.\nBorder radius of the left menu.\nMinimum width of the left menu. The default is 50.\nMaximum width of the left menu. The default is 240.\nPath to the icon image file for the toggle button.\nPath to the icon image file for the toggle button when the menu is closed.\nText for the toggle button.\nTooltip text for the toggle button.\nAdd menus to the left menu.\nList of dictionaries containing parameters for each menu item.\nEmit signal when a menu button is clicked.\nEmit signal when a menu button is released.\nDeactivate all menu buttons.\nDeactivate all menu tabs.\nSet the active state for a specific menu button and deactivate others.\nID of the menu button to set as active.\nSet the active tab state for a specific menu button and deactivate others.\nID of the menu button to set as active tab.\nSet up the user interface for the left menu.\nToggle animation for hiding/showing the left menu."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.get_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.EDBCommon.get_properties.html#get_properties",
+        "title": "get_properties",
+        "section": "get_properties",
+        "text": "Get the toolkit properties.\nDictionary containing the toolkit properties."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_n_buttons",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.add_n_buttons.html#add_n_buttons",
+        "title": "add_n_buttons",
+        "section": "add_n_buttons",
+        "text": "Add a specified number of buttons to a layout object.\nThe layout to which the buttons will be added. If None, a new QHBoxLayout will be created.\nThe number of buttons to be added to the layout. Default is 1.\nThe height of the buttons. Default is 40.\nThe widths of the buttons. If list length is less than num_buttons, all buttons take the same width.\nDefault is [200].\nThe texts to be displayed on the buttons.\nIf list length is less than num_buttons, all buttons display the same text.\nDefault is [‘button’].\nFont size. Default is 10.\nA list containing the layout row object and the button objects."
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#contribute",
+        "title": "Contribute",
+        "section": "Contribute",
+        "text": "Overall guidance on contributing to a PyAnsys repository appears in\nContributing\nin the PyAnsys Developer’s Guide. Ensure that you are thoroughly familiar\nwith this guide before attempting to contribute to PyAEDT or its toolkits.\nThe following contribution information is specific to this library.\nTo clone and install the latest version of the PyAEDT Common Toolkit in\ndevelopment mode, run these commands:\nUse the PyAEDT Common Toolkit Issues page\nto create issues to report bugs and request new features.\nDocumentation for the latest stable release is hosted at PyAEDT Common Toolkit documentation.\nIn the upper right corner of the documentation’s title bar, there is an option for switching from viewing\nthe documentation for the latest stable release to viewing the documentation for the development version\nor previously released versions.\nThe Common Toolkit is compliant with PyAnsys code style. It uses the tool\npre-commit to select the code style.\nYou can install and activate this tool with these commands:\nYou can also install this as a pre-commit hook with this command:\nThis way, it’s not possible for you to push code that fails the style checks:\nBest practice is to keep the line length at or below 120 characters for code\nand comments. Lines longer than this might not display properly on some terminals\nand tools or might be difficult to follow.\ngit clone https://github.com/ansys/pyaedt-toolkits-common.git\ncd pyaedt-toolkits-common\npython -m pip install --upgrade pip\npip install -e .[all]\npip install pre-commit\npre-commit run --all-files\npre-commit install\n$ pre-commit install\n$ git commit -am \"Add my cool feature.\"\nblack....................................................................Passed\nisort (python)...........................................................Passed\nflake8...................................................................Passed\ncodespell................................................................Passed\nfix requirements.txt.....................................................Passed\nblacken-docs.............................................................Passed"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#clone-the-repository",
+        "title": "Contribute > Clone the repository",
+        "section": "Clone the repository",
+        "text": "To clone and install the latest version of the PyAEDT Common Toolkit in\ndevelopment mode, run these commands:\ngit clone https://github.com/ansys/pyaedt-toolkits-common.git\ncd pyaedt-toolkits-common\npython -m pip install --upgrade pip\npip install -e .[all]"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#post-issues",
+        "title": "Contribute > Post issues",
+        "section": "Post issues",
+        "text": "Use the PyAEDT Common Toolkit Issues page\nto create issues to report bugs and request new features."
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#view-documentation",
+        "title": "Contribute > View documentation",
+        "section": "View documentation",
+        "text": "Documentation for the latest stable release is hosted at PyAEDT Common Toolkit documentation.\nIn the upper right corner of the documentation’s title bar, there is an option for switching from viewing\nthe documentation for the latest stable release to viewing the documentation for the development version\nor previously released versions."
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#adhere-to-code-style",
+        "title": "Contribute > Adhere to code style",
+        "section": "Adhere to code style",
+        "text": "The Common Toolkit is compliant with PyAnsys code style. It uses the tool\npre-commit to select the code style.\nYou can install and activate this tool with these commands:\nYou can also install this as a pre-commit hook with this command:\nThis way, it’s not possible for you to push code that fails the style checks:\nBest practice is to keep the line length at or below 120 characters for code\nand comments. Lines longer than this might not display properly on some terminals\nand tools or might be difficult to follow.\npip install pre-commit\npre-commit run --all-files\npre-commit install\n$ pre-commit install\n$ git commit -am \"Add my cool feature.\"\nblack....................................................................Passed\nisort (python)...........................................................Passed\nflake8...................................................................Passed\ncodespell................................................................Passed\nfix requirements.txt.....................................................Passed\nblacken-docs.............................................................Passed"
+    },
+    {
+        "objectID": "contributing",
+        "href": "contributing.html#maximum-line-length",
+        "title": "Contribute > Maximum line length",
+        "section": "Maximum line length",
+        "text": "Best practice is to keep the line length at or below 120 characters for code\nand comments. Lines longer than this might not display properly on some terminals\nand tools or might be difficult to follow."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/toggle",
+        "href": "toolkit/ui_reference/widgets/toggle.html#pytoggle",
+        "title": "PyToggle",
+        "section": "PyToggle",
+        "text": "Customizable toggle switch.\nInherits QCheckBox and provides a customizable toggle switch with options\nfor width, background color, circle color, active color, and animation curve.\nWidth of the toggle switch. The default is 50.\nBackground color of the toggle switch. The default is \"#777\".\nColor of the circle in the toggle switch. The default is \"#DDD\".\nColor of the toggle switch when active. The default is \"#00BCFF\".\nAnimation curve for the toggle switch. The default is QEasingCurve.OutBounce.\n…     def toggle_state_changed(self, state):\n…         print(“Toggle State:”, state)\nDetermine if a button press occurred within the toggle switch.\nThe position of the button press.\nTrue if the button press occurred within the toggle switch, False otherwise.\nPaint the toggle switch.\nPaint event."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.get_thread_status",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.get_thread_status.html#get_thread_status",
+        "title": "get_thread_status",
+        "section": "get_thread_status",
+        "text": "Get the toolkit thread status.\nTrue when active, False when inactive."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_logger",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.update_logger.html#update_logger",
+        "title": "update_logger",
+        "section": "update_logger",
+        "text": "Clear all layout."
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#architecture",
+        "title": "Architecture",
+        "section": "Architecture",
+        "text": "The AEDT Common Toolkit provides a common API for creating new AEDT toolkits.\nThereby standardizing their implementations.\nThe API provides methods for connecting to an existing AEDT session, opening an existing\nAEDT project, and initializing a new AEDT session, which are basic capabilities required\nby any toolkit.\nThe architecture is divided in two main parts:\nBackend: Consists of the API and REST API. The API is built on PyAEDT. The REST API uses\nFlask to facilitate the creation of a REST\nAPI that enables interactions between different services through HTTP requests. By leveraging\nFlask, the toolkit becomes interface-agnostic, allowing flexibility in choosing different user\ninterfaces such as a Web UI.\nUser Interface: Provides UI creation capability using\nPyside6. Pyside6 includes a designer tool\nfor creating UIs translated directly to Python.\nThe repository for the PyAEDT Common Toolkit is structured as follows:\n.github: GitHub Action configuration.\ndoc: Documentation structure.\ncommon:\nToolkit code, split into backend and UI.\nNon-user-facing part of the toolkit for handling requests and preparing data for the UI. Key files include:\nrest_api.py: Defines Flask entrypoints.\napi.py: Defines the toolkit API.\ncommon_properties.toml: Defines common backend properties.\nmodels.py: Defines the class for storing backend properties.\nui: UI part of\nthe toolkit. Key files include:\ncommon_properties.toml: Defines common UI properties.\nmodels.py: Defines the class for storing UI properties.\ntests: Folder containing the backend\nunit tests.\nThe models.py\nfile stores the backend properties that are shared between the backend and UI.\nProperties are loaded by loading the content of the properties in the class properties.\nTo understand how the backend and UI interact, see the actions_generic.py\nfile in the repository. For example, when an event is triggered by the frontend, the\nget_properties()\nmethod builds the GET HTTP request to send to the backend to retrieve properties from the backend.\nThe event of setting up a property calls the set_properties()\nmethod, which builds the PUT HTTP request that is sent to the backend.\nThe ../toolkit/api contains three classes, Common, AEDTCommon, and EDBCommon, which provide methods for\ncontrolling the toolkit workflow.\nREST APIs are standard web interfaces allowing clients to communicate with services via HTTP requests.\nJSON is the standard for transferring data. In fact, REST APIs accept JSON for request payload and also\nsend responses to JSON.\nIn the client-server architecture model, the client sends the request to the server to fetch some information.\nServer-side technologies decode JSON information and transmit back the response to the client. This interaction\nis handled by the HTTP protocol.\nThe UI sends HTTP requests to retrieve data, while the backend returns appropriate results.\nThe toolkit uses CRUD (Create, Read, Update & Delete) operations that are simply HTTP request methods\nthat specify the action to perform through the request.\nFor more information on the UI, see ../toolkit/ui.\npyaedt-toolkits-common\n├── .github\n│   └──workflows\n│      └── ci_cd.yml\n├── doc\n│   └──source\n│      ├── examples\n│      └── getting_started\n│      └── toolkit\n├── src.ansys.aedt.toolkits\n│    └──common\n│       ├── backend\n│       │   ├── api.py\n│       │   ├── rest_api.py\n│       │   ├── common_properties.toml\n│       │   └── models.py\n│       ├── ui\n│       │   ├── common_windows\n│       │   ├── main_window\n│       │   └── utils\n│       │   └── common_properties.toml\n│       │   └── models.py\n├── tests\n│   └── backend\n├── pyproject.toml\n└── README.rst"
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#toolkit-architecture-diagram",
+        "title": "Architecture > Toolkit architecture diagram",
+        "section": "Toolkit architecture diagram",
+        "text": ""
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#toolkit-backend-and-ui",
+        "title": "Architecture > Toolkit backend and UI",
+        "section": "Toolkit backend and UI",
+        "text": "The repository for the PyAEDT Common Toolkit is structured as follows:\n.github: GitHub Action configuration.\ndoc: Documentation structure.\ncommon:\nToolkit code, split into backend and UI.\nNon-user-facing part of the toolkit for handling requests and preparing data for the UI. Key files include:\nrest_api.py: Defines Flask entrypoints.\napi.py: Defines the toolkit API.\ncommon_properties.toml: Defines common backend properties.\nmodels.py: Defines the class for storing backend properties.\nui: UI part of\nthe toolkit. Key files include:\ncommon_properties.toml: Defines common UI properties.\nmodels.py: Defines the class for storing UI properties.\ntests: Folder containing the backend\nunit tests.\npyaedt-toolkits-common\n├── .github\n│   └──workflows\n│      └── ci_cd.yml\n├── doc\n│   └──source\n│      ├── examples\n│      └── getting_started\n│      └── toolkit\n├── src.ansys.aedt.toolkits\n│    └──common\n│       ├── backend\n│       │   ├── api.py\n│       │   ├── rest_api.py\n│       │   ├── common_properties.toml\n│       │   └── models.py\n│       ├── ui\n│       │   ├── common_windows\n│       │   ├── main_window\n│       │   └── utils\n│       │   └── common_properties.toml\n│       │   └── models.py\n├── tests\n│   └── backend\n├── pyproject.toml\n└── README.rst"
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#models-and-properties",
+        "title": "Architecture > Models and properties",
+        "section": "Models and properties",
+        "text": "The models.py\nfile stores the backend properties that are shared between the backend and UI.\nProperties are loaded by loading the content of the properties in the class properties.\nTo understand how the backend and UI interact, see the actions_generic.py\nfile in the repository. For example, when an event is triggered by the frontend, the\nget_properties()\nmethod builds the GET HTTP request to send to the backend to retrieve properties from the backend.\nThe event of setting up a property calls the set_properties()\nmethod, which builds the PUT HTTP request that is sent to the backend."
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#api",
+        "title": "Architecture > API",
+        "section": "API",
+        "text": "The ../toolkit/api contains three classes, Common, AEDTCommon, and EDBCommon, which provide methods for\ncontrolling the toolkit workflow."
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#rest-api",
+        "title": "Architecture > REST API",
+        "section": "REST API",
+        "text": "REST APIs are standard web interfaces allowing clients to communicate with services via HTTP requests.\nJSON is the standard for transferring data. In fact, REST APIs accept JSON for request payload and also\nsend responses to JSON.\nIn the client-server architecture model, the client sends the request to the server to fetch some information.\nServer-side technologies decode JSON information and transmit back the response to the client. This interaction\nis handled by the HTTP protocol."
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#ui-and-backend-interaction",
+        "title": "Architecture > UI and backend interaction",
+        "section": "UI and backend interaction",
+        "text": "The UI sends HTTP requests to retrieve data, while the backend returns appropriate results.\nThe toolkit uses CRUD (Create, Read, Update & Delete) operations that are simply HTTP request methods\nthat specify the action to perform through the request."
+    },
+    {
+        "objectID": "getting_started/architecture",
+        "href": "getting_started/architecture.html#ui",
+        "title": "Architecture > UI",
+        "section": "UI",
+        "text": "For more information on the UI, see ../toolkit/ui."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_progress",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_progress.html#toggle_progress",
+        "title": "toggle_progress",
+        "section": "toggle_progress",
+        "text": "Toggles the progress row."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages.icon_path",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages.icon_path.html#icon_path",
+        "title": "icon_path",
+        "section": "icon_path",
+        "text": "Get the full path for the specified icon.\nThe name of the icon file.\nThe full path to the specified icon."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_left_column_visible",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.is_left_column_visible.html#is_left_column_visible",
+        "title": "is_left_column_visible",
+        "section": "is_left_column_visible",
+        "text": "Check if the left column is visible.\nTrue if the left column is visible, False otherwise."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.start_box_animation",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.start_box_animation.html#start_box_animation",
+        "title": "start_box_animation",
+        "section": "start_box_animation",
+        "text": "Starts a box animation in the specified direction.\nThe direction in which the box animation should be performed.\nPossible values are “left” and “right”."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_right_column",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.toggle_right_column.html#toggle_right_column",
+        "title": "toggle_right_column",
+        "section": "toggle_right_column",
+        "text": "Toggles the display of the right column in a common window."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_left_menu",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.get_left_menu.html#get_left_menu",
+        "title": "get_left_menu",
+        "section": "get_left_menu",
+        "text": "Retrieves the QPushButton object in the left menu of the CommonWindow UI.\nThe name of the button object to be retrieved from the left menu.\nThe QPushButton object with the given object_name found in the left menu of the CommonWindow UI."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.images.load_images.LoadImages.html#loadimages",
+        "title": "LoadImages",
+        "section": "LoadImages",
+        "text": "A utility class for managing image and icon paths in a PySide6 desktop application.\nThis class facilitates the retrieval of image and icon paths, allowing the application to access\nand display graphical assets.\nThe base path to the directory containing images. If not provided, the default path is the directory\nwhere the script is located.\nLoadImages.icon_path(icon_name)\nGet the full path for the specified icon.\nLoadImages.image_path(file_name)\nGet the full path for the specified image file."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/index",
+        "href": "toolkit/ui_reference/widgets/index.html#widgets",
+        "title": "Widgets",
+        "section": "Widgets",
+        "text": ""
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.launch_thread",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.launch_thread.html#launch_thread",
+        "title": "launch_thread",
+        "section": "launch_thread",
+        "text": "Launch the thread."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/push_button",
+        "href": "toolkit/ui_reference/widgets/push_button.html#pypushbutton",
+        "title": "PyPushButton",
+        "section": "PyPushButton",
+        "text": "Initialize the PyPushButton.\nThe title text for the right column.\nThe border radius of the button.\nThe text color of the button.\nThe background color of the button.\nThe background color of the button when hovered.\nThe background color of the button when pressed.\nThe font size of the text on the button.\nThe parent widget. The default is None."
+    },
+    {
+        "objectID": "getting_started/installation",
+        "href": "getting_started/installation.html#installation",
+        "title": "Installation",
+        "section": "Installation",
+        "text": "The PyAEDT Common Toolkit can be installed like any other open source package\nand then added as a dependency to a new toolkit project.\nFrom PyPI, you can either install both the backend and user interface (UI)\nmethods or install only the backend methods.\nTo install both the backend and UI methods, run this command:\nIf you only need the common API, install only the backend methods with this\ncommand:\npip install ansys-aedt-toolkits-common[all]\npip install ansys-aedt-toolkits-common"
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.is_aedt_connected",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.is_aedt_connected.html#is_aedt_connected",
+        "title": "is_aedt_connected",
+        "section": "is_aedt_connected",
+        "text": "Check if AEDT is connected.\nTuple indicating the connection status and a message."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/credits",
+        "href": "toolkit/ui_reference/widgets/credits.html#pycredits",
+        "title": "PyCredits",
+        "section": "PyCredits",
+        "text": "Credits information widget with customizable elements.\nInherits QWidget and includes UILabels for credits and version information,\nwith customizable styles.\nCopyright text to be displayed. The default is \"© 2024 MyApp Co.\".\nVersion information text to be displayed. The default is \"0.0.1\".\nBackground color for the widget. The default is \"FFFFFF\".\nFont family name for the text. The default is \"Segoe UI\".\nSize of the text. The default is 9.\nColor of the text. The default is \"#FFFFFF\".\nRadius of the widget’s corners. The default is 9.\nPadding applied to the text in the labels. The default is 10."
+    },
+    {
+        "objectID": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.item_index",
+        "href": "toolkit/ui_reference/_autosummary/ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils.CommonWindowUtils.item_index.html#item_index",
+        "title": "item_index",
+        "section": "item_index",
+        "text": "Item index."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/divider",
+        "href": "toolkit/ui_reference/widgets/divider.html#pydiv",
+        "title": "PyDiv",
+        "section": "PyDiv",
+        "text": "Vertical divider widget with customizable elements.\nThe color of the divider in hex color code. The default is \"#000000\".\nDivider height. The default is 0.\nDivider width. The default is 20."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/left_column",
+        "href": "toolkit/ui_reference/widgets/left_column.html#pyleftcolumn",
+        "title": "PyLeftColumn",
+        "section": "PyLeftColumn",
+        "text": "Custom widget representing a left column with a title, an icon, and a close button.\nThe title text for the left column.\nThe font size of the title text.\nThe color of the title text.\nColor representing a dark shade.\nBackground color of the left column.\nColor of the close button.\nColor of the close button when hovered.\nColor of the close button when pressed.\nPath to the icon image file.\nColor of the icon.\nColor of the icon when hovered.\nColor of the icon when pressed.\nColor representing a context or active state.\nPath to the close icon image file.\nBorder radius of the left column.\nEmit signal when the close button is clicked.\nEmit signal when the close button is released.\nSet up the user interface for the left column."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.launch_thread",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.launch_thread.html#launch_thread",
+        "title": "launch_thread",
+        "section": "launch_thread",
+        "text": "Launch the thread."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.wait_to_be_idle",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.Common.wait_to_be_idle.html#wait_to_be_idle",
+        "title": "wait_to_be_idle",
+        "section": "wait_to_be_idle",
+        "text": "Wait for the thread to be idle and ready to accept a new task.\nTime out in seconds. The default is 60."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_project_name",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_project_name.html#get_project_name",
+        "title": "get_project_name",
+        "section": "get_project_name",
+        "text": "Get the project name from the project path.\nProject name."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_properties",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.get_properties.html#get_properties",
+        "title": "get_properties",
+        "section": "get_properties",
+        "text": "Get the toolkit properties.\nDictionary containing the toolkit properties."
+    },
+    {
+        "objectID": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.open_project",
+        "href": "toolkit/_autosummary/ansys.aedt.toolkits.common.backend.api.AEDTCommon.open_project.html#open_project",
+        "title": "open_project",
+        "section": "open_project",
+        "text": "Open an AEDT project.\nFull path to the project.\nTrue when successful, False when failed."
+    },
+    {
+        "objectID": "toolkit/ui_reference/widgets/icon",
+        "href": "toolkit/ui_reference/widgets/icon.html#pyicon",
+        "title": "PyIcon",
+        "section": "PyIcon",
+        "text": "Icon widget with customizable elements.\nThe icon and color can be customized during initialization.\nPath to the icon image file.\nThe color of the icon in hex color code. The default is \"#000000\".\nSet icon of the PyIcon widget.\nThe icon and color can be customized during initialization.\nPath to the icon image file.\nThe color of the icon in hex color code. The default is \"#000000\"."
+    },
+    {
+        "objectID": "toolkit/ui_reference/actions",
+        "href": "toolkit/ui_reference/actions.html#actions",
+        "title": "Actions",
+        "section": "Actions",
+        "text": "The FrontendGeneric class provides a generic UI for controlling the toolkit. A backend must be running previously.\nThis class provides a generic frontend for controlling the toolkit.\nCheck if the backend is currently busy.\nTrue if the backend is busy, False otherwise.\nCheck the backend connection.\nTrue when successful, False when failed.\nHandle the close event of the application window.\nFind AEDT sessions based on the selected version and graphical mode.\nAEDT version.\nFlag indicating graphical or non-graphical mode.\nA list of found AEDT sessions if successful, False otherwise.\nGet a list of AEDT projects.\nA list of AEDT project names. Returns [“No Project”] if no projects are available.\nGet AEDT model.\nProject name.\nDesign name.\nDefine if air and vacuum objects will be exported.\nWhether to encode the file. The default is True.\nList of objects to export. The default is None, in which case\nevery model object except 3D, vacuum, and air objects are exported.\nFull path of the exported OBJ file.\nThe default is None, in which case the file is exported in the working directory.\nWhether to export the model as a single object. The default is True.\nIf False, the model is exported as a list of objects for each object.\nTrue when successful, False when failed.\nGet project name from project path.\nProject name\nGet properties from the backend.\nA dictionary of properties if successful, False otherwise.\nGet the installed versions of AEDT.\nA list of installed AEDT versions if successful, False otherwise.\nLaunch AEDT.\nThe selected AEDT version.\nThe selected AEDT process.\nFlag indicating whether to run AEDT in non-graphical mode. The default is False.\nLog a message and update the progress bar.\nThis method logs the given message at the specified log level, and updates the progress\nbar to the given progress percentage if provided.\nThe log message.\nThe log level (debug, info, warning, error, critical). The default is “debug”.\nThe progress percentage. If provided, it updates the progress bar.\nHandle cancel button click.\nOpen an AEDT project.\nThe path to the selected AEDT project.\nPerform GET requests on URL.\nContinuously perform GET requests to the specified URL until a valid response is received.\nURL to poll.\nTime out in seconds. The default is 10 seconds.\nA 2-tuple containing a string and a boolean.\nThe boolean states if the GET requests succeeded.\nThe string represents the response or exception content.\nRelease and close the AEDT desktop.\nRelease the AEDT desktop without closing projects.\nSave the current AEDT project.\nOpens a file dialog to select a location to save the AEDT project. The project is saved\nwith a ‘.aedt’ extension.\nThis method relies on backend communication to save the project.\nSet properties in the backend.\nDictionary of properties to set.\nUpdate design names based on the active project.\nThe active AEDT project. If not provided, the current active project will be used.\nA list of design names.\nWait thread until backend is idle.\nTime out in seconds. The default is 10 seconds.\nTrue when the backend is idle, False otherwise.\nYou can modify the default properties with the following script:\n# Import API\nfrom ansys.aedt.toolkits.common.ui.models import general_settings\n\ngeneral_settings.high_resolution = False"
+    }
+]
