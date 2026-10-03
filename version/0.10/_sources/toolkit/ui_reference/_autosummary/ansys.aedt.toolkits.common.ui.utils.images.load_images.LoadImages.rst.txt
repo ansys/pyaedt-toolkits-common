@@ -1,0 +1,28 @@
+﻿LoadImages
+==========
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.images.load_images
+
+.. autoclass:: LoadImages
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      LoadImages.icon_path
+      
+      
+      LoadImages.image_path
+      
+   
+   
+
+   
+   
+   

@@ -1,0 +1,46 @@
+﻿Common
+======
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. autoclass:: Common
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      Common.aedt_sessions
+      
+      
+      Common.get_properties
+      
+      
+      Common.get_thread_status
+      
+      
+      Common.installed_aedt_version
+      
+      
+      Common.launch_thread
+      
+      
+      Common.serialize_obj_base64
+      
+      
+      Common.set_properties
+      
+      
+      Common.wait_to_be_idle
+      
+   
+   
+
+   
+   
+   

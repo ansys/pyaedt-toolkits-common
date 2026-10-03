@@ -1,0 +1,8 @@
+[defaults]
+toolkit_name = "example"
+log_file = "example_backend.log"
+non_graphical = false
+
+[example]
+invented_property = [10]
+test = "hola"
