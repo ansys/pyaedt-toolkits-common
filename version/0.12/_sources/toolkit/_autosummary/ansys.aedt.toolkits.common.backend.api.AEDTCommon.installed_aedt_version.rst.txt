@@ -1,0 +1,6 @@
+installed\_aedt\_version
+========================
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.installed_aedt_version

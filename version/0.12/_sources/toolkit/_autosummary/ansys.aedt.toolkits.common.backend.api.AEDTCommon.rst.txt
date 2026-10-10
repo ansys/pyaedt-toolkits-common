@@ -1,0 +1,79 @@
+﻿AEDTCommon
+==========
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. autoclass:: AEDTCommon
+
+   
+
+   
+   .. rubric:: Methods
+
+   .. autosummary::
+      :toctree:
+   
+      
+      
+      AEDTCommon.aedt_sessions
+      
+      
+      AEDTCommon.connect_aedt
+      
+      
+      AEDTCommon.connect_design
+      
+      
+      AEDTCommon.export_aedt_model
+      
+      
+      AEDTCommon.get_design_names
+      
+      
+      AEDTCommon.get_project_name
+      
+      
+      AEDTCommon.get_properties
+      
+      
+      AEDTCommon.get_thread_status
+      
+      
+      AEDTCommon.handle_export_failure
+      
+      
+      AEDTCommon.installed_aedt_version
+      
+      
+      AEDTCommon.is_aedt_connected
+      
+      
+      AEDTCommon.launch_aedt
+      
+      
+      AEDTCommon.launch_thread
+      
+      
+      AEDTCommon.open_project
+      
+      
+      AEDTCommon.release_aedt
+      
+      
+      AEDTCommon.save_project
+      
+      
+      AEDTCommon.serialize_obj_base64
+      
+      
+      AEDTCommon.set_properties
+      
+      
+      AEDTCommon.wait_to_be_idle
+      
+   
+   
+
+   
+   
+   
