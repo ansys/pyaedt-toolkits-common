@@ -1,0 +1,6 @@
+open\_project
+=============
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.open_project
