@@ -1,0 +1,6 @@
+get\_design\_names
+==================
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.get_design_names
