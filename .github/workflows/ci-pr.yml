@@ -73,7 +73,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/check-actions-security@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+      - uses: ansys/actions/check-actions-security@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           generate-summary: true
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -87,7 +87,7 @@ jobs:
       pull-requests: read # Needed to check the title of the PR
     steps:
       - name: Check the title of the pull request
-        uses: ansys/actions/check-pr-title@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+        uses: ansys/actions/check-pr-title@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           use-upper-case: true
@@ -99,7 +99,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: ansys/actions/doc-style@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+      - uses: ansys/actions/doc-style@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           vale-version: "3.4.1"
@@ -114,7 +114,7 @@ jobs:
         uses: pyvista/setup-headless-display-action@c103a2ff45650d38cb71684b5dc6cdfeb9442c79 # v5.1.0
 
       - name: Build documentation
-        uses: ansys/actions/doc-build@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+        uses: ansys/actions/doc-build@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           use-python-cache: false
@@ -137,7 +137,7 @@ jobs:
         python-version: ['3.10', '3.11', '3.12', '3.13', '3.14']
     needs: [ pr-title ]
     steps:
-      - uses: ansys/actions/build-wheelhouse@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+      - uses: ansys/actions/build-wheelhouse@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           install-build-and-wheel: true
           library-name: ${{ env.LIBRARY_NAME }}
@@ -355,7 +355,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ doc-build, tests_windows, tests_linux ]
     steps:
-      - uses: ansys/actions/build-library@7410037bfb276c79ae91eb3617b9f5d2876f0c94 # v11.0.8
+      - uses: ansys/actions/build-library@a5c8d0d92928e144130a3c64aa7200b9547785de # v11.1.3
         with:
           library-name: ${{ env.LIBRARY_NAME }}
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
