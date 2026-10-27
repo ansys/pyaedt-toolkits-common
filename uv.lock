@@ -23,6 +23,7 @@ ansys-sphinx-theme = false
 ansys-tools-common = false
 ansys-tools-visualization-interface = false
 certifi = false
+grpcio = false
 prek = false
 pyedb = false
 
@@ -227,6 +228,7 @@ wheels = [
 [[package]]
 name = "ansys-aedt-toolkits-common"
 source = { editable = "." }
+default-groups = []
 dependencies = [
     { name = "ansys-tools-common" },
     { name = "pyaedt" },
