@@ -1,0 +1,6 @@
+is\_left\_column\_visible
+=========================
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.windows.common_window_utils
+
+.. automethod:: CommonWindowUtils.is_left_column_visible
