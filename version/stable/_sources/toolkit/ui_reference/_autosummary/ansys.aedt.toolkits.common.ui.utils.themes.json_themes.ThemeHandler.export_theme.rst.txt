@@ -1,0 +1,6 @@
+export\_theme
+=============
+
+.. currentmodule:: ansys.aedt.toolkits.common.ui.utils.themes.json_themes
+
+.. automethod:: ThemeHandler.export_theme
