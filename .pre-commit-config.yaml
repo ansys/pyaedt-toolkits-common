@@ -16,21 +16,21 @@ exclude: |
 repos:
 
 - repo: https://github.com/psf/black
-  rev: 87928e6d6761a4a6d22250e1fee5601b3998086e  # frozen: 26.5.1
+  rev: 258e7dbf348bc23cb70b8cdf693481c04634ebcc  # frozen: 26.10.1
   hooks:
     - id: black
       args:
         - --line-length=120
 
 - repo: https://github.com/pycqa/isort
-  rev: 131f4adcd5582bfc53928ab0d740eceb8b506b6c  # frozen: 9.0.1
+  rev: 9f905615631c545f5aea2516508109350d1d2f7d  # frozen: 9.0.2
   hooks:
     - id: isort
       name: isort (python)
       args: ['--force-single-line-imports', '--profile', 'black']
 
 - repo: https://github.com/PyCQA/flake8
-  rev: 7eccf20b526fe4f2230bf9afeeef2fc9f97faf8d  # frozen: 7.4.1
+  rev: 1c7fec1973ed3a7c192dbe1e96906fbbd1dbe49e  # frozen: 7.5.0
   hooks:
     - id: flake8
       args:
@@ -52,7 +52,7 @@ repos:
 
 # Validate GitHub workflow files
 - repo: https://github.com/python-jsonschema/check-jsonschema
-  rev: 0494aa7fa1314e98913a41227d8f0a515b2c1049  # frozen: 0.38.2
+  rev: a76b92851fc9eede9f9bc4073eb55202f34eb0df  # frozen: 0.39.0
   hooks:
     - id: check-github-workflows
 
@@ -60,7 +60,7 @@ repos:
   rev: fda77690955e9b63c6687d8806bafd56a526e45f  # frozen: 1.20.0
   hooks:
     - id: blacken-docs
-      additional_dependencies: [black==26.5.1]
+      additional_dependencies: [black==26.10.1]
 
 # This validates our pre-commit.ci configuration
 - repo: https://github.com/pre-commit-ci/pre-commit-ci-config
@@ -69,7 +69,7 @@ repos:
     - id: check-pre-commit-ci-config
 
 - repo: https://github.com/ansys/pre-commit-hooks
-  rev: 55c5b6a5439abd847613579c6924da750e8b78b2  # frozen: v0.8.0
+  rev: dbcd0a4ad0060f78ac3c7d53d342f510edc48eab  # frozen: v0.8.1
   hooks:
     - id: add-license-headers
       files: '(src|examples|tests)/.*\.(py)'
