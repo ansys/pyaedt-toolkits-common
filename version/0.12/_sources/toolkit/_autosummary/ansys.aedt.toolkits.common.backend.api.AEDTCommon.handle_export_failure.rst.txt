@@ -1,0 +1,6 @@
+handle\_export\_failure
+=======================
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: AEDTCommon.handle_export_failure

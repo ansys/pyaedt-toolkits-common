@@ -1,0 +1,6 @@
+get\_properties
+===============
+
+.. currentmodule:: ansys.aedt.toolkits.common.backend.api
+
+.. automethod:: Common.get_properties
