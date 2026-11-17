@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 216">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fdb71a;
+        stroke-width: 0px;
+      }
+    </style>
+  </defs>
+  <path class="cls-1" fill="#fdb71a" d="M30,20H116L166,70V124.73A44,44 0 0 0 150,124.73V76.63L109.37,36H46V180H115.67A44,44 0 0 1 124.06,196H30V20Z"/>
+  <path class="cls-1" fill="#fdb71a" d="M124,20H166V62L124,20Z"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="78" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="78" width="60" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="96" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="96" width="60" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="114" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="114" width="58" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="132" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="132" width="40" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="150" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="150" width="28" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="56" y="168" width="16" height="10" rx="5"/>
+  <rect class="cls-1" fill="#fdb71a" x="80" y="168" width="24" height="10" rx="5"/>
+  <path class="cls-1" fill="#fdb71a" fill-rule="evenodd" d="M112,168a46,46 0 1,0 92,0a46,46 0 1,0 -92,0ZM128,168a30,30 0 1,0 60,0a30,30 0 1,0 -60,0Z"/>
+  <path fill="none" stroke="#fdb71a" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" d="M140,170L154,184L176,156"/>
+</svg>
