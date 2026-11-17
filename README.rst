@@ -13,7 +13,7 @@ PyAEDT Common Toolkit
 .. |PyPIact| image:: https://static.pepy.tech/badge/ansys-aedt-toolkits-common/month
    :target: https://www.pepy.tech/projects/ansys-aedt-toolkits-common
 
-.. |PythonVersion| image:: https://img.shields.io/badge/python-3.10+-blue.svg
+.. |PythonVersion| image:: https://img.shields.io/badge/python-3.12+-blue.svg
    :target: https://www.python.org/downloads/
 
 .. |GH-CI| image:: https://github.com/ansys/pyaedt-toolkits-common/actions/workflows/ci-pr.yml/badge.svg

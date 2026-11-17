@@ -7,7 +7,7 @@ on:
 
 
 env:
-  TESTS_PYTHON_VERSION: '3.10'
+  TESTS_PYTHON_VERSION: '3.13'
   ANSYSLMD_LICENSE_FILE: ${{ format('1055@{0}', secrets.LICENSE_SERVER) }}
   ON_CI: True
 
