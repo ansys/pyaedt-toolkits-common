@@ -7,7 +7,7 @@ name = "ansys-aedt-toolkits-common"
 dynamic = ["version"]
 description = "User interface example repository to create your toolkit."
 readme = "README.rst"
-requires-python = ">=3.10"
+requires-python = ">=3.12,<4"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "ANSYS, Inc.", email = "pyansys.core@ansys.com"}]
@@ -19,8 +19,6 @@ classifiers = [
     "Intended Audience :: Science/Research",
     "Intended Audience :: Manufacturing",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
@@ -32,8 +30,7 @@ classifiers = [
 dependencies = [
     "ansys-tools-common",
     "pydantic>=2.0,<2.15",
-    "pyaedt>=1.0.0",
-    "tomli; python_version < '3.12'",
+    "pyaedt>=1.0.0"
 ]
 
 [project.optional-dependencies]
