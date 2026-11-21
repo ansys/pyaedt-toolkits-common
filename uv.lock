@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.12, <4"
 resolution-markers = [
     "python_full_version >= '3.14' and sys_platform == 'win32'",
@@ -15,13 +15,13 @@ exclude-newer = "0001-01-01T00:00:00Z" # This has no effect and is included for 
 exclude-newer-span = "P1W"
 
 [options.exclude-newer-package]
-ansys-tools-visualization-interface = false
 ansys-sphinx-theme = false
-pyedb = false
+ansys-tools-common = false
+ansys-tools-visualization-interface = false
 certifi = false
 grpcio = false
-ansys-tools-common = false
 prek = false
+pyedb = false
 
 [[package]]
 name = "accessible-pygments"
@@ -229,6 +229,7 @@ wheels = [
 [[package]]
 name = "ansys-aedt-toolkits-common"
 source = { editable = "." }
+default-groups = []
 dependencies = [
     { name = "ansys-tools-common" },
     { name = "pyaedt" },
@@ -385,7 +386,7 @@ wheels = [
 
 [[package]]
 name = "ansys-sphinx-theme"
-version = "1.9.0"
+version = "1.12.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "importlib-metadata" },
@@ -395,9 +396,9 @@ dependencies = [
     { name = "pyyaml" },
     { name = "sphinx" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/89/46/061d8821971d1e7ef118b69e1febe64704d84536d2c9dedee1408a6baefe/ansys_sphinx_theme-1.9.0.tar.gz", hash = "sha256:23a6d2f22f318a0ecc4954e8c017a5a6fccfcfa32d4e4446a9355f7516086cf9", size = 1025203, upload-time = "2026-06-18T09:05:03.339Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/51/d1/04a618bbdbed17ca7411e341954893167f7f7223e461e9bdc8468a36f8d4/ansys_sphinx_theme-1.12.1.tar.gz", hash = "sha256:33180f5f8e6b1cafcd4e0fc67fe4522ce1f17e5ad49c1eac7d93ec7788fe00c7", size = 1212362, upload-time = "2026-10-26T08:28:44.693Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/3b/8691d14e7bec85cc4559d98815865295967a8e6bc60b677370a10e5217ec/ansys_sphinx_theme-1.9.0-py3-none-any.whl", hash = "sha256:eb483928d86b1906aa4bfd9db225f1f67eb50ebbf7e9d7b9c652c87efe0ea038", size = 1632239, upload-time = "2026-06-18T09:05:01.665Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/d7/0265fc0320393f1258af7043118a39b61d051ca555f0fad902a6a5020b79/ansys_sphinx_theme-1.12.1-py3-none-any.whl", hash = "sha256:a355cc7cdb8253411eb8ceeed642bd483b48e82fc4672a36758edf3e38c87b4b", size = 1718857, upload-time = "2026-10-26T08:28:43.045Z" },
 ]
 
 [[package]]
@@ -1003,15 +1004,6 @@ wheels = [
 ]
 
 [[package]]
-name = "decorator"
-version = "5.3.1"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/60/8b/32f9823da46cde7df2087faa08cd98d01b908f8dcab982cdba9c84e85355/decorator-5.3.1.tar.gz", hash = "sha256:4cbcdd55a6efadb9dbea26b858f4fb3264567b52d69ca0d25b721b553f60ea82", size = 58084, upload-time = "2026-05-18T06:03:28.057Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/05/7f/798705f5296a58ca505d600456748d1be48078eac8a7050d8a98bc9edb89/decorator-5.3.1-py3-none-any.whl", hash = "sha256:f47fe6fdbd2edd623ecfe36875d37aba411624e2670dd395dddae1358689bb3c", size = 10365, upload-time = "2026-05-18T06:03:26.517Z" },
-]
-
-[[package]]
 name = "defusedxml"
 version = "0.7.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1429,24 +1421,23 @@ wheels = [
 
 [[package]]
 name = "ipython"
-version = "9.14.0"
+version = "9.18.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "colorama", marker = "sys_platform == 'win32'" },
-    { name = "decorator" },
     { name = "ipython-pygments-lexers" },
     { name = "jedi" },
     { name = "matplotlib-inline" },
     { name = "pexpect", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
     { name = "prompt-toolkit" },
-    { name = "psutil", marker = "sys_platform != 'emscripten'" },
+    { name = "psutil", marker = "sys_platform != 'android' and sys_platform != 'cygwin' and sys_platform != 'emscripten'" },
     { name = "pygments" },
     { name = "stack-data" },
     { name = "traitlets" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/21/c2/c0064cf15d026501a1ef70e42efd9c3f818663089399aacc5e37a82901c1/ipython-9.14.0.tar.gz", hash = "sha256:6f27ff0f1d9ea050e0551f71568bc4b34d8aba579e8f111c5b4175f44ac6b4aa", size = 4432601, upload-time = "2026-05-29T15:13:24.611Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/38/04/0d945c72d5b77527273ecb4c66aa2436de7a3b3bbe3da345bf053232b886/ipython-9.18.1.tar.gz", hash = "sha256:6319c0f5372c196397899479e6db1783dd7937abae06815d1317e8d5d51aaaaf", size = 4437314, upload-time = "2026-11-02T09:19:55.55Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/14/a3/9e59340f02c1dc8f8c0a05b09244712b8609eb5439f9996e887e2b82f452/ipython-9.14.0-py3-none-any.whl", hash = "sha256:8fd984a3372c14b12790b084ba6b5cff5678c0cb063244a0034f06a51f20d6c2", size = 627457, upload-time = "2026-05-29T15:13:22.942Z" },
+    { url = "https://files.pythonhosted.org/packages/bb/1c/91da4a1c541b75e97eb99d09c6a9b0534de55bb4a466669d1170e39b915c/ipython-9.18.1-py3-none-any.whl", hash = "sha256:997ce9140d374531a61069c70c0f9ef299d6dd3559ea0f94b8af589726e3c1d5", size = 649819, upload-time = "2026-11-02T09:19:53.32Z" },
 ]
 
 [[package]]
@@ -2689,7 +2680,7 @@ name = "pexpect"
 version = "4.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "ptyprocess", marker = "sys_platform != 'emscripten' and sys_platform != 'win32'" },
+    { name = "ptyprocess" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/42/92/cc564bf6381ff43ce1f4d06852fc19a2f11d180f23dc32d9588bee2f149d/pexpect-4.9.0.tar.gz", hash = "sha256:ee7d41123f3c9911050ea2c2dac107568dc43b2d3b0c7557a33212c398ead30f", size = 166450, upload-time = "2023-11-25T09:07:26.339Z" }
 wheels = [
